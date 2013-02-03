@@ -5,11 +5,8 @@ library summary;
 
 import 'dart:html' as dart_html;
 
-import '../../dart_web_toolkit/event.dart' as event;
-import '../../dart_web_toolkit/shared.dart' as shared;
-import '../../dart_web_toolkit/ui.dart' as ui;
-import '../../dart_web_toolkit/util.dart' as util;
-import '../../dart_web_toolkit/i18n.dart' as i18n;
+import 'package:dart_web_toolkit/event.dart' as event;
+import 'package:dart_web_toolkit/ui.dart' as ui;
 
 void main() {
 
@@ -19,7 +16,7 @@ void main() {
 
   // Add a normal button
   ui.Button normalButton = new ui.Button(
-      "Normal Button", new shared.ClickHandler((shared.ClickEvent event) {
+      "Normal Button", new event.ClickHandlerAdapter((event.ClickEvent event) {
         dart_html.window.alert("Stop poking me!");
       }));
   hPanel.add(normalButton);

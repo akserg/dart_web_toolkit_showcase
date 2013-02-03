@@ -1,9 +1,10 @@
 name: dart_web_toolkit_showcase
-version: 0.1.0
+version: 0.1.1
 description: >
-  Dart Web Toolkit (DWT) Showcase.
+  Dart Web Toolkit Showcase presents Dart Web Toolkit features.
 authors:
 - Sergey Akopkokhyants <akserg@gmail.com>
 homepage: http://akserg.github.com/dart_web_toolkit_showcase
 dependencies:
-  intl: 0.2.10+1
+  intl: 0.3.2
+  dart_web_toolkit: 0.2.36

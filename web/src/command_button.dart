@@ -25,7 +25,7 @@ class CommandButton extends ui.Button {
    * @param html the HTML caption
    * @param handler the click handler
    */
-  CommandButton(String html, String data, [shared.ClickHandler handler = null]) : super(html, handler) {
+  CommandButton(String html, String data, [event.ClickHandler handler = null]) : super(html, handler) {
     getElement().dataAttributes["data"] = data;
     addStyleDependentName("navigation");
   }

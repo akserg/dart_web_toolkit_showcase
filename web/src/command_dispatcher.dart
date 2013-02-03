@@ -20,9 +20,9 @@ class CommandDispatcher {
    * Create CommandButton per CommandItem and add it into widgets panel.
    */
   void fillWidgetsInPanel(ui.VerticalPanel widgetsPanel) {
-    widgetsPanel.add(new CommandButton("Button", "button.html", new shared.ClickHandler(_dispatch)));
-    widgetsPanel.add(new CommandButton("Checkbox", "checkbox.html", new shared.ClickHandler(_dispatch)));
-    widgetsPanel.add(new CommandButton("Radio Button", "radio_button.html", new shared.ClickHandler(_dispatch)));
+    widgetsPanel.add(new CommandButton("Button", "button.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Checkbox", "checkbox.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Radio Button", "radio_button.html", new event.ClickHandlerAdapter(_dispatch)));
 
   }
 
@@ -30,14 +30,14 @@ class CommandDispatcher {
    * Create CommandButton per CommandItem and add it into panels panel.
    */
   void fillPanelsInPanel(ui.VerticalPanel panelsPanel) {
-    panelsPanel.add(new CommandButton("Absolute Panel", "absolute_panel.html", new shared.ClickHandler(_dispatch)));
-    panelsPanel.add(new CommandButton("Caption Panel", "caption_panel.html", new shared.ClickHandler(_dispatch)));
+    panelsPanel.add(new CommandButton("Absolute Panel", "absolute_panel.html", new event.ClickHandlerAdapter(_dispatch)));
+    panelsPanel.add(new CommandButton("Caption Panel", "caption_panel.html", new event.ClickHandlerAdapter(_dispatch)));
   }
 
   /**
    * Dispatch income event to open URL into frame.
    */
-  void _dispatch(shared.ClickEvent event) {
+  void _dispatch(event.ClickEvent event) {
     _frame.setUrl(event.getRelativeElement().dataAttributes["data"]);
   }
 }

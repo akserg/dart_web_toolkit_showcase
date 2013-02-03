@@ -5,11 +5,10 @@ library dart_web_toolkit_showcase;
 
 import 'dart:html' as dart_html;
 
-import '../dart_web_toolkit/event.dart' as event;
-import '../dart_web_toolkit/shared.dart' as shared;
-import '../dart_web_toolkit/ui.dart' as ui;
-import '../dart_web_toolkit/util.dart' as util;
-import '../dart_web_toolkit/i18n.dart' as i18n;
+import 'package:dart_web_toolkit/event.dart' as event;
+import 'package:dart_web_toolkit/ui.dart' as ui;
+import 'package:dart_web_toolkit/util.dart' as util;
+import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
 part 'command_button.dart';
 part 'command_dispatcher.dart';

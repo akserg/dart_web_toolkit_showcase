@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**February 2, 2013
+
+* Start using Dart Web Toolkit. Updated pubspec.yaml.
+
 **January 11, 2013
 
 * Prepared base structure of project.
