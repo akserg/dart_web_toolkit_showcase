@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**February 19, 2013
+
+* Added AbsolutePanel and CaptionPanel examples.
+
 **February 2, 2013
 
 * Start using Dart Web Toolkit. Updated pubspec.yaml.
