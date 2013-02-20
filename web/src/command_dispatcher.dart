@@ -21,7 +21,18 @@ class CommandDispatcher {
    */
   void fillWidgetsInPanel(ui.VerticalPanel widgetsPanel) {
     widgetsPanel.add(new CommandButton("Button", "button.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Custom Button", "custom_button.html", new event.ClickHandlerAdapter(_dispatch)));
     widgetsPanel.add(new CommandButton("Checkbox", "checkbox.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Combo", "combo.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Date Label", "date_label.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("File Upload", "file_upload.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Frame", "frame.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Html", "html.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Hyperlink", "hyperlink.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Image", "image.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Inline", "inline.html", new event.ClickHandlerAdapter(_dispatch)));
+    widgetsPanel.add(new CommandButton("Numeric Boxes", "numeric_boxes.html", new event.ClickHandlerAdapter(_dispatch)));
+    
     widgetsPanel.add(new CommandButton("Radio Button", "radio_button.html", new event.ClickHandlerAdapter(_dispatch)));
 
   }

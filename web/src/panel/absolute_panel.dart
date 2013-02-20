@@ -12,7 +12,7 @@ ui.AbsolutePanel absolutePanel;
 /**
  * The input field used to set the left position of a {@link Widget}.
  */
-ui.TextBox leftPosBox;
+ui.ListBox leftPosBox;
 
 /**
  * The list box of items that can be repositioned.
@@ -22,13 +22,18 @@ ui.ListBox listBox = new ui.ListBox();
 /**
  * The input field used to set the top position of a {@link Widget}.
  */
-ui.TextBox topPosBox;
+ui.ListBox topPosBox;
 
 /**
  * A mapping between the name of a {@link Widget} and the widget in the
  * {@link AbsolutePanel}.
  */
 Map<String, ui.Widget> widgetMap;
+
+/**
+ * Element positions
+ */
+List<String> positions = ["10", "20", "40", "50", "60", "80", "100"];
 
 void main() {
 
@@ -45,7 +50,7 @@ void main() {
 
   // Add a Button to the panel
   ui.Button button = new ui.Button("Click Me");
-  absolutePanel.addInPosition(button, 80, 45);
+  absolutePanel.addInPosition(button, 80, 40);
   widgetMap[widgetNames[1]] = button;
 
   // Add a Button to the panel
@@ -94,12 +99,16 @@ void onInitializeComplete() {
 ui.Widget createOptionsBar() {
   // Create a panel to move components around
   ui.FlexTable optionsBar = new ui.FlexTable();
-  topPosBox = new ui.TextBox();
-  topPosBox.setWidth("3em");
-  topPosBox.text = "100";
-  leftPosBox = new ui.TextBox();
-  leftPosBox.setWidth("3em");
-  leftPosBox.text = "60";
+  topPosBox = new ui.ListBox();
+  topPosBox.setWidth("4em");
+  for (int i = 0; i < positions.length; i++) {
+    topPosBox.addItem(positions[i], positions[i]);
+  }
+  leftPosBox = new ui.ListBox();
+  leftPosBox.setWidth("4em");
+  for (int i = 0; i < positions.length; i++) {
+    leftPosBox.addItem(positions[i], positions[i]);
+  }
   listBox = new ui.ListBox();
   optionsBar.setHtml(0, 0, "<b>Items To Move</b>");
   optionsBar.setWidget(0, 1, listBox);
@@ -118,19 +127,13 @@ ui.Widget createOptionsBar() {
     updateSelectedItem();
   }));
 
-//  // Move the item as the user changes the value in the left and top boxes
-//  event.KeyUpHandler repositionHandler = new event.KeyUpHandlerAdapter((event.KeyUpEvent event) {
-//    repositionItem();
-//  });
-//  topPosBox.addKeyUpHandler(repositionHandler);
-//  leftPosBox.addKeyUpHandler(repositionHandler);
-
-  ui.Button button = new ui.Button("Apply");
-  button.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent evt){
+  // Move the item as the user changes the value in the left and top boxes
+  event.ChangeHandler repositionHandler = new event.ChangeHandlerAdapter((event.ChangeEvent event) {
     repositionItem();
-  }));
-  optionsBar.setWidget(3, 1, button);
-  
+  });
+  topPosBox.addChangeHandler(repositionHandler);
+  leftPosBox.addChangeHandler(repositionHandler);
+
   // Return the options bar
   return optionsBar;
 }
@@ -146,8 +149,8 @@ void repositionItem() {
 
   // Reposition the item
   try {
-    int top = int.parse(topPosBox.getValue());
-    int left = int.parse(leftPosBox.text);
+    int top = int.parse(positions[topPosBox.getSelectedIndex()]);
+    int left = int.parse(positions[leftPosBox.getSelectedIndex()]);
     absolutePanel.setWidgetPosition(item, left, top);
   } on Exception catch (e) {
     // Ignore invalid user input
@@ -162,6 +165,12 @@ void repositionItem() {
 void updateSelectedItem() {
   String name = listBox.getValue(listBox.getSelectedIndex());
   ui.Widget item = widgetMap[name];
-  topPosBox.text = absolutePanel.getWidgetTop(item).toString();
-  leftPosBox.text = absolutePanel.getWidgetLeft(item).toString();
+  //
+  int top = absolutePanel.getWidgetTop(item);
+  top = positions.indexOf(top.toString());
+  topPosBox.setSelectedIndex(top);
+  //
+  int left = absolutePanel.getWidgetLeft(item);
+  left = positions.indexOf(left.toString());
+  leftPosBox.setSelectedIndex(left);
 }

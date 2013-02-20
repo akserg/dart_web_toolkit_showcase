@@ -1,4 +1,3 @@
-
 body {
   background-color: #F8F8F8;
   font-family: 'Open Sans', sans-serif;
@@ -10,6 +9,14 @@ body {
 
 p {
   color: #333;
+}
+
+.dwt-Frame-demo {
+  paddeing: 10px;
+}
+
+.dwt-Button-navigation {
+  width: 180px;
 }
 
 #container {

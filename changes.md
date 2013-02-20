@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**February 20, 2013
+
+* Added CustomButton, Combo, DateLabel, FileUpload, Frame, Html, Hyperlink, Image, InlineHtml, InlineLabel, InlineHyperlink, IntegerBox and DoubleBox pages to showcase.
+
 **February 19, 2013
 
 * Added AbsolutePanel and CaptionPanel examples.
