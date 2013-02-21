@@ -25,21 +25,25 @@ import 'package:dart_web_toolkit/ui.dart' as ui;
 
 void main() {
 
-  // Create a panel to layout the widgets
-  ui.VerticalPanel vpanel1 = new ui.VerticalPanel();
-  vpanel1.spacing = 5;
+// Create a tab bar with three items.
+  ui.TabBar bar = new ui.TabBar();
+  bar.addTabText("foo");
+  bar.addTabText("bar");
+  bar.addTabText("baz");
 
-  ui.DoubleBox dBox = new ui.DoubleBox();
-  dBox.setMaxLength(10);
-  dBox.setVisibleLength(5);
-  dBox.setValue(123.4543453);
-  vpanel1.add(dBox);
+  // Hook up a tab listener to do something when the user selects a tab.
+  bar.addSelectionHandler(new event.SelectionHandlerAdapter((event.SelectionEvent event) {
+    // Let the user know what they just did.
+    dart_html.window.alert("You clicked tab ${event.getSelectedItem()}");
+  }));
 
-  ui.IntegerBox iBox = new ui.IntegerBox();
-  iBox.setMaxLength(10);
-  iBox.setVisibleLength(5);
-  iBox.setValue(123123);
-  vpanel1.add(iBox);
+  // Just for fun, let's disallow selection of 'bar'.
+  bar.addBeforeSelectionHandler(new event.BeforeSelectionHandlerAdapter((event.BeforeSelectionEvent event) {
+    if (event.getItem().intValue() == 1) {
+      event.cancel();
+    }
+  }));
 
-  ui.RootPanel.get().add(vpanel1);
+  // Add it to the root panel.
+  ui.RootPanel.get().add(bar);
 }

@@ -18,9 +18,6 @@
 
 library summary;
 
-import 'dart:html' as dart_html;
-
-import 'package:dart_web_toolkit/event.dart' as event;
 import 'package:dart_web_toolkit/ui.dart' as ui;
 
 void main() {

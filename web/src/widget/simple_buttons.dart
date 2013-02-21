@@ -20,15 +20,25 @@ library summary;
 
 import 'dart:html' as dart_html;
 
+import 'package:dart_web_toolkit/event.dart' as event;
 import 'package:dart_web_toolkit/ui.dart' as ui;
 
 void main() {
-  ui.SimplePanel panel = new ui.SimplePanel();
-  panel.setSize("200px", "30px");
 
-  ui.Hyperlink widget = new ui.Hyperlink("Home Page", false, "Home");
-  panel.addStyleName("demo-panel");
-  panel.add(widget);
+// Create a panel to layout the widgets
+  ui.VerticalPanel vpanel = new ui.VerticalPanel();
+  vpanel.spacing = 5;
   
-  ui.RootPanel.get().add(panel);
+  ui.SimpleCheckBox sCheckBox = new ui.SimpleCheckBox();
+  sCheckBox.setValue(true);
+  vpanel.add(sCheckBox);
+
+  ui.SimpleRadioButton rCheckBox1 = new ui.SimpleRadioButton("SimpleRadioButtonGroup");
+  rCheckBox1.setValue(true);
+  vpanel.add(rCheckBox1);
+
+  ui.SimpleRadioButton rCheckBox2 = new ui.SimpleRadioButton("SimpleRadioButtonGroup");
+  vpanel.add(rCheckBox2);
+  
+  ui.RootPanel.get().add(vpanel);
 }
