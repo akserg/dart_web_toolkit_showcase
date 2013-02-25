@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**February 25, 2013
+
+* Migrate project code to follow Dart SDK version 0.3.7.6_r18717
+
 **February 21, 2013
 
 * Added Label, ListBox, passwordTextBox, PushButton, SimpleRadioButton, SimpleCheckBox, TabBar, Tree, ToggleButton.

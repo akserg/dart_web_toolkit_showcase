@@ -1,10 +1,10 @@
 name: dart_web_toolkit_showcase
-version: 0.1.3
+version: 0.1.4
 description: >
   Dart Web Toolkit Showcase presents Dart Web Toolkit features.
 authors:
 - Sergey Akopkokhyants <akserg@gmail.com>
 homepage: http://akserg.github.com/dart_web_toolkit_showcase
 dependencies:
-  intl: ">=0.3.5"
-  dart_web_toolkit: ">=0.2.50"
+  intl: ">=0.3.7+6"
+  dart_web_toolkit: ">=0.2.51"

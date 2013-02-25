@@ -71,6 +71,6 @@ class CommandDispatcher {
    * Dispatch income event to open URL into frame.
    */
   void _dispatch(event.ClickEvent event) {
-    _frame.setUrl(event.getRelativeElement().dataAttributes["data"]);
+    _frame.setUrl(event.getRelativeElement().dataset["data"]);
   }
 }
