@@ -26,31 +26,24 @@ import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
 part 'command_button.dart';
+part 'command.dart';
 part 'command_dispatcher.dart';
 
 void main() {
+  // Create split layout panel
   ui.SplitLayoutPanel splitPanel = new ui.SplitLayoutPanel();
+  // Add split panel to root layout panel
   ui.RootLayoutPanel.get().add(splitPanel);
 
-  // Create WidgetsPanel
-  ui.VerticalPanel widgetsPanel = new ui.VerticalPanel();
-  widgetsPanel.spacing = 4;
-  widgetsPanel.setWidth("100%");
-
-  // Create PanelsPanel
-  ui.VerticalPanel panelsPanel = new ui.VerticalPanel();
-  panelsPanel.spacing = 4;
-  panelsPanel.setWidth("100%");
-
-  // Create StackPanel
-  ui.StackPanel stackPanel = new ui.StackPanel();
-  stackPanel.setHeight("100%");
-  stackPanel.setWidth("100%");
-  //
-  stackPanel.add(widgetsPanel, "Widgets", false);
-  stackPanel.add(panelsPanel, "Panels", false);
-  //
-  splitPanel.addWest(stackPanel, 200.0);
+  // Create a static tree
+  ui.Tree staticTree = new ui.Tree();
+  staticTree.setAnimationEnabled(true);
+  // Create a container to hold the tree
+  ui.ScrollPanel staticTreeWrapper = new ui.ScrollPanel(staticTree);
+  staticTreeWrapper.setSize("100%", "100%");
+  
+  // Add staticTree wrapper to west side of split panel
+  splitPanel.addWest(staticTreeWrapper, 200.0);
 
   // Create Frame
   ui.Frame frame = new ui.Frame();
@@ -58,7 +51,8 @@ void main() {
   frame.addStyleDependentName("demo");
   splitPanel.add(frame);
 
+  // Creat ecommand dispatcher
   CommandDispatcher dispatcher = new CommandDispatcher(frame);
-  dispatcher.fillWidgetsInPanel(widgetsPanel);
-  dispatcher.fillPanelsInPanel(panelsPanel);
+  // Create and apply data provider to Tree component
+  dispatcher.createAndApplyDataProvider(staticTree);
 }

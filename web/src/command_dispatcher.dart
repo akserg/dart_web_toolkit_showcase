@@ -32,41 +32,72 @@ class CommandDispatcher {
   CommandDispatcher(this._frame);
 
   /**
-   * Create CommandButton per CommandItem and add it into widgets panel.
-   */
-  void fillWidgetsInPanel(ui.VerticalPanel widgetsPanel) {
-    widgetsPanel.add(new CommandButton("Button", "button.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Custom Button", "custom_button.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Checkbox", "checkbox.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Combo", "combo.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Date Label", "date_label.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("File Upload", "file_upload.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Frame", "frame.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Html", "html.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Hyperlink", "hyperlink.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Image", "image.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Inline", "inline.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Numeric Boxes", "numeric_boxes.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Label", "label.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("List Box", "list_box.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Password Text Box", "password_text_box.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Radio Button", "radio_button.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Push Button", "push_button.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Simple Radio Button and Check Box", "simple_buttons.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Tab Bar", "tab_bar.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Text Input", "text_input.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Toggle Button", "toggle_button.html", new event.ClickHandlerAdapter(_dispatch)));
-    widgetsPanel.add(new CommandButton("Tree", "tree.html", new event.ClickHandlerAdapter(_dispatch)));
-  }
-
-  /**
    * Create CommandButton per CommandItem and add it into panels panel.
    */
   void fillPanelsInPanel(ui.VerticalPanel panelsPanel) {
     panelsPanel.add(new CommandButton("Absolute Panel", "absolute_panel.html", new event.ClickHandlerAdapter(_dispatch)));
     panelsPanel.add(new CommandButton("Caption Panel", "caption_panel.html", new event.ClickHandlerAdapter(_dispatch)));
   }
+  
+  /**
+   * Create and apply data provider to the [tree].
+   */
+  void createAndApplyDataProvider(ui.Tree tree) {
+    // Create Widgets item
+    ui.TreeItem widgetsItem = _createTreeItem(tree, new Command("Widgets", "widgets.html"));
+    _createWidgets(widgetsItem);
+    // Create Panels item
+    ui.TreeItem panelsItem = _createTreeItem(tree, new Command("Panels", "panels.html")); 
+    // Create Popups item
+    ui.TreeItem popupsItem = _createTreeItem(tree, new Command("Popups", "popups.html"));
+    // Add selection handler
+    tree.addSelectionHandler(new event.SelectionHandlerAdapter((event.SelectionEvent evt){
+      ui.TreeItem item = evt.getSelectedItem();
+      String data = item.getUserObject() as String;
+      _frame.setUrl(data);
+    }));
+    // Select first tree item in tree
+    tree.setSelectedItem(widgetsItem, true);
+  }
 
+  /**
+   * Create Widgets item content
+   */
+  void _createWidgets(ui.TreeItem item) {
+    _createTreeItem(item, new Command("Button", "button.html"));
+    _createTreeItem(item, new Command("Custom Button", "custom_button.html"));
+    _createTreeItem(item, new Command("Checkbox", "checkbox.html"));
+    _createTreeItem(item, new Command("Combo", "combo.html"));
+    _createTreeItem(item, new Command("Date Label", "date_label.html"));
+    _createTreeItem(item, new Command("File Upload", "file_upload.html"));
+    _createTreeItem(item, new Command("Frame", "frame.html"));
+    _createTreeItem(item, new Command("Html", "html.html"));
+    _createTreeItem(item, new Command("Hyperlink", "hyperlink.html"));
+    _createTreeItem(item, new Command("Image", "image.html"));
+    _createTreeItem(item, new Command("Inline", "inline.html"));
+    _createTreeItem(item, new Command("Numeric Boxes", "numeric_boxes.html"));
+    _createTreeItem(item, new Command("Label", "label.html"));
+    _createTreeItem(item, new Command("List Box", "list_box.html"));
+    _createTreeItem(item, new Command("Password Text Box", "password_text_box.html"));
+    _createTreeItem(item, new Command("Radio Button", "radio_button.html"));
+    _createTreeItem(item, new Command("Push Button", "push_button.html"));
+    _createTreeItem(item, new Command("Simple Radio Button and Check Box", "simple_buttons.html"));
+    _createTreeItem(item, new Command("Tab Bar", "tab_bar.html"));
+    _createTreeItem(item, new Command("Text Input", "text_input.html"));
+    _createTreeItem(item, new Command("Toggle Button", "toggle_button.html"));
+    _createTreeItem(item, new Command("Tree", "tree.html"));
+
+  }
+  
+  /**
+   * Create new TreeItem for parent and initialise it with [command] content.
+   */
+  ui.TreeItem _createTreeItem(var parent, Command command) {
+    ui.TreeItem item = parent.addTextItem(command.label);
+    item.setUserObject(command.data);
+    return item;
+  }
+  
   /**
    * Dispatch income event to open URL into frame.
    */

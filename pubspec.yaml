@@ -7,4 +7,4 @@ authors:
 homepage: http://akserg.github.com/dart_web_toolkit_showcase
 dependencies:
   intl: ">=0.3.7+6"
-  dart_web_toolkit: ">=0.2.51"
+  dart_web_toolkit: ">=0.2.52"
