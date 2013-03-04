@@ -25,10 +25,9 @@ import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
-//part 'command_button.dart';
-//part 'command.dart';
-//part 'command_dispatcher.dart';
-part 'widget_model.dart';
+part 'command_button.dart';
+part 'command.dart';
+part 'command_dispatcher.dart';
 
 void main() {
   // Create split layout panel
@@ -46,17 +45,14 @@ void main() {
   // Add staticTree wrapper to west side of split panel
   splitPanel.addWest(staticTreeWrapper, 200.0);
 
-  // Create show placeholder
-  ui.VerticalPanel panel = new ui.VerticalPanel();
-  panel.setSize("100%", "100%");
-  panel.setVerticalAlignment(i18n.HasVerticalAlignment.ALIGN_MIDDLE);
-  panel.setHorizontalAlignment(i18n.HasHorizontalAlignment.ALIGN_CENTER);
-  splitPanel.add(panel);
-  
-  panel.add(new ui.Html("Select Widget to show"));
+  // Create Frame
+  ui.Frame frame = new ui.Frame();
+  frame.setSize("100%", "100%");
+  frame.addStyleDependentName("demo");
+  splitPanel.add(frame);
 
-//  // Creat command dispatcher
-//  CommandDispatcher dispatcher = new CommandDispatcher(frame);
-//  // Create and apply data provider to Tree component
-//  dispatcher.createAndApplyDataProvider(staticTree);
+  // Creat ecommand dispatcher
+  CommandDispatcher dispatcher = new CommandDispatcher(frame);
+  // Create and apply data provider to Tree component
+  dispatcher.createAndApplyDataProvider(staticTree);
 }
