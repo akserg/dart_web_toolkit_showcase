@@ -38,13 +38,17 @@ class HomePage implements Page {
     ui.FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
 
     // Add a title to the form
-    layout.setHtml(0, 0, "Welcom to Dart Web Toolkit Showcase");
-    cellFormatter.setColSpan(0, 0, 2);
+    ui.Html title = new ui.Html("<h2>Welcom to <strong>Dart Web Toolkit</strong> !</h2>");
+    title.setWidth("80%");
+    layout.setWidget(0, 0, title);
+    //cellFormatter.setColSpan(0, 0, 2);
     cellFormatter.setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
 
     // Add some standard form options
-    layout.setHtml(1, 0, "Dart Web Toolkit is a pure Dart application framework that works on all modern browsers from IE6 to the latest version of Chrome. It enables you to create the best cross-platform applications using nothing but a browser, and has a phenomenal API.");
-    layout.setWidget(1, 1, new ui.Image("img/preview.png"));
+    layout.setHtml(1, 0, "Dart Web Toolkit is a pure Dart application framework that works on all modern browsers from IE6 to the latest version of Chrome. It enables you to create the best cross-platform applications using nothing but a browser.");
+    cellFormatter.setHorizontalAlignment(1, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
+    layout.setWidget(2, 0, new ui.Image("img/preview.png"));
+    cellFormatter.setHorizontalAlignment(2, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
 //    layout.setHtml(2, 0, "Description:");
 //    layout.setWidget(2, 1, new ui.TextBox());
 

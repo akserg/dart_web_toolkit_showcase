@@ -25,9 +25,10 @@ import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
-part 'widget_model.dart';
+part 'widget/widget_model.dart';
 part 'page.dart';
 part 'home_page.dart';
+part 'widget_page.dart';
 
 void main() {
   // Main panel
@@ -65,39 +66,10 @@ void main() {
   Page home = new HomePage(); 
   centerPanel.add(home.content, home.title);
   
-  // Second Panel - API Documentation
-  centerPanel.add(new ui.Html("API"), "API");
+  // Second Tab - Wiget
+  Page widget = new WidgetPage();
+  centerPanel.add(widget.content, widget.title);
   
   // Thierd Panel - Examples
   centerPanel.add(new ui.Html("Examples"), "Examples");
-  
-  
-//  // Create split layout panel
-//  ui.SplitLayoutPanel splitPanel = new ui.SplitLayoutPanel();
-//  // Add split panel to root layout panel
-//  ui.RootLayoutPanel.get().add(splitPanel);
-//
-//  // Create a static tree
-//  ui.Tree staticTree = new ui.Tree();
-//  staticTree.setAnimationEnabled(true);
-//  // Create a container to hold the tree
-//  ui.ScrollPanel staticTreeWrapper = new ui.ScrollPanel(staticTree);
-//  staticTreeWrapper.setSize("100%", "100%");
-//  
-//  // Add staticTree wrapper to west side of split panel
-//  splitPanel.addWest(staticTreeWrapper, 200.0);
-//
-//  // Create show placeholder
-//  ui.VerticalPanel panel = new ui.VerticalPanel();
-//  panel.setSize("100%", "100%");
-//  panel.setVerticalAlignment(i18n.HasVerticalAlignment.ALIGN_MIDDLE);
-//  panel.setHorizontalAlignment(i18n.HasHorizontalAlignment.ALIGN_CENTER);
-//  splitPanel.add(panel);
-//  
-//  panel.add(new ui.Html("Select Widget to show from tree"));
-
-//  // Creat command dispatcher
-//  CommandDispatcher dispatcher = new CommandDispatcher(frame);
-//  // Create and apply data provider to Tree component
-//  dispatcher.createAndApplyDataProvider(staticTree);
 }
