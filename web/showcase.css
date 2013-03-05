@@ -12,6 +12,15 @@ p {
 }
 
 .topPanel {
-  /*background: url("img/logo.png") no-repeat 0px 0px;*/
-  background-color: #00FFF8;
+  background-color : #6293DD;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 5px;
+  color: #fff;
+  padding: 5px;
+  text-shadow: #000 0 1px;
+}
+
+.statusPanel {
+  color: #4271C9;
+  font-size: 12px;
 }

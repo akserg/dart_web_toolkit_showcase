@@ -42,13 +42,34 @@ void main() {
   topPanel.setSize("100%", "100%");
   // Add top panel to main
   mainPanel.addNorth(topPanel, 30.0);
-  // Add Logo
-  topPanel.add(new ui.Image("img/logo.png"));
   // Add Product name
-  topPanel.add(new ui.Label("DWT showcase"));
-  // Add Product version
-  topPanel.add(new ui.Label("0.2"));
+  topPanel.add(new ui.Html("<div id=\"header-content\"><strong>Dart Web Toolkit Docs </strong>0.2</div>"));
   
+  // Create status content
+  ui.DockLayoutPanel statusPanel = new ui.DockLayoutPanel(util.Unit.PX);
+  statusPanel.addStyleName("statusPanel");
+  statusPanel.setSize("100%", "100%");
+  // Add top panel to main
+  mainPanel.addSouth(statusPanel, 20.0);
+  // Add Product name
+  statusPanel.addEast(new ui.Label("Copyright 2013 Sergey Akopkokhyants"), 220.0);
+
+  // Create Center panel
+  ui.TabLayoutPanel centerPanel = new ui.TabLayoutPanel(25.0, util.Unit.PX);
+  centerPanel.setAnimationDuration(1000);
+  centerPanel.addStyleName("centerPanel");
+  centerPanel.setSize("100%", "100%");
+  // Add center panel to main
+  mainPanel.add(centerPanel);
+
+  // First Tab - Home
+  centerPanel.add(new ui.Html("Home"), "Home");
+  
+  // Second Panel - API Documentation
+  centerPanel.add(new ui.Html("API"), "API");
+  
+  // Thierd Panel - Examples
+  centerPanel.add(new ui.Html("Examples"), "Examples");
   
   
 //  // Create split layout panel
