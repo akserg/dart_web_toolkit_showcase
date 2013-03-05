@@ -25,10 +25,9 @@ import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
-//part 'command_button.dart';
-//part 'command.dart';
-//part 'command_dispatcher.dart';
 part 'widget_model.dart';
+part 'page.dart';
+part 'home_page.dart';
 
 void main() {
   // Main panel
@@ -63,7 +62,8 @@ void main() {
   mainPanel.add(centerPanel);
 
   // First Tab - Home
-  centerPanel.add(new ui.Html("Home"), "Home");
+  Page home = new HomePage(); 
+  centerPanel.add(home.content, home.title);
   
   // Second Panel - API Documentation
   centerPanel.add(new ui.Html("API"), "API");
