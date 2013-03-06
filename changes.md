@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 6, 2013
+
+* Changed Layout, added new pages.
+
 **February 25, 2013
 
 * Migrate project code to follow Dart SDK version 0.3.7.6_r18717

@@ -18,18 +18,21 @@
 
 part of dart_web_toolkit_showcase;
 
-abstract class WidgetModel {
+class ComponentModel {
   
-  // Return widget's name
-  String get name;
+  // Component's categoru name
+  String category = "";
   
-  // Return widget's description
-  String get description;
+  // Return component's name
+  String name = "";
   
-  // Return code snipet
-  String get code;
+  // Return component's description
+  String description = "";
   
-  // Return style snipet
-  String get style;
+  // Return code snipet how to use component
+  String code = "";
+  
+  // Return style snipet for using component
+  String style = "";
 }
 

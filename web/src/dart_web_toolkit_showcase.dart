@@ -25,10 +25,12 @@ import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
-part 'widget/widget_model.dart';
 part 'page.dart';
 part 'home_page.dart';
-part 'widget_page.dart';
+part 'component_page.dart';
+
+part 'component/component_model.dart';
+part 'component/component_manager.dart';
 
 void main() {
   // Main panel
@@ -52,7 +54,7 @@ void main() {
   // Add top panel to main
   mainPanel.addSouth(statusPanel, 20.0);
   // Add Product name
-  statusPanel.addEast(new ui.Label("Copyright 2013 Sergey Akopkokhyants"), 220.0);
+  statusPanel.addEast(new ui.Label("Copyright 2012-2013 Sergey Akopkokhyants"), 220.0);
 
   // Create Center panel
   ui.TabLayoutPanel centerPanel = new ui.TabLayoutPanel(25.0, util.Unit.PX);
@@ -66,9 +68,9 @@ void main() {
   Page home = new HomePage(); 
   centerPanel.add(home.content, home.title);
   
-  // Second Tab - Wiget
-  Page widget = new WidgetPage();
-  centerPanel.add(widget.content, widget.title);
+  // Second Tab - Component
+  Page component = new ComponentPage();
+  centerPanel.add(component.content, component.title);
   
   // Thierd Panel - Examples
   centerPanel.add(new ui.Html("Examples"), "Examples");
