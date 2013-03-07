@@ -29,12 +29,8 @@ class ComponentPage implements Page {
    */
   String get title => "Components";
   
-  ui.Tree _componentTree;
-  ui.Label _nameLabel;
-  ui.Label _descriptionLabel;
-  ui.Panel _previewPanel;
-  ui.Panel _codePanel;
-  ui.Panel _stylePanel;
+  TreeView _componentTree;
+  ComponentPreview _componentPreview;
   
   /**
    * ComponentManager loading, pasring and instantiating components
@@ -53,69 +49,27 @@ class ComponentPage implements Page {
     // Create split layout panel
     ui.SplitLayoutPanel splitPanel = new ui.SplitLayoutPanel();
 
-    // Create a static tree
-    _componentTree = new ui.Tree();
-    _componentTree.setAnimationEnabled(true);
+    // Create a tree view
+    _componentTree = new TreeView(componentManager);
     // Create a container to hold the tree
-    ui.ScrollPanel staticTreeWrapper = new ui.ScrollPanel(_componentTree);
+    ui.ScrollPanel staticTreeWrapper = new ui.ScrollPanel(_componentTree.asWidget());
     staticTreeWrapper.setSize("100%", "100%");
     
     // Add componentTree wrapper to west side of split panel
     splitPanel.addWest(staticTreeWrapper, 200.0);
 
     // Add vertical split panel
-    ui.SplitLayoutPanel verticalPanel = new ui.SplitLayoutPanel();
-    verticalPanel.setSize("100%", "100%");
-    splitPanel.add(verticalPanel);
-
-    // Add Horizontal split panel
-    ui.SplitLayoutPanel horizontalPanel = new ui.SplitLayoutPanel();
-    horizontalPanel.setSize("100%", "100%");
-    verticalPanel.addSouth(horizontalPanel, 300.0);
+    _componentPreview = new ComponentPreview();
+    splitPanel.add(_componentPreview.asWidget());
     
-    // Add style panel to bottom left corner
-    _stylePanel = new ui.SimplePanel();
-    horizontalPanel.addEast(_stylePanel, 300.0);
-    
-    _stylePanel.add(new ui.Html("{Style}"));
-    
-    // Add code panel to botto right corner
-    _codePanel = new ui.SimplePanel();
-    horizontalPanel.add(_codePanel);
-    
-    _codePanel.add(new ui.Html("{Code}"));
-    
-    // Add info panel to center
-    ui.DockLayoutPanel infoPanel = new ui.DockLayoutPanel(util.Unit.PX);
-    infoPanel.setSize("100%", "100%");
-    verticalPanel.add(infoPanel);
-    
-    // Add name to top of info panel
-    _nameLabel = new ui.Label("{Name}");
-    infoPanel.addNorth(_nameLabel, 25.0);
-    
-    // Add description above the name
-    _descriptionLabel = new ui.Label("{Description}");
-    infoPanel.addNorth(_descriptionLabel, 75.0);
-    
-    // Add preview panel to ccenter of info panel
-    _previewPanel = new ui.SimplePanel();
-    infoPanel.add(_previewPanel);
-    
-    _previewPanel.add(new ui.Html("{Widget Preview}"));
+    // Add selection event listener
+    _componentTree.asWidget().addSelectionHandler(_componentPreview);
     
     // Refresh tree content
-    refreshTree();
+    _componentTree.refreshTree();
     
     return splitPanel;
   }
   
-  /**
-   * Refresh tree content
-   */
-  void refreshTree() {
-    for (ComponentModel model in componentManager.models) {
-      
-    }
-  }
+  
 }

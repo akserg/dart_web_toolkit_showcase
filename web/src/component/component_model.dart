@@ -21,18 +21,20 @@ part of dart_web_toolkit_showcase;
 class ComponentModel {
   
   // Component's categoru name
-  String category = "";
+  String category;
   
   // Return component's name
-  String name = "";
+  String name;
   
   // Return component's description
-  String description = "";
+  String desc;
   
   // Return code snipet how to use component
-  String code = "";
+  String code;
   
   // Return style snipet for using component
-  String style = "";
+  String style;
+  
+  ComponentModel({this.category:"", this.name:"", this.desc:"", this.code:"", this.style:""});
 }
 

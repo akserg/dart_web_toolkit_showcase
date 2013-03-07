@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 7, 2013
+
+* Added ComponentPreview and TreeView.
+
 **March 6, 2013
 
 * Changed Layout, added new pages.

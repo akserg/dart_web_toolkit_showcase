@@ -31,6 +31,8 @@ part 'component_page.dart';
 
 part 'component/component_model.dart';
 part 'component/component_manager.dart';
+part 'component/tree_view.dart';
+part 'component/component_preview.dart';
 
 void main() {
   // Main panel
@@ -54,7 +56,8 @@ void main() {
   // Add top panel to main
   mainPanel.addSouth(statusPanel, 20.0);
   // Add Product name
-  statusPanel.addEast(new ui.Label("Copyright 2012-2013 Sergey Akopkokhyants"), 220.0);
+  ui.Html copyright = new ui.Html("<div style=\"text-align:right;\">Copyright 2012-2013 Sergey Akopkokhyants&nbsp;</div>");
+  statusPanel.add(copyright);
 
   // Create Center panel
   ui.TabLayoutPanel centerPanel = new ui.TabLayoutPanel(25.0, util.Unit.PX);

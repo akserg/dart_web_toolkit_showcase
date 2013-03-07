@@ -20,11 +20,13 @@ part of dart_web_toolkit_showcase;
 
 class ComponentManager {
   
-  List<ComponentModel> models;
+  Map<String, List<ComponentModel>> models;
   
   ComponentManager() {
-    models = new List<ComponentModel>();
+    models = new Map<String, List<ComponentModel>>();
+    // Load models
     load();
+    // Parse loaded models
     parse();
   }
   
@@ -39,7 +41,20 @@ class ComponentManager {
    * Parse JSON file to fille in the [models].
    */
   void parse() {
+    List<ComponentModel> backendResult = new List<ComponentModel>();
+    backendResult.add(new ComponentModel(
+        category:"Widget",
+        name:"Button", 
+        desc:"All kind of buttons",
+        code:"for (int i = 1; i < 5; i++) {hPanel.add(new ui.Button(\"Button \$i\"));}"));
     
+    // Create tree hierarchy
+    for (ComponentModel model in backendResult) {
+      if (!models.containsKey(model.category)) {
+        models[model.category] = new List<ComponentModel>();
+      }
+      models[model.category].add(model);
+    }
   }
 }
 

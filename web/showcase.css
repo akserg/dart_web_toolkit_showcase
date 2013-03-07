@@ -28,6 +28,7 @@ p {
 .statusPanel {
   color: #4271C9;
   font-size: 12px;
+  vertical-align: middle;
 }
 
 h2 {
