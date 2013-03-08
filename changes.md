@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 8, 2013
+
+* Added Button, CheckBox and Composite widgets.
+* Added highlite.js to show code on preview page
+
 **March 7, 2013
 
 * Added ComponentPreview and TreeView.

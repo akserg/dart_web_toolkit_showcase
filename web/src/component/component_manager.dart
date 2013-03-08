@@ -20,36 +20,23 @@ part of dart_web_toolkit_showcase;
 
 class ComponentManager {
   
-  Map<String, List<ComponentModel>> models;
+  Map<String, List<ComponentModel>> models = new Map<String, List<ComponentModel>>();
   
+  /**
+   * Register all components here
+   */
   ComponentManager() {
-    models = new Map<String, List<ComponentModel>>();
-    // Load models
-    load();
-    // Parse loaded models
-    parse();
+    register([new ButtonModel(), 
+              new CheckBoxModel(),
+              new CompositeModel()]);
   }
   
-  /**
-   * Load JSON copy of models from backend
-   */
-  void load() {
-    
-  }
   
   /**
-   * Parse JSON file to fille in the [models].
+   * Add to tree hierarchy.
    */
-  void parse() {
-    List<ComponentModel> backendResult = new List<ComponentModel>();
-    backendResult.add(new ComponentModel(
-        category:"Widget",
-        name:"Button", 
-        desc:"All kind of buttons",
-        code:"for (int i = 1; i < 5; i++) {hPanel.add(new ui.Button(\"Button \$i\"));}"));
-    
-    // Create tree hierarchy
-    for (ComponentModel model in backendResult) {
+  void register(List<ComponentModel> componentModels) {
+    for (ComponentModel model in componentModels) {
       if (!models.containsKey(model.category)) {
         models[model.category] = new List<ComponentModel>();
       }

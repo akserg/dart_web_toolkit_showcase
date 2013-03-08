@@ -34,6 +34,10 @@ part 'component/component_manager.dart';
 part 'component/tree_view.dart';
 part 'component/component_preview.dart';
 
+part 'component/widget/button_model.dart';
+part 'component/widget/checkbox_model.dart';
+part 'component/widget/composite_model.dart';
+
 void main() {
   // Main panel
   ui.DockLayoutPanel mainPanel = new ui.DockLayoutPanel(util.Unit.PX);

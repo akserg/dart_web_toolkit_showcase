@@ -21,6 +21,8 @@ part of dart_web_toolkit_showcase;
 
 class ComponentPreview implements event.SelectionHandler<ui.TreeItem> {
 
+  ui.DockLayoutPanel _panel;
+  ui.Html _emptyPanel;
   ui.SplitLayoutPanel _verticalPanel;
   
   ui.Label _nameLabel;
@@ -30,48 +32,61 @@ class ComponentPreview implements event.SelectionHandler<ui.TreeItem> {
   ui.Panel _stylePanel;
   
   ComponentPreview() {
+    
+    _panel = new ui.DockLayoutPanel(util.Unit.PX);
+    
+    _emptyPanel = new ui.Html("Select component from tree category");
+    _emptyPanel.addStyleName("emptyPreviewPanel");
+    _panel.add(_emptyPanel);
+    
     _verticalPanel = new ui.SplitLayoutPanel();
-    _verticalPanel.setSize("100%", "100%");
     
     // Add Horizontal split panel
     ui.SplitLayoutPanel horizontalPanel = new ui.SplitLayoutPanel();
-    horizontalPanel.setSize("100%", "100%");
     _verticalPanel.addSouth(horizontalPanel, 300.0);
     
     // Add style panel to bottom left corner
+    ui.DockLayoutPanel styles = new ui.DockLayoutPanel(util.Unit.PX);
+    horizontalPanel.addEast(styles, 300.0);
+    //
+    ui.Label styleLabel = new ui.Label("Style:");
+    styleLabel.addStyleName("sourceCodeLabel");
+    styles.addNorth(styleLabel, 24.0);
     _stylePanel = new ui.SimplePanel();
-    horizontalPanel.addEast(_stylePanel, 300.0);
+    styles.add(_stylePanel);
     
-    _stylePanel.add(new ui.Html("{Style}"));
-    
-    // Add code panel to botto right corner
+    // Add code panel to bottom right corner
+    ui.DockLayoutPanel codes = new ui.DockLayoutPanel(util.Unit.PX);
+    horizontalPanel.add(codes);
+    //
+    ui.Label sourceCodeLabel = new ui.Label("Source Code:");
+    sourceCodeLabel.addStyleName("sourceCodeLabel");
+    codes.addNorth(sourceCodeLabel, 24.0);
     _codePanel = new ui.SimplePanel();
-    horizontalPanel.add(_codePanel);
-    
-    _codePanel.add(new ui.Html("{Code}"));
+    codes.add(_codePanel);
     
     // Add info panel to center
     ui.DockLayoutPanel infoPanel = new ui.DockLayoutPanel(util.Unit.PX);
-    infoPanel.setSize("100%", "100%");
     _verticalPanel.add(infoPanel);
     
     // Add name to top of info panel
-    _nameLabel = new ui.Label("{Name}");
+    _nameLabel = new ui.Label();
+    _nameLabel.addStyleName("titlePreviewPanel");
     infoPanel.addNorth(_nameLabel, 25.0);
     
     // Add description above the name
-    _descriptionLabel = new ui.Label("{Description}");
-    infoPanel.addNorth(_descriptionLabel, 75.0);
+    _descriptionLabel = new ui.Label();
+    _descriptionLabel.addStyleName("descPreviewPanel");
+    infoPanel.addNorth(new ui.ScrollPanel(_descriptionLabel), 75.0);
     
-    // Add preview panel to ccenter of info panel
+    // Add preview panel to center of info panel
     _previewPanel = new ui.SimplePanel();
+    _previewPanel.addStyleName("previewPreviewPanel");
     infoPanel.add(_previewPanel);
-    
-    _previewPanel.add(new ui.Html("{Widget Preview}"));
   }
   
   ui.Widget asWidget() {
-    return _verticalPanel;
+    return _panel;
   }
   
   /**
@@ -80,18 +95,46 @@ class ComponentPreview implements event.SelectionHandler<ui.TreeItem> {
    * @param event the {@link SelectionEvent} that was fired
    */
   void onSelection(event.SelectionEvent<ui.TreeItem> evt) {
+    // Clear panels and forms
+    _panel.clear();
+    _nameLabel.text = "";
+    _descriptionLabel.text = "";
+    _previewPanel.clear();
+    _codePanel.clear();
+    _stylePanel.clear();
+    // Check selected item
     ui.TreeItem item = evt.getSelectedItem();
     if (item.getUserObject() != null && item.getUserObject() is ComponentModel) {
       ComponentModel model = item.getUserObject() as ComponentModel;
       // Show model in View panel
-      _nameLabel.text = model.name != null ? model.name : "";
-      _descriptionLabel.text = model.desc != null ? model.desc : "";
-      _previewPanel.clear();
-      _previewPanel.add(new ui.Html(model.code != null ? model.code : ""));
-      _codePanel.clear();
-      _codePanel.add(new ui.Html(model.code != null ? model.code : ""));
-      _stylePanel.clear();
-      _stylePanel.add(new ui.Html(model.style != null ? model.style : ""));
+      _nameLabel.text = model.name;
+      _descriptionLabel.text = model.desc;
+      _previewPanel.add(model.asWidget());
+      _codePanel.add(_prepareToView(model.code));
+      _stylePanel.add(_prepareToView(model.style));
+      // Add verticalPanel to panel 
+      _panel.add(_verticalPanel);
+    } else {
+      // Add emptyPanel to panel 
+      _panel.add(_emptyPanel);
     }
+  }
+  
+  /**
+   * Prepare code and style to butify through external JS code.
+   * For now we are using Highlight.js to manage <pre><code> content.
+   * See http://softwaremaniacs.org/soft/highlight. 
+   */
+  ui.ScrollPanel _prepareToView(String code) {
+    StringBuffer sb = new StringBuffer();
+    sb.write("<pre><code>");
+    sb.write(util.SafeHtmlUtils.fromString(code).asString());
+    sb.write("</code></pre>");
+    //
+    ui.Html html = new ui.Html(sb.toString());
+    html.setSize("100%", "100%");
+    ui.ScrollPanel scrollPanel = new ui.ScrollPanel(html);
+    scrollPanel.setSize("100%", "100%");
+    return scrollPanel;
   }
 }

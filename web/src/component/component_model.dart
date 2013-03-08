@@ -18,23 +18,29 @@
 
 part of dart_web_toolkit_showcase;
 
-class ComponentModel {
+/**
+ * Model describes interface to Component
+ */
+abstract class ComponentModel {
   
-  // Component's categoru name
-  String category;
+  // Component's category name
+  String get category;
   
   // Return component's name
-  String name;
+  String get name;
   
   // Return component's description
-  String desc;
+  String get desc;
   
   // Return code snipet how to use component
-  String code;
+  String get code;
   
   // Return style snipet for using component
-  String style;
+  String get style;
   
-  ComponentModel({this.category:"", this.name:"", this.desc:"", this.code:"", this.style:""});
+  /**
+   * Return instantiated Component code.
+   */
+  ui.Widget asWidget();
 }
 
