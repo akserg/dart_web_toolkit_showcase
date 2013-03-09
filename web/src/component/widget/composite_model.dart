@@ -27,11 +27,7 @@ class CompositeModel implements ComponentModel {
   String get name => "Composite";
   
   // Return component's description
-  String get desc => '''The Composite is just a wrapper for another widget. For example, you could wrap a VerticalPanel and add two Label widgets to it, one as a header and the other underneath to display the associated data.
-
-The Composite widget has to know which of these other widgets it is supposed to wrap, and you tell it with the initWidget(Widget widget) method. You MUST call this once and only once, or you will get an error.
-
-The difference between the Composite and simply extending another 'real' widget is that the Composite hides all the wrapped widget's methods and properties. For example, in the above scenario, the user of the widget wouldn't be able to add anything to the VerticalPanel.''';
+  String get desc => '''The Composite is a wrapper for another widget. It hides all the wrapped widget's methods and properties.''';
   
   // Return code snipet how to use component
   String get code {

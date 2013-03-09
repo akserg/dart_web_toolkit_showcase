@@ -107,7 +107,7 @@ class ComponentPreview implements event.SelectionHandler<ui.TreeItem> {
     if (item.getUserObject() != null && item.getUserObject() is ComponentModel) {
       ComponentModel model = item.getUserObject() as ComponentModel;
       // Show model in View panel
-      _nameLabel.text = model.name;
+      _nameLabel.text = "${model.category} : ${model.name}";
       _descriptionLabel.text = model.desc;
       _previewPanel.add(model.asWidget());
       _codePanel.add(_prepareToView(model.code));

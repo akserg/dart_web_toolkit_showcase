@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 9, 2013
+
+* Showcase MVP implementation.
+
 **March 8, 2013
 
 * Added Button, CheckBox and Composite widgets.

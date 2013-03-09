@@ -28,7 +28,12 @@ class ComponentManager {
   ComponentManager() {
     register([new ButtonModel(), 
               new CheckBoxModel(),
-              new CompositeModel()]);
+              new CompositeModel(),
+              new DateBoxModel(),
+              new DatePickerModel(),
+              new DoubleBoxModel(),
+              new FileUploadModel(),
+              new HiddenModel()]);
   }
   
   

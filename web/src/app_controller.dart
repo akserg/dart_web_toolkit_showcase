@@ -19,11 +19,17 @@
 library dart_web_toolkit_showcase;
 
 import 'dart:html' as dart_html;
+import 'dart:math' as dart_math;
 
 import 'package:dart_web_toolkit/event.dart' as event;
 import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
+
+import 'mvp.dart' as mvp;
+
+part 'app_presenter.dart';
+part 'app_view.dart';
 
 part 'page.dart';
 part 'home_page.dart';
@@ -37,6 +43,11 @@ part 'component/component_preview.dart';
 part 'component/widget/button_model.dart';
 part 'component/widget/checkbox_model.dart';
 part 'component/widget/composite_model.dart';
+part 'component/widget/date_box_model.dart';
+part 'component/widget/date_picker_model.dart';
+part 'component/widget/double_box_model.dart';
+part 'component/widget/file_upload_model.dart';
+part 'component/widget/hidden_model.dart';
 
 void main() {
   // Main panel
@@ -79,6 +90,6 @@ void main() {
   Page component = new ComponentPage();
   centerPanel.add(component.content, component.title);
   
-  // Thierd Panel - Examples
+  // Thierd Tab - Example
   centerPanel.add(new ui.Html("Examples"), "Examples");
 }
