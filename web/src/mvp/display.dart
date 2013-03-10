@@ -18,7 +18,13 @@
 
 part of dart_web_toolkit_mvp;
 
+/**
+ * Display represents public interface of View.
+ */
 abstract class Display {
   
+  /**
+   * Return View as a [Widget].
+   */
   ui.Widget asWidget();
 }

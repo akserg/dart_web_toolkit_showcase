@@ -16,7 +16,7 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_showcase;
+part of dart_web_toolkit_component;
 
 /**
  * The Widgets page keeps main information about widgets and panels using in 

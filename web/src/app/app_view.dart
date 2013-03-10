@@ -16,12 +16,13 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_showcase;
+part of dart_web_toolkit_app;
 
 class AppView extends ui.Composite implements AppPresenterDisplay {
+
+  ui.TabLayoutPanel centerPanel;
   
-  Page home;
-  Page component;
+  List<Page> _pages;
   
   AppView() {
     // Main panel
@@ -48,27 +49,19 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     statusPanel.add(copyright);
 
     // Create Center panel
-    ui.TabLayoutPanel centerPanel = new ui.TabLayoutPanel(25.0, util.Unit.PX);
+    centerPanel = new ui.TabLayoutPanel(25.0, util.Unit.PX);
     centerPanel.setAnimationDuration(1000);
     centerPanel.addStyleName("centerPanel");
     centerPanel.setSize("100%", "100%");
     // Add center panel to main
     mainPanel.add(centerPanel);
-
-    // First Tab - Home
-    home = new HomePage(); 
-    centerPanel.add(home.content, home.title);
-    
-    // Second Tab - Component
-    component = new ComponentPage();
-    centerPanel.add(component.content, component.title);
-    
-    // Thierd Tab - Example
-    centerPanel.add(new ui.Html("Examples"), "Examples");
   }
-  
-  Page getComponent() {
-    return component;
+
+  void set pages(List<Page> values) {
+    centerPanel.clear();
+    values.forEach((Page page){
+      centerPanel.add(page.content, page.title);
+    });
   }
   
   ui.Widget asWidget() {

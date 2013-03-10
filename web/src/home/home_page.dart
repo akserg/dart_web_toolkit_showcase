@@ -16,7 +16,7 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_showcase;
+part of dart_web_toolkit_home;
 
 /**
  * The Home page contents main information about DWT showcase.
@@ -37,21 +37,21 @@ class HomePage implements Page {
     layout.setCellSpacing(6);
     ui.FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
 
-    // Add a title to the form
+    // Add a title
     ui.Html title = new ui.Html("<h2>Welcom to <strong>Dart Web Toolkit</strong> !</h2>");
     title.setWidth("80%");
     layout.setWidget(0, 0, title);
     //cellFormatter.setColSpan(0, 0, 2);
     cellFormatter.setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
 
-    // Add some standard form options
-    layout.setHtml(1, 0, "Dart Web Toolkit is a pure Dart application framework that works on all modern browsers from IE6 to the latest version of Chrome.<br/>It enables you to create the best cross-platform applications using nothing but a browser.");
-    cellFormatter.setHorizontalAlignment(1, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
-    layout.setWidget(2, 0, new ui.Image("img/preview.png"));
+    // Add logo
+    layout.setWidget(1, 0, new ui.Image("img/dwt-logo.png"));
     cellFormatter.setHorizontalAlignment(2, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
-//    layout.setHtml(2, 0, "Description:");
-//    layout.setWidget(2, 1, new ui.TextBox());
-
+    
+    // Add description
+    layout.setHtml(2, 0, "Dart Web Toolkit is a pure Dart application framework that works on all modern browsers.<br/>It enables you to create the best cross-platform applications using nothing but a browser.");
+    cellFormatter.setHorizontalAlignment(1, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
+    
     // Wrap the content in a DecoratorPanel
     ui.DecoratorPanel decPanel = new ui.DecoratorPanel();
     decPanel.setWidget(layout);

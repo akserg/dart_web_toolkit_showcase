@@ -16,22 +16,20 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_mvp;
+part of dart_web_toolkit_app;
 
 /**
- * A presenter contains all of the logic for our application or view.
- * For every view a presenter will handle events that are sourced from the UI 
- * widgets within the view.
+ * Contract between renderer and page content.
  */
-abstract class Presenter {
+abstract class Page {
   
   /**
-   * Add View to container
+   * Return page title.
    */
-  void addViewTo(ui.HasWidgets container);
+  String get title;
   
   /**
-   * Display of view.
+   * Return page content.
    */
-  Display display;
+  ui.Widget get content; 
 }

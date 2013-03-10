@@ -16,6 +16,11 @@
 
 //Author: akserg
 
+/**
+ * MVP pattern library.
+ * Has only couple of classes to support MVP contracts bewteen different
+ * classes and part of application.
+ */
 library dart_web_toolkit_mvp;
 
 import 'package:dart_web_toolkit/ui.dart' as ui;

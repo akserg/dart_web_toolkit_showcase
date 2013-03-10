@@ -16,20 +16,17 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_showcase;
-
 /**
- * Contract between renderer and page content.
+ * Home library.
+ * Has only home screen.
  */
-abstract class Page {
-  
-  /**
-   * Return page title.
-   */
-  String get title;
-  
-  /**
-   * Return page content.
-   */
-  ui.Widget get content; 
-}
+library dart_web_toolkit_home;
+
+import 'dart:html' as dart_html;
+
+import 'package:dart_web_toolkit/ui.dart' as ui;
+import 'package:dart_web_toolkit/i18n.dart' as i18n;
+
+import 'app.dart';
+
+part 'home/home_page.dart';

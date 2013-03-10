@@ -16,17 +16,22 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_showcase;
+part of dart_web_toolkit_app;
 
+/**
+ * Application presenter managing ApplicationView.
+ */
 class AppPresenter implements mvp.Presenter {
   
-  void go(ui.HasWidgets container) {
+  AppPresenterDisplay display;
+  
+  void addViewTo(ui.HasWidgets container) {
     container.clear();
     container.add(display.asWidget());
     refreshView();
   }
   
-  AppPresenterDisplay display;
+  
   
   void refreshView() {
     
@@ -34,5 +39,8 @@ class AppPresenter implements mvp.Presenter {
 }
 
 abstract class AppPresenterDisplay implements mvp.Display {
-  Page getComponent();
+  /**
+   * Set list of [Page]s.
+   */
+  void set pages(List<Page> values);
 }
