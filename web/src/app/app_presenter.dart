@@ -28,13 +28,6 @@ class AppPresenter implements mvp.Presenter {
   void addViewTo(ui.HasWidgets container) {
     container.clear();
     container.add(display.asWidget());
-    refreshView();
-  }
-  
-  
-  
-  void refreshView() {
-    
   }
 }
 
@@ -42,5 +35,5 @@ abstract class AppPresenterDisplay implements mvp.Display {
   /**
    * Set list of [Page]s.
    */
-  void set pages(List<Page> values);
+  void set pages(List<mvp.View> values);
 }

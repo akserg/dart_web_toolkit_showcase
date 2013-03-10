@@ -31,12 +31,12 @@ import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
 import 'app.dart';
+import 'mvp.dart' as mvp;
 
-part 'component/component_page.dart';
-part 'component/component_model.dart';
-part 'component/component_manager.dart';
-part 'component/tree_view.dart';
 part 'component/component_view.dart';
+part 'component/component_tree_view.dart';
+part 'component/component_preview.dart';
+part 'component/component_presenter.dart';
 
 part 'component/widget/button_model.dart';
 part 'component/widget/checkbox_model.dart';

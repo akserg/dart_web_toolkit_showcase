@@ -28,3 +28,5 @@ import 'package:dart_web_toolkit/event.dart' as event;
 
 part 'mvp/display.dart';
 part 'mvp/presenter.dart';
+part 'mvp/view.dart';
+part 'mvp/view_model.dart';

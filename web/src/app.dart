@@ -32,7 +32,6 @@ import 'mvp.dart' as mvp;
 
 part 'app/app_presenter.dart';
 part 'app/app_view.dart';
-part 'app/page.dart';
 
 void main() {
   // Create instance of IOC container
@@ -40,12 +39,6 @@ void main() {
   
   // Resolve Application Presenter
   AppPresenter app = ioc.Context.resolve("AppPresenter");
-  // Resolve Application View
-  AppView view = ioc.Context.resolve("AppView");
-  // Initialise Application View with list of pages
-  view.pages = ioc.Context.resolve("pages");
-  // Initialise Application Presenter with Application View
-  app.display = view;
   // Add view to to RootLayoutPanel
   app.addViewTo(ui.RootLayoutPanel.get());
   

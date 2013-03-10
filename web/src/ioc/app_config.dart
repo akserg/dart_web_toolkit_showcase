@@ -25,7 +25,15 @@ class AppConfiguration extends lost_dart.InCodeConfiguration {
   AppConfiguration() {
     // Add Application Presenter singleton
     add("AppPresenter", (lost_dart.Container container, Map params){
-      return new AppPresenter();
+      AppPresenter app = new AppPresenter();
+      // Resolve Application View
+      AppView view = container.resolve("AppView");
+      // Initialise Application View with list of pages
+      view.pages = container.resolve("pages");
+      // Initialise Application Presenter with Application View
+      app.display = view;
+      //
+      return app;
     });
     
     // Add Application View singleton
@@ -34,19 +42,14 @@ class AppConfiguration extends lost_dart.InCodeConfiguration {
     });
     
     // Add Home Page
-    add("HomePage", (lost_dart.Container container, Map params){
-      return new HomePage();
-    });
-    
-    // Add Component Page
-    add("ComponentPage", (lost_dart.Container container, Map params){
-      return new ComponentPage();
+    add("HomeView", (lost_dart.Container container, Map params){
+      return new HomeView();
     });
     
     // Add list of Page
     add("pages", (lost_dart.Container container, Map params){
-      return [container.resolve("HomePage"),
-              container.resolve("ComponentPage")];
+      return [container.resolve("HomeView"),
+              container.resolve("ComponentPresenter").display];
     });
   }
 }

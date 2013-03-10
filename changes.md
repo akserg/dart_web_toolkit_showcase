@@ -3,7 +3,7 @@ Dart Web Toolkit Showcase Changes
 
 **March 10, 2013
 
-* Code changed and restructured with IoC and MVP.
+* Code changed and restructured with IoC and MVP. 
 
 **March 9, 2013
 

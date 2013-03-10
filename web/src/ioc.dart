@@ -28,6 +28,7 @@ import 'home.dart';
 import 'component.dart';
 
 part 'ioc/app_config.dart';
+part 'ioc/component_config.dart';
 
 /**
  * This class is adapter to implementation real IOC and
@@ -51,6 +52,7 @@ class Context {
    * configurations.
    */
   static init() {
-    _container.add(new AppConfiguration());
+    _container.addAll([new AppConfiguration(),
+                       new ComponentConfiguration()]);
   }
 }

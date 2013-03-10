@@ -16,20 +16,15 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_app;
+part of dart_web_toolkit_mvp;
 
 /**
- * Contract between renderer and page content.
+ * Contract between renderer and view content.
  */
-abstract class Page {
+abstract class View implements Display {
   
   /**
-   * Return page title.
+   * Return view title.
    */
   String get title;
-  
-  /**
-   * Return page content.
-   */
-  ui.Widget get content; 
 }

@@ -21,7 +21,7 @@ part of dart_web_toolkit_home;
 /**
  * The Home page contents main information about DWT showcase.
  */
-class HomePage implements Page {
+class HomeView implements mvp.View {
   
   /**
    * Return page title.
@@ -29,9 +29,9 @@ class HomePage implements Page {
   String get title => "Home";
   
   /**
-   * Return page content.
+   * Return View as a [Widget].
    */
-  ui.Widget get content {
+  ui.Widget asWidget() {
     ui.FlexTable layout = new ui.FlexTable();
     layout.setSize("100%", "100%");
     layout.setCellSpacing(6);

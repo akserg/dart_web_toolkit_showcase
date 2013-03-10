@@ -22,7 +22,7 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
 
   ui.TabLayoutPanel centerPanel;
   
-  List<Page> _pages;
+  List<mvp.View> _pages;
   
   AppView() {
     // Main panel
@@ -57,10 +57,10 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     mainPanel.add(centerPanel);
   }
 
-  void set pages(List<Page> values) {
+  void set pages(List<mvp.View> values) {
     centerPanel.clear();
-    values.forEach((Page page){
-      centerPanel.add(page.content, page.title);
+    values.forEach((mvp.View view){
+      centerPanel.add(view.asWidget(), view.title);
     });
   }
   

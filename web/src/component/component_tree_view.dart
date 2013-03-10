@@ -18,13 +18,11 @@
 
 part of dart_web_toolkit_component;
 
-class TreeView {
+class ComponentTreeView implements ComponentTreeDisplay {
   
   ui.Tree _tree;
   
-  ComponentManager _componentManager;
-  
-  TreeView(this._componentManager) {
+  ComponentTreeView() {
     _tree = new ui.Tree();
     // Set animation enabled
     _tree.setAnimationEnabled(true);
@@ -37,19 +35,26 @@ class TreeView {
   /**
    * Refresh tree content
    */
-  void refreshTree() {
+  void setData(Map<String, List<mvp.ViewModel>> models) {
     _tree.removeItems();
     //
-    _componentManager.models.forEach((String category, List<ComponentModel> components) {
+    models.forEach((String category, List<mvp.ViewModel> components) {
       // Create new top item
       ui.TreeItem topItem = _tree.addTextItem(category);
       // Create leaves in top item
-      components.forEach((ComponentModel component){
+      components.forEach((mvp.ViewModel component){
         // Create Item per component
         ui.TreeItem item = topItem.addTextItem(component.name);
         item.setUserObject(component);
       });
     });
+  }
+  
+  /**
+   * Add selection event handlerto tree.
+   */
+  void addSelectionHandler(event.SelectionHandler<ui.TreeItem> handler) {
+    _tree.addSelectionHandler(handler);
   }
 }
 

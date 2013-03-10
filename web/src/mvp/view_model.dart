@@ -16,12 +16,12 @@
 
 //Author: akserg
 
-part of dart_web_toolkit_component;
+part of dart_web_toolkit_mvp;
 
 /**
- * Model describes interface to Component
+ * Contract between renderer and view content.
  */
-abstract class ComponentModel {
+abstract class ViewModel implements Display {
   
   // Component's category name
   String get category;
@@ -37,10 +37,4 @@ abstract class ComponentModel {
   
   // Return style snipet for using component
   String get style;
-  
-  /**
-   * Return instantiated Component code.
-   */
-  ui.Widget asWidget();
 }
-

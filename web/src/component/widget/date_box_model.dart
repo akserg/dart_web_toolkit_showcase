@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class DateBoxModel implements ComponentModel {
+class DateBoxModel implements mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

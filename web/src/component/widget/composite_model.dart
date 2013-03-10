@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class CompositeModel implements ComponentModel {
+class CompositeModel implements mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";
