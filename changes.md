@@ -4,6 +4,7 @@ Dart Web Toolkit Showcase Changes
 **March 11, 2013
 
 * All code has been changed use IoC and MVP.
+* Start using prettify instead of highlite.
 
 **March 10, 2013
 
