@@ -27,8 +27,8 @@ class ComponentPresenter implements mvp.Presenter {
   List<mvp.ViewModel> models;
   
   void addViewTo(ui.HasWidgets container) {
-    container.clear();
-    container.add(display.asWidget());
+    assert(container is ui.TabLayoutPanel);
+    container.add(display.asWidget(), display.title);
     _refreshView();
   }
   
@@ -56,7 +56,7 @@ class ComponentPresenter implements mvp.Presenter {
   }
 }
 
-abstract class ComponentDisplay implements mvp.Display {
+abstract class ComponentDisplay implements mvp.Display, mvp.View {
   ComponentTreeDisplay componentTree;
   ComponentPreviewDisplay componentPreview;
 }

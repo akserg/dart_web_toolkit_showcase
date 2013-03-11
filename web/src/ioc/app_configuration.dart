@@ -41,15 +41,10 @@ class AppConfiguration extends lost_dart.InCodeConfiguration {
       return new AppView();
     });
     
-    // Add Home Page
-    add("HomeView", (lost_dart.Container container, Map params){
-      return new HomeView();
-    });
-    
     // Add list of Page
     add("pages", (lost_dart.Container container, Map params){
-      return [container.resolve("HomeView"),
-              container.resolve("ComponentPresenter").display];
+      return [container.resolve("HomePresenter"),
+              container.resolve("ComponentPresenter")];
     });
   }
 }

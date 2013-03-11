@@ -35,5 +35,5 @@ abstract class AppPresenterDisplay implements mvp.Display {
   /**
    * Set list of [Page]s.
    */
-  void set pages(List<mvp.View> values);
+  void set pages(List<mvp.Presenter> values);
 }

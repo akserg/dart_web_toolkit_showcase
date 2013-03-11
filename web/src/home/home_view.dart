@@ -21,7 +21,7 @@ part of dart_web_toolkit_home;
 /**
  * The Home page contents main information about DWT showcase.
  */
-class HomeView implements mvp.View {
+class HomeView implements HomeDisplay {
   
   /**
    * Return page title.

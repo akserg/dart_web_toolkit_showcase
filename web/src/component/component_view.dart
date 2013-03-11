@@ -22,7 +22,7 @@ part of dart_web_toolkit_component;
  * The Widgets page keeps main information about widgets and panels using in 
  * framework.
  */
-class ComponentView implements mvp.View, ComponentDisplay {
+class ComponentView implements ComponentDisplay {
   
   /**
    * Return page title.

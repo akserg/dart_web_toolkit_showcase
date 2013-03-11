@@ -16,19 +16,21 @@
 
 //Author: akserg
 
+part of dart_web_toolkit_home;
+
 /**
- * Home library.
- * Has only home screen.
+ * Home presenter managing home's view.
  */
-library dart_web_toolkit_home;
+class HomePresenter implements mvp.Presenter {
+ 
+  HomeDisplay display;
+  
+  void addViewTo(ui.HasWidgets container) {
+    assert(container is ui.TabLayoutPanel);
+    container.add(display.asWidget(), display.title);
+  }
+}
 
-import 'dart:html' as dart_html;
+abstract class HomeDisplay implements mvp.Display, mvp.View {
+}
 
-import 'package:dart_web_toolkit/ui.dart' as ui;
-import 'package:dart_web_toolkit/i18n.dart' as i18n;
-
-import 'app.dart';
-import 'mvp.dart' as mvp;
-
-part 'home/home_presenter.dart';
-part 'home/home_view.dart';

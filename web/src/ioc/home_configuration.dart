@@ -16,19 +16,29 @@
 
 //Author: akserg
 
+part of dart_web_toolkit_ioc;
+
 /**
- * Home library.
- * Has only home screen.
+ * Home configuration.
  */
-library dart_web_toolkit_home;
+class HomeConfiguration extends lost_dart.InCodeConfiguration {
+  
+  HomeConfiguration() {
+    
+    // Add Home Page
+    add("HomeView", (lost_dart.Container container, Map params){
+      return new HomeView();
+    });
+    
+    // Add Home Presenter
+    add("HomePresenter", (lost_dart.Container container, Map params){
+      HomePresenter presenter = new HomePresenter();
+      // Set presenter's view
+      presenter.display = container.resolve("HomeView");
+      return presenter;
+    });
+  }
+}
 
-import 'dart:html' as dart_html;
 
-import 'package:dart_web_toolkit/ui.dart' as ui;
-import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
-import 'app.dart';
-import 'mvp.dart' as mvp;
-
-part 'home/home_presenter.dart';
-part 'home/home_view.dart';

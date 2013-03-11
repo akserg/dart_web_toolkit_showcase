@@ -57,10 +57,10 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     mainPanel.add(centerPanel);
   }
 
-  void set pages(List<mvp.View> values) {
+  void set pages(List<mvp.Presenter> values) {
     centerPanel.clear();
-    values.forEach((mvp.View view){
-      centerPanel.add(view.asWidget(), view.title);
+    values.forEach((mvp.Presenter presenter){
+      presenter.addViewTo(centerPanel);
     });
   }
   

@@ -38,7 +38,7 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
     // Add Component Presenter
     add("ComponentPresenter", (lost_dart.Container container, Map params){
       ComponentPresenter presenter = new ComponentPresenter();
-      // Set presenetr;s view
+      // Set presenter's view
       presenter.display = container.resolve("ComponentView");
       // Set list of ComponentModels
       presenter.models = container.resolve("componentModels");
