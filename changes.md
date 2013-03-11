@@ -6,7 +6,7 @@ Dart Web Toolkit Showcase Changes
 * All code has been changed use IoC and MVP.
 * Start using prettify instead of highlite.
 * Changed prettify.css to hide border in code prettify
-* Create examples: Html, Hyperlink
+* Created examples: Html, Hyperlink, Image
 
 **March 10, 2013
 

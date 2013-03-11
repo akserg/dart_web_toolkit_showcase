@@ -27,7 +27,11 @@ class HtmlModel implements mvp.ViewModel {
   String get name => "Html";
   
   // Return component's description
-  String get desc => "A widget that can contain arbitrary Html. This widget uses a <div> element, causing it to be displayed with block layout. If you only need a simple label (text, but not HTML), then the Label widget is more appropriate, as it disallows the use of HTML, which can lead to potential security issues if not used properly.";
+  String get desc => '''A widget that can contain arbitrary Html. This widget 
+uses a <div> element, causing it to be displayed with block layout. If you only 
+need a simple label (text, but not HTML), then the Label widget is more 
+appropriate, as it disallows the use of HTML, which can lead to potential 
+security issues if not used properly.''';
   
   // Return code snipet how to use component
   String get code {
@@ -35,8 +39,7 @@ class HtmlModel implements mvp.ViewModel {
 // Create a Label and an Html widget.
 ui.Label lbl = new ui.Label("This is just text.  It will not be interpreted as <html>.");
 
-ui.Html html = new ui.Html(
-  "This is <b>HTML</b>.  It will be interpreted as such if you specify the <span style='font-family:fixed'>asHTML</span> flag.", true);
+ui.Html html = new ui.Html("This is <b>HTML</b>.");
 
 // Add them to the root panel.
 ui.VerticalPanel panel = new ui.VerticalPanel();
@@ -60,8 +63,7 @@ return panel;
     // Create a Label and an Html widget.
     ui.Label lbl = new ui.Label("This is just text.  It will not be interpreted as <html>.");
 
-    ui.Html html = new ui.Html(
-      "This is <b>HTML</b>.  It will be interpreted as such if you specify the <span style='font-family:fixed'>asHTML</span> flag.", true);
+    ui.Html html = new ui.Html("This is <b>HTML</b>.");
 
     // Add them to the root panel.
     ui.VerticalPanel panel = new ui.VerticalPanel();
