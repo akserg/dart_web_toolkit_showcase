@@ -122,14 +122,13 @@ class ComponentPreview implements ComponentPreviewDisplay {
   
   /**
    * Prepare code and style to butify through external JS code.
-   * For now we are using Highlight.js to manage <pre><code> content.
-   * See http://softwaremaniacs.org/soft/highlight. 
+   * For now we are using prettify.js to manage <pre><code> content.
+   * See http://code.google.com/p/google-code-prettify. 
    */
   ui.ScrollPanel _prepareToView(String code) {
     StringBuffer sb = new StringBuffer();
     sb.write("<pre class=\"prettyprint\"><code class=\"language-dart\">");
-    //sb.write(util.SafeHtmlUtils.fromString(code).asString());
-    sb.write(code);
+    sb.write(util.SafeHtmlUtils.fromString(code).asString());
     sb.write("</code></pre>");
     //
     ui.Html html = new ui.Html(sb.toString());

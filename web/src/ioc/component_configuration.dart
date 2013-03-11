@@ -65,7 +65,9 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
               new DatePickerModel(),
               new DoubleBoxModel(),
               new FileUploadModel(),
-              new HiddenModel()];
+              new HiddenModel(),
+              new HtmlModel(),
+              new HyperlinkModel()];
     });
     
     

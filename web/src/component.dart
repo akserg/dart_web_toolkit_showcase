@@ -46,3 +46,5 @@ part 'component/widget/date_picker_model.dart';
 part 'component/widget/double_box_model.dart';
 part 'component/widget/file_upload_model.dart';
 part 'component/widget/hidden_model.dart';
+part 'component/widget/html_model.dart';
+part 'component/widget/hyperlink_model.dart';
