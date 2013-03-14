@@ -32,21 +32,33 @@ class HiddenModel implements mvp.ViewModel {
   // Return code snipet how to use component
   String get code {
     return '''
-// Layout buttons in horizontal panel
-ui.HorizontalPanel hPanel = new ui.HorizontalPanel();
-hPanel.spacing = 10;
+//create textboxes
+ui.TextBox textBox = new ui.TextBox(); 
+textBox.setWidth("275px");
+ui.Button button1 = new ui.Button("Set Value of Hidden Input");
+ui.Button button2 = new ui.Button("Get Value of Hidden Input");
+ui.Hidden hidden = new ui.Hidden();
 
-// Add a normal button
-ui.Button normalButton = new ui.Button(
-    "Normal Button", new event.ClickHandlerAdapter((event.ClickEvent event) {
-      dart_html.window.alert("Stop poking me!");
-    }));
-hPanel.add(normalButton);
+button1.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent event) {
+  String t = textBox.getValue();
+  hidden.setValue(t);
+  dart_html.window.alert("Value of Hidden Widget Updated!");
+}));
 
-// Add a disabled button
-ui.Button disabledButton = new ui.Button("Disabled Button");
-disabledButton.enabled = false;
-hPanel.add(disabledButton);
+button2.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent event) {
+  String t = hidden.getValue();
+  dart_html.window.alert("Value of Hidden Widget: \$t");       
+}));
+
+// Add widgets to the root panel.
+ui.VerticalPanel panel = new ui.VerticalPanel();
+panel.spacing = 10;
+panel.add(textBox);
+panel.add(button1);
+panel.add(hidden);
+panel.add(button2);
+
+return panel;
 ''';
   }
   

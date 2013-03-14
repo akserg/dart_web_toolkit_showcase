@@ -70,7 +70,11 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
               new HyperlinkModel(),
               new ImageModel(),
               new InlineHtmlModel(),
-//              new InlineHyperlinkModel()
+//              new InlineHyperlinkModel(),
+              new InlineLabelModel(),
+              new IntegerBoxModel(),
+              new LabelModel(),
+              new ListBoxModel(),
       ];
     });
     

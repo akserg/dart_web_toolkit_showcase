@@ -18,35 +18,25 @@
 
 part of dart_web_toolkit_component;
 
-class DoubleBoxModel implements mvp.ViewModel {
+class InlineLabelModel implements mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";
   
   // Return component's name
-  String get name => "DoubleBox";
+  String get name => "InlineHyperlink";
   
   // Return component's description
-  String get desc => "A ValueBox that uses DoubleParser and DoubleRenderer.";
+  String get desc => '''
+A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+''';
   
   // Return code snipet how to use component
   String get code {
     return '''
-ui.VerticalPanel vPanel = new ui.VerticalPanel();
+ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
     
-ui.Label input = new ui.Label();
-
-// PI is input valie
-double value = dart_math.PI;
-vPanel.add(new ui.Label("Input: \$value"));
-// Double box
-ui.DoubleBox box = new ui.DoubleBox();
-box.setValue(value);
-vPanel.add(box);
-// Output value
-vPanel.add(new ui.Label("Output: \${box.getValue()}"));
-
-return vPanel;
+return inlineHyperlink;
 ''';
   }
   
@@ -59,21 +49,10 @@ return vPanel;
    * Return instantiated Component code.
    */
   ui.Widget asWidget() {
-    ui.VerticalPanel vPanel = new ui.VerticalPanel();
     
-    ui.Label input = new ui.Label();
-
-    // PI is input valie
-    double value = dart_math.PI;
-    vPanel.add(new ui.Label("Input: $value"));
-    // Double box
-    ui.DoubleBox box = new ui.DoubleBox();
-    box.setValue(value);
-    vPanel.add(box);
-    // Output value
-    vPanel.add(new ui.Label("Output: ${box.getValue()}"));
+    ui.InlineLabel inlineLabel = new ui.InlineLabel("This is Inline Label");
     
-    return vPanel;
+    return inlineLabel;
   }
 }
 

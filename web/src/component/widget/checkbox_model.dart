@@ -72,6 +72,8 @@ ui.HorizontalPanel hBox = new ui.HorizontalPanel();
 hBox.add(new ui.Label("Selected: "));
 hBox.add(selectedDaysOfWeek);
 vPanel.add(hBox);
+
+return vPanel;
 ''';
   }
   

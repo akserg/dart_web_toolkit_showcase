@@ -6,6 +6,7 @@ Dart Web Toolkit Showcase Changes
 * Fixed bug: Not finding image file. 
 * Changed ImageModel.
 * Added InlineHtml widget.
+* Added InlineLabel, IntegerBox, Label, ListBox.
 
 **March 11, 2013
 

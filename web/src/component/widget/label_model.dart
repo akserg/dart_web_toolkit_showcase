@@ -18,35 +18,23 @@
 
 part of dart_web_toolkit_component;
 
-class DoubleBoxModel implements mvp.ViewModel {
+class LabelModel implements mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";
   
   // Return component's name
-  String get name => "DoubleBox";
+  String get name => "Label";
   
   // Return component's description
-  String get desc => "A ValueBox that uses DoubleParser and DoubleRenderer.";
+  String get desc => "A widget that contains arbitrary text, not interpreted as HTML. This widget uses a <div> element, causing it to be displayed with block layout.";
   
   // Return code snipet how to use component
   String get code {
     return '''
-ui.VerticalPanel vPanel = new ui.VerticalPanel();
+ui.Label widget = new ui.Label("This is a Label");
     
-ui.Label input = new ui.Label();
-
-// PI is input valie
-double value = dart_math.PI;
-vPanel.add(new ui.Label("Input: \$value"));
-// Double box
-ui.DoubleBox box = new ui.DoubleBox();
-box.setValue(value);
-vPanel.add(box);
-// Output value
-vPanel.add(new ui.Label("Output: \${box.getValue()}"));
-
-return vPanel;
+return widget;
 ''';
   }
   
@@ -59,21 +47,10 @@ return vPanel;
    * Return instantiated Component code.
    */
   ui.Widget asWidget() {
-    ui.VerticalPanel vPanel = new ui.VerticalPanel();
     
-    ui.Label input = new ui.Label();
-
-    // PI is input valie
-    double value = dart_math.PI;
-    vPanel.add(new ui.Label("Input: $value"));
-    // Double box
-    ui.DoubleBox box = new ui.DoubleBox();
-    box.setValue(value);
-    vPanel.add(box);
-    // Output value
-    vPanel.add(new ui.Label("Output: ${box.getValue()}"));
+    ui.Label widget = new ui.Label("This is a Label");
     
-    return vPanel;
+    return widget;
   }
 }
 

@@ -51,3 +51,7 @@ part 'component/widget/hyperlink_model.dart';
 part 'component/widget/image_model.dart';
 part 'component/widget/inline_html_model.dart';
 part 'component/widget/inline_hyperlink_model.dart';
+part 'component/widget/inline_label_model.dart';
+part 'component/widget/integer_box_model.dart';
+part 'component/widget/label_model.dart';
+part 'component/widget/list_box_model.dart';

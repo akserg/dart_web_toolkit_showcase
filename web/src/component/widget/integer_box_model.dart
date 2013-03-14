@@ -18,35 +18,31 @@
 
 part of dart_web_toolkit_component;
 
-class DoubleBoxModel implements mvp.ViewModel {
+class IntegerBoxModel implements mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";
   
   // Return component's name
-  String get name => "DoubleBox";
+  String get name => "IntegerBox";
   
   // Return component's description
-  String get desc => "A ValueBox that uses DoubleParser and DoubleRenderer.";
+  String get desc => "A ValueBox that uses IntegerParser and IntegerRenderer.";
   
   // Return code snipet how to use component
   String get code {
     return '''
-ui.VerticalPanel vPanel = new ui.VerticalPanel();
-    
-ui.Label input = new ui.Label();
+// Create a panel to layout the widgets
+ui.VerticalPanel vpanel = new ui.VerticalPanel();
+vpanel.spacing = 5;
 
-// PI is input valie
-double value = dart_math.PI;
-vPanel.add(new ui.Label("Input: \$value"));
-// Double box
-ui.DoubleBox box = new ui.DoubleBox();
-box.setValue(value);
-vPanel.add(box);
-// Output value
-vPanel.add(new ui.Label("Output: \${box.getValue()}"));
+ui.IntegerBox iBox = new ui.IntegerBox();
+iBox.setMaxLength(10);
+iBox.setVisibleLength(5);
+iBox.setValue(123123);
+vpanel.add(iBox);
 
-return vPanel;
+return vpanel;
 ''';
   }
   
@@ -59,21 +55,17 @@ return vPanel;
    * Return instantiated Component code.
    */
   ui.Widget asWidget() {
-    ui.VerticalPanel vPanel = new ui.VerticalPanel();
+    // Create a panel to layout the widgets
+    ui.VerticalPanel vpanel = new ui.VerticalPanel();
+    vpanel.spacing = 5;
     
-    ui.Label input = new ui.Label();
-
-    // PI is input valie
-    double value = dart_math.PI;
-    vPanel.add(new ui.Label("Input: $value"));
-    // Double box
-    ui.DoubleBox box = new ui.DoubleBox();
-    box.setValue(value);
-    vPanel.add(box);
-    // Output value
-    vPanel.add(new ui.Label("Output: ${box.getValue()}"));
+    ui.IntegerBox iBox = new ui.IntegerBox();
+    iBox.setMaxLength(10);
+    iBox.setVisibleLength(5);
+    iBox.setValue(123123);
+    vpanel.add(iBox);
     
-    return vPanel;
+    return vpanel;
   }
 }
 

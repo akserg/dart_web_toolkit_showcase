@@ -47,6 +47,8 @@ hPanel.add(normalButton);
 ui.Button disabledButton = new ui.Button("Disabled Button");
 disabledButton.enabled = false;
 hPanel.add(disabledButton);
+
+return hPanel;
 ''';
   }
   

@@ -33,7 +33,7 @@ class CompositeModel implements mvp.ViewModel {
   String get code {
     return '''
 // In our code
-new _DisplayBox("Header", "This is my data");
+return new _DisplayBox("Header", "This is my data");
 
 // In some where...
 class DisplayBox extends ui.Composite {
