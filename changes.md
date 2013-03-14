@@ -1,6 +1,12 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 14, 2013
+
+* Fixed bug: Not finding image file. 
+* Changed ImageModel.
+* Added InlineHtml widget.
+
 **March 11, 2013
 
 * All code has been changed use IoC and MVP.

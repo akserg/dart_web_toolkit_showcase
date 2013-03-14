@@ -27,12 +27,43 @@ class ImageModel implements mvp.ViewModel {
   String get name => "Image";
   
   // Return component's description
-  String get desc => "Image";
+  String get desc => "A widget that displays the image at a given URL. The image can be in 'unclipped' mode (the default) or 'clipped' mode. In clipped mode, a viewport is overlaid on top of the image so that a subset of the image will be displayed. In unclipped mode, there is no viewport - the entire image will be visible. Whether an image is in clipped or unclipped mode depends on how the image is constructed, and how it is transformed after construction. Methods will operate differently depending on the mode that the image is in. These differences are detailed in the documentation for each method.";
   
   // Return code snipet how to use component
   String get code {
     return '''
+ui.Button btn = new ui.Button("Clip this image");
+ui.Button btn2 = new ui.Button("Restore image");
+String uri = "http://www.google.com/images/logo.gif";
 
+// Create an image, not yet referencing a URL. We make it final so that we
+// can manipulate the image object within the ClickHandlers for the buttons.
+ui.Image image = new ui.Image(uri);
+
+// When the user clicks this button, we want to clip the image.
+btn.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent evt) {
+  image.setVisibleRect(70, 0, 47, 110);
+}));
+btn.setWidth("120px");
+
+// When the user clicks this button, we want to restore the image to its
+// unclipped state.
+btn2.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent evt) {
+  image.setUrl(uri);
+}));
+btn2.setWidth("120px");
+
+// Add the image, label, and clip/restore buttons to the root panel.
+ui.VerticalPanel panel = new ui.VerticalPanel();
+panel.add(image);
+
+ui.HorizontalPanel buttonPanel = new ui.HorizontalPanel();
+buttonPanel.add(btn);
+buttonPanel.add(btn2);
+
+panel.add(buttonPanel);
+
+return panel;
 ''';
   }
   
@@ -46,22 +77,13 @@ class ImageModel implements mvp.ViewModel {
    */
   ui.Widget asWidget() {
     
-    ui.Label lbl = new ui.Label();
     ui.Button btn = new ui.Button("Clip this image");
     ui.Button btn2 = new ui.Button("Restore image");
+    String uri = "http://www.google.com/images/logo.gif";
     
     // Create an image, not yet referencing a URL. We make it final so that we
     // can manipulate the image object within the ClickHandlers for the buttons.
-    ui.Image image = new ui.Image("http://www.google.com/images/logo.gif");
-
-    // Hook up an error handler, so that we can be informed if the image fails
-    // to load.
-    image.addErrorHandler(new event.ErrorHandlerAdapter((event.ErrorEvent evt) {
-      lbl.text = "An error occurred while loading.";
-    }));
-
-    // Point the image at a real URL.
-    //image.setUrl("http://www.google.com/images/logo.gif");
+    ui.Image image = new ui.Image(uri);
 
     // When the user clicks this button, we want to clip the image.
     btn.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent evt) {
@@ -72,13 +94,12 @@ class ImageModel implements mvp.ViewModel {
     // When the user clicks this button, we want to restore the image to its
     // unclipped state.
     btn2.addClickHandler(new event.ClickHandlerAdapter((event.ClickEvent evt) {
-      image.setUrl("http://www.google.com/images/logo.gif");
+      image.setUrl(uri);
     }));
     btn2.setWidth("120px");
 
     // Add the image, label, and clip/restore buttons to the root panel.
     ui.VerticalPanel panel = new ui.VerticalPanel();
-    panel.add(lbl);
     panel.add(image);
 
     ui.HorizontalPanel buttonPanel = new ui.HorizontalPanel();

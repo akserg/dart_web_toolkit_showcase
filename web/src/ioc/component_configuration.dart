@@ -68,7 +68,10 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
               new HiddenModel(),
               new HtmlModel(),
               new HyperlinkModel(),
-              new ImageModel()];
+              new ImageModel(),
+              new InlineHtmlModel(),
+//              new InlineHyperlinkModel()
+      ];
     });
     
     
