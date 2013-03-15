@@ -108,7 +108,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
       mvp.ViewModel model = item.getUserObject() as mvp.ViewModel;
       // Show model in View panel
       _nameLabel.text = "${model.category} : ${model.name}";
-      _descriptionLabel.text = model.desc;
+      _descriptionLabel.text = util.SafeHtmlUtils.fromString(model.desc).asString();
       _previewPanel.add(model.asWidget());
       _codePanel.add(_prepareToView(model.code));
       _stylePanel.add(_prepareToView(model.style));

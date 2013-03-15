@@ -75,6 +75,7 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
               new IntegerBoxModel(),
               new LabelModel(),
               new ListBoxModel(),
+              new MenuBoxModel(),
       ];
     });
     

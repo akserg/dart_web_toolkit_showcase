@@ -102,7 +102,7 @@ return hPanel;
     // Add a list box with multiple selection enabled
     ui.ListBox multiBox = new ui.ListBox(true);
     multiBox.setWidth("11em");
-    multiBox.setVisibleItemCount(10);
+    multiBox.setVisibleItemCount(4);
     for (int i = 0; i < listTypes.length; i++) {
       multiBox.addItem(listTypes[i]);
     }
