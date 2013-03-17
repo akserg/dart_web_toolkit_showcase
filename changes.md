@@ -4,6 +4,7 @@ Dart Web Toolkit Showcase Changes
 **March 17, 2013
 
 * Finish creation Widget, Panel, Popup and Layout folders with content.
+* Release moved to 0.2.
 
 **March 14, 2013
 
