@@ -18,22 +18,32 @@
 
 part of dart_web_toolkit_component;
 
-class InlineHyperlinkModel implements mvp.ViewModel {
+class TextAreaModel implements mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";
   
   // Return component's name
-  String get name => "InlineHyperlink";
+  String get name => "TextArea";
   
   // Return component's description
   String get desc => '''
-A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+A text box that allows multiple lines of text to be entered.
 ''';
   
   // Return code snipet how to use component
   String get code {
     return '''
+// Create a panel to layout the widgets
+ui.Grid grid = new ui.Grid(1, 2);
+
+grid.setWidget(0, 0, new ui.Label("Text Area:"));
+// Add a text area
+ui.TextArea textArea = new ui.TextArea();
+textArea.setVisibleLines(5);
+grid.setWidget(0, 1, textArea);
+
+return grid;
 ''';
   }
   
@@ -47,10 +57,15 @@ A widget that serves as an \"internal\" hyperlink. That is, it is a link to anot
    */
   ui.Widget asWidget() {
     
-//    ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
-//    
-//    return inlineHyperlink;
-    return new ui.Label("InlineHyperlink not implemented yet.");
+    // Create a panel to layout the widgets
+    ui.Grid grid = new ui.Grid(1, 2);
+    
+    grid.setWidget(0, 0, new ui.Label("Text Area:"));
+    // Add a text area
+    ui.TextArea textArea = new ui.TextArea();
+    textArea.setVisibleLines(5);
+    grid.setWidget(0, 1, textArea);
+    
+    return grid;
   }
 }
-

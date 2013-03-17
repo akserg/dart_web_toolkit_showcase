@@ -40,8 +40,14 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
       ComponentPresenter presenter = new ComponentPresenter();
       // Set presenter's view
       presenter.display = container.resolve("ComponentView");
+      // Resolve component models by name
+      List<String> modelNames = container.resolve("componentModels");
+      List models = new List();
+      modelNames.forEach((String modelName){
+        models.add(container.resolve(modelName));
+      });
       // Set list of ComponentModels
-      presenter.models = container.resolve("componentModels");
+      presenter.models = models;
       //
       return presenter;
     });
@@ -58,30 +64,75 @@ class ComponentConfiguration extends lost_dart.InCodeConfiguration {
     
     // Add List of Component Model
     add("componentModels", (lost_dart.Container container, Map params){
-      return [new ButtonModel(), 
-              new CheckBoxModel(),
-              new CompositeModel(),
-              new DateBoxModel(),
-              new DatePickerModel(),
-              new DoubleBoxModel(),
-              new FileUploadModel(),
-              new HiddenModel(),
-              new HtmlModel(),
-              new HyperlinkModel(),
-              new ImageModel(),
-              new InlineHtmlModel(),
-//              new InlineHyperlinkModel(),
-              new InlineLabelModel(),
-              new IntegerBoxModel(),
-              new LabelModel(),
-              new ListBoxModel(),
-              new MenuBoxModel(),
+      return [
+              // Widget
+              "ButtonModel", 
+              "CheckBoxModel",
+              "CompositeModel",
+              "DateBoxModel",
+              "DatePickerModel",
+              "DoubleBoxModel",
+              "FileUploadModel",
+              "HiddenModel",
+              "HtmlModel",
+              "HyperlinkModel",
+              "ImageModel",
+              "InlineHtmlModel",
+              "InlineHyperlinkModel",
+              "InlineLabelModel",
+              "IntegerBoxModel",
+              "LabelModel",
+              "ListBoxModel",
+              "MenuBoxModel",
+              "NumberLabelModel",
+              "PasswordTextBoxModel",
+              "PushButtonModel",
+              "RadioButtonModel",
+              "RichTextAreaModel",
+              "SimpleCheckBoxModel",
+              "SimpleRadioButtonModel",
+              "SuggestBoxModel",
+              "TextAreaModel",
+              "TextBoxModel",
+              "ToggleButtonModel",
+              "TreeModel",
+              // Popup
+              "DialogBoxModel",
+              "PopupPanelModel",
+              // Panel
+              "AbsolutePanelModel",
+              "CaptionPanelModel",
+              "DeckPanelModel",
+              "DecoratedStackPanelModel",
+              "DecoratedTabBarModel",
+              "DecoratedTabPanelModel",
+              "DecoratorPanelModel",
+              "DisclosurePanelModel",
+              "DockPanelModel",
+              "FlexTableModel",
+              "FlowPanelModel",
+              "FocusPanelModel",
+              "FormPanelModel",
+              "FrameModel",
+              "GridModel",
+              "HorizontalPanelModel",
+              "HorizontalSplitPanelModel",
+              "HtmlPanelModel",
+              "NamedFrameModel",
+              "ScrolledPanelModel",
+              "SimplePanelModel",
+              "StackPanelModel",
+              "TabBarModel",
+              "TabPanelModel",
+              "VerticalPanelModel",
+              "VerticalSplitPanelModel",
+              // Layout
+              "DockLayoutPanelModel",
+              "LayoutPanelModel",
+              "SplitLayoutPanelModel",
+              "StackLayoutPanelModel",
+              "TabLayoutPanelModel"
       ];
     });
-    
-    
   }
 }
-
-
-

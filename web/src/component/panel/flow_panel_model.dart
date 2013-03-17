@@ -18,22 +18,32 @@
 
 part of dart_web_toolkit_component;
 
-class InlineHyperlinkModel implements mvp.ViewModel {
+class FlowPanelModel implements mvp.ViewModel {
   
   // Component's category name
-  String get category => "Widget";
+  String get category => "Panel";
   
   // Return component's name
-  String get name => "InlineHyperlink";
+  String get name => "FlowPanel";
   
   // Return component's description
   String get desc => '''
-A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+A panel that formats its child widgets using the default HTML layout behavior.
 ''';
   
   // Return code snipet how to use component
   String get code {
     return '''
+ui.FlowPanel flowPanel = new ui.FlowPanel();
+
+// Add some content to the panel
+for (int i = 0; i < 30; i++) {
+  ui.CheckBox checkbox = new ui.CheckBox("Item \$i");
+  flowPanel.add(checkbox);
+}
+
+// Return the content
+return flowPanel;
 ''';
   }
   
@@ -46,11 +56,16 @@ A widget that serves as an \"internal\" hyperlink. That is, it is a link to anot
    * Return instantiated Component code.
    */
   ui.Widget asWidget() {
-    
-//    ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
-//    
-//    return inlineHyperlink;
-    return new ui.Label("InlineHyperlink not implemented yet.");
+
+    ui.FlowPanel flowPanel = new ui.FlowPanel();
+
+    // Add some content to the panel
+    for (int i = 0; i < 30; i++) {
+      ui.CheckBox checkbox = new ui.CheckBox("Item $i");
+      flowPanel.add(checkbox);
+    }
+
+    // Return the content
+    return flowPanel;
   }
 }
-

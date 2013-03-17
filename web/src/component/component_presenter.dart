@@ -36,9 +36,9 @@ class ComponentPresenter implements mvp.Presenter {
     // Register preview as selection event listener comes from tree
     display.componentTree.addSelectionHandler(display.componentPreview);
     // Convert flat to tree view data model
-    Map<String, List<mvp.ViewModel>> models = _convertFlatToTreeModel();
+    Map<String, List<mvp.ViewModel>> convertedModels = _convertFlatToTreeModel();
     // Assign tree view data model to tree
-    display.componentTree.setData(models);
+    display.componentTree.setData(convertedModels);
   }
   
   /**

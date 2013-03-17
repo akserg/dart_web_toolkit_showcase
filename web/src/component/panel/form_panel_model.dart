@@ -18,17 +18,34 @@
 
 part of dart_web_toolkit_component;
 
-class InlineHyperlinkModel implements mvp.ViewModel {
+class FormPanelModel implements mvp.ViewModel {
   
   // Component's category name
-  String get category => "Widget";
+  String get category => "Panel";
   
   // Return component's name
-  String get name => "InlineHyperlink";
+  String get name => "FormPanel";
   
   // Return component's description
   String get desc => '''
-A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+A panel that wraps its contents in an HTML <FORM> element.
+
+This panel can be used to achieve interoperability with servers that accept 
+traditional HTML form encoding. The following widgets (those that implement 
+HasName) will be submitted to the server if they are contained within this panel:
+
+TextBox
+PasswordTextBox
+RadioButton
+SimpleRadioButton
+CheckBox
+SimpleCheckBox
+TextArea
+ListBox
+FileUpload
+Hidden
+In particular, FileUpload is only useful when used within a FormPanel, because 
+the browser will only upload files using form submission.
 ''';
   
   // Return code snipet how to use component
@@ -47,10 +64,6 @@ A widget that serves as an \"internal\" hyperlink. That is, it is a link to anot
    */
   ui.Widget asWidget() {
     
-//    ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
-//    
-//    return inlineHyperlink;
-    return new ui.Label("InlineHyperlink not implemented yet.");
+    return new ui.Label("FormPanel not implemented yet.");
   }
 }
-

@@ -39,6 +39,7 @@ part 'component/component_tree_view.dart';
 part 'component/component_preview.dart';
 part 'component/component_presenter.dart';
 
+// Widget
 part 'component/widget/button_model.dart';
 part 'component/widget/checkbox_model.dart';
 part 'component/widget/composite_model.dart';
@@ -57,3 +58,54 @@ part 'component/widget/integer_box_model.dart';
 part 'component/widget/label_model.dart';
 part 'component/widget/list_box_model.dart';
 part 'component/widget/menu_box_model.dart';
+part 'component/widget/number_label_model.dart';
+part 'component/widget/password_text_box_model.dart';
+part 'component/widget/push_button_model.dart';
+part 'component/widget/radio_button_model.dart';
+part 'component/widget/rich_test_area_model.dart';
+part 'component/widget/simple_check_box_model.dart';
+part 'component/widget/simple_radio_button_model.dart';
+part 'component/widget/suggest_box_model.dart';
+part 'component/widget/text_area_model.dart';
+part 'component/widget/text_box_model.dart';
+part 'component/widget/toggle_button_model.dart';
+part 'component/widget/tree_model.dart';
+
+// Popup
+part 'component/popup/dialog_box_model.dart';
+part 'component/popup/popup_panel_model.dart';
+
+// Panel
+part 'component/panel/absolute_panel_model.dart';
+part 'component/panel/caption_panel_model.dart';
+part 'component/panel/deck_panel_model.dart';
+part 'component/panel/decorated_stack_panel_model.dart';
+part 'component/panel/decorated_tab_bar_model.dart';
+part 'component/panel/decorated_tab_panel_model.dart';
+part 'component/panel/decorator_panel_model.dart';
+part 'component/panel/disclosure_panel_model.dart';
+part 'component/panel/dock_panel_model.dart';
+part 'component/panel/flex_table_model.dart';
+part 'component/panel/flow_panel_model.dart';
+part 'component/panel/focus_panel_model.dart';
+part 'component/panel/form_panel_model.dart';
+part 'component/panel/frame_model.dart';
+part 'component/panel/grid_model.dart';
+part 'component/panel/horizontal_panel_model.dart';
+part 'component/panel/horizontal_split_panel_model.dart';
+part 'component/panel/html_panel_model.dart';
+part 'component/panel/named_frame_model.dart';
+part 'component/panel/scrolled_panel_model.dart';
+part 'component/panel/simple_panel_model.dart';
+part 'component/panel/stack_panel_model.dart';
+part 'component/panel/tab_bar_model.dart';
+part 'component/panel/tab_panel_model.dart';
+part 'component/panel/vertical_panel_model.dart';
+part 'component/panel/vertical_split_panel_model.dart';
+
+// Layout
+part 'component/layout/dock_layout_panel_model.dart';
+part 'component/layout/layout_panel_model.dart';
+part 'component/layout/split_layout_panel_model.dart';
+part 'component/layout/stack_layout_panel_model.dart';
+part 'component/layout/tab_layout_panel_model.dart';

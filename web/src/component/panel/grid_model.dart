@@ -18,22 +18,37 @@
 
 part of dart_web_toolkit_component;
 
-class InlineHyperlinkModel implements mvp.ViewModel {
+class GridModel implements mvp.ViewModel {
   
   // Component's category name
-  String get category => "Widget";
+  String get category => "Panel";
   
   // Return component's name
-  String get name => "InlineHyperlink";
+  String get name => "Grid";
   
   // Return component's description
   String get desc => '''
-A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+A rectangular grid that can contain text, html, or a child Widget within its 
+cells. It must be resized explicitly to the desired number of rows and columns.
 ''';
   
   // Return code snipet how to use component
   String get code {
     return '''
+// Create a grid
+ui.Grid grid = new ui.Grid(4, 4);
+grid.addStyleName("cw-FlexTable");
+
+// Add images to the grid
+int numRows = grid.getRowCount();
+int numColumns = grid.getColumnCount();
+for (int row = 0; row < numRows; row++) {
+  for (int col = 0; col < numColumns; col++) {
+    grid.setWidget(row, col, new ui.Html("Cell \$row.\$col"));
+  }
+}
+
+return grid;
 ''';
   }
   
@@ -47,10 +62,19 @@ A widget that serves as an \"internal\" hyperlink. That is, it is a link to anot
    */
   ui.Widget asWidget() {
     
-//    ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
-//    
-//    return inlineHyperlink;
-    return new ui.Label("InlineHyperlink not implemented yet.");
+    // Create a grid
+    ui.Grid grid = new ui.Grid(4, 4);
+    grid.addStyleName("cw-FlexTable");
+
+    // Add images to the grid
+    int numRows = grid.getRowCount();
+    int numColumns = grid.getColumnCount();
+    for (int row = 0; row < numRows; row++) {
+      for (int col = 0; col < numColumns; col++) {
+        grid.setWidget(row, col, new ui.Html("Cell $row.$col"));
+      }
+    }
+
+    return grid;
   }
 }
-

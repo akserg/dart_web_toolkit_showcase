@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 17, 2013
+
+* Finish creation Widget, Panel, Popup and Layout folders with content.
+
 **March 14, 2013
 
 * Fixed bug: Not finding image file. 

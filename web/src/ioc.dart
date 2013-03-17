@@ -30,6 +30,10 @@ import 'component.dart';
 part 'ioc/app_configuration.dart';
 part 'ioc/home_configuration.dart';
 part 'ioc/component_configuration.dart';
+part 'ioc/widget_component_configuration.dart';
+part 'ioc/popup_component_configuration.dart';
+part 'ioc/panel_component_configuration.dart';
+part 'ioc/layout_component_configuration.dart';
 
 /**
  * This class is adapter to implementation real IOC and
@@ -55,6 +59,11 @@ class Context {
   static init() {
     _container.addAll([new AppConfiguration(),
                        new HomeConfiguration(),
-                       new ComponentConfiguration()]);
+                       new ComponentConfiguration(),
+                       new WidgetComponentConfiguration(),
+                       new PopupComponentConfiguration(),
+                       new PanelComponentConfiguration(),
+                       new LayoutComponentConfiguration()
+    ]);
   }
 }

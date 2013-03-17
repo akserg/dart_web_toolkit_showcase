@@ -110,3 +110,47 @@ h2 {
   text-align          : center;
   width           : 100%;
 }
+
+/**********************/
+.cw-DockPanel td {
+  border: 1px solid #BBBBBB;
+  padding: 3px;
+}
+
+.demo-panel
+{
+  margin            : 15px auto;
+  background-color  : #ddd;
+  border            : 5px solid #999;
+}
+
+.demo-panel-borderless
+{
+  margin            : 15px auto;
+  background-color      : #ddd;
+}
+
+.demo-label
+{
+  margin            : 0 auto;
+  background-color      : #ff0;
+  text-align          : center;
+  border            : 1px solid #009;
+}
+.demo-label-over
+{
+  background-color      : #00f;
+  color           : #ff0;
+}
+
+/*******/
+.cw-FlexTable td {
+  border: 1px solid #BBBBBB;
+  padding: 3px;
+}
+
+.table-center
+{
+  margin-left         : auto;
+  margin-right        : auto;
+}

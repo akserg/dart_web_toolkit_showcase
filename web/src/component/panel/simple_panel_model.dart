@@ -18,22 +18,32 @@
 
 part of dart_web_toolkit_component;
 
-class InlineHyperlinkModel implements mvp.ViewModel {
+class SimplePanelModel implements mvp.ViewModel {
   
   // Component's category name
-  String get category => "Widget";
+  String get category => "Panel";
   
   // Return component's name
-  String get name => "InlineHyperlink";
+  String get name => "SimplePanel";
   
   // Return component's description
   String get desc => '''
-A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+Base class for panels that contain only one widget.
 ''';
   
   // Return code snipet how to use component
   String get code {
     return '''
+ui.SimplePanel panel = new ui.SimplePanel();
+panel.setSize("200px", "120px");
+panel.addStyleName("demo-panel");
+
+ui.Label label = new ui.Label("Label");
+label.setWidth("100px");
+label.addStyleName("demo-label");
+panel.add(label);
+
+return panel;
 ''';
   }
   
@@ -47,10 +57,15 @@ A widget that serves as an \"internal\" hyperlink. That is, it is a link to anot
    */
   ui.Widget asWidget() {
     
-//    ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
-//    
-//    return inlineHyperlink;
-    return new ui.Label("InlineHyperlink not implemented yet.");
+    ui.SimplePanel panel = new ui.SimplePanel();
+    panel.setSize("200px", "120px");
+    panel.addStyleName("demo-panel");
+
+    ui.Label label = new ui.Label("Label");
+    label.setWidth("100px");
+    label.addStyleName("demo-label");
+    panel.add(label);
+
+    return panel;
   }
 }
-
