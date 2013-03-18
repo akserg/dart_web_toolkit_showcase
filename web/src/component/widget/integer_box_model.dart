@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class IntegerBoxModel implements mvp.ViewModel {
+class IntegerBoxModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

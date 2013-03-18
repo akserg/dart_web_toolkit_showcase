@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class HiddenModel implements mvp.ViewModel {
+class HiddenModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

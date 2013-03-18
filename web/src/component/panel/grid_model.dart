@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class GridModel implements mvp.ViewModel {
+class GridModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Panel";

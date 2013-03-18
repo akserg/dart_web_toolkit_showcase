@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class DoubleBoxModel implements mvp.ViewModel {
+class DoubleBoxModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

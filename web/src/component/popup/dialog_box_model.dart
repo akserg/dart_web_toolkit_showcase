@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class DialogBoxModel implements mvp.ViewModel {
+class DialogBoxModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Popup";
@@ -43,7 +43,7 @@ dialogBox.setGlassEnabled(false);
 dialogBox.setAnimationEnabled(true);
 
 // Create a button to show the popup
-ui.Button openButton = new ui.Button("Show Basic Popup", new event.ClickHandlerAdapter((event.ClickEvent evt){
+ui.Button openButton = new ui.Button("Show Dialog Box", new event.ClickHandlerAdapter((event.ClickEvent evt){
   dialogBox.show();
   dialogBox.center();
 }));
@@ -110,7 +110,7 @@ ui.DialogBox _createDialogBox() {
     dialogBox.setAnimationEnabled(true);
 
     // Create a button to show the popup
-    ui.Button openButton = new ui.Button("Show Basic Popup", new event.ClickHandlerAdapter((event.ClickEvent evt){
+    ui.Button openButton = new ui.Button("Show Dialog Box", new event.ClickHandlerAdapter((event.ClickEvent evt){
       dialogBox.show();
       dialogBox.center();
     }));

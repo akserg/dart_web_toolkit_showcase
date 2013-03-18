@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class PopupPanelModel implements mvp.ViewModel {
+class PopupPanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Popup";

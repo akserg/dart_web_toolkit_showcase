@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class FlowPanelModel implements mvp.ViewModel {
+class FlowPanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Panel";

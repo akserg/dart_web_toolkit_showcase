@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class ToggleButtonModel implements mvp.ViewModel {
+class ToggleButtonModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 18, 2013
+
+* Not implemented tree items are invisible now.
+* Minor changes in title.
+
 **March 17, 2013
 
 * Finish creation Widget, Panel, Popup and Layout folders with content.

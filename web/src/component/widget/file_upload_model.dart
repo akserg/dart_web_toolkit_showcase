@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class FileUploadModel implements mvp.ViewModel {
+class FileUploadModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

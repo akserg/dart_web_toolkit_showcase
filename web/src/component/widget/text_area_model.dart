@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class TextAreaModel implements mvp.ViewModel {
+class TextAreaModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

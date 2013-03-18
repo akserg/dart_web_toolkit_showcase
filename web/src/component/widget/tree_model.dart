@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class TreeModel implements mvp.ViewModel {
+class TreeModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class FrameModel implements mvp.ViewModel {
+class FrameModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Panel";

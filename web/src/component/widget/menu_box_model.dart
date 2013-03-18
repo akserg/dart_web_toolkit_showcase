@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class MenuBoxModel implements mvp.ViewModel {
+class MenuBoxModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

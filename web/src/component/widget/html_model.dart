@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class HtmlModel implements mvp.ViewModel {
+class HtmlModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class FlexTableModel implements mvp.ViewModel {
+class FlexTableModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Panel";

@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class StackLayoutPanelModel implements mvp.ViewModel {
+class StackLayoutPanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Layout";

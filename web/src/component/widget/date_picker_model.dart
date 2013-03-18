@@ -18,7 +18,10 @@
 
 part of dart_web_toolkit_component;
 
-class DatePickerModel implements mvp.ViewModel {
+class DatePickerModel extends mvp.ViewModel {
+
+  // Return true if view available for show
+  bool get available => false;
   
   // Component's category name
   String get category => "Widget";

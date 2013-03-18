@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class HyperlinkModel implements mvp.ViewModel {
+class HyperlinkModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

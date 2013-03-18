@@ -18,7 +18,10 @@
 
 part of dart_web_toolkit_component;
 
-class DecoratedTabPanelModel implements mvp.ViewModel {
+class DecoratedTabPanelModel extends mvp.ViewModel {
+  
+  // Return true if view available for show
+  bool get available => false;
   
   // Component's category name
   String get category => "Panel";

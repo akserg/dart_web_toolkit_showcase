@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class SimpleRadioButtonModel implements mvp.ViewModel {
+class SimpleRadioButtonModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

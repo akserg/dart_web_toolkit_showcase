@@ -36,7 +36,7 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     // Add top panel to main
     mainPanel.addNorth(topPanel, 30.0);
     // Add Product name
-    topPanel.add(new ui.Html("<div id=\"header-content\"><strong>Dart Web Toolkit Docs </strong>0.2</div>"));
+    topPanel.add(new ui.Html("<div id=\"header-content\"><strong>Dart Web Toolkit Showcase</strong> (ver 0.2)</div>"));
     
     // Create status content
     ui.DockLayoutPanel statusPanel = new ui.DockLayoutPanel(util.Unit.PX);

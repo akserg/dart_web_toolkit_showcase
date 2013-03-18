@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class PasswordTextBoxModel implements mvp.ViewModel {
+class PasswordTextBoxModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

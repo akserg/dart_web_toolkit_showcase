@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class LabelModel implements mvp.ViewModel {
+class LabelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";

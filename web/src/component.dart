@@ -62,7 +62,7 @@ part 'component/widget/number_label_model.dart';
 part 'component/widget/password_text_box_model.dart';
 part 'component/widget/push_button_model.dart';
 part 'component/widget/radio_button_model.dart';
-part 'component/widget/rich_test_area_model.dart';
+part 'component/widget/rich_text_area_model.dart';
 part 'component/widget/simple_check_box_model.dart';
 part 'component/widget/simple_radio_button_model.dart';
 part 'component/widget/suggest_box_model.dart';

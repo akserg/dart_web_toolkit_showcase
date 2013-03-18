@@ -37,4 +37,7 @@ abstract class ViewModel implements Display {
   
   // Return style snipet for using component
   String get style;
+  
+  // Return true if view available for show
+  bool get available => true;
 }

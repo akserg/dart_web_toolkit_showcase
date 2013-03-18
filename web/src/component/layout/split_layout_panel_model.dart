@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class SplitLayoutPanelModel implements mvp.ViewModel {
+class SplitLayoutPanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Layout";

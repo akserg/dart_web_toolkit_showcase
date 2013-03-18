@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class DockLayoutPanelModel implements mvp.ViewModel {
+class DockLayoutPanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Layout";

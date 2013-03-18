@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class SimplePanelModel implements mvp.ViewModel {
+class SimplePanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Panel";

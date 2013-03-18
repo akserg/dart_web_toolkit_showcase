@@ -18,7 +18,7 @@
 
 part of dart_web_toolkit_component;
 
-class CaptionPanelModel implements mvp.ViewModel {
+class CaptionPanelModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Panel";
