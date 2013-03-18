@@ -46,7 +46,7 @@ class ComponentTreeView implements ComponentTreeDisplay {
         // Create Item per component
         ui.TreeItem item = topItem.addTextItem(component.name);
         item.setUserObject(component);
-        item.visible = component.available;
+//        item.visible = component.available;
       });
     });
   }
