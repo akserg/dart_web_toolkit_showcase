@@ -3,6 +3,7 @@
 *.bat
 *.dart.js
 *.dart.js_
+*.dart.js.deps
 *.dart.js.map
 packages
 packages/

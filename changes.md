@@ -5,6 +5,7 @@ Dart Web Toolkit Showcase Changes
 
 * Not implemented tree items are invisible now.
 * Minor changes in title.
+* Required verson of Dart Web Toolkit library is 0.2.61 changed in pubspec.yaml
 
 **March 17, 2013
 
