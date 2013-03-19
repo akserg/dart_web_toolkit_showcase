@@ -69,9 +69,9 @@ return tabPanel;
     tabPanel.setAnimationDuration(1000);
     tabPanel.getElement().style.marginBottom = "10.0".concat(util.Unit.PX.value);
 
-    tabPanel.add(new ui.Html("Home"), "[this]");
-    tabPanel.add(new ui.Html("that"), "[that]");
-    tabPanel.add(new ui.Html("the other"), "[the other]");
+    tabPanel.addTabText(new ui.Html("Home"), "[this]");
+    tabPanel.addTabText(new ui.Html("that"), "[that]");
+    tabPanel.addTabText(new ui.Html("the other"), "[the other]");
 
     return tabPanel;
   }

@@ -28,7 +28,7 @@ class ComponentPresenter implements mvp.Presenter {
   
   void addViewTo(ui.HasWidgets container) {
     assert(container is ui.TabLayoutPanel);
-    container.add(display.asWidget(), display.title);
+    (container as ui.TabLayoutPanel).addTabText(display.asWidget(), display.title);
     _refreshView();
   }
   

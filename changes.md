@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 19, 2013
+
+* Bug fixed in TabLayoutPanel.
+* Changed ComponentPresenter, HomePresenter and TabLayoutPanelModel.
+
 **March 18, 2013
 
 * Minor changes in title.
