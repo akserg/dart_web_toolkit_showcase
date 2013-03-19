@@ -298,7 +298,7 @@ ui.Tree _createDynamicTree() {
       String itemText = item.text;
       int numChildren = random.nextInt(5) + 2;
       for (int i = 0; i < numChildren; i++) {
-        ui.TreeItem child = item.addTextItem(itemText.concat(".").concat(i.toString()));
+        ui.TreeItem child = item.addTextItem(itemText + "." + i.toString());
         child.addTextItem("");
       }
 

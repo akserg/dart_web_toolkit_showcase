@@ -5,6 +5,8 @@ Dart Web Toolkit Showcase Changes
 
 * Bug fixed in TabLayoutPanel.
 * Changed ComponentPresenter, HomePresenter and TabLayoutPanelModel.
+* Migrate project code to follow Dart SDK version 0.4.2_r20193
+* Fixed migration broken changes.
 
 **March 18, 2013
 

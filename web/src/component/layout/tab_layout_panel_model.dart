@@ -67,7 +67,7 @@ return tabPanel;
     ui.TabLayoutPanel tabPanel = new ui.TabLayoutPanel(1.5, util.Unit.EM);
     tabPanel.setSize("100%", "100%");
     tabPanel.setAnimationDuration(1000);
-    tabPanel.getElement().style.marginBottom = "10.0".concat(util.Unit.PX.value);
+    tabPanel.getElement().style.marginBottom = "10.0" + util.Unit.PX.value;
 
     tabPanel.addTabText(new ui.Html("Home"), "[this]");
     tabPanel.addTabText(new ui.Html("that"), "[that]");
