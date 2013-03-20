@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 20, 2013
+
+* Quirk panels moved to Panel (quirks) categoru in tree: DecoratedStackPanel, DecoratorPanel, DockPanel, StackPanel and TabPanel
+* Fixed TabPanel bug in DartWebToolkit 0.2.64. Tested. Fixed.
+
 **March 19, 2013
 
 * Bug fixed in TabLayoutPanel.

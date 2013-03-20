@@ -41,13 +41,14 @@ in which it is run have an explicit <!DOCTYPE> declaration.
   // Return code snipet how to use component
   String get code {
     return '''
-ui.Widget childOne = new ui.Html("<div style='background-color: #FF0000; width:100%; height:100%;'>left</div>"); 
-ui.Widget childTwo = new ui.Html("<div style='background-color: #00FF00; width:100%; height:100%;'>right</div>");
-
 ui.SplitLayoutPanel panel = new ui.SplitLayoutPanel();
 panel.setSize("100%", "100%");
-panel.addWest(childOne, 150.0);
-panel.add(childTwo);
+
+panel.addNorth(new ui.Html("<div style='background-color: #FF0000; width:100%; height:100%;'>north</div>"), 50.0);
+panel.addSouth(new ui.Html("<div style='background-color: #00FF00; width:100%; height:100%;'>south</div>"), 100.0);
+panel.addEast(new ui.Html("<div style='background-color: #0000FF; width:100%; height:100%;'>east</div>"), 150.0);
+panel.addWest(new ui.Html("<div style='background-color: #FFFF00; width:100%; height:100%;'>west</div>"), 200.0);
+panel.add(new ui.Html("<div style='background-color: #00FFFF; width:100%; height:100%;'>center</div>"));
 
 return panel;
 ''';
@@ -63,13 +64,14 @@ return panel;
    */
   ui.Widget asWidget() {
     
-    ui.Widget childOne = new ui.Html("<div style='background-color: #FF0000; width:100%; height:100%;'>left</div>"); 
-    ui.Widget childTwo = new ui.Html("<div style='background-color: #00FF00; width:100%; height:100%;'>right</div>");
-    
     ui.SplitLayoutPanel panel = new ui.SplitLayoutPanel();
     panel.setSize("100%", "100%");
-    panel.addWest(childOne, 150.0);
-    panel.add(childTwo);
+    
+    panel.addNorth(new ui.Html("<div style='background-color: #FF0000; width:100%; height:100%;'>north</div>"), 50.0);
+    panel.addSouth(new ui.Html("<div style='background-color: #00FF00; width:100%; height:100%;'>south</div>"), 100.0);
+    panel.addEast(new ui.Html("<div style='background-color: #0000FF; width:100%; height:100%;'>east</div>"), 150.0);
+    panel.addWest(new ui.Html("<div style='background-color: #FFFF00; width:100%; height:100%;'>west</div>"), 200.0);
+    panel.add(new ui.Html("<div style='background-color: #00FFFF; width:100%; height:100%;'>center</div>"));
 
     return panel;
   }
