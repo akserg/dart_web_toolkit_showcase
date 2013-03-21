@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 21, 2013
+
+* Code reflects bugs fixing in DartWebToolkit
+* Changed InlineHtmlModel, InlineHyperlinkModel,InlineLabelModel and TextBoxModel.
+
 **March 20, 2013
 
 * Quirk panels moved to Panel (quirks) categoru in tree: DecoratedStackPanel, DecoratorPanel, DockPanel, StackPanel and TabPanel

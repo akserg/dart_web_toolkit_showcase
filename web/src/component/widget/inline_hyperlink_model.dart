@@ -18,26 +18,25 @@
 
 part of dart_web_toolkit_component;
 
-class InlineHtmlModel extends mvp.ViewModel {
+class InlineHyperlinkModel extends mvp.ViewModel {
   
   // Component's category name
   String get category => "Widget";
   
   // Return component's name
-  String get name => "InlineHtml";
+  String get name => "InlineHyperlink";
   
   // Return component's description
   String get desc => '''
-A widget that can contain arbitrary HTML. This widget uses a <span> element, causing it to be displayed with inline layout.
-If you only need a simple label (text, but not HTML), then the Label widget is more appropriate, as it disallows the use of HTML, which can lead to potential security issues if not used properly.
+A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
 ''';
   
   // Return code snipet how to use component
   String get code {
     return '''
-ui.InlineHtml inlineHtml = new ui.InlineHtml("<div id='fred' style='background-color: red; border: 1px dotted green; width: 200px; text-align: center;'> This is an INLINE HTML Widget </div>");
+ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
     
-return inlineHtml;
+return inlineHyperlink;
 ''';
   }
   
@@ -51,9 +50,9 @@ return inlineHtml;
    */
   ui.Widget asWidget() {
     
-    ui.InlineHtml inlineHtml = new ui.InlineHtml("<div id='fred' style='background-color: red; border: 1px dotted green; width: 200px; text-align: center;'> This is an INLINE HTML Widget </div>");
+    ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", false, "Home");
     
-    return inlineHtml;
+    return inlineHyperlink;
   }
 }
 

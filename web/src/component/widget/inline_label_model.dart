@@ -24,19 +24,19 @@ class InlineLabelModel extends mvp.ViewModel {
   String get category => "Widget";
   
   // Return component's name
-  String get name => "InlineHyperlink";
+  String get name => "InlineLabel";
   
   // Return component's description
   String get desc => '''
-A widget that serves as an \"internal\" hyperlink. That is, it is a link to another state of the running application. It should behave exactly like Hyperlink, save that it lays out as an inline element, not block.
+A widget that contains arbitrary text, not interpreted as HTML. This widget uses a <span> element, causing it to be displayed with inline layout.
 ''';
   
   // Return code snipet how to use component
   String get code {
     return '''
-ui.InlineHyperlink inlineHyperlink = new ui.InlineHyperlink("Inline Hyperlink", "Home");
+ui.InlineLabel inlineLabel = new ui.InlineLabel("This is Inline Label");
     
-return inlineHyperlink;
+return inlineLabel;
 ''';
   }
   
