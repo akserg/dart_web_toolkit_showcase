@@ -65,13 +65,35 @@ return vPanel;
 
     // PI is input valie
     double value = dart_math.PI;
-    vPanel.add(new ui.Label("Input: $value"));
+    vPanel.add(new ui.Label("Input (double): $value"));
     // Double box
     ui.DoubleBox box = new ui.DoubleBox();
     box.setValue(value);
     vPanel.add(box);
     // Output value
     vPanel.add(new ui.Label("Output: ${box.getValue()}"));
+    
+    vPanel.add(new ui.Html("<hr/>"));
+    
+    double valueNan = double.NAN;
+    vPanel.add(new ui.Label("Input (double): ${valueNan}"));
+    // Double boxNan
+    ui.DoubleBox boxNan = new ui.DoubleBox();
+    boxNan.setValue(valueNan);
+    vPanel.add(boxNan);
+    // Output value
+    vPanel.add(new ui.Label("Output: ${boxNan.getValue()}"));
+    
+    vPanel.add(new ui.Html("<hr/>"));
+    
+    String errorDouble = "bla-bla-bla";
+    vPanel.add(new ui.Label("Input (string): ${errorDouble}"));
+    // Double boxNan
+    ui.DoubleBox boxError = new ui.DoubleBox();
+    boxError.text = errorDouble;
+    vPanel.add(boxError);
+    // Output value
+    vPanel.add(new ui.Label("Output: ${boxError.getValue()}"));
     
     return vPanel;
   }

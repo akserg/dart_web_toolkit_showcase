@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 22, 2013
+
+* Changed DoubleBoxModel to cover all cases in DoubleBox widget.
+
 **March 21, 2013
 
 * Code reflects bugs fixing in DartWebToolkit
