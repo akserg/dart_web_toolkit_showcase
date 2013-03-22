@@ -32,17 +32,31 @@ class IntegerBoxModel extends mvp.ViewModel {
   // Return code snipet how to use component
   String get code {
     return '''
-// Create a panel to layout the widgets
-ui.VerticalPanel vpanel = new ui.VerticalPanel();
-vpanel.spacing = 5;
+ui.VerticalPanel vPanel = new ui.VerticalPanel();
+    
+vPanel.add(new ui.Label("Type for validation"));
+// Integer boxNan
+ui.IntegerBox boxV = new ui.IntegerBox();
+vPanel.add(boxV);
+// Value and validator
+ui.Label validOutput = new ui.Label("Output is \${_validateField(boxV)}");
+vPanel.add(validOutput);
+boxV.addKeyUpHandler(new event.KeyUpHandlerAdapter((event.KeyUpEvent evt){
+  validOutput.text = "Output is \${_validateField(boxV)}";
+}));
+  
+return vPanel;
 
-ui.IntegerBox iBox = new ui.IntegerBox();
-iBox.setMaxLength(10);
-iBox.setVisibleLength(5);
-iBox.setValue(123123);
-vpanel.add(iBox);
 
-return vpanel;
+
+String _validateField(ui.IntegerBox box) {
+  int value = box.getValue();
+  if (value == null) {
+    return "not valid";
+  } else {
+    return value.toString();
+  }
+}
 ''';
   }
   
@@ -55,17 +69,29 @@ return vpanel;
    * Return instantiated Component code.
    */
   ui.Widget asWidget() {
-    // Create a panel to layout the widgets
-    ui.VerticalPanel vpanel = new ui.VerticalPanel();
-    vpanel.spacing = 5;
+    ui.VerticalPanel vPanel = new ui.VerticalPanel();
     
-    ui.IntegerBox iBox = new ui.IntegerBox();
-    iBox.setMaxLength(10);
-    iBox.setVisibleLength(5);
-    iBox.setValue(123123);
-    vpanel.add(iBox);
+    vPanel.add(new ui.Label("Type for validation"));
+    // Integer boxNan
+    ui.IntegerBox boxV = new ui.IntegerBox();
+    vPanel.add(boxV);
+    // Value and validator
+    ui.Label validOutput = new ui.Label("Output is ${_validateField(boxV)}");
+    vPanel.add(validOutput);
+    boxV.addKeyUpHandler(new event.KeyUpHandlerAdapter((event.KeyUpEvent evt){
+      validOutput.text = "Output is ${_validateField(boxV)}";
+    }));
     
-    return vpanel;
+    return vPanel;
+  }
+  
+  String _validateField(ui.IntegerBox box) {
+    int value = box.getValue();
+    if (value == null) {
+      return "not valid";
+    } else {
+      return value.toString();
+    }
   }
 }
 

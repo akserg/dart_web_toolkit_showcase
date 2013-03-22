@@ -34,19 +34,29 @@ class DoubleBoxModel extends mvp.ViewModel {
     return '''
 ui.VerticalPanel vPanel = new ui.VerticalPanel();
     
-ui.Label input = new ui.Label();
-
-// PI is input valie
-double value = dart_math.PI;
-vPanel.add(new ui.Label("Input: \$value"));
-// Double box
-ui.DoubleBox box = new ui.DoubleBox();
-box.setValue(value);
-vPanel.add(box);
-// Output value
-vPanel.add(new ui.Label("Output: \${box.getValue()}"));
+vPanel.add(new ui.Label("Type for validation"));
+// Double boxNan
+ui.DoubleBox boxV = new ui.DoubleBox();
+vPanel.add(boxV);
+// Value and validator
+ui.Label validOutput = new ui.Label("Output is \${_validateField(boxV)}");
+vPanel.add(validOutput);
+boxV.addKeyUpHandler(new event.KeyUpHandlerAdapter((event.KeyUpEvent evt){
+  validOutput.text = "Output is \${_validateField(boxV)}";
+}));
 
 return vPanel;
+
+
+
+String _validateField(ui.DoubleBox box) {
+  double value = box.getValue();
+  if (value == null) {
+    return "not valid";
+  } else {
+    return value.toString();
+  }
+}
 ''';
   }
   
@@ -61,41 +71,27 @@ return vPanel;
   ui.Widget asWidget() {
     ui.VerticalPanel vPanel = new ui.VerticalPanel();
     
-    ui.Label input = new ui.Label();
-
-    // PI is input valie
-    double value = dart_math.PI;
-    vPanel.add(new ui.Label("Input (double): $value"));
-    // Double box
-    ui.DoubleBox box = new ui.DoubleBox();
-    box.setValue(value);
-    vPanel.add(box);
-    // Output value
-    vPanel.add(new ui.Label("Output: ${box.getValue()}"));
-    
-    vPanel.add(new ui.Html("<hr/>"));
-    
-    double valueNan = double.NAN;
-    vPanel.add(new ui.Label("Input (double): ${valueNan}"));
+    vPanel.add(new ui.Label("Type for validation"));
     // Double boxNan
-    ui.DoubleBox boxNan = new ui.DoubleBox();
-    boxNan.setValue(valueNan);
-    vPanel.add(boxNan);
-    // Output value
-    vPanel.add(new ui.Label("Output: ${boxNan.getValue()}"));
-    
-    vPanel.add(new ui.Html("<hr/>"));
-    
-    String errorDouble = "bla-bla-bla";
-    vPanel.add(new ui.Label("Input (string): ${errorDouble}"));
-    // Double boxNan
-    ui.DoubleBox boxError = new ui.DoubleBox();
-    boxError.text = errorDouble;
-    vPanel.add(boxError);
-    // Output value
-    vPanel.add(new ui.Label("Output: ${boxError.getValue()}"));
+    ui.DoubleBox boxV = new ui.DoubleBox();
+    vPanel.add(boxV);
+    // Value and validator
+    ui.Label validOutput = new ui.Label("Output is ${_validateField(boxV)}");
+    vPanel.add(validOutput);
+    boxV.addKeyUpHandler(new event.KeyUpHandlerAdapter((event.KeyUpEvent evt){
+      validOutput.text = "Output is ${_validateField(boxV)}";
+    }));
     
     return vPanel;
+  }
+  
+  String _validateField(ui.DoubleBox box) {
+    double value = box.getValue();
+    if (value == null) {
+      return "not valid";
+    } else {
+      return value.toString();
+    }
   }
 }
 
