@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html> <!-- manifest="mobilewebapp/appcache.nocache.manifest"-->
+  <head>
+    <meta charset="utf-8">
+    <!--                                                               -->
+    <!-- These meta tags tell the mobile browser that the app is       -->
+    <!-- formatted for mobile browsers and should not be zoomed in by  -->
+    <!-- default.                                                      -->
+    <!--                                                               -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    
+    <title>Cloud Tasks</title>
+    <!-- Specify the shortcut icon. -->
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <!-- Specify the bookmark icon used for homepage shortcuts. -->
+    <link rel="apple-touch-icon" href="app_icon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="app_icon.png"/>
+    
+    <link rel="stylesheet" href="packages/dart_web_toolkit/resource/standard.css">
+    <link rel="stylesheet" href="showcase.css">
+    <link rel="stylesheet" href="mobile.css">
+    <!--                                           -->
+    <!-- This script loads your compiled module.   -->
+    <!-- If you add any GWT meta tags, they must   -->
+    <!-- be added before this line.                -->
+    <!--                                           -->
+    <!--script type="text/javascript" language="javascript" src="mobilewebapp/mobilewebapp.nocache.js"></script-->
+    
+  </head>
+  <!--                                           -->
+  <!-- The body can have arbitrary html, or      -->
+  <!-- you can leave the body empty if you want  -->
+  <!-- to create a completely dynamic UI.        -->
+  <!--                                           -->
+  <body>
+    <!-- OPTIONAL: include this if you want history support -->
+    <iframe src="javascript:''" id="__dwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
+    
+    <script type="application/dart" src="src/app.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+    
+    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div>
+    </noscript>
+  </body>
+</html>
