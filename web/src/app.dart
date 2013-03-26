@@ -22,6 +22,8 @@
  */
 library dart_web_toolkit_app;
 
+import 'dart:html' as dart_html;
+
 import 'package:dart_web_toolkit/event.dart' as event;
 import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
@@ -32,6 +34,7 @@ import 'mvp.dart' as mvp;
 
 part 'app/app_presenter.dart';
 part 'app/app_view.dart';
+part 'app/style_chooser_component.dart';
 
 void main() {
   // Create instance of IOC container

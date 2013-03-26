@@ -4,7 +4,8 @@ Dart Web Toolkit Showcase Changes
 **March 26, 2013
 
 * Code has been cleaned.
-* Added style chooser to top panel.
+* Implemented StyleChooserComponent and added to the top panel.
+* Choosing style applying to application.
 
 **March 22, 2013
 

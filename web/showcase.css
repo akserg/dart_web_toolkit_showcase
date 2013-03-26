@@ -16,6 +16,18 @@ p {
   color: #333;
 }
 
+.header-content {
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.copyright {
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 5px;
+}
+  
 .topPanel {
   background-color : #6293DD;
   border-bottom: 1px solid #ddd;
@@ -29,15 +41,12 @@ p {
   color: #4271C9;
   font-size: 12px;
   vertical-align: middle;
+  text-align: right;
 }
 
 h2 {
   text-rendering: optimizeLegibility;
   text-shadow: rgba(255,255,255,0.8) 0 1px 1px;
-}
-/** Home page **/
-.homeTitle {
-  /*font-size: 24px;*/
 }
 
 .emptyPreviewPanel{
