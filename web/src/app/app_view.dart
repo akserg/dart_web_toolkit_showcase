@@ -30,9 +30,24 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     initWidget(mainPanel);
     
     // Create Top content
-    ui.HorizontalPanel topPanel = new ui.HorizontalPanel();
+    ui.DockLayoutPanel topPanel = new ui.DockLayoutPanel(util.Unit.PX);
     topPanel.addStyleName("topPanel");
     topPanel.setSize("100%", "100%");
+
+    List<String> styles = ["clear", "chrome", "dark", "standard"];
+    // Add Style chooser
+    ui.ListBox styleChooser = new ui.ListBox();
+    styles.forEach((String style){
+      styleChooser.addItem(style, "packages/dart_web_toolkit/resource/${style}/${style}.css");
+    });
+    styleChooser.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent evt){
+      int index = styleChooser.getSelectedIndex();
+      String item = styleChooser.getItemText(index);
+      String value = styleChooser.getValue(index);
+      print("Selected ${item} : ${value}");
+    }));
+    topPanel.addEast(styleChooser, 200.0);
+    
     // Add top panel to main
     mainPanel.addNorth(topPanel, 30.0);
     // Add Product name

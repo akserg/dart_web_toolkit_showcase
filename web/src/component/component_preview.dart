@@ -45,7 +45,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
     ui.SplitLayoutPanel horizontalPanel = new ui.SplitLayoutPanel();
     _verticalPanel.addSouth(horizontalPanel, 300.0);
     
-    // Add style panel to bottom left corner
+    // Add style panel to bottom right corner
     ui.DockLayoutPanel styles = new ui.DockLayoutPanel(util.Unit.PX);
     horizontalPanel.addEast(styles, 300.0);
     //
@@ -55,7 +55,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
     _stylePanel = new ui.SimplePanel();
     styles.add(_stylePanel);
     
-    // Add code panel to bottom right corner
+    // Add code panel to bottom left corner
     ui.DockLayoutPanel codes = new ui.DockLayoutPanel(util.Unit.PX);
     horizontalPanel.add(codes);
     //
@@ -66,7 +66,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
     codes.add(_codePanel);
     
     // Add info panel to center
-    ui.DockLayoutPanel infoPanel = new ui.DockLayoutPanel(util.Unit.PX);
+    ui.SplitLayoutPanel infoPanel = new ui.SplitLayoutPanel();
     _verticalPanel.add(infoPanel);
     
     // Add name to top of info panel

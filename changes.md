@@ -4,6 +4,7 @@ Dart Web Toolkit Showcase Changes
 **March 26, 2013
 
 * Code has been cleaned.
+* Added style chooser to top panel.
 
 **March 22, 2013
 
