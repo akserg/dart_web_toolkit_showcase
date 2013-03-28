@@ -38,6 +38,48 @@ content when a user clicks on the header.
   // Return code snipet how to use component
   String get code {
     return '''
+// Create a table to layout the form options
+ui.FlexTable layout = new ui.FlexTable();
+layout.setCellSpacing(6);
+layout.setWidth("300px");
+ui.FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
+
+// Add a title to the form
+layout.setHtml(0, 0, "Enter Search Criteria");
+cellFormatter.setColSpan(0, 0, 2);
+cellFormatter.setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
+
+// Add some standard form options
+layout.setHtml(1, 0, "Name");
+layout.setWidget(1, 1, new ui.TextBox());
+layout.setHtml(2, 0, "Description");
+layout.setWidget(2, 1, new ui.TextBox());
+
+// Create some advanced options
+ui.HorizontalPanel genderPanel = new ui.HorizontalPanel();
+List<String> genderOptions = ["male", "femail"];
+for (int i = 0; i < genderOptions.length; i++) {
+  genderPanel.add(new ui.RadioButton("gender", genderOptions[i]));
+}
+ui.Grid advancedOptions = new ui.Grid(2, 2);
+advancedOptions.setCellSpacing(6);
+advancedOptions.setHtml(0, 0, "Location");
+advancedOptions.setWidget(0, 1, new ui.TextBox());
+advancedOptions.setHtml(1, 0, "Gender");
+advancedOptions.setWidget(1, 1, genderPanel);
+
+// Add advanced options to form in a disclosure panel
+ui.DisclosurePanel advancedDisclosure = new ui.DisclosurePanel.fromText("Advanced Criteria");
+advancedDisclosure.setAnimationEnabled(true);
+advancedDisclosure.setContent(advancedOptions);
+layout.setWidget(3, 0, advancedDisclosure);
+cellFormatter.setColSpan(3, 0, 2);
+
+// Wrap the contents in a DecoratorPanel
+ui.DecoratorPanel decPanel = new ui.DecoratorPanel();
+decPanel.setWidget(layout);
+
+return decPanel;
 ''';
   }
   
@@ -51,6 +93,47 @@ content when a user clicks on the header.
    */
   ui.Widget asWidget() {
     
-    return new ui.Label("DisclosurePanel not implemented yet.");
+    // Create a table to layout the form options
+    ui.FlexTable layout = new ui.FlexTable();
+    layout.setCellSpacing(6);
+    layout.setWidth("300px");
+    ui.FlexCellFormatter cellFormatter = layout.getFlexCellFormatter();
+
+    // Add a title to the form
+    layout.setHtml(0, 0, "Enter Search Criteria");
+    cellFormatter.setColSpan(0, 0, 2);
+    cellFormatter.setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
+
+    // Add some standard form options
+    layout.setHtml(1, 0, "Name");
+    layout.setWidget(1, 1, new ui.TextBox());
+    layout.setHtml(2, 0, "Description");
+    layout.setWidget(2, 1, new ui.TextBox());
+
+    // Create some advanced options
+    ui.HorizontalPanel genderPanel = new ui.HorizontalPanel();
+    List<String> genderOptions = ["male", "femail"];
+    for (int i = 0; i < genderOptions.length; i++) {
+      genderPanel.add(new ui.RadioButton("gender", genderOptions[i]));
+    }
+    ui.Grid advancedOptions = new ui.Grid(2, 2);
+    advancedOptions.setCellSpacing(6);
+    advancedOptions.setHtml(0, 0, "Location");
+    advancedOptions.setWidget(0, 1, new ui.TextBox());
+    advancedOptions.setHtml(1, 0, "Gender");
+    advancedOptions.setWidget(1, 1, genderPanel);
+
+    // Add advanced options to form in a disclosure panel
+    ui.DisclosurePanel advancedDisclosure = new ui.DisclosurePanel.fromText("Advanced Criteria");
+    advancedDisclosure.setAnimationEnabled(true);
+    advancedDisclosure.setContent(advancedOptions);
+    layout.setWidget(3, 0, advancedDisclosure);
+    cellFormatter.setColSpan(3, 0, 2);
+
+    // Wrap the contents in a DecoratorPanel
+    ui.DecoratorPanel decPanel = new ui.DecoratorPanel();
+    decPanel.setWidget(layout);
+    
+    return decPanel;
   }
 }

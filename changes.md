@@ -4,6 +4,7 @@ Dart Web Toolkit Showcase Changes
 **March 28, 2013
 
 * Fixed name of DecoratorPanel.
+* Added DisclosurePanel example.
 
 **March 26, 2013
 
