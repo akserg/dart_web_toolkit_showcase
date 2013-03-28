@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**March 28, 2013
+
+* Fixed name of DecoratorPanel.
+
 **March 26, 2013
 
 * Code has been cleaned.

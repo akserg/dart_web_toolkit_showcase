@@ -24,7 +24,7 @@ class DecoratorPanelModel extends mvp.ViewModel {
   String get category => "Panel (quirks)";
   
   // Return component's name
-  String get name => "DecorateorPanel";
+  String get name => "DecoratorPanel";
   
   // Return component's description
   String get desc => '''
