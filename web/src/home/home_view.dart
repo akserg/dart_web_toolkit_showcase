@@ -41,7 +41,6 @@ class HomeView implements HomeDisplay {
     ui.Html title = new ui.Html("<h2>Welcom to <strong>Dart Web Toolkit</strong> !</h2>");
     title.setWidth("80%");
     layout.setWidget(0, 0, title);
-    //cellFormatter.setColSpan(0, 0, 2);
     cellFormatter.setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
 
     // Add logo

@@ -4,7 +4,6 @@ html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,
 }
 
 body {
-  background-color: #F8F8F8;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -19,7 +18,10 @@ p {
 .header-content {
   font-size: 14px;
   font-weight: bold;
-  vertical-align: middle;
+  padding: 3px;
+}
+
+.style-chooser {
 }
 
 .copyright {
@@ -29,16 +31,10 @@ p {
 }
   
 .topPanel {
-  background-color : #6293DD;
-  border-bottom: 1px solid #ddd;
-  box-shadow: 5px;
-  color: #fff;
-  padding: 5px;
-  text-shadow: #000 0 1px;
+  
 }
 
 .statusPanel {
-  color: #4271C9;
   font-size: 12px;
   vertical-align: middle;
   text-align: right;
@@ -55,20 +51,13 @@ h2 {
 }
 
 .titlePreviewPanel {
-  background-color : #6293DD;
-  border-bottom: 1px solid #ddd;
   box-shadow: 5px;
-  color: #fff;
   padding: 5px;
   font-weight: bold;
-  /*text-shadow: #000 0 1px;*/
 }
 
 .descPreviewPanel {
-  /*background-color : #6293DD;*/
-  /*border-bottom: 1px solid #ddd;*/
   box-shadow: 5px;
-  color: black; /*#6293DD;*/
   padding: 5px;
 }
 
@@ -80,10 +69,8 @@ h2 {
 }
 
 .sourceCodeLabel {
-  background-color : #6293DD;
   border-bottom: 1px solid #ddd;
   box-shadow: 5px;
-  color: #fff;
   padding: 3px;
 }
 

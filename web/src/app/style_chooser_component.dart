@@ -18,7 +18,9 @@
 
 part of dart_web_toolkit_app;
 
-
+/**
+ * Component helps choose style from dropdown list and apply it.
+ */
 class StyleChooserComponent extends ui.Composite {
   
   static const String CLEAN = "clean";
@@ -31,11 +33,11 @@ class StyleChooserComponent extends ui.Composite {
   StyleChooserComponent(String label, [String defaultStyle = CLEAN]) {
     ui.HorizontalPanel widget = new ui.HorizontalPanel();
     initWidget(widget);
-    //widget.addStyleName("demo-Composite");
-
+    widget.setVerticalAlignment(i18n.HasVerticalAlignment.ALIGN_MIDDLE);
+    
     ui.Label headerText = new ui.Label(label);
+    headerText.addStyleName("style-chooser");
     widget.add(headerText);
-//    headerText.addStyleName("demo-Composite-header");
 
     int selected = 0;
     // Add Style chooser
@@ -48,18 +50,18 @@ class StyleChooserComponent extends ui.Composite {
       }
     };
     styleChooser.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent evt){
+      // Take selecting value 
       int index = styleChooser.getSelectedIndex();
       String item = styleChooser.getItemText(index);
       String value = styleChooser.getValue(index);
-      print("Selected ${item} : ${value}");
-      //
+      // Then find 'wt-stylesheet'
       dart_html.LinkElement link = dart_html.query("#dwt-stylesheet");
       if (link != null) {
+        // and apply it
         link.href = value;
       }
     }));
     widget.add(styleChooser);
-//    styleChooser.addStyleName("demo-Composite-data");
     styleChooser.setSelectedIndex(selected);
   }
 }

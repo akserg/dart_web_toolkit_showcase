@@ -35,12 +35,11 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     topPanel.setSize("100%", "100%");
 
     StyleChooserComponent styleChooser = new StyleChooserComponent("Style:");
-    topPanel.addEast(styleChooser, 200.0);
+    topPanel.addEast(styleChooser, 120.0);
     
     // Add top panel to main
-    mainPanel.addNorth(topPanel, 30.0);
+    mainPanel.addNorth(topPanel, 25.0);
     // Add Product name
-    //topPanel.add(new ui.Html("<div id=\"header-content\"><strong>Dart Web Toolkit Showcase</strong> (ver 0.2)</div>"));
     ui.Label headerContent = new ui.Label("Dart Web Toolkit Showcase (ver 0.2)");
     headerContent.addStyleName("header-content");
     topPanel.add(headerContent);
@@ -52,7 +51,6 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     // Add top panel to main
     mainPanel.addSouth(statusPanel, 20.0);
     // Add Product name
-    //ui.Html copyright = new ui.Html("<div style=\"text-align:right;\">Copyright 2012-2013 Sergey Akopkokhyants&nbsp;</div>");
     ui.Label copyright = new ui.Label("Copyright 2012-2013 Sergey Akopkokhyants");
     copyright.addStyleName("copyright");
     statusPanel.add(copyright);
