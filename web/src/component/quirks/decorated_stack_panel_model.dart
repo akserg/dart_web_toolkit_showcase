@@ -39,7 +39,7 @@ Mode, use StackLayoutPanel instead.
   String get code {
     return '''
 ui.DecoratedStackPanel panel = new ui.DecoratedStackPanel();
-panel.setSize("400px", "200px");
+panel.setSize("400px", "100%");
 
 _createDecoratedStackPanelContent(panel, "Panel 1", "One");
 _createDecoratedStackPanelContent(panel, "Panel 2", "Two");
@@ -66,7 +66,7 @@ void _createDecoratedStackPanelContent(ui.StackPanel panel, String text, String 
   ui.Widget asWidget() {
     
     ui.DecoratedStackPanel panel = new ui.DecoratedStackPanel();
-    panel.setSize("400px", "200px");
+    panel.setSize("400px", "100%");
 
     _createDecoratedStackPanelContent(panel, "Panel 1", "One");
     _createDecoratedStackPanelContent(panel, "Panel 2", "Two");

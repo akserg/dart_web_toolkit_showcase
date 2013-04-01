@@ -38,25 +38,35 @@ being clicked.
   // Return code snipet how to use component
   String get code {
     return '''
-ui.VerticalPanel vpanel = new ui.VerticalPanel();
+// Create a vertical panel to align the radio buttons
+ui.VerticalPanel vPanel = new ui.VerticalPanel();
+vPanel.add(new ui.Html("<b>Select your favorite color:</b>"));
 
-ui.HorizontalPanel pushPanel = new ui.HorizontalPanel();
-pushPanel.spacing = 10;
+String selectedLabel = "Selected";
+ui.Label selected = new ui.Label("\$selectedLabel: nothing");
+// Add some radio buttons to a group called 'color'
+List<String> colors = ["blue", "red", "yellow", "green"];
+for (int i = 0; i < colors.length; i++) {
+  String color = colors[i];
+  ui.RadioButton radioButton = new ui.RadioButton("color", color);
+  if (i == 2) {
+    radioButton.enabled = false;
+  }
+  radioButton.addValueChangeHandler(new event.ValueChangeHandlerAdapter((event.ValueChangeEvent evt){
+    vPanel.getChildren().forEach((ui.Widget w){
+      if (w is ui.RadioButton) {
+        ui.RadioButton radio = w as ui.RadioButton;
+        if (radio.getValue()) {
+          selected.text = "\$selectedLabel: \${radio.text}";
+        }
+      }
+    });
+  }));
+  vPanel.add(radioButton);
+}
+vPanel.add(selected);
 
-// Combine all the panels
-vpanel.add(new ui.Html("Custom Button"));
-vpanel.add(pushPanel);
-vpanel.add(new ui.Html("<br><br>PushButtons allow you to customize the look of your buttons"));
-
-ui.PushButton normalPushButton = new ui.PushButton.fromImage(new ui.Image("img/darts.jpg"));
-pushPanel.add(normalPushButton);
-
-// Add a disabled PushButton
-ui.PushButton disabledPushButton = new ui.PushButton.fromImage(new ui.Image("img/darts.jpg"));
-disabledPushButton.enabled = false;
-pushPanel.add(disabledPushButton);
-
-return vpanel;
+return vPanel;
 ''';
   }
   
@@ -75,7 +85,7 @@ return vpanel;
     vPanel.add(new ui.Html("<b>Select your favorite color:</b>"));
 
     String selectedLabel = "Selected";
-    ui.Label selected = new ui.Label("$selectedLabel: none");
+    ui.Label selected = new ui.Label("$selectedLabel: nothing");
     // Add some radio buttons to a group called 'color'
     List<String> colors = ["blue", "red", "yellow", "green"];
     for (int i = 0; i < colors.length; i++) {

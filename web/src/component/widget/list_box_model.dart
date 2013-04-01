@@ -32,17 +32,19 @@ class ListBoxModel extends mvp.ViewModel {
   // Return code snipet how to use component
   String get code {
     return '''
+const String NOTHING = "nothing";
+
 // Create a panel to align the Widgets
 ui.HorizontalPanel hPanel = new ui.HorizontalPanel();
 hPanel.spacing = 20;
 
-ui.Label selectedBox = new ui.Label();
+ui.Label selectedBox = new ui.Label(NOTHING);
 List<String> listTypes = ["Car Type", "Sport", "City"];
 
 // Add a list box with multiple selection enabled
 ui.ListBox multiBox = new ui.ListBox(true);
 multiBox.setWidth("11em");
-multiBox.setVisibleItemCount(10);
+multiBox.setVisibleItemCount(4);
 for (int i = 0; i < listTypes.length; i++) {
   multiBox.addItem(listTypes[i]);
 }
@@ -68,7 +70,7 @@ multiBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent even
   } else {
     sb.write(multiBox.getItemText(multiBox.getSelectedIndex()));
   }
-  selectedBox.text = sb.toString();
+  selectedBox.text = sb.toString().length > 0 ? sb.toString() : NOTHING;
 }));
 
 // Add a drop box with the list types
@@ -92,11 +94,13 @@ return hPanel;
    */
   ui.Widget asWidget() {
     
+    const String NOTHING = "nothing";
+    
     // Create a panel to align the Widgets
     ui.HorizontalPanel hPanel = new ui.HorizontalPanel();
     hPanel.spacing = 20;
 
-    ui.Label selectedBox = new ui.Label();
+    ui.Label selectedBox = new ui.Label(NOTHING);
     List<String> listTypes = ["Car Type", "Sport", "City"];
     
     // Add a list box with multiple selection enabled
@@ -128,7 +132,7 @@ return hPanel;
       } else {
         sb.write(multiBox.getItemText(multiBox.getSelectedIndex()));
       }
-      selectedBox.text = sb.toString();
+      selectedBox.text = sb.toString().length > 0 ? sb.toString() : NOTHING;
     }));
 
     // Add a drop box with the list types

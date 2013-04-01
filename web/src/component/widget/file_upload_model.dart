@@ -34,6 +34,7 @@ class FileUploadModel extends mvp.ViewModel {
     return '''
 // Create a vertical panel to align the content
 ui.VerticalPanel vPanel = new ui.VerticalPanel();
+vPanel.spacing = 4;
 
 // Add a label
 vPanel.add(new ui.Html("Select File"));
@@ -70,6 +71,7 @@ return vPanel;
   ui.Widget asWidget() {
     // Create a vertical panel to align the content
     ui.VerticalPanel vPanel = new ui.VerticalPanel();
+    vPanel.spacing = 4;
 
     // Add a label
     vPanel.add(new ui.Html("Select File"));

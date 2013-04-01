@@ -33,6 +33,7 @@ class DoubleBoxModel extends mvp.ViewModel {
   String get code {
     return '''
 ui.VerticalPanel vPanel = new ui.VerticalPanel();
+vPanel.spacing = 4;
     
 vPanel.add(new ui.Label("Type for validation"));
 // Double boxNan
@@ -70,6 +71,7 @@ String _validateField(ui.DoubleBox box) {
    */
   ui.Widget asWidget() {
     ui.VerticalPanel vPanel = new ui.VerticalPanel();
+    vPanel.spacing = 4;
     
     vPanel.add(new ui.Label("Type for validation"));
     // Double boxNan

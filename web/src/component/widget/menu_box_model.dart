@@ -122,7 +122,7 @@ class _MenuCommand implements scheduler.ScheduledCommand {
     // Create a menu bar
     ui.MenuBar menu = new ui.MenuBar();
     menu.setAutoOpen(true);
-    menu.setWidth("500px");
+    menu.setWidth("100%");
     menu.setAnimationEnabled(true);
 
     // Create a sub menu of recent documents

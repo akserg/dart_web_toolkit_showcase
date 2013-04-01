@@ -40,9 +40,6 @@ ui.CaptionPanel panel = new ui.CaptionPanel("Caption Goes Here");
 
 panel.setContentWidget(new ui.Label("The main, wrapped widget goes here."));
 
-// Set up some style - normally you'd do this in CSS, but it's
-// easier to show like this
-
 panel.getElement().style.border = "3px solid #00c";
 panel.getContentWidget().getElement().style.margin = "5px 10px 10px 10px";
 panel.getContentWidget().getElement().style.padding = "10px 10px 10px 10px";
@@ -65,9 +62,6 @@ return panel;
     ui.CaptionPanel panel = new ui.CaptionPanel("Caption Goes Here");
 
     panel.setContentWidget(new ui.Label("The main, wrapped widget goes here."));
-
-    // Set up some style - normally you'd do this in CSS, but it's
-    // easier to show like this
 
     panel.getElement().style.border = "3px solid #00c";
     panel.getContentWidget().getElement().style.margin = "5px 10px 10px 10px";

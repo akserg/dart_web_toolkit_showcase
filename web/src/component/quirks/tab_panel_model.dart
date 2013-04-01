@@ -39,20 +39,31 @@ Mode, use TabLayoutPanel instead.
   // Return code snipet how to use component
   String get code {
     return '''
-// Create a tab panel with three tabs, each of which displays a different
-// piece of text.
-ui.TabPanel tp = new ui.TabPanel();
-tp.setSize("100%", "100%");
-tp.setAnimationEnabled(true);
+String text1 = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut sit amet pede eu nulla volutpat tempor. Vestibulum porttitor. Nulla ut augue. Morbi sollicitudin elit sit amet lectus. Nullam convallis condimentum dolor. Ut viverra. Suspendisse aliquet dui ullamcorper tellus. Vestibulum eros. Praesent nec justo vitae erat imperdiet gravida. Suspendisse non ante vitae leo eleifend auctor. In lacus nulla, posuere sit amet, fringilla ut, scelerisque et, risus. Nulla ornare, lorem tempor dictum aliquam, pede justo lacinia felis, vel mattis dui lorem quis eros.";
+String text2 = "Sed egestas, arcu nec accumsan placerat, libero augue imperdiet pede, quis pretium nisi est et sapien. Maecenas eu augue a lectus dictum gravida. Nam quis enim at nibh viverra tempus. Integer feugiat eros vitae purus. Integer varius. Nam ligula ipsum, tempus ut, rutrum non, malesuada ac, lorem. Donec nisl. Maecenas quis ante. Praesent vel lectus vitae velit bibendum sollicitudin. Donec posuere. Fusce fermentum congue tortor. Sed facilisis, leo in fringilla suscipit, justo eros mattis nisi, sit amet sollicitudin libero nisl sit amet augue. In ultrices imperdiet ipsum. Quisque varius est id pede. Sed felis sem, aliquet vel, suscipit sit amet, lobortis ac, nisl. Proin auctor imperdiet nisl. Sed quis enim. Cras mollis. Morbi nunc justo, feugiat a, bibendum sit amet, egestas sed, lectus.";
+String text3 = "Proin tristique, elit at blandit vestibulum, odio eros ultrices urna, eget accumsan sapien lorem vitae lacus. Cras elit nisi, lacinia ac, sagittis sed, convallis eu, enim. Donec felis magna, ullamcorper tristique, placerat volutpat, sollicitudin et, elit. Donec tempus nulla ac erat. Suspendisse potenti. Curabitur bibendum, est in congue placerat, nisi enim tempor nunc, sit amet bibendum neque tellus in eros. Ut laoreet libero. Phasellus vel risus vitae elit faucibus tristique. Nulla eu pede. Cras eleifend. Nulla facilisi. Integer lobortis. Donec magna. Quisque ut mauris. Duis at magna et metus pharetra hendrerit. Nullam augue. Aliquam nunc. Cras non enim. Quisque ac est ut pede sodales pulvinar. Quisque augue.";
 
-tp.addTabText(new ui.Html("Foo"), "foo");
-tp.addTabText(new ui.Html("Bar"), "bar");
-tp.addTabText(new ui.Html("Baz"), "baz");
+ui.TabPanel panel = new ui.TabPanel();
+ui.FlowPanel flowpanel;
 
-// Show the 'bar' tab initially.
-tp.selectTab(1);
+flowpanel = new ui.FlowPanel();
+flowpanel.add(new ui.Label(text1));
+panel.addTabText(flowpanel, "One");
 
-return tp;
+flowpanel = new ui.FlowPanel();
+flowpanel.add(new ui.Label(text2));
+panel.addTabText(flowpanel, "Two");
+
+flowpanel = new ui.FlowPanel();
+flowpanel.add(new ui.Label(text3));
+panel.addTabText(flowpanel, "Three");
+
+panel.selectTab(0);
+
+panel.setSize("500px", "250px");
+panel.setAnimationEnabled(true);
+
+return panel;
 ''';
   }
   
@@ -66,19 +77,30 @@ return tp;
    */
   ui.Widget asWidget() {
     
-    // Create a tab panel with three tabs, each of which displays a different
-    // piece of text.
-    ui.TabPanel tp = new ui.TabPanel();
-    tp.setSize("100%", "100%");
-    tp.setAnimationEnabled(true);
-    
-    tp.addTabText(new ui.Html("Foo"), "foo");
-    tp.addTabText(new ui.Html("Bar"), "bar");
-    tp.addTabText(new ui.Html("Baz"), "baz");
+    String text1 = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut sit amet pede eu nulla volutpat tempor. Vestibulum porttitor. Nulla ut augue. Morbi sollicitudin elit sit amet lectus. Nullam convallis condimentum dolor. Ut viverra. Suspendisse aliquet dui ullamcorper tellus. Vestibulum eros. Praesent nec justo vitae erat imperdiet gravida. Suspendisse non ante vitae leo eleifend auctor. In lacus nulla, posuere sit amet, fringilla ut, scelerisque et, risus. Nulla ornare, lorem tempor dictum aliquam, pede justo lacinia felis, vel mattis dui lorem quis eros.";
+    String text2 = "Sed egestas, arcu nec accumsan placerat, libero augue imperdiet pede, quis pretium nisi est et sapien. Maecenas eu augue a lectus dictum gravida. Nam quis enim at nibh viverra tempus. Integer feugiat eros vitae purus. Integer varius. Nam ligula ipsum, tempus ut, rutrum non, malesuada ac, lorem. Donec nisl. Maecenas quis ante. Praesent vel lectus vitae velit bibendum sollicitudin. Donec posuere. Fusce fermentum congue tortor. Sed facilisis, leo in fringilla suscipit, justo eros mattis nisi, sit amet sollicitudin libero nisl sit amet augue. In ultrices imperdiet ipsum. Quisque varius est id pede. Sed felis sem, aliquet vel, suscipit sit amet, lobortis ac, nisl. Proin auctor imperdiet nisl. Sed quis enim. Cras mollis. Morbi nunc justo, feugiat a, bibendum sit amet, egestas sed, lectus.";
+    String text3 = "Proin tristique, elit at blandit vestibulum, odio eros ultrices urna, eget accumsan sapien lorem vitae lacus. Cras elit nisi, lacinia ac, sagittis sed, convallis eu, enim. Donec felis magna, ullamcorper tristique, placerat volutpat, sollicitudin et, elit. Donec tempus nulla ac erat. Suspendisse potenti. Curabitur bibendum, est in congue placerat, nisi enim tempor nunc, sit amet bibendum neque tellus in eros. Ut laoreet libero. Phasellus vel risus vitae elit faucibus tristique. Nulla eu pede. Cras eleifend. Nulla facilisi. Integer lobortis. Donec magna. Quisque ut mauris. Duis at magna et metus pharetra hendrerit. Nullam augue. Aliquam nunc. Cras non enim. Quisque ac est ut pede sodales pulvinar. Quisque augue.";
 
-    // Show the 'bar' tab initially.
-    tp.selectTab(1);
+    ui.TabPanel panel = new ui.TabPanel();
+    ui.FlowPanel flowpanel;
 
-    return tp;
+    flowpanel = new ui.FlowPanel();
+    flowpanel.add(new ui.Label(text1));
+    panel.addTabText(flowpanel, "One");
+
+    flowpanel = new ui.FlowPanel();
+    flowpanel.add(new ui.Label(text2));
+    panel.addTabText(flowpanel, "Two");
+
+    flowpanel = new ui.FlowPanel();
+    flowpanel.add(new ui.Label(text3));
+    panel.addTabText(flowpanel, "Three");
+
+    panel.selectTab(0);
+
+    panel.setSize("500px", "250px");
+    panel.setAnimationEnabled(true);
+
+    return panel;
   }
 }

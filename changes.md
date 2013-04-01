@@ -4,6 +4,8 @@ Dart Web Toolkit Showcase Changes
 **March 31, 2013
 
 * Removed all colors from application to use theme based colors.
+* Changed layout of ComponentPreview. Overview and Source code moved to different tabs.
+* Small fixing in different components.
 
 **March 28, 2013
 

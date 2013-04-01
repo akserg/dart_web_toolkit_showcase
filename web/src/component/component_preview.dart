@@ -21,7 +21,9 @@ part of dart_web_toolkit_component;
 
 class ComponentPreview implements ComponentPreviewDisplay {
 
-  ui.DockLayoutPanel _panel;
+  ui.TabLayoutPanel _panel;
+  ui.DockLayoutPanel _overviewPanel;
+  ui.DockLayoutPanel _sourcePanel;
   ui.Html _emptyPanel;
   ui.SplitLayoutPanel _verticalPanel;
   
@@ -33,17 +35,44 @@ class ComponentPreview implements ComponentPreviewDisplay {
   
   ComponentPreview() {
     
-    _panel = new ui.DockLayoutPanel(util.Unit.PX);
+    _panel = new ui.TabLayoutPanel(25.0, util.Unit.PX);
+    _panel.setSize("100%", "100%");
+    
+    _overviewPanel = new ui.DockLayoutPanel(util.Unit.PX);
+    _panel.addTabText(_overviewPanel, "Overview", false);
     
     _emptyPanel = new ui.Html("Select component from tree category");
     _emptyPanel.addStyleName("emptyPreviewPanel");
-    _panel.add(_emptyPanel);
+    _overviewPanel.add(_emptyPanel);
+    
     
     _verticalPanel = new ui.SplitLayoutPanel();
     
+    // Add info panel to center
+    ui.SplitLayoutPanel infoPanel = new ui.SplitLayoutPanel();
+    _verticalPanel.add(infoPanel);
+    
+    // Add name to top of info panel
+    _nameLabel = new ui.Label();
+    _nameLabel.addStyleName("titlePreviewPanel");
+    infoPanel.addNorth(_nameLabel, 25.0);
+    
+    // Add description above the name
+    _descriptionLabel = new ui.Label();
+    _descriptionLabel.addStyleName("descPreviewPanel");
+    infoPanel.addNorth(new ui.ScrollPanel(_descriptionLabel), 75.0);
+    
+    // Add preview panel to center of info panel
+    _previewPanel = new ui.SimplePanel();
+    _previewPanel.addStyleName("previewPreviewPanel");
+    infoPanel.add(_previewPanel);
+    
+    
+    
     // Add Horizontal split panel
     ui.SplitLayoutPanel horizontalPanel = new ui.SplitLayoutPanel();
-    _verticalPanel.addSouth(horizontalPanel, 300.0);
+//    _verticalPanel.addSouth(horizontalPanel, 300.0);
+    _panel.addTabText(horizontalPanel, "Source and Style", false);
     
     // Add style panel to bottom right corner
     ui.DockLayoutPanel styles = new ui.DockLayoutPanel(util.Unit.PX);
@@ -64,25 +93,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
     codes.addNorth(sourceCodeLabel, 24.0);
     _codePanel = new ui.SimplePanel();
     codes.add(_codePanel);
-    
-    // Add info panel to center
-    ui.SplitLayoutPanel infoPanel = new ui.SplitLayoutPanel();
-    _verticalPanel.add(infoPanel);
-    
-    // Add name to top of info panel
-    _nameLabel = new ui.Label();
-    _nameLabel.addStyleName("titlePreviewPanel");
-    infoPanel.addNorth(_nameLabel, 25.0);
-    
-    // Add description above the name
-    _descriptionLabel = new ui.Label();
-    _descriptionLabel.addStyleName("descPreviewPanel");
-    infoPanel.addNorth(new ui.ScrollPanel(_descriptionLabel), 75.0);
-    
-    // Add preview panel to center of info panel
-    _previewPanel = new ui.SimplePanel();
-    _previewPanel.addStyleName("previewPreviewPanel");
-    infoPanel.add(_previewPanel);
+
   }
   
   ui.Widget asWidget() {
@@ -96,7 +107,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
    */
   void onSelection(event.SelectionEvent<ui.TreeItem> evt) {
     // Clear panels and forms
-    _panel.clear();
+    _overviewPanel.clear();
     _nameLabel.text = "";
     _descriptionLabel.text = "";
     _previewPanel.clear();
@@ -113,10 +124,10 @@ class ComponentPreview implements ComponentPreviewDisplay {
       _codePanel.add(_prepareToView(model.code));
       _stylePanel.add(_prepareToView(model.style));
       // Add verticalPanel to panel 
-      _panel.add(_verticalPanel);
+      _overviewPanel.add(_verticalPanel);
     } else {
       // Add emptyPanel to panel 
-      _panel.add(_emptyPanel);
+      _overviewPanel.add(_emptyPanel);
     }
   }
   

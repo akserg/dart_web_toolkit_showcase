@@ -40,8 +40,7 @@ in which it is run have an explicit <!DOCTYPE> declaration.
     return '''
 // Create a new stack layout panel.
 ui.StackLayoutPanel stackPanel = new ui.StackLayoutPanel(util.Unit.PX);
-stackPanel.setHeight("100%");
-//stackPanel.setPixelSize(200, 400);
+stackPanel.setSize("300px", "100%");
 
 // Add the Mail folders.
 ui.Widget mailHeader = _createHeaderWidget("Mail");
@@ -121,8 +120,7 @@ ui.VerticalPanel _createContactsItem() {
     
     // Create a new stack layout panel.
     ui.StackLayoutPanel stackPanel = new ui.StackLayoutPanel(util.Unit.PX);
-    stackPanel.setHeight("100%");
-    //stackPanel.setPixelSize(200, 400);
+    stackPanel.setSize("300px", "100%");
 
     // Add the Mail folders.
     ui.Widget mailHeader = _createHeaderWidget("Mail");

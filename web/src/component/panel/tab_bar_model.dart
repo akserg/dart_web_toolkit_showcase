@@ -76,7 +76,7 @@ return vPanel;
     bar.addTabText("baz");
     vPanel.add(bar);
     
-    ui.Label selected = new ui.Label();
+    ui.Label selected = new ui.Label("Nothing selected");
     vPanel.add(selected);
     
     bar.addSelectionHandler(new event.SelectionHandlerAdapter((event.SelectionEvent evt){
