@@ -47,10 +47,13 @@ class ComponentPresenter implements mvp.Presenter {
   Map<String, List<mvp.ViewModel>> _convertFlatToTreeModel() {
     Map<String, List<mvp.ViewModel>> treeModels = new Map<String, List<mvp.ViewModel>>();
     for (mvp.ViewModel model in models) {
-      if (!treeModels.containsKey(model.category)) {
-        treeModels[model.category] = new List<mvp.ViewModel>();
+      // Check is model implementation available to show
+      if (model.available) {
+        if (!treeModels.containsKey(model.category)) {
+          treeModels[model.category] = new List<mvp.ViewModel>();
+        }
+        treeModels[model.category].add(model);
       }
-      treeModels[model.category].add(model);
     }
     return treeModels;
   }

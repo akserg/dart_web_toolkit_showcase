@@ -24,8 +24,8 @@ class ComponentPreview implements ComponentPreviewDisplay {
   ui.TabLayoutPanel _panel;
   ui.DockLayoutPanel _overviewPanel;
   ui.DockLayoutPanel _sourcePanel;
-  ui.Html _emptyPanel;
-  ui.SplitLayoutPanel _verticalPanel;
+  ui.FlexTable _emptyPanel;
+  ui.SplitLayoutPanel _overviewContentPanel;
   
   ui.Label _nameLabel;
   ui.Label _descriptionLabel;
@@ -41,16 +41,18 @@ class ComponentPreview implements ComponentPreviewDisplay {
     _overviewPanel = new ui.DockLayoutPanel(util.Unit.PX);
     _panel.addTabText(_overviewPanel, "Overview", false);
     
-    _emptyPanel = new ui.Html("Select component from tree category");
-    _emptyPanel.addStyleName("emptyPreviewPanel");
+    _emptyPanel = new ui.FlexTable();
+    _emptyPanel.setSize("100%", "100%");
+    _emptyPanel.setWidget(0, 0, new ui.Label("Select component from tree"));
+    _emptyPanel.getFlexCellFormatter().setVerticalAlignment(0, 0, i18n.HasVerticalAlignment.ALIGN_MIDDLE);
+    _emptyPanel.getFlexCellFormatter().setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
     _overviewPanel.add(_emptyPanel);
     
-    
-    _verticalPanel = new ui.SplitLayoutPanel();
+    _overviewContentPanel = new ui.SplitLayoutPanel();
     
     // Add info panel to center
     ui.SplitLayoutPanel infoPanel = new ui.SplitLayoutPanel();
-    _verticalPanel.add(infoPanel);
+    _overviewContentPanel.add(infoPanel);
     
     // Add name to top of info panel
     _nameLabel = new ui.Label();
@@ -67,16 +69,13 @@ class ComponentPreview implements ComponentPreviewDisplay {
     _previewPanel.addStyleName("previewPreviewPanel");
     infoPanel.add(_previewPanel);
     
-    
-    
     // Add Horizontal split panel
-    ui.SplitLayoutPanel horizontalPanel = new ui.SplitLayoutPanel();
-//    _verticalPanel.addSouth(horizontalPanel, 300.0);
-    _panel.addTabText(horizontalPanel, "Source and Style", false);
+    ui.SplitLayoutPanel sourceAndStyleContentPanel = new ui.SplitLayoutPanel();
+    _panel.addTabText(sourceAndStyleContentPanel, "Source and Style", false);
     
     // Add style panel to bottom right corner
     ui.DockLayoutPanel styles = new ui.DockLayoutPanel(util.Unit.PX);
-    horizontalPanel.addEast(styles, 300.0);
+    sourceAndStyleContentPanel.addSouth(styles, 200.0);
     //
     ui.Label styleLabel = new ui.Label("Style:");
     styleLabel.addStyleName("sourceCodeLabel");
@@ -86,7 +85,7 @@ class ComponentPreview implements ComponentPreviewDisplay {
     
     // Add code panel to bottom left corner
     ui.DockLayoutPanel codes = new ui.DockLayoutPanel(util.Unit.PX);
-    horizontalPanel.add(codes);
+    sourceAndStyleContentPanel.add(codes);
     //
     ui.Label sourceCodeLabel = new ui.Label("Source Code:");
     sourceCodeLabel.addStyleName("sourceCodeLabel");
@@ -123,10 +122,12 @@ class ComponentPreview implements ComponentPreviewDisplay {
       _previewPanel.add(model.asWidget());
       _codePanel.add(_prepareToView(model.code));
       _stylePanel.add(_prepareToView(model.style));
-      // Add verticalPanel to panel 
-      _overviewPanel.add(_verticalPanel);
+      // Add verticalPanel to panel back
+      _overviewPanel.add(_overviewContentPanel);
     } else {
-      // Add emptyPanel to panel 
+      // Select 'Overview' tab
+      _panel.selectTab(0);
+      // Add emptyPanel to panel back
       _overviewPanel.add(_emptyPanel);
     }
   }

@@ -21,7 +21,7 @@ part of dart_web_toolkit_component;
 class StackPanelModel extends mvp.ViewModel {
   
   // Component's category name
-  String get category => "Panel (quirks)";
+  String get category => "Panel";
   
   // Return component's name
   String get name => "StackPanel";

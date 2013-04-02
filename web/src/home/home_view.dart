@@ -44,7 +44,9 @@ class HomeView implements HomeDisplay {
     cellFormatter.setHorizontalAlignment(0, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
 
     // Add logo
-    layout.setWidget(1, 0, new ui.Image("img/dwt-logo.png"));
+    ui.Image logoImage = new ui.Image("img/dwt-logo.png");
+    logoImage.addStyleName("logo-image");
+    layout.setWidget(1, 0, logoImage);
     cellFormatter.setHorizontalAlignment(2, 0, i18n.HasHorizontalAlignment.ALIGN_CENTER);
     
     // Add description

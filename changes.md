@@ -4,6 +4,8 @@ Dart Web Toolkit Showcase Changes
 **April 2, 2013
 
 * dwt-logo.png has been changed.
+* Quirk components moved back to panel folder.
+* Small cosmetic changes.
 
 **March 31, 2013
 
