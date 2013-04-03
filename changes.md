@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**April 3, 2013
+
+* Following Dart Web Toolkit 0.2.73.
+
 **April 2, 2013
 
 * dwt-logo.png has been changed.
