@@ -139,9 +139,9 @@ class ComponentPreview implements ComponentPreviewDisplay {
    */
   ui.ScrollPanel _prepareToView(String code) {
     StringBuffer sb = new StringBuffer();
-    sb.write("<pre class=\"prettyprint\"><code class=\"language-dart\">");
+    sb.write("<pre>");
     sb.write(util.SafeHtmlUtils.fromString(code).asString());
-    sb.write("</code></pre>");
+    sb.write("</pre>");
     //
     ui.Html html = new ui.Html(sb.toString());
     html.setSize("100%", "100%");
