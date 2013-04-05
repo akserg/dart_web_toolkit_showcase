@@ -7,3 +7,4 @@ Dart Web Toolkit Showcase Changes
 * index.html has been changed to acces to demo/index.html
 * DisclosurePanel added to view list.
 * Fixed app.dart.js file.
+* Index.html from demo keeps full path to gh-pages branch.
