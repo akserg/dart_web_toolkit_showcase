@@ -6,3 +6,4 @@ Dart Web Toolkit Showcase Changes
 * Added demo folder contains whole showcase.
 * index.html has been changed to acces to demo/index.html
 * DisclosurePanel added to view list.
+* Fixed app.dart.js file.

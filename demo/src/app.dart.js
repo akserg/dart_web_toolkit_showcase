@@ -6502,7 +6502,7 @@ $$.DecoratorPanelModel = {"": "ViewModel;",
 
 $$.DisclosurePanelModel = {"": "ViewModel;",
   get$available: function(_) {
-    return false;
+    return true;
   },
   get$category: function() {
     return "Panel";
