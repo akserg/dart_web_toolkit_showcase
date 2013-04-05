@@ -21,7 +21,7 @@ part of dart_web_toolkit_component;
 class DisclosurePanelModel extends mvp.ViewModel {
   
   // Return true if view available for show
-  bool get available => false;
+  bool get available => true;
   
   // Component's category name
   String get category => "Panel";
