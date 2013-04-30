@@ -1,5 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
+
+**April 30, 2013
+
+* Following Dart Web Toolkit 0.3.4.
+
 **April 29, 2013
 
 * Following Dart Web Toolkit 0.3.3.
