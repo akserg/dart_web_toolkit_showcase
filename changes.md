@@ -1,5 +1,8 @@
 Dart Web Toolkit Showcase Changes
 =================================
+**May 1, 2013
+
+* Changed index.html to point to build
 
 **April 5, 2013
 
