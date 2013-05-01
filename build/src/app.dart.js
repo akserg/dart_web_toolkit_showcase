@@ -6009,7 +6009,7 @@ $$.AppView = {"": "Composite;centerPanel<,_pages,_widget,_renderable,eventsToSin
     topPanel.setSize$2("100%", "100%");
     topPanel.addEast$2($.StyleChooserComponent$("Style:", "clean"), 120);
     mainPanel.addNorth$2(topPanel, 25);
-    headerContent = $.Label$("Dart Web Toolkit Showcase (ver 0.2)", null);
+    headerContent = $.Label$("Dart Web Toolkit Showcase (ver 0.3.4)", null);
     headerContent.addStyleName$1("header-content");
     topPanel.add$1(topPanel, headerContent);
     statusPanel = $.DockLayoutPanel$($.Unit_px);
