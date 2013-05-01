@@ -8,7 +8,7 @@
 packages
 packages/
 pubspec.lock
-!build/packages
+!build/src/packages
 !build/src/app.dart.js
 !build/src/app.dart.js_
 !build/src/app.dart.js.deps
