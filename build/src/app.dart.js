@@ -13292,7 +13292,7 @@ $$._DefaultImages = {"": "Object;_resources,CLOSED_RESOURCE,CLOSED_RESOURCE_RTL,
     return t1.$index(t1, t2);
   },
   _getImageResourcePrototype$1: function($name) {
-    return $.ImageResourcePrototype$($name, $.SafeUriString$($.JSString_methods.$add($.JSString_methods.$add("packages/dart_web_toolkit/", "resource/images/"), $name)), 0, 0, 16, 16, false, false);
+    return $.ImageResourcePrototype$($name, $.SafeUriString$($.JSString_methods.$add($.JSString_methods.$add("src/packages/dart_web_toolkit/", "resource/images/"), $name)), 0, 0, 16, 16, false, false);
   }
 };
 
@@ -16092,7 +16092,7 @@ $$.MenuResources = {"": "Object;_resource,MENU_RESOURCE,MENU_RESOURCE_RTL",
     return this._resource;
   },
   _getMenuImageResourcePrototype$1: function($name) {
-    return $.ImageResourcePrototype$($name, $.SafeUriString$($.JSString_methods.$add($.JSString_methods.$add("packages/dart_web_toolkit/", "resource/images/"), $name)), 0, 0, 5, 9, false, false);
+    return $.ImageResourcePrototype$($name, $.SafeUriString$($.JSString_methods.$add($.JSString_methods.$add("src/packages/dart_web_toolkit/", "resource/images/"), $name)), 0, 0, 5, 9, false, false);
   }
 };
 
@@ -19005,7 +19005,7 @@ $$._TreeResources = {"": "Object;_resources,TREE_CLOSED,TREE_LEAF,TREE_OPEN",
     return t1.$index(t1, t2);
   },
   _getTreeImageResourcePrototype$1: function($name) {
-    return $.ImageResourcePrototype$($name, $.SafeUriString$($.JSString_methods.$add($.JSString_methods.$add("packages/dart_web_toolkit/", "resource/images/"), $name)), 0, 0, 16, 16, false, false);
+    return $.ImageResourcePrototype$($name, $.SafeUriString$($.JSString_methods.$add($.JSString_methods.$add("src/packages/dart_web_toolkit/", "resource/images/"), $name)), 0, 0, 16, 16, false, false);
   }
 };
 
@@ -29169,7 +29169,7 @@ $.AnimationHandleImplWebkit$ = function(requestId, impl) {
 };
 
 $.DWT_getModuleBaseURL = function() {
-  return "packages/dart_web_toolkit/";
+  return "src/packages/dart_web_toolkit/";
 };
 
 $.AllMouseHandlersAdapter$ = function(callback) {
