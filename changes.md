@@ -1,5 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
+
+**May 3, 2013
+
+* Following Dart Web Toolkit 0.3.6.
+
 **May 1, 2013
 
 * Created build.sh script to build web and packages content in build folder.
