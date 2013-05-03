@@ -5686,7 +5686,7 @@ $$.ComponentTreeView_setData_anon = {"": "Closure;this_0",
   call$2: function(category, components) {
     var t1, ret;
     t1 = this.this_0.get$_liblib5$_tree()._root;
-    ret = $.TreeItem$(false, null, $);
+    ret = $.TreeItem$(null, false, $);
     ret.set$text(ret, category);
     if (ret.getParentItem$0() != null || ret.getTree$0() != null)
       ret.remove$0(ret);
@@ -5700,7 +5700,7 @@ $$.ComponentTreeView_setData__anon = {"": "Closure;topItem_1",
     var t1, t2, ret;
     t1 = this.topItem_1;
     t2 = $.get$name$x(component);
-    ret = $.TreeItem$(false, null, $);
+    ret = $.TreeItem$(null, false, $);
     ret.set$text(ret, t2);
     if (ret.getParentItem$0() != null || ret.getTree$0() != null)
       ret.remove$0(ret);
@@ -8213,7 +8213,7 @@ $$._createDynamicTree_anon = {"": "Closure;random_0",
       numChildren = (Math.random() * max >>> 0) + 2;
       for (t1 = $.getInterceptor$ns(itemText), i = 0; i < numChildren; ++i) {
         child = item.addTextItem$1($.$add$ns(t1.$add(itemText, "."), $.JSNumber_methods.toString$0(i)));
-        ret = $.TreeItem$(false, null, $);
+        ret = $.TreeItem$(null, false, $);
         ret.set$text(ret, "");
         if (ret.getParentItem$0() != null || ret.getTree$0() != null)
           ret.remove$0(ret);
@@ -18111,7 +18111,7 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
   add$1: function(_, widget) {
     var t1, ret;
     t1 = this._root;
-    ret = $.TreeItem$(false, null, widget);
+    ret = $.TreeItem$(null, false, widget);
     if (ret.getParentItem$0() != null || ret.getTree$0() != null)
       ret.remove$0(ret);
     t1.insertItem$2(t1.getChildCount$0(), ret);
@@ -18129,7 +18129,7 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
   addTextItem$1: function(itemText) {
     var t1, ret;
     t1 = this._root;
-    ret = $.TreeItem$(false, null, $);
+    ret = $.TreeItem$(null, false, $);
     ret.set$text(ret, itemText);
     if (ret.getParentItem$0() != null || ret.getTree$0() != null)
       ret.remove$0(ret);
@@ -18463,7 +18463,7 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
       $.DomImpl_eventSystemIsInitialized = true;
     }
     t2.sinkEventsImpl$2(t1, 6144);
-    this._root = $.TreeItem$(true, null, $);
+    this._root = $.TreeItem$(null, true, $);
     this._root.setTree$1(this);
     $.set$$$dom_className$x(this.getStyleElement$0(), "dwt-Tree");
   },
@@ -18696,9 +18696,9 @@ $$._ImageAdapter = {"": "Object;_treeClosed,_treeLeaf,_treeOpen",
   }
 };
 
-$$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,_isRoot,_open,_parent,_selected,_userObject,_tree,_widget,_element",
+$$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,isRoot,_open,_parent,_selected,_userObject,_tree,_widget,_element",
   addTextItem$1: function(itemText) {
-    var ret = $.TreeItem$(false, null, $);
+    var ret = $.TreeItem$(null, false, $);
     ret.set$text(ret, itemText);
     if (ret.getParentItem$0() != null || ret.getTree$0() != null)
       ret.remove$0(ret);
@@ -18764,7 +18764,7 @@ $$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,
       throw $.wrapException($._ExceptionImplementation$("IndexOutOfBounds"));
     if (this._children == null)
       this.initChildren$0();
-    t1 = this._isRoot;
+    t1 = this.isRoot;
     margin = t1 ? 0 : $.TreeItem__CHILD_MARGIN;
     $.get$LocaleInfo_instance();
     $.set$marginLeft$x($.get$style$x(item.getElement$0()), $.JSString_methods.$add($.JSNumber_methods.toString$0(margin), $.Unit_px.get$value($.Unit_px)));
@@ -18796,7 +18796,7 @@ $$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,
     if (t1 == null || !$.contains$1$asx(t1, item))
       return;
     item.setTree$1(null);
-    t1 = this._isRoot;
+    t1 = this.isRoot;
     if (t1)
       $.remove$0$ax(item.getElement$0());
     else
@@ -18951,7 +18951,7 @@ $$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,
       t1[i].updateStateRecursiveHelper$0();
     }
   },
-  TreeItem$3$_isRoot$html$widget: function(_isRoot, html, widget, widget_check) {
+  TreeItem$3$html$isRoot$widget: function(html, isRoot, widget, widget_check) {
     var elem;
     if ($.TreeItem__impl == null)
       $.TreeItem__impl = $.TreeItemImpl$();
@@ -18959,7 +18959,7 @@ $$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,
     this.setElement$1(elem);
     this._contentElem = $.Dom_getFirstChild(elem);
     $.Dom_setElementAttribute(this._contentElem, "id", $.Dom_createUniqueId());
-    if (this._isRoot)
+    if (this.isRoot)
       this.initChildren$0();
     if (widget_check === true)
       this.setWidget$1(widget);
@@ -28555,7 +28555,7 @@ $._createStaticTree = function() {
     throw $.ioore(0);
   t1 = composers[0];
   t2 = staticTree._root;
-  ret = $.TreeItem$(false, null, $);
+  ret = $.TreeItem$(null, false, $);
   ret.set$text(ret, t1);
   if (ret.getParentItem$0() != null || ret.getTree$0() != null)
     ret.remove$0(ret);
@@ -28568,7 +28568,7 @@ $._createStaticTree = function() {
     throw $.ioore(1);
   t1 = composers[1];
   t2 = staticTree._root;
-  ret = $.TreeItem$(false, null, $);
+  ret = $.TreeItem$(null, false, $);
   ret.set$text(ret, t1);
   if (ret.getParentItem$0() != null || ret.getTree$0() != null)
     ret.remove$0(ret);
@@ -28581,7 +28581,7 @@ $._createStaticTree = function() {
     throw $.ioore(2);
   t1 = composers[2];
   t2 = staticTree._root;
-  ret = $.TreeItem$(false, null, $);
+  ret = $.TreeItem$(null, false, $);
   ret.set$text(ret, t1);
   if (ret.getParentItem$0() != null || ret.getTree$0() != null)
     ret.remove$0(ret);
@@ -28592,14 +28592,14 @@ $._createStaticTree = function() {
 
 $._addMusicSection = function($parent, label, composerWorks) {
   var ret, t1, work, ret0;
-  ret = $.TreeItem$(false, null, $);
+  ret = $.TreeItem$(null, false, $);
   ret.set$text(ret, label);
   if (ret.getParentItem$0() != null || ret.getTree$0() != null)
     ret.remove$0(ret);
   $parent.insertItem$2($parent.getChildCount$0(), ret);
   for (t1 = $.JSArray_methods.get$iterator(composerWorks); t1.moveNext$0();) {
     work = t1.get$current();
-    ret0 = $.TreeItem$(false, null, $);
+    ret0 = $.TreeItem$(null, false, $);
     ret0.set$text(ret0, work);
     if (ret0.getParentItem$0() != null || ret0.getTree$0() != null)
       ret0.remove$0(ret0);
@@ -28613,12 +28613,12 @@ $._createDynamicTree = function() {
   for (i = 0; i < 5; ++i) {
     t1 = "Item " + i;
     t2 = dynamicTree._root;
-    ret = $.TreeItem$(false, null, $);
+    ret = $.TreeItem$(null, false, $);
     ret.set$text(ret, t1);
     if (ret.getParentItem$0() != null || ret.getTree$0() != null)
       ret.remove$0(ret);
     t2.insertItem$2(t2.getChildCount$0(), ret);
-    ret0 = $.TreeItem$(false, null, $);
+    ret0 = $.TreeItem$(null, false, $);
     ret0.set$text(ret0, "");
     if (ret0.getParentItem$0() != null || ret0.getTree$0() != null)
       ret0.remove$0(ret0);
@@ -28731,7 +28731,7 @@ $.DWT_majorVersion = function() {
 };
 
 $.DWT_minorVersion = function() {
-  return "6";
+  return "7";
 };
 
 $.AllMouseHandlersAdapter$ = function(callback) {
@@ -30563,13 +30563,13 @@ $._ImageAdapter$ = function(resources) {
   return t1;
 };
 
-$.TreeItem$ = function(_isRoot, html, widget) {
+$.TreeItem$ = function(html, isRoot, widget) {
   var t1, t2;
   t1 = $ === widget;
   if (t1)
     widget = null;
-  t2 = new $.TreeItem(null, null, null, null, _isRoot, false, null, false, null, null, null, null);
-  t2.TreeItem$3$_isRoot$html$widget(_isRoot, html, widget, !t1);
+  t2 = new $.TreeItem(null, null, null, null, isRoot, false, null, false, null, null, null, null);
+  t2.TreeItem$3$html$isRoot$widget(html, isRoot, widget, !t1);
   return t2;
 };
 
