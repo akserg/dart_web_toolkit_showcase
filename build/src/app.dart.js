@@ -5439,7 +5439,7 @@ $$.AppView = {"": "Composite;centerPanel<,_pages,_widget,_renderable,eventsToSin
     topPanel.setSize$2("100%", "100%");
     topPanel.addEast$2($.StyleChooserComponent$("Style:", "clean"), 120);
     mainPanel.addNorth$2(topPanel, 25);
-    headerContent = $.Label$("Dart Web Toolkit Showcase (ver 0.3.4)", null);
+    headerContent = $.Label$("Dart Web Toolkit Showcase (ver " + $.DWT_majorVersion() + "." + $.DWT_minorVersion() + ")", null);
     headerContent.addStyleName$1("header-content");
     topPanel.add$1(topPanel, headerContent);
     statusPanel = $.DockLayoutPanel$($.Unit_px);
@@ -13989,7 +13989,7 @@ $$.HtmlTable = {"": "Panel;",
     widget.removeFromParent$0();
     t1 = this.widgetMap;
     t1.put$1(t1, widget);
-    td.appendChild(widget.getElement$0());
+    td.appendChild(widget.get$_element());
     widget.setParent$1(this);
   },
   createCell$0: function() {
@@ -28726,6 +28726,14 @@ $.DWT_getModuleBaseURL = function() {
   return "src/packages/dart_web_toolkit/";
 };
 
+$.DWT_majorVersion = function() {
+  return "0.3";
+};
+
+$.DWT_minorVersion = function() {
+  return "6";
+};
+
 $.AllMouseHandlersAdapter$ = function(callback) {
   return new $.AllMouseHandlersAdapter(callback);
 };
@@ -31074,12 +31082,12 @@ Isolate.makeConstantList = function(list) {
 $.List_empty = Isolate.makeConstantList([]);
 $.EventStreamProvider_drag = new $.EventStreamProvider("drag");
 $.Unit_pc = new $.Unit("pc");
-$._CustomEventStreamProvider__determineMouseWheelEventType = new $._CustomEventStreamProvider($.Element__determineMouseWheelEventType);
 $.Display_none = new $.Display("none");
 $.Overflow_scroll = new $.Overflow("scroll");
 $.EventStreamProvider_keypress = new $.EventStreamProvider("keypress");
 $.EventStreamProvider_touchstart = new $.EventStreamProvider("touchstart");
 $.Unit_aNe = new $.Unit("%");
+$._CustomEventStreamProvider__determineMouseWheelEventType = new $._CustomEventStreamProvider($.Element__determineMouseWheelEventType);
 $.Duration_0 = new $.Duration(0);
 $.EventStreamProvider_contextmenu = new $.EventStreamProvider("contextmenu");
 $.EventStreamProvider_change = new $.EventStreamProvider("change");

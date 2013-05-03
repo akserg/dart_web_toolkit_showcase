@@ -28,6 +28,7 @@ import 'package:dart_web_toolkit/event.dart' as event;
 import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
+import 'package:dart_web_toolkit/core.dart' as core;
 
 import 'ioc.dart' as ioc;
 import 'mvp.dart' as mvp;
