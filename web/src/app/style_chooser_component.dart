@@ -44,7 +44,7 @@ class StyleChooserComponent extends ui.Composite {
     ui.ListBox styleChooser = new ui.ListBox();
     for (int i = 0; i < styles.length; i++) {
       String style = styles[i];
-      styleChooser.addItem(style, "packages/dart_web_toolkit/resource/${style}/${style}.css");
+      styleChooser.addItem(style, core.DWT.getModuleBaseURL() + "resource/${style}/${style}.css");
       if (defaultStyle == style) {
         selected = i;
       }

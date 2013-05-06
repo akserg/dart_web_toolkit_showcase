@@ -40,7 +40,7 @@ class AppView extends ui.Composite implements AppPresenterDisplay {
     // Add top panel to main
     mainPanel.addNorth(topPanel, 25.0);
     // Add Product name
-    ui.Label headerContent = new ui.Label("Dart Web Toolkit Showcase (ver 0.3.4)");
+    ui.Label headerContent = new ui.Label("Dart Web Toolkit Showcase (ver ${core.DWT.majorVersion}.${core.DWT.minorVersion})");
     headerContent.addStyleName("header-content");
     topPanel.add(headerContent);
     

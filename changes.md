@@ -1,6 +1,10 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+**May 6, 2013
+
+* Fixed bug Style change does not work.
+
 **May 3, 2013
 
 * Following Dart Web Toolkit 0.3.6.
