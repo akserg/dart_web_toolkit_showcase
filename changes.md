@@ -4,6 +4,7 @@ Dart Web Toolkit Showcase Changes
 **May 6, 2013
 
 * Fixed bug Style change does not work.
+* Changed library minor version number.
 
 **May 3, 2013
 
