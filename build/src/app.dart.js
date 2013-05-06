@@ -4283,6 +4283,9 @@ $$._ChildrenElementList = {"": "ListBase;_liblib3$_element,_childElements",
       t2.insertBefore(element, t1[index]);
     }
   },
+  clear$0: function(_) {
+    this._liblib3$_element.textContent = "";
+  },
   removeAt$1: function(_, index) {
     var t1, result;
     t1 = this._childElements;
@@ -7599,25 +7602,41 @@ $$.ListBoxModel = {"": "ViewModel;",
     return "A widget that presents a list of choices to the user.";
   },
   get$code: function(_) {
-    return "const String NOTHING = \"nothing\";\n\n// Create a panel to align the Widgets\nui.HorizontalPanel hPanel = new ui.HorizontalPanel();\nhPanel.spacing = 20;\n\nui.Label selectedBox = new ui.Label(NOTHING);\nList<String> listTypes = [\"Car Type\", \"Sport\", \"City\"];\n\n// Add a list box with multiple selection enabled\nui.ListBox multiBox = new ui.ListBox(true);\nmultiBox.setWidth(\"11em\");\nmultiBox.setVisibleItemCount(4);\nfor (int i = 0; i < listTypes.length; i++) {\n  multiBox.addItem(listTypes[i]);\n}\nui.VerticalPanel multiBoxPanel = new ui.VerticalPanel();\nmultiBoxPanel.spacing = 4;\nmultiBoxPanel.add(new ui.Html(\"Select all that apply:\"));\nmultiBoxPanel.add(multiBox);\nhPanel.add(multiBoxPanel);\n\n// Add a handler to handle drop box events\nmultiBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){\n  StringBuffer sb = new StringBuffer();\n  if (multiBox.isMultipleSelect()) {\n    for (int i = 0; i < multiBox.getItemCount(); i++) {\n      String txt = multiBox.getItemText(i);\n      if (multiBox.isItemSelected(i)) {\n        if (sb.length > 0) {\n          sb.write(\", \");\n        }\n        sb.write(txt);\n      }\n    }\n  } else {\n    sb.write(multiBox.getItemText(multiBox.getSelectedIndex()));\n  }\n  selectedBox.text = sb.toString().length > 0 ? sb.toString() : NOTHING;\n}));\n\n// Add a drop box with the list types\nui.VerticalPanel dropBoxPanel = new ui.VerticalPanel();\ndropBoxPanel.spacing = 4;\ndropBoxPanel.add(new ui.Html(\"Selected:\"));\ndropBoxPanel.add(selectedBox);\nhPanel.add(dropBoxPanel);\n\nreturn hPanel;\n";
+    return "List<String> listTypes = [\"Car Type\", \"Sport\", \"City\"];\nconst String NOTHING = \"nothing\";\n\n// Create a panel to align the Widgets\nui.HorizontalPanel hPanel = new ui.HorizontalPanel();\nhPanel.spacing = 20;\n\nui.Label selectedBox = new ui.Label(NOTHING);\n\n// Add a drop box with the list types\nui.ListBox dropBox = new ui.ListBox();\nfor (int i = 0; i < listTypes.length; i++) {\n  dropBox.addItem(listTypes[i]);\n}\nui.VerticalPanel dropBoxPanel = new ui.VerticalPanel();\ndropBoxPanel.spacing = 4;\ndropBoxPanel.add(dropBox);\nhPanel.add(dropBoxPanel);\n\n// Add a list box with multiple selection enabled\nui.ListBox multiBox = new ui.ListBox(true);\nmultiBox.setWidth(\"11em\");\nmultiBox.setVisibleItemCount(10);\nfor (int i = 0; i < listTypes.length; i++) {\n  multiBox.addItem(listTypes[i]);\n}\nui.VerticalPanel multiBoxPanel = new ui.VerticalPanel();\nmultiBoxPanel.spacing = 4;\nmultiBoxPanel.add(multiBox);\nhPanel.add(multiBoxPanel);\n\n// Add a drop box with the list types\nui.VerticalPanel selectedPanel = new ui.VerticalPanel();\nselectedPanel.spacing = 4;\nselectedPanel.add(new ui.Html(\"Selected:\"));\nselectedPanel.add(selectedBox);\nhPanel.add(selectedPanel);\n\n// Add a handler to handle drop box events\ndropBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){\n  showCategory(multiBox, dropBox.getSelectedIndex());\n  selectedBox.text = NOTHING;\n}));\n\n// Add a handler to handle drop box events\nmultiBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){\n  StringBuffer sb = new StringBuffer();\n  if (multiBox.isMultipleSelect()) {\n    for (int i = 0; i < multiBox.getItemCount(); i++) {\n      String txt = multiBox.getItemText(i);\n      if (multiBox.isItemSelected(i)) {\n        if (sb.length > 0) {\n          sb.write(\", \");\n        }\n        sb.write(txt);\n      }\n    }\n  } else {\n    sb.write(multiBox.getItemText(multiBox.getSelectedIndex()));\n  }\n  selectedBox.text = sb.toString().length > 0 ? sb.toString() : NOTHING;\n}));\n\n// Show default category\nshowCategory(multiBox, 0);\n\nreturn hPanel;\n\n...\n\n\n/**\n * Display the options for a given category in the list box.\n *\n * @param listBox the ListBox to add the options to\n * @param category the category index\n */\nvoid showCategory(ui.ListBox listBox, int category) {\n  listBox.clear();\n  List<String> listData = null;\n  switch (category) {\n    case 0:\n      listData = [\"compact\", \"sedan\", \"coupe\", \"convertable\", \"SUV\", \"truck\"];\n      break;\n    case 1:\n      listData = [\"Baseball\", \"Basketball\", \"Footbal\"];\n      break;\n    case 2:\n      listData = [\"Paris\", \"London\"];\n      break;\n  }\n  for (int i = 0; i < listData.length; i++) {\n    listBox.addItem(listData[i]);\n  }\n}\n";
   },
   get$style: function(_) {
     return "";
   },
   asWidget$0: function() {
-    var hPanel, selectedBox, listTypes, multiBox, i, multiBoxPanel, td, t1, dropBoxPanel;
+    var listTypes, hPanel, selectedBox, dropBox, i, dropBoxPanel, td, t1, multiBox, multiBoxPanel, selectedPanel;
+    listTypes = ["Car Type", "Sport", "City"];
     hPanel = $.HorizontalPanel$();
     hPanel.set$spacing(hPanel, 20);
     selectedBox = $.Label$("nothing", null);
-    listTypes = ["Car Type", "Sport", "City"];
+    dropBox = $.ListBox$(false, null);
+    for (i = 0; i < listTypes.length; ++i)
+      dropBox.addItem$1(listTypes[i]);
+    dropBoxPanel = $.VerticalPanel$();
+    dropBoxPanel.set$spacing(dropBoxPanel, 4);
+    dropBoxPanel.add$1(dropBoxPanel, dropBox);
+    td = document.createElement("td");
+    t1 = hPanel._horzAlign;
+    $.set$textAlign$x(td.style, t1.getTextAlignString$0());
+    t1 = hPanel._vertAlign;
+    $.set$verticalAlign$x(td.style, t1.getVerticalAlignString$0());
+    hPanel._tableRow.appendChild(td);
+    dropBoxPanel.removeFromParent$0();
+    t1 = hPanel._children;
+    t1.insert$2(t1, dropBoxPanel, t1._size);
+    td.appendChild(dropBoxPanel.getElement$0());
+    dropBoxPanel.setParent$1(hPanel);
     multiBox = $.ListBox$(true, null);
     $.setProperty$2$x($.get$style$x(multiBox._element), "width", "11em");
-    $.interceptedTypeCast(multiBox._element, "$isSelectElement").size = 4;
+    $.interceptedTypeCast(multiBox._element, "$isSelectElement").size = 10;
     for (i = 0; i < listTypes.length; ++i)
       multiBox.addItem$1(listTypes[i]);
     multiBoxPanel = $.VerticalPanel$();
     multiBoxPanel.set$spacing(multiBoxPanel, 4);
-    multiBoxPanel.add$1(multiBoxPanel, $.Html$("Select all that apply:", null));
     multiBoxPanel.add$1(multiBoxPanel, multiBox);
     td = document.createElement("td");
     t1 = hPanel._horzAlign;
@@ -7630,31 +7649,61 @@ $$.ListBoxModel = {"": "ViewModel;",
     t1.insert$2(t1, multiBoxPanel, t1._size);
     td.appendChild(multiBoxPanel.getElement$0());
     multiBoxPanel.setParent$1(hPanel);
-    multiBox.addDomHandler$2($.ChangeHandlerAdapter$(new $.ListBoxModel_asWidget_anon("nothing", selectedBox, multiBox)), $.get$ChangeEvent_TYPE());
-    dropBoxPanel = $.VerticalPanel$();
-    dropBoxPanel.set$spacing(dropBoxPanel, 4);
-    dropBoxPanel.add$1(dropBoxPanel, $.Html$("Selected:", null));
-    dropBoxPanel.add$1(dropBoxPanel, selectedBox);
+    selectedPanel = $.VerticalPanel$();
+    selectedPanel.set$spacing(selectedPanel, 4);
+    selectedPanel.add$1(selectedPanel, $.Html$("Selected:", null));
+    selectedPanel.add$1(selectedPanel, selectedBox);
     td = document.createElement("td");
     t1 = hPanel._horzAlign;
     $.set$textAlign$x(td.style, t1.getTextAlignString$0());
     t1 = hPanel._vertAlign;
     $.set$verticalAlign$x(td.style, t1.getVerticalAlignString$0());
     hPanel._tableRow.appendChild(td);
-    dropBoxPanel.removeFromParent$0();
+    selectedPanel.removeFromParent$0();
     t1 = hPanel._children;
-    t1.insert$2(t1, dropBoxPanel, t1._size);
-    td.appendChild(dropBoxPanel.getElement$0());
-    dropBoxPanel.setParent$1(hPanel);
+    t1.insert$2(t1, selectedPanel, t1._size);
+    td.appendChild(selectedPanel.getElement$0());
+    selectedPanel.setParent$1(hPanel);
+    dropBox.addDomHandler$2($.ChangeHandlerAdapter$(new $.ListBoxModel_asWidget_anon(this, "nothing", selectedBox, dropBox, multiBox)), $.get$ChangeEvent_TYPE());
+    multiBox.addDomHandler$2($.ChangeHandlerAdapter$(new $.ListBoxModel_asWidget_anon0("nothing", selectedBox, multiBox)), $.get$ChangeEvent_TYPE());
+    this.showCategory$2(multiBox, 0);
     return hPanel;
+  },
+  showCategory$2: function(listBox, category) {
+    var t1, listData, i;
+    t1 = $.get$children$x($.interceptedTypeCast(listBox._element, "$isSelectElement"));
+    t1.clear$0(t1);
+    listData = null;
+    switch (category) {
+      case 0:
+        listData = ["compact", "sedan", "coupe", "convertable", "SUV", "truck"];
+        break;
+      case 1:
+        listData = ["Baseball", "Basketball", "Footbal"];
+        break;
+      case 2:
+        listData = ["Paris", "London"];
+        break;
+    }
+    for (i = 0; i < listData.length; ++i)
+      listBox.addItem$1(listData[i]);
   }
 };
 
-$$.ListBoxModel_asWidget_anon = {"": "Closure;NOTHING_0,selectedBox_1,multiBox_2",
+$$.ListBoxModel_asWidget_anon = {"": "Closure;this_0,NOTHING_1,selectedBox_2,dropBox_3,multiBox_4",
+  call$1: function($event) {
+    var t1;
+    this.this_0.showCategory$2(this.multiBox_4, $.interceptedTypeCast(this.dropBox_3._element, "$isSelectElement").selectedIndex);
+    t1 = this.selectedBox_2;
+    t1.set$text(t1, this.NOTHING_1);
+  }
+};
+
+$$.ListBoxModel_asWidget_anon0 = {"": "Closure;NOTHING_5,selectedBox_6,multiBox_7",
   call$1: function($event) {
     var sb, t1, t2, i, txt, str, t3, t4;
     sb = $.StringBuffer$("");
-    t1 = this.multiBox_2;
+    t1 = this.multiBox_7;
     t2 = $.interceptedTypeCast(t1._element, "$isSelectElement");
     if (t2.multiple === true)
       for (i = 0; t2 = $.get$options$x($.interceptedTypeCast(t1._element, "$isSelectElement")), i < t2.get$length(t2); ++i) {
@@ -7692,9 +7741,9 @@ $$.ListBoxModel_asWidget_anon = {"": "Closure;NOTHING_0,selectedBox_1,multiBox_2
       str = typeof str === "string" ? str : $.S(str);
       sb._contents = sb._contents + str;
     }
-    t1 = this.selectedBox_1;
+    t1 = this.selectedBox_6;
     t2 = sb._contents;
-    t1.set$text(t1, t2.length > 0 ? t2 : this.NOTHING_0);
+    t1.set$text(t1, t2.length > 0 ? t2 : this.NOTHING_5);
   }
 };
 
@@ -11546,7 +11595,7 @@ $$.CellPanel = {"": "ComplexPanel;",
     return this._liblib1$_table;
   },
   getWidgetTd$1: function(w) {
-    if (w.getParent$0(w) !== this)
+    if ($.$eq(w.getParent$0(w), this) !== true)
       return;
     return $.get$parent$x(w.getElement$0());
   },
@@ -13989,7 +14038,7 @@ $$.HtmlTable = {"": "Panel;",
     widget.removeFromParent$0();
     t1 = this.widgetMap;
     t1.put$1(t1, widget);
-    td.appendChild(widget.get$_element());
+    td.appendChild(widget.getElement$0());
     widget.setParent$1(this);
   },
   createCell$0: function() {
@@ -18560,6 +18609,8 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
     if ($parent == null)
       $parent = this._root;
     idx = $parent.getChildIndex$1(sel);
+    if (typeof idx !== "number")
+      return this._moveSelectionDown$2$bailout(1, sel, dig, $parent, idx);
     if (!dig || !sel.getState$0())
       if (idx < $parent.getChildCount$0() - 1)
         this._onSelection$3($parent.getChild$1(idx + 1), true, true);
@@ -18568,8 +18619,19 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
     else if (sel.getChildCount$0() > 0)
       this._onSelection$3(sel.getChild$1(0), true, true);
   },
+  _moveSelectionDown$2$bailout: function(state0, sel, dig, $parent, idx) {
+    var t1;
+    if (!dig || !sel.getState$0()) {
+      t1 = $.getInterceptor$n(idx);
+      if (t1.$lt(idx, $parent.getChildCount$0() - 1))
+        this._onSelection$3($parent.getChild$1(t1.$add(idx, 1)), true, true);
+      else
+        this._moveSelectionDown$2($parent, false);
+    } else if (sel.getChildCount$0() > 0)
+      this._onSelection$3(sel.getChild$1(0), true, true);
+  },
   _moveSelectionUp$1: function(sel) {
-    var topClosedParent, $parent, idx;
+    var topClosedParent, $parent, idx, t1;
     topClosedParent = this._getTopClosedParent$1(sel);
     if (topClosedParent != null) {
       this._onSelection$3(topClosedParent, true, true);
@@ -18579,8 +18641,9 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
     if ($parent == null)
       $parent = this._root;
     idx = $parent.getChildIndex$1(sel);
-    if (idx > 0)
-      this._onSelection$3(this._findDeepestOpenChild$1($parent.getChild$1(idx - 1)), true, true);
+    t1 = $.getInterceptor$n(idx);
+    if (t1.$gt(idx, 0))
+      this._onSelection$3(this._findDeepestOpenChild$1($parent.getChild$1(t1.$sub(idx, 1))), true, true);
     else
       this._onSelection$3($parent, true, true);
   },
@@ -18707,18 +18770,18 @@ $$.TreeItem = {"": "UiObject;_children,_contentElem,_childSpanElem,_imageHolder,
   },
   getChild$1: function(index) {
     var t1;
-    if (index !== (index | 0))
+    if (typeof index !== "number")
       return this.getChild$1$bailout(1, index);
     if (index < 0 || index >= this.getChildCount$0())
       return;
     t1 = this._children;
-    if (index < 0 || index >= t1.length)
+    if (index >>> 0 !== index || index >= t1.length)
       throw $.ioore(index);
     return t1[index];
   },
   getChild$1$bailout: function(state0, index) {
-    var t1;
-    if (index < 0 || index >= this.getChildCount$0())
+    var t1 = $.getInterceptor$n(index);
+    if (t1.$lt(index, 0) || t1.$ge(index, this.getChildCount$0()))
       return;
     t1 = this._children;
     if (index >>> 0 !== index || index >= t1.length)
@@ -19439,9 +19502,10 @@ $$.Widget = {"": "UiObject;_layoutData<",
       t1 = $.get$RootPanel__widgetsToDetach();
       if (t1.contains$1(t1, this) === true)
         $.RootPanel_detachNow(this);
-    } else if (typeof t1 === "object" && t1 !== null && !!$.getInterceptor(t1).$isHasWidgets)
+    } else if (typeof t1 === "object" && t1 !== null && !!$.getInterceptor(t1).$isHasWidgets) {
+      $.propertyTypeCast(t1, "$isHasWidgets");
       t1.remove$1(t1, this);
-    else if (!t2)
+    } else if (!t2)
       throw $.wrapException($._ExceptionImplementation$("This widget's parent does not implement HasWidgets"));
   },
   replaceElement$1: function(elem) {
