@@ -5475,7 +5475,7 @@ $$.StyleChooserComponent = {"": "Composite;styles,_widget,_renderable,eventsToSi
     styleChooser = $.ListBox$(false, null);
     for (t1 = this.styles, selected = 0, i = 0; i < t1.length; ++i) {
       style = t1[i];
-      styleChooser.addItem$2(style, "packages/dart_web_toolkit/resource/" + $.S(style) + "/" + $.S(style) + ".css");
+      styleChooser.addItem$2(style, $.JSString_methods.$add($.DWT_getModuleBaseURL(), "resource/" + $.S(style) + "/" + $.S(style) + ".css"));
       if (defaultStyle === style)
         selected = i;
     }
@@ -19745,25 +19745,25 @@ $$._WidgetsIterator = {"": "Object;_liblib1$_container,_contained,index>,last,wi
   moveNext$0: function() {
     var t1, result, t2;
     t1 = this._contained;
-    result = this.index < t1.length;
+    result = this.index < t1.length - 1;
     if (result) {
       if (!result)
         $.throwExpression($._ExceptionImplementation$("NoSuchElement"));
       this.last = this.index;
       t2 = this.index;
       if (t2 !== (t2 | 0))
-        return this.moveNext$0$bailout(1, result, t2, t1);
+        return this.moveNext$0$bailout(1, t2, result, t1);
       if (t2 < 0 || t2 >= t1.length)
         throw $.ioore(t2);
       this._gotoNextIndex$0();
     }
     return result;
   },
-  moveNext$0$bailout: function(state0, result, t2, t1) {
+  moveNext$0$bailout: function(state0, t2, result, t1) {
     switch (state0) {
       case 0:
         t1 = this._contained;
-        result = this.index < t1.length;
+        result = this.index < t1.length - 1;
       case 1:
         if (state0 === 1 || state0 === 0 && result)
           switch (state0) {
