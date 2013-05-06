@@ -1,0 +1,2273 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>TextBoxBase class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="TextBoxBase">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/TextBoxBase.html">TextBoxBase</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>TextBoxBase</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Abstract base class for most text entry widgets.</p><p>
+The names of the static members of {@link TextBoxBase}, as well as simple
+alignment names (<code>left</code>, <code>center</code>, <code>right</code>,
+<code>justify</code>), can be used as values for a <code>textAlignment</code>
+attribute.
+<p>
+For example,<pre>
+&lt;g:TextBox textAlignment='ALIGN_RIGHT'/&gt;
+&lt;g:TextBox textAlignment='right'/&gt;
+</pre>
+<pre class="source">
+class TextBoxBase extends ValueBoxBase&lt;String&gt; {
+ /**
+  * Creates a text box that wraps the given browser element handle. This is
+  * only used by subclasses.
+  *
+  * @param elem the browser element to wrap
+  */
+ TextBoxBase(dart_html.Element elem) : super(elem, new PassthroughRenderer.instance(), new PassthroughParser.instance());
+
+ /**
+  * Overridden to return "" from an empty text box.
+  */
+ String getValue() {
+   String raw = super.getValue();
+   return raw == null ? "" : raw;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase&lt;String&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>TextBoxBase</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/TextArea.html">TextArea</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/TextBox.html">TextBox</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="TextBoxBase">
+<button class="show-code">Code</button>
+new <strong>TextBoxBase</strong>(Element elem) <a class="anchor-link" href="#TextBoxBase"
+              title="Permalink to TextBoxBase.TextBoxBase">#</a></h4>
+<div class="doc">
+<p>Creates a text box that wraps the given browser element handle. This is
+only used by subclasses.</p>
+<p>@param elem the browser element to wrap</p>
+<pre class="source">
+TextBoxBase(dart_html.Element elem) : super(elem, new PassthroughRenderer.instance(), new PassthroughParser.instance());
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="method inherited"><h4 id="accessKey=">
+<button class="show-code">Code</button>
+void <strong>set accessKey</strong>(int key) <a class="anchor-link" href="#accessKey="
+              title="Permalink to TextBoxBase.set accessKey">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Sets the widget's 'access key'. This key is used (in conjunction with a
+browser-specific modifier key) to automatically focus the widget.</p>
+<p>@param key the widget's access key</p>
+<pre class="source">
+void set accessKey(int key) {
+ //Dom.setElementProperty(getElement(), "accessKey", "" + key);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="direction">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>get direction</strong> <a class="anchor-link" href="#direction"
+              title="Permalink to TextBoxBase.get direction">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets the directionality of the widget.</p>
+<p>@return &lt;code>RTL&lt;/code> if the directionality is right-to-left,</p>
+<pre><code>    &lt;code&gt;LTR&lt;/code&gt; if the directionality is left-to-right, or
+    &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality is not explicitly specified
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/HasDirection.html">HasDirection</a> </div></div>
+<pre class="source">
+Direction get direction =&gt; BidiUtils.getDirectionOnElement(getElement());
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="direction=">
+<button class="show-code">Code</button>
+void <strong>set direction</strong>(<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> val) <a class="anchor-link" href="#direction="
+              title="Permalink to TextBoxBase.set direction">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Sets the directionality for a widget.</p>
+<p>@param value &lt;code>RTL&lt;/code> if the directionality should be set to right-to-left,</p>
+<pre><code>             &lt;code&gt;LTR&lt;/code&gt; if the directionality should be set to left-to-right
+             &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality should not be explicitly set
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/HasDirection.html">HasDirection</a> </div></div>
+<pre class="source">
+void set direction(Direction val) {
+ BidiUtils.setDirectionOnElement(getElement(), val);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="enabled">
+<button class="show-code">Code</button>
+bool <strong>get enabled</strong> <a class="anchor-link" href="#enabled"
+              title="Permalink to TextBoxBase.get enabled">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Gets whether this widget is enabled.</p>
+<p>@return &lt;code>true&lt;/code> if the widget is enabled</p>
+<pre class="source">
+bool get enabled =&gt; !Dom.getElementPropertyBoolean(getElement(), "disabled");
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="enabled=">
+<button class="show-code">Code</button>
+void <strong>set enabled</strong>(bool value) <a class="anchor-link" href="#enabled="
+              title="Permalink to TextBoxBase.set enabled">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Sets whether this widget is enabled.</p>
+<p>@param enabled &lt;code>true&lt;/code> to enable the widget, &lt;code>false&lt;/code></p>
+<pre><code>     to disable it
+</code></pre>
+<pre class="source">
+void set enabled(bool value) {
+ Dom.setElementPropertyBoolean(getElement(), "disabled", !value);
+}
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="eventsToSink">
+<button class="show-code">Code</button>
+int         <strong>eventsToSink</strong> <a class="anchor-link"
+            href="#eventsToSink"
+            title="Permalink to TextBoxBase.eventsToSink">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>A set og events that should be sunk when the widget is attached to
+the DOM. (We delay the sinking of events to improve startup performance.)
+When the widget is attached, this is set is empty</p>
+<p>Package protected to allow Composite to see it.</p>
+<pre class="source">
+int eventsToSink = 0
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="focus=">
+<button class="show-code">Code</button>
+void <strong>set focus</strong>(bool focused) <a class="anchor-link" href="#focus="
+              title="Permalink to TextBoxBase.set focus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Explicitly focus/unfocus this widget. Only one widget can have focus at a
+time, and the widget that does will receive all keyboard events.</p>
+<p>@param focused whether this widget should take focus or release it</p>
+<pre class="source">
+void set focus(bool focused) {
+ if (focused) {
+   impl.focus(getElement());
+ } else {
+   impl.blur(getElement());
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="name">
+<button class="show-code">Code</button>
+String <strong>get name</strong> <a class="anchor-link" href="#name"
+              title="Permalink to TextBoxBase.get name">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets the widget's name.</p>
+<p>@return the widget's name</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasName.html">HasName</a> </div></div>
+<pre class="source">
+String get name =&gt; Dom.getElementProperty(getElement(), "name");
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="name=">
+<button class="show-code">Code</button>
+void <strong>set name</strong>(String val) <a class="anchor-link" href="#name="
+              title="Permalink to TextBoxBase.set name">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Sets the widget's name.</p>
+<p>@param name the widget's new name</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasName.html">HasName</a> </div></div>
+<pre class="source">
+void set name(String val) {
+ Dom.setElementProperty(getElement(), "name", val);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="tabIndex">
+<button class="show-code">Code</button>
+int <strong>get tabIndex</strong> <a class="anchor-link" href="#tabIndex"
+              title="Permalink to TextBoxBase.get tabIndex">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Gets the widget's position in the tab index.</p>
+<p>@return the widget's tab index</p>
+<pre class="source">
+int get tabIndex =&gt; impl.getTabIndex(getElement());
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="tabIndex=">
+<button class="show-code">Code</button>
+void <strong>set tabIndex</strong>(int index) <a class="anchor-link" href="#tabIndex="
+              title="Permalink to TextBoxBase.set tabIndex">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Sets the widget's position in the tab index. If more than one widget has
+the same tab index, each such widget will receive focus in an arbitrary
+order. Setting the tab index to &lt;code>-1&lt;/code> will cause this widget to
+be removed from the tab order.</p>
+<p>@param index the widget's tab index</p>
+<pre class="source">
+void set tabIndex(int index) {
+ impl.setTabIndex(getElement(), index);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="text">
+<button class="show-code">Code</button>
+String <strong>get text</strong> <a class="anchor-link" href="#text"
+              title="Permalink to TextBoxBase.get text">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets this object's text.</p>
+<p>@return the object's text</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasText.html">HasText</a> </div></div>
+<pre class="source">
+String get text {
+ // Because bug http://code.google.com/p/dart/issues/detail?id=9356
+ // we can't read directly from attributes
+ if (getElement() is dart_html.InputElement) {
+   return (getElement() as dart_html.InputElement).value;
+ } else if (getElement() is dart_html.TextAreaElement) {
+   return (getElement() as dart_html.TextAreaElement).value;
+ } else {
+   return Dom.getElementProperty(getElement(), "value");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="text=">
+<button class="show-code">Code</button>
+void <strong>set text</strong>(String val) <a class="anchor-link" href="#text="
+              title="Permalink to TextBoxBase.set text">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Sets this object's text. Note that some browsers will manipulate the text
+before adding it to the widget. For example, most browsers will strip all
+&lt;code>\r&lt;/code> from the text, except IE which will add a &lt;code>\r&lt;/code>
+before each &lt;code>\n&lt;/code>. Use {@link #getText()} to get the text
+directly from the widget.</p>
+<p>@param text the object's new text</p>
+<pre class="source">
+void set text(String val) {
+ // Because bug http://code.google.com/p/dart/issues/detail?id=9356
+ // we can't write directly into attributes
+ if (getElement() is dart_html.InputElement) {
+   (getElement() as dart_html.InputElement).value = val != null ? val : "";
+ } else if (getElement() is dart_html.TextAreaElement) {
+   (getElement() as dart_html.TextAreaElement).value = val != null ? val : "";
+ } else {
+   Dom.setElementProperty(getElement(), "value", val != null ? val : "");
+ }
+ _autoDirHandler.refreshDirection();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title">
+<button class="show-code">Code</button>
+String <strong>get title</strong> <a class="anchor-link" href="#title"
+              title="Permalink to TextBoxBase.get title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the title associated with this object. The title is the 'tool-tip'
+displayed to users when they hover over the object.</p>
+<p>@return the object's title</p>
+<pre class="source">
+String get title =&gt; getElement().title;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title=">
+<button class="show-code">Code</button>
+void <strong>set title</strong>(String value) <a class="anchor-link" href="#title="
+              title="Permalink to TextBoxBase.set title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the element's title.</p>
+<pre class="source">
+void set title(String value) {
+ getElement().title = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible">
+<button class="show-code">Code</button>
+bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to TextBoxBase.get visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Determines whether or not this object is visible. Note that this does not
+necessarily take into account whether or not the receiver's parent is
+visible, or even if it is attached to the
+<code>Document</code>. The default implementation of this trait in <code>UIObject</code> is
+based on the value of a dom element's style object's display attribute.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible</p>
+<pre class="source">
+bool get visible =&gt; isVisible(getElement());
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible=">
+<button class="show-code">Code</button>
+void <strong>set visible</strong>(bool visible) <a class="anchor-link" href="#visible="
+              title="Permalink to TextBoxBase.set visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets whether this object is visible.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void set visible(bool visible) {
+ setVisible(getElement(), visible);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="addAttachHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addAttachHandler</strong>(<a href="../dart_web_toolkit_event/AttachEventHandler.html">AttachEventHandler</a> handler) <a class="anchor-link" href="#addAttachHandler"
+              title="Permalink to TextBoxBase.addAttachHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds an <code>AttachEvent</code> handler.</p>
+<p>@param handler the handler
+@return the handler registration</p>
+<pre class="source">
+HandlerRegistration addAttachHandler(AttachEventHandler handler) {
+ return addHandler(handler, AttachEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addBitlessDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBitlessDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addBitlessDomHandler"
+              title="Permalink to TextBoxBase.addBitlessDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>For &lt;a href=
+"http://code.google.com/p/google-web-toolkit/wiki/UnderstandingMemoryLeaks"</p>
+<blockquote>
+<p>browsers which do not leak&lt;/a>, adds a native event handler to the widget.</p></blockquote>
+<p>Note that, unlike the
+{@link #addDomHandler(EventHandler, com.google.gwt.event.dom.client.DomEvent.Type)}
+implementation, there is no need to attach the widget to the DOM in order
+to cause the event handlers to be attached.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addBitlessDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null);; // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ sinkBitlessEvent(type.eventName);
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addBlurHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBlurHandler</strong>(<a href="../dart_web_toolkit_event/BlurHandler.html">BlurHandler</a> handler) <a class="anchor-link" href="#addBlurHandler"
+              title="Permalink to TextBoxBase.addBlurHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link BlurEvent} handler.</p>
+<p>@param handler the blur handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasBlurHandlers.html">HasBlurHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addBlurHandler(BlurHandler handler) {
+ return addDomHandler(handler, BlurEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addChangeHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addChangeHandler</strong>(<a href="../dart_web_toolkit_event/ChangeHandler.html">ChangeHandler</a> handler) <a class="anchor-link" href="#addChangeHandler"
+              title="Permalink to TextBoxBase.addChangeHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link ChangeEvent} handler.</p>
+<p>@param handler the change handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasChangeHandlers.html">HasChangeHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addChangeHandler(ChangeHandler handler) {
+ return addDomHandler(handler, ChangeEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addClickHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addClickHandler</strong>(<a href="../dart_web_toolkit_event/ClickHandler.html">ClickHandler</a> handler) <a class="anchor-link" href="#addClickHandler"
+              title="Permalink to TextBoxBase.addClickHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>Adds a {@link ClickEvent} handler.</p>
+<p>@param handler the click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<pre class="source">
+HandlerRegistration addClickHandler(ClickHandler handler) {
+ return addDomHandler(handler, ClickEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addDomHandler"
+              title="Permalink to TextBoxBase.addDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds a native event handler to the widget and sinks the corresponding
+native event. If you do not want to sink the native event, use the generic
+addHandler method instead.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null); // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ int typeInt = IEvent.getTypeInt(type.eventName);
+ if (typeInt == -1) {
+   sinkBitlessEvent(type.eventName);
+ } else {
+   sinkEvents(typeInt);
+ }
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDoubleClickHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDoubleClickHandler</strong>(<a href="../dart_web_toolkit_event/DoubleClickHandler.html">DoubleClickHandler</a> handler) <a class="anchor-link" href="#addDoubleClickHandler"
+              title="Permalink to TextBoxBase.addDoubleClickHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DoubleClickEvent} handler.</p>
+<p>@param handler the double click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDoubleClickHandlers.html">HasDoubleClickHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+ return addDomHandler(handler, DoubleClickEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragEndHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragEndHandler</strong>(<a href="../dart_web_toolkit_event/DragEndHandler.html">DragEndHandler</a> handler) <a class="anchor-link" href="#addDragEndHandler"
+              title="Permalink to TextBoxBase.addDragEndHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragEndEvent} handler.</p>
+<p>@param handler the drag end handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragEndHandlers.html">HasDragEndHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+ return addBitlessDomHandler(handler, DragEndEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragEnterHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragEnterHandler</strong>(<a href="../dart_web_toolkit_event/DragEnterHandler.html">DragEnterHandler</a> handler) <a class="anchor-link" href="#addDragEnterHandler"
+              title="Permalink to TextBoxBase.addDragEnterHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragEnterEvent} handler.</p>
+<p>@param handler the drag end handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragEnterHandlers.html">HasDragEnterHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+ return addBitlessDomHandler(handler, DragEnterEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragHandler</strong>(<a href="../dart_web_toolkit_event/DragHandler.html">DragHandler</a> handler) <a class="anchor-link" href="#addDragHandler"
+              title="Permalink to TextBoxBase.addDragHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragEvent} handler.</p>
+<p>@param handler the drag handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragHandlers.html">HasDragHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragHandler(DragHandler handler) {
+ return addBitlessDomHandler(handler, DragEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragLeaveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragLeaveHandler</strong>(<a href="../dart_web_toolkit_event/DragLeaveHandler.html">DragLeaveHandler</a> handler) <a class="anchor-link" href="#addDragLeaveHandler"
+              title="Permalink to TextBoxBase.addDragLeaveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragLeaveEvent} handler.</p>
+<p>@param handler the drag leave handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragLeaveHandlers.html">HasDragLeaveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+ return addBitlessDomHandler(handler, DragLeaveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragOverHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragOverHandler</strong>(<a href="../dart_web_toolkit_event/DragOverHandler.html">DragOverHandler</a> handler) <a class="anchor-link" href="#addDragOverHandler"
+              title="Permalink to TextBoxBase.addDragOverHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragOverEvent} handler.</p>
+<p>@param handler the drag over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragOverHandlers.html">HasDragOverHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+ return addBitlessDomHandler(handler, DragOverEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragStartHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragStartHandler</strong>(<a href="../dart_web_toolkit_event/DragStartHandler.html">DragStartHandler</a> handler) <a class="anchor-link" href="#addDragStartHandler"
+              title="Permalink to TextBoxBase.addDragStartHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragStartEvent} handler.</p>
+<p>@param handler the drag start handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragStartHandlers.html">HasDragStartHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+ return addBitlessDomHandler(handler, DragStartEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDropHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDropHandler</strong>(<a href="../dart_web_toolkit_event/DropHandler.html">DropHandler</a> handler) <a class="anchor-link" href="#addDropHandler"
+              title="Permalink to TextBoxBase.addDropHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DropEvent} handler.</p>
+<p>@param handler the drop handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDropHandlers.html">HasDropHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDropHandler(DropHandler handler) {
+ return addBitlessDomHandler(handler, DropEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addFocusHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addFocusHandler</strong>(<a href="../dart_web_toolkit_event/FocusHandler.html">FocusHandler</a> handler) <a class="anchor-link" href="#addFocusHandler"
+              title="Permalink to TextBoxBase.addFocusHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link FocusEvent} handler.</p>
+<p>@param handler the focus handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasFocusHandlers.html">HasFocusHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addFocusHandler(FocusHandler handler) {
+ return addDomHandler(handler, FocusEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addGestureChangeHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addGestureChangeHandler</strong>(<a href="../dart_web_toolkit_event/GestureChangeHandler.html">GestureChangeHandler</a> handler) <a class="anchor-link" href="#addGestureChangeHandler"
+              title="Permalink to TextBoxBase.addGestureChangeHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<pre class="source">
+HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
+ return addDomHandler(handler, GestureChangeEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addGestureEndHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addGestureEndHandler</strong>(<a href="../dart_web_toolkit_event/GestureEndHandler.html">GestureEndHandler</a> handler) <a class="anchor-link" href="#addGestureEndHandler"
+              title="Permalink to TextBoxBase.addGestureEndHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<pre class="source">
+HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+ return addDomHandler(handler, GestureEndEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addGestureStartHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addGestureStartHandler</strong>(<a href="../dart_web_toolkit_event/GestureStartHandler.html">GestureStartHandler</a> handler) <a class="anchor-link" href="#addGestureStartHandler"
+              title="Permalink to TextBoxBase.addGestureStartHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<pre class="source">
+HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+ return addDomHandler(handler, GestureStartEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a>&gt; type) <a class="anchor-link" href="#addHandler"
+              title="Permalink to TextBoxBase.addHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds this handler to the widget.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event type
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&gt; type) {
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addKeyDownHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyDownHandler</strong>(<a href="../dart_web_toolkit_event/KeyDownHandler.html">KeyDownHandler</a> handler) <a class="anchor-link" href="#addKeyDownHandler"
+              title="Permalink to TextBoxBase.addKeyDownHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link KeyDownEvent} handler.</p>
+<p>@param handler the key down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasKeyDownHandlers.html">HasKeyDownHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+ return addDomHandler(handler, KeyDownEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addKeyPressHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyPressHandler</strong>(<a href="../dart_web_toolkit_event/KeyPressHandler.html">KeyPressHandler</a> handler) <a class="anchor-link" href="#addKeyPressHandler"
+              title="Permalink to TextBoxBase.addKeyPressHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link KeyPressEvent} handler.</p>
+<p>@param handler the key press handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasKeyPressHandlers.html">HasKeyPressHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+ return addDomHandler(handler, KeyPressEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addKeyUpHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyUpHandler</strong>(<a href="../dart_web_toolkit_event/KeyUpHandler.html">KeyUpHandler</a> handler) <a class="anchor-link" href="#addKeyUpHandler"
+              title="Permalink to TextBoxBase.addKeyUpHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link KeyUpEvent} handler.</p>
+<p>@param handler the key up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasKeyUpHandlers.html">HasKeyUpHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+ return addDomHandler(handler, KeyUpEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseDownHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseDownHandler</strong>(<a href="../dart_web_toolkit_event/MouseDownHandler.html">MouseDownHandler</a> handler) <a class="anchor-link" href="#addMouseDownHandler"
+              title="Permalink to TextBoxBase.addMouseDownHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseDownEvent} handler.</p>
+<p>@param handler the mouse down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+ return addDomHandler(handler, MouseDownEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseMoveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseMoveHandler</strong>(<a href="../dart_web_toolkit_event/MouseMoveHandler.html">MouseMoveHandler</a> handler) <a class="anchor-link" href="#addMouseMoveHandler"
+              title="Permalink to TextBoxBase.addMouseMoveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseMoveEvent} handler.</p>
+<p>@param handler the mouse move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+ return addDomHandler(handler, MouseMoveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseOutHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOutHandler</strong>(<a href="../dart_web_toolkit_event/MouseOutHandler.html">MouseOutHandler</a> handler) <a class="anchor-link" href="#addMouseOutHandler"
+              title="Permalink to TextBoxBase.addMouseOutHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOutEvent} handler.</p>
+<p>@param handler the mouse out handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+ return addDomHandler(handler, MouseOutEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseOverHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOverHandler</strong>(<a href="../dart_web_toolkit_event/MouseOverHandler.html">MouseOverHandler</a> handler) <a class="anchor-link" href="#addMouseOverHandler"
+              title="Permalink to TextBoxBase.addMouseOverHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOverEvent} handler.</p>
+<p>@param handler the mouse over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+ return addDomHandler(handler, MouseOverEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseUpHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseUpHandler</strong>(<a href="../dart_web_toolkit_event/MouseUpHandler.html">MouseUpHandler</a> handler) <a class="anchor-link" href="#addMouseUpHandler"
+              title="Permalink to TextBoxBase.addMouseUpHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseUpEvent} handler.</p>
+<p>@param handler the mouse up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+ return addDomHandler(handler, MouseUpEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseWheelHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseWheelHandler</strong>(<a href="../dart_web_toolkit_event/MouseWheelHandler.html">MouseWheelHandler</a> handler) <a class="anchor-link" href="#addMouseWheelHandler"
+              title="Permalink to TextBoxBase.addMouseWheelHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseWheelEvent} handler.</p>
+<p>@param handler the mouse wheel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+ return addDomHandler(handler, MouseWheelEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>addStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#addStyleDependentName"
+              title="Permalink to TextBoxBase.addStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a dependent style name by specifying the style name's suffix. The
+actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added.
+@see #setStylePrimaryName(String)
+@see #removeStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)
+@see #addStyleName(String)</p>
+<pre class="source">
+void addStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(String style) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to TextBoxBase.addStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a secondary or dependent style name to this object. A secondary style
+name is an additional style name that is, in HTML/CSS terms, included as a
+space-separated token in the value of the CSS &lt;code>class&lt;/code> attribute
+for this object's root element.</p><p>
+The most important use for this method is to add a special kind of
+secondary style name called a <i>dependent style name</i>. To add a
+dependent style name, use {@link #addStyleDependentName(String)}, which
+will prefix the 'style' argument with the result of
+{@link #k()} (followed by a '-'). For example, suppose
+the primary style name is <code>gwt-TextBox</code>. If the following method
+is called as <code>obj.setReadOnly(true)</code>:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+<p>  // Create a dependent style name.
+  String readOnlyStyle = "readonly";</p>
+<p>  if (readOnly) {</p>
+<pre><code>addStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  } else {</p>
+<pre><code>removeStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  }
+}&lt;/pre></p><p>
+then both of the CSS style rules below will be applied:
+</p><pre class="code">
+<p>// This rule is based on the primary style name and is always active.
+.gwt-TextBox {
+  font-size: 12pt;
+}</p>
+<p>// This rule is based on a dependent style name that is only active
+// when the widget has called addStyleName(getStylePrimaryName() +
+// "-readonly").
+.gwt-TextBox-readonly {
+  background-color: lightgrey;
+  border: none;
+}&lt;/pre></p><p>
+The code can also be simplified with
+{@link #setStyleDependentName(String, boolean)}:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+  setStyleDependentName("readonly", readOnly);
+}</pre><p>
+Dependent style names are powerful because they are automatically updated
+whenever the primary style name changes. Continuing with the example above,
+if the primary style name changed due to the following call:
+</p><pre class="code">setStylePrimaryName("my-TextThingy");</pre><p>
+then the object would be re-associated with following style rules, removing
+those that were shown above.
+</p><pre class="code">
+.my-TextThingy {
+  font-size: 20pt;
+}
+<p>.my-TextThingy-readonly {
+  background-color: red;
+  border: 2px solid yellow;
+}&lt;/pre></p><p>
+Secondary style names that are not dependent style names are not
+automatically updated when the primary style name changes.
+</p>
+<p>@param style the secondary style name to be added
+@see UIObject
+@see #removeStyleName(String)</p>
+<pre class="source">
+void addStyleName(String style) {
+ setStyleName(style, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchCancelHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchCancelHandler</strong>(<a href="../dart_web_toolkit_event/TouchCancelHandler.html">TouchCancelHandler</a> handler) <a class="anchor-link" href="#addTouchCancelHandler"
+              title="Permalink to TextBoxBase.addTouchCancelHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchCancelEvent} handler.</p>
+<p>@param handler the touch cancel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchCancelHandlers.html">HasTouchCancelHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+ return addDomHandler(handler, TouchCancelEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchEndHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchEndHandler</strong>(<a href="../dart_web_toolkit_event/TouchEndHandler.html">TouchEndHandler</a> handler) <a class="anchor-link" href="#addTouchEndHandler"
+              title="Permalink to TextBoxBase.addTouchEndHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchEndEvent} handler.</p>
+<p>@param handler the touch end handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchEndHandlers.html">HasTouchEndHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+ return addDomHandler(handler, TouchEndEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchMoveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchMoveHandler</strong>(<a href="../dart_web_toolkit_event/TouchMoveHandler.html">TouchMoveHandler</a> handler) <a class="anchor-link" href="#addTouchMoveHandler"
+              title="Permalink to TextBoxBase.addTouchMoveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchMoveEvent} handler.</p>
+<p>@param handler the touch move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchMoveHandlers.html">HasTouchMoveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+ return addDomHandler(handler, TouchMoveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchStartHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchStartHandler</strong>(<a href="../dart_web_toolkit_event/TouchStartHandler.html">TouchStartHandler</a> handler) <a class="anchor-link" href="#addTouchStartHandler"
+              title="Permalink to TextBoxBase.addTouchStartHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchStartEvent} handler.</p>
+<p>@param handler the touch start handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchStartHandlers.html">HasTouchStartHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+ return addDomHandler(handler, TouchStartEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addValueChangeHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addValueChangeHandler</strong>(<a href="../dart_web_toolkit_event/ValueChangeHandler.html">ValueChangeHandler</a>&lt;<a href="../dart_web_toolkit_ui/TextBoxBase.html">T</a>&gt; handler) <a class="anchor-link" href="#addValueChangeHandler"
+              title="Permalink to TextBoxBase.addValueChangeHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link ValueChangeEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasValueChangeHandlers.html">HasValueChangeHandlers</a>&lt;<a href="../dart_web_toolkit_ui/TextBoxBase.html">T</a>&gt; </div></div>
+<pre class="source">
+HandlerRegistration addValueChangeHandler(ValueChangeHandler&lt;T&gt; handler) {
+ // Initialization code
+ if (!_valueChangeHandlerInitialized) {
+   _valueChangeHandlerInitialized = true;
+   addChangeHandler(new ChangeHandlerAdapter((ChangeEvent event){
+     ValueChangeEvent.fire(this, getValue());
+   }));
+ }
+ return addHandler(handler, ValueChangeEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asEditor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ValueBoxEditor.html">ValueBoxEditor</a>&lt;<a href="../dart_web_toolkit_ui/TextBoxBase.html">T</a>&gt; <strong>asEditor</strong>() <a class="anchor-link" href="#asEditor"
+              title="Permalink to TextBoxBase.asEditor">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Returns an Editor that is backed by the ValueBoxBase. The default
+implementation returns {@link ValueBoxEditor#of(ValueBoxBase)}. Subclasses
+may override this method to provide custom error-handling when using the
+Editor framework.</p>
+<pre class="source">
+ValueBoxEditor&lt;T&gt; asEditor() {
+ if (_editor == null) {
+   _editor = new ValueBoxEditor.of(this);
+ }
+ return _editor;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>asWidget</strong>() <a class="anchor-link" href="#asWidget"
+              title="Permalink to TextBoxBase.asWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_ui/Widget.html">Widget</a> aspect of the receiver.</p>
+<pre class="source">
+Widget asWidget() {
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="cancelKey">
+<button class="show-code">Code</button>
+void <strong>cancelKey</strong>() <a class="anchor-link" href="#cancelKey"
+              title="Permalink to TextBoxBase.cancelKey">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>If a keyboard event is currently being handled on this text box, calling
+this method will suppress it. This allows listeners to easily filter
+keyboard input.</p>
+<pre class="source">
+void cancelKey() {
+ if (_currentEvent != null) {
+   //DOM.eventPreventDefault(currentEvent);
+   _currentEvent.preventDefault();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="clearAndSetStyleName">
+<button class="show-code">Code</button>
+void <strong>clearAndSetStyleName</strong>(String style) <a class="anchor-link" href="#clearAndSetStyleName"
+              title="Permalink to TextBoxBase.clearAndSetStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Clears all of the object's style names and sets it to the given style. You
+should normally use {@link #setStylePrimaryName(String)} unless you wish to
+explicitly remove all existing styles.</p>
+<p>@param style the new style name
+@see #setStylePrimaryName(String)</p>
+<pre class="source">
+void clearAndSetStyleName(String style) {
+ setElementStyleName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="createEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>createEventBus</strong>() <a class="anchor-link" href="#createEventBus"
+              title="Permalink to TextBoxBase.createEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Creates the <code>SimpleEventBus</code> used by this Widget. You can override
+this method to create a custom <code>EventBus</code>.</p>
+<p>@return the <code>EventBus</code> you want to use.</p>
+<pre class="source">
+EventBus createEventBus() {
+ return new SimpleEventBus();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="delegateEvent">
+<button class="show-code">Code</button>
+void <strong>delegateEvent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> target, <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#delegateEvent"
+              title="Permalink to TextBoxBase.delegateEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires an event on a child widget. Used to delegate the handling of an event
+from one widget to another.</p>
+<p>@param event the event
+@param target fire the event on the given target</p>
+<pre class="source">
+void delegateEvent(Widget target, DwtEvent event) {
+ target.fireEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doAttachChildren">
+<button class="show-code">Code</button>
+void <strong>doAttachChildren</strong>() <a class="anchor-link" href="#doAttachChildren"
+              title="Permalink to TextBoxBase.doAttachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onAttach()} for each of its
+child widgets.</p>
+<p>@see #onAttach()</p>
+<pre class="source">
+void doAttachChildren() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doDetachChildren">
+<button class="show-code">Code</button>
+void <strong>doDetachChildren</strong>() <a class="anchor-link" href="#doDetachChildren"
+              title="Permalink to TextBoxBase.doDetachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onDetach()} for each of its
+child widgets.</p>
+<p>@see #onDetach()</p>
+<pre class="source">
+void doDetachChildren() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="enableDefaultDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>enableDefaultDirectionEstimator</strong>(bool enabled) <a class="anchor-link" href="#enableDefaultDirectionEstimator"
+              title="Permalink to TextBoxBase.enableDefaultDirectionEstimator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Toggles on / off direction estimation.</p>
+<pre class="source">
+void enableDefaultDirectionEstimator(bool enabled) {
+ _autoDirHandler.enableDefaultDirectionEstimator(enabled);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="ensureHandlers">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>ensureHandlers</strong>() <a class="anchor-link" href="#ensureHandlers"
+              title="Permalink to TextBoxBase.ensureHandlers">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Ensures the existence of the event bus.</p>
+<p>@return the <code>EventBus</code>.</p>
+<pre class="source">
+EventBus ensureHandlers() {
+ return _eventBus == null ? _eventBus = createEventBus() : _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="extractLengthValue">
+<button class="show-code">Code</button>
+double <strong>extractLengthValue</strong>(String s) <a class="anchor-link" href="#extractLengthValue"
+              title="Permalink to TextBoxBase.extractLengthValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Intended to be used to pull the value out of a CSS length. If the
+value is "auto" or "inherit", 0 will be returned.</p>
+<p>@param s The CSS length string to extract
+@return The leading numeric portion of &lt;code>s&lt;/code>, or 0 if "auto" or</p>
+<pre><code>    "inherit" are passed in.
+</code></pre>
+<pre class="source">
+double extractLengthValue(String s) {
+ if (s == "auto" || s == "inherit" || s == "") {
+   return 0.0;
+ } else {
+   // numberRegex divides the string into a leading numeric portion
+   // followed by an arbitrary portion.
+   if(numberRegex.hasMatch(s)) {
+     // Extract the leading numeric portion of string
+     s = numberRegex.firstMatch(s)[0];
+   }
+   return double.parse(s);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to TextBoxBase.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<code>UmbrellaException</code> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+<pre class="source">
+void fireEvent(DwtEvent event) {
+//    if (_eventBus != null) {
+//      _eventBus.fireEvent(event);
+//    }
+ if (_eventBus != null) {
+   // If it not live we should revive it.
+   if (!event.isLive()) {
+     event.revive();
+   }
+   Object oldSource = event.getSource();
+   event.overrideSource(getElement());
+   try {
+
+     // May throw an UmbrellaException.
+     _eventBus.fireEventFromSource(event, getElement());
+   } on UmbrellaException catch (e) {
+     throw new UmbrellaException(e.causes);
+   } finally {
+     if (oldSource == null) {
+       // This was my event, so I should kill it now that I'm done.
+       event.kill();
+     } else {
+       // Restoring the source for the next handler to use.
+       event.overrideSource(oldSource);
+     }
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>() <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to TextBoxBase.getAbsoluteLeft">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute left position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute left position</p>
+<pre class="source">
+int getAbsoluteLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>() <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to TextBoxBase.getAbsoluteTop">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute top position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute top position</p>
+<pre class="source">
+int getAbsoluteTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getCursorPos">
+<button class="show-code">Code</button>
+int <strong>getCursorPos</strong>() <a class="anchor-link" href="#getCursorPos"
+              title="Permalink to TextBoxBase.getCursorPos">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Gets the current position of the cursor (this also serves as the beginning
+of the text selection).</p>
+<p>@return the cursor's position</p>
+<pre class="source">
+int getCursorPos() {
+ return _impl.getCursorPos(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getDirectionEstimator">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> <strong>getDirectionEstimator</strong>() <a class="anchor-link" href="#getDirectionEstimator"
+              title="Permalink to TextBoxBase.getDirectionEstimator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<pre class="source">
+DirectionEstimator getDirectionEstimator() {
+ return _autoDirHandler.getDirectionEstimator();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>() <a class="anchor-link" href="#getElement"
+              title="Permalink to TextBoxBase.getElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets this object's browser element.</p>
+<pre class="source">
+dart_html.Element getElement() {
+ assert (_element != null); // : MISSING_ELEMENT_ERROR;
+ return _element;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>getEventBus</strong>() <a class="anchor-link" href="#getEventBus"
+              title="Permalink to TextBoxBase.getEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Return EventBus.</p>
+<pre class="source">
+EventBus getEventBus() {
+ return _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getImpl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TextBoxImpl.html">TextBoxImpl</a> <strong>getImpl</strong>() <a class="anchor-link" href="#getImpl"
+              title="Permalink to TextBoxBase.getImpl">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<pre class="source">
+TextBoxImpl getImpl() {
+ return _impl;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getLayoutData">
+<button class="show-code">Code</button>
+Object <strong>getLayoutData</strong>() <a class="anchor-link" href="#getLayoutData"
+              title="Permalink to TextBoxBase.getLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets the panel-defined layout data associated with this widget.</p>
+<p>@return the widget's layout data
+@see #setLayoutData</p>
+<pre class="source">
+Object getLayoutData() {
+ return _layoutData;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetHeight">
+<button class="show-code">Code</button>
+int <strong>getOffsetHeight</strong>() <a class="anchor-link" href="#getOffsetHeight"
+              title="Permalink to TextBoxBase.getOffsetHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset height in pixels. This is the total height of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset height</p>
+<pre class="source">
+int getOffsetHeight() {
+ return getElement().offset.height; // Dom.getElementPropertyInt(getElement(), "offsetHeight");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetWidth">
+<button class="show-code">Code</button>
+int <strong>getOffsetWidth</strong>() <a class="anchor-link" href="#getOffsetWidth"
+              title="Permalink to TextBoxBase.getOffsetWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset width in pixels. This is the total width of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset width</p>
+<pre class="source">
+int getOffsetWidth() {
+ return getElement().offset.width; // Dom.getElementPropertyInt(getElement(), "offsetWidth");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getParent">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getParent</strong>() <a class="anchor-link" href="#getParent"
+              title="Permalink to TextBoxBase.getParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets this widget's parent panel.</p>
+<p>@return the widget's parent panel</p>
+<pre class="source">
+Widget getParent() {
+ return _parent;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getSelectedText">
+<button class="show-code">Code</button>
+String <strong>getSelectedText</strong>() <a class="anchor-link" href="#getSelectedText"
+              title="Permalink to TextBoxBase.getSelectedText">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Gets the text currently selected within this text box.</p>
+<p>@return the selected text, or an empty string if none is selected</p>
+<pre class="source">
+String getSelectedText() {
+ int start = getCursorPos();
+ if (start &lt; 0) {
+   return "";
+ }
+ int length = getSelectionLength();
+ return text.substring(start, start + length);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getSelectionLength">
+<button class="show-code">Code</button>
+int <strong>getSelectionLength</strong>() <a class="anchor-link" href="#getSelectionLength"
+              title="Permalink to TextBoxBase.getSelectionLength">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Gets the length of the current text selection.</p>
+<p>@return the text selection length</p>
+<pre class="source">
+int getSelectionLength() {
+ return _impl.getSelectionLength(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>() <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to TextBoxBase.getStyleElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Template method that returns the element to which style names will be
+applied. By default it returns the root element, but this method may be
+overridden to apply styles to a child element.</p>
+<p>@return the element to which style names will be applied</p>
+<pre class="source">
+dart_html.Element getStyleElement() {
+ return getElement();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>() <a class="anchor-link" href="#getStyleName"
+              title="Permalink to TextBoxBase.getStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets all of the object's style names, as a space-separated list. If you
+wish to retrieve only the primary style name, call
+{@link #getStylePrimaryName()}.</p>
+<p>@return the objects's space-separated style names
+@see #getStylePrimaryName()</p>
+<pre class="source">
+String getStyleName() {
+ return getElementStyleName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>() <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to TextBoxBase.getStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the primary style name associated with the object.</p>
+<p>@return the object's primary style name
+@see #setStyleName(String)
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+String getStylePrimaryName() {
+ return getElementStylePrimaryName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getValue">
+<button class="show-code">Code</button>
+String <strong>getValue</strong>() <a class="anchor-link" href="#getValue"
+              title="Permalink to TextBoxBase.getValue">#</a></h4>
+<div class="doc">
+<p>Overridden to return "" from an empty text box.</p>
+<pre class="source">
+String getValue() {
+ String raw = super.getValue();
+ return raw == null ? "" : raw;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getValueOrThrow">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TextBoxBase.html">T</a> <strong>getValueOrThrow</strong>() <a class="anchor-link" href="#getValueOrThrow"
+              title="Permalink to TextBoxBase.getValueOrThrow">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Return the parsed value, or null if the field is empty.</p>
+<p>@throws ParseException if the value cannot be parsed</p>
+<pre class="source">
+T getValueOrThrow() {
+ T parseResult = _parser.parse(text);
+
+ if (text == "") {
+   return null;
+ }
+
+ return parseResult;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isAttached">
+<button class="show-code">Code</button>
+bool <strong>isAttached</strong>() <a class="anchor-link" href="#isAttached"
+              title="Permalink to TextBoxBase.isAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns whether or not the receiver is attached to the
+{@link com.google.gwt.dom.client.Document Document}'s
+{@link com.google.gwt.dom.client.BodyElement BodyElement}.</p>
+<p>@return true if attached, false otherwise</p>
+<pre class="source">
+bool isAttached() {
+ return _attached;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isOrWasAttached">
+<button class="show-code">Code</button>
+bool <strong>isOrWasAttached</strong>() <a class="anchor-link" href="#isOrWasAttached"
+              title="Permalink to TextBoxBase.isOrWasAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Has this widget ever been attached?</p>
+<p>@return true if this widget ever been attached to the DOM, false otherwise</p>
+<pre class="source">
+bool isOrWasAttached() {
+ return eventsToSink == -1;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isReadOnly">
+<button class="show-code">Code</button>
+bool <strong>isReadOnly</strong>() <a class="anchor-link" href="#isReadOnly"
+              title="Permalink to TextBoxBase.isReadOnly">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Determines whether or not the widget is read-only.</p>
+<p>@return &lt;code>true&lt;/code> if the widget is currently read-only,</p>
+<pre><code>    &lt;code&gt;false&lt;/code&gt; if the widget is currently editable
+</code></pre>
+<pre class="source">
+bool isReadOnly() {
+ return Dom.getElementPropertyBoolean(getElement(), "readOnly");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to TextBoxBase.onAttach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a> </div><div class="doc">
+<p>
+This method is called when a widget is attached to the browser's document.
+To receive notification after a Widget has been added to the document,
+override the {@link #onLoad} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onLoad()} or
+{@link #doAttachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onAttach()</code> to ensure that the Widget has been attached
+to its underlying Element.
+</p>
+<p>@throws IllegalStateException if this widget is already attached
+@see #onLoad()
+@see #doAttachChildren()</p>
+<pre class="source">
+void onAttach() {
+ super.onAttach();
+
+ // Accessibility: setting tab index to be 0 by default, ensuring element
+ // appears in tab sequence. We must ensure that the element doesn't already
+ // have a tabIndex set. This is not a problem for normal widgets, but when
+ // a widget is used to wrap an existing static element, it can already have
+ // a tabIndex.
+ if (-1 == tabIndex) {
+   tabIndex = 0;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onBrowserEvent">
+<button class="show-code">Code</button>
+void <strong>onBrowserEvent</strong>(Event event) <a class="anchor-link" href="#onBrowserEvent"
+              title="Permalink to TextBoxBase.onBrowserEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Fired whenever a browser event is received.</p>
+<p>@param event the event received</p>
+<p>TODO</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void onBrowserEvent(dart_html.Event event) {
+ int type = Dom.eventGetType(event);
+ if ((type &amp; IEvent.KEYEVENTS) != 0) {
+   // Fire the keyboard event. Hang on to the current event object so that
+   // cancelKey() and setKey() can be implemented.
+   _currentEvent = event;
+   // Call the superclass' onBrowserEvent as that includes the key event
+   // handlers.
+   super.onBrowserEvent(event);
+   _currentEvent = null;
+ } else {
+   // Handles Focus and Click events.
+   super.onBrowserEvent(event);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to TextBoxBase.onDetach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is detached from the browser's
+document. To receive notification before a Widget is removed from the
+document, override the {@link #onUnload} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onUnload()} or
+{@link #doDetachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onDetach()</code> to ensure that the Widget has been detached
+from the underlying Element. Failure to do so will result in application
+memory leaks due to circular references between DOM Elements and JavaScript
+objects.
+</p>
+<p>@throws IllegalStateException if this widget is already detached
+@see #onUnload()
+@see #doDetachChildren()</p>
+<pre class="source">
+void onDetach() {
+ if (!isAttached()) {
+   throw new Exception("Should only call onDetach when the widget is attached to the browser's document");
+ }
+
+ try {
+   // onUnload() gets called *before* everything else (the opposite of
+   // onLoad()).
+   onUnload();
+   AttachEvent.fire(this, false);
+ } finally {
+   // Put this in a finally, just in case onUnload throws an exception.
+   try {
+     doDetachChildren();
+   } finally {
+     // Put this in a finally, in case doDetachChildren throws an exception.
+     Dom.setEventListener(getElement(), null);
+     _attached = false;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onLoad">
+<button class="show-code">Code</button>
+void <strong>onLoad</strong>() <a class="anchor-link" href="#onLoad"
+              title="Permalink to TextBoxBase.onLoad">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>This method is called immediately after a widget becomes attached to the
+browser's document.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void onLoad() {
+ super.onLoad();
+ _autoDirHandler.refreshDirection();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onUnload">
+<button class="show-code">Code</button>
+void <strong>onUnload</strong>() <a class="anchor-link" href="#onUnload"
+              title="Permalink to TextBoxBase.onUnload">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately before a widget will be detached from the
+browser's document.</p>
+<pre class="source">
+void onUnload() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeFromParent">
+<button class="show-code">Code</button>
+void <strong>removeFromParent</strong>() <a class="anchor-link" href="#removeFromParent"
+              title="Permalink to TextBoxBase.removeFromParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Removes this widget from its parent widget, if one exists.</p><p>
+If it has no parent, this method does nothing. If it is a "root" widget
+(meaning it's been added to the detach list via
+{@link RootPanel#detachOnWindowClose(Widget)}), it will be removed from the
+detached immediately. This makes it possible for Composites and Panels to
+adopt root widgets.
+</p>
+<p>@throws IllegalStateException if this widget's parent does not support</p>
+<pre><code>      removal (e.g. {@link Composite})
+</code></pre>
+<pre class="source">
+void removeFromParent() {
+ if (_parent == null) {
+   // If the widget had no parent, check to see if it was in the detach list
+   // and remove it if necessary.
+   if (RootPanel.isInDetachList(this)) {
+     RootPanel.detachNow(this);
+   }
+ } else if (_parent is HasWidgets) {
+   (_parent as HasWidgets).remove(this);
+ } else if (_parent != null) {
+   throw new Exception("This widget's parent does not implement HasWidgets");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>removeStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#removeStyleDependentName"
+              title="Permalink to TextBoxBase.removeStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a dependent style name by specifying the style name's suffix.</p>
+<p>@param styleSuffix the suffix of the dependent style to be removed
+@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)</p>
+<pre class="source">
+void removeStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(String style) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to TextBoxBase.removeStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a style name. This method is typically used to remove secondary
+style names, but it can be used to remove primary stylenames as well. That
+use is not recommended.</p>
+<p>@param style the secondary style name to be removed
+@see #addStyleName(String)
+@see #setStyleName(String, boolean)</p>
+<pre class="source">
+void removeStyleName(String style) {
+ setStyleName(style, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="replaceElement">
+<button class="show-code">Code</button>
+void <strong>replaceElement</strong>(Element elem) <a class="anchor-link" href="#replaceElement"
+              title="Permalink to TextBoxBase.replaceElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Replaces this object's browser element.</p>
+<p>This method exists only to support a specific use-case in Image, and should
+not be used by other classes.</p>
+<p>@param elem the object's new element</p>
+<pre class="source">
+void replaceElement(dart_html.Element elem) {
+ if (isAttached()) {
+   // Remove old event listener to avoid leaking. onDetach will not do this
+   // for us, because it is only called when the widget itself is detached
+   // from the document.
+   Dom.setEventListener(getElement(), null);
+ }
+
+ super.replaceElement(elem);
+
+ if (isAttached()) {
+   // Hook the event listener back up on the new element. onAttach will not
+   // do this for us, because it is only called when the widget itself is
+   // attached to the document.
+   Dom.setEventListener(getElement(), this);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="selectAll">
+<button class="show-code">Code</button>
+void <strong>selectAll</strong>() <a class="anchor-link" href="#selectAll"
+              title="Permalink to TextBoxBase.selectAll">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Selects all of the text in the box.</p>
+<p>This will only work when the widget is attached to the document and not
+hidden.</p>
+<pre class="source">
+void selectAll() {
+ int length = text.length;
+ if (length &gt; 0) {
+   setSelectionRange(0, length);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setAlignment">
+<button class="show-code">Code</button>
+void <strong>setAlignment</strong>(<a href="../dart_web_toolkit_ui/TextAlignment.html">TextAlignment</a> align) <a class="anchor-link" href="#setAlignment"
+              title="Permalink to TextBoxBase.setAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<pre class="source">
+void setAlignment(TextAlignment align) {
+ Dom.setStyleAttribute(getElement(), "textAlign", align.value);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setCursorPos">
+<button class="show-code">Code</button>
+void <strong>setCursorPos</strong>(int pos) <a class="anchor-link" href="#setCursorPos"
+              title="Permalink to TextBoxBase.setCursorPos">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Sets the cursor position.</p>
+<p>This will only work when the widget is attached to the document and not
+hidden.</p>
+<p>@param pos the new cursor position</p>
+<pre class="source">
+void setCursorPos(int pos) {
+ setSelectionRange(pos, 0);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>setDirectionEstimator</strong>(<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> directionEstimator) <a class="anchor-link" href="#setDirectionEstimator"
+              title="Permalink to TextBoxBase.setDirectionEstimator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Sets the direction estimation model of the auto-dir handler.</p>
+<pre class="source">
+void setDirectionEstimator(DirectionEstimator directionEstimator) {
+ _autoDirHandler.setDirectionEstimator(directionEstimator);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element elem) <a class="anchor-link" href="#setElement"
+              title="Permalink to TextBoxBase.setElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets this object's browser element. UIObject subclasses must call this
+method before attempting to call any other methods, and it may only be
+called once.</p>
+<p>@param elem the object's element</p>
+<pre class="source">
+void setElement(dart_html.Element elem) {
+ assert (_element == null);
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to TextBoxBase.setHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's height. This height does not include decorations such as
+border, margin, and padding.</p>
+<p>@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setHeight(String height) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(height.trim().toLowerCase()) &gt;= 0); // : "CSS heights should not be negative";
+ Dom.setStyleAttribute(getElement(), "height", height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setLayoutData">
+<button class="show-code">Code</button>
+void <strong>setLayoutData</strong>(Object value) <a class="anchor-link" href="#setLayoutData"
+              title="Permalink to TextBoxBase.setLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets the panel-defined layout data associated with this widget. Only the
+panel that currently contains a widget should ever set this value. It
+serves as a place to store layout bookkeeping data associated with a
+widget.</p>
+<p>@param layoutData the widget's layout data</p>
+<pre class="source">
+void setLayoutData(Object value) {
+ this._layoutData = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setParent">
+<button class="show-code">Code</button>
+void <strong>setParent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> parent) <a class="anchor-link" href="#setParent"
+              title="Permalink to TextBoxBase.setParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets this widget's parent. This method should only be called by
+{@link Panel} and {@link Composite}.</p>
+<p>@param parent the widget's new parent
+@throws IllegalStateException if &lt;code>parent&lt;/code> is non-null and the</p>
+<pre><code>      widget already has a parent
+</code></pre>
+<pre class="source">
+void setParent(Widget parent) {
+ Widget oldParent = this._parent;
+ if (parent == null) {
+   try {
+     if (oldParent != null &amp;&amp; oldParent.isAttached()) {
+       onDetach();
+       assert (!isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onDetach()";
+     }
+   } finally {
+     // Put this in a finally in case onDetach throws an exception.
+     this._parent = null;
+   }
+ } else {
+   if (oldParent != null) {
+     throw new Exception("Cannot set a new parent without first clearing the old parent");
+   }
+   this._parent = parent;
+   if (parent.isAttached()) {
+     onAttach();
+     assert (isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onAttach()";
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setPixelSize">
+<button class="show-code">Code</button>
+void <strong>setPixelSize</strong>(int width, int height) <a class="anchor-link" href="#setPixelSize"
+              title="Permalink to TextBoxBase.setPixelSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size, in pixels, not including decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in pixels
+@param height the object's new height, in pixels</p>
+<pre class="source">
+void setPixelSize(int width, int height) {
+ if (width &gt;= 0) {
+   setWidth(width.toString() + "px");
+ }
+ if (height &gt;= 0) {
+   setHeight(height.toString() + "px");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setReadOnly">
+<button class="show-code">Code</button>
+void <strong>setReadOnly</strong>(bool readOnly) <a class="anchor-link" href="#setReadOnly"
+              title="Permalink to TextBoxBase.setReadOnly">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Turns read-only mode on or off.</p>
+<p>@param readOnly if &lt;code>true&lt;/code>, the widget becomes read-only; if</p>
+<pre><code>     &lt;code&gt;false&lt;/code&gt; the widget becomes editable
+</code></pre>
+<pre class="source">
+void setReadOnly(bool readOnly) {
+ Dom.setElementPropertyBoolean(getElement(), "readOnly", readOnly);
+ String readOnlyStyle = "readonly";
+ if (readOnly) {
+   addStyleDependentName(readOnlyStyle);
+ } else {
+   removeStyleDependentName(readOnlyStyle);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSelectionRange">
+<button class="show-code">Code</button>
+void <strong>setSelectionRange</strong>(int pos, int length) <a class="anchor-link" href="#setSelectionRange"
+              title="Permalink to TextBoxBase.setSelectionRange">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<p>Sets the range of text to be selected.</p>
+<p>This will only work when the widget is attached to the document and not
+hidden.</p>
+<p>@param pos the position of the first character to be selected
+@param length the number of characters to be selected</p>
+<pre class="source">
+void setSelectionRange(int pos, int length) {
+ // Setting the selection range will not work for unattached elements.
+ if (!isAttached()) {
+   return;
+ }
+
+ if (length &lt; 0) {
+   throw new Exception("Length must be a positive integer. Length: ${length}");
+ }
+ if (pos &lt; 0 || length + pos &gt; text.length) {
+   throw new Exception("From Index: $pos  To Index: ${pos + length}  Text Length: ${text.length}");
+ }
+ _impl.setSelectionRange(getElement(), pos, length);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSize">
+<button class="show-code">Code</button>
+void <strong>setSize</strong>(String width, String height) <a class="anchor-link" href="#setSize"
+              title="Permalink to TextBoxBase.setSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size. This size does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")
+@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setSize(String width, String height) {
+ setWidth(width);
+ setHeight(height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>setStyleDependentName</strong>(String styleSuffix, bool add) <a class="anchor-link" href="#setStyleDependentName"
+              title="Permalink to TextBoxBase.setStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a dependent style name by specifying the style name's
+suffix. The actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleName(String, boolean)
+@see #removeStyleDependentName(String)</p>
+<pre class="source">
+void setStyleDependentName(String styleSuffix, bool add) {
+ setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(String style, bool add) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to TextBoxBase.setStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a style name. This method is typically used to remove
+secondary style names, but it can be used to remove primary stylenames as
+well. That use is not recommended.</p>
+<p>@param style the style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStyleName(String style, bool add) {
+ manageElementStyleName(getStyleElement(), style, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(String style) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to TextBoxBase.setStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's primary style name and updates all dependent style names.</p>
+<p>@param style the new primary style name
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStylePrimaryName(String style) {
+ setElementStylePrimaryName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setValue">
+<button class="show-code">Code</button>
+void <strong>setValue</strong>(<a href="../dart_web_toolkit_ui/TextBoxBase.html">T</a> value, [bool fireEvents = false]) <a class="anchor-link" href="#setValue"
+              title="Permalink to TextBoxBase.setValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Sets the value.
+Fires <code>ValueChangeEvent</code> when
+fireEvents is true and the new value does not equal the existing value.</p>
+<p>@param value a value object of type V
+@see #getValue()
+@param fireEvents fire events if true and value is new</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasValue.html">HasValue</a>&lt;<a href="../dart_web_toolkit_ui/TextBoxBase.html">T</a>&gt; </div></div>
+<pre class="source">
+void setValue(T value, [bool fireEvents = false]) {
+ T oldValue = getValue();
+ text = _renderer.render(value);
+ if (fireEvents) {
+   ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to TextBoxBase.setWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's width. This width does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setWidth(String width) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(width.trim().toLowerCase()) &gt;= 0); // : "CSS widths should not be negative";
+ Dom.setStyleAttribute(getElement(), "width", width);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to TextBoxBase.sinkBitlessEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sinks a named event. Note that only {@link Widget widgets} may actually
+receive events, but can receive events from all objects contained within
+them.</p>
+<p>@param eventTypeName name of the event to sink on this element
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkBitlessEvent(String eventTypeName) {
+ Dom.sinkBitlessEvent(getElement(), eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(int eventBitsToAdd) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to TextBoxBase.sinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Overridden to defer the call to super.sinkEvents until the first time this
+widget is attached to the dom, as a performance enhancement. Subclasses
+wishing to customize sinkEvents can preserve this deferred sink behavior by
+putting their implementation behind a check of
+&lt;code>isOrWasAttached()&lt;/code>:</p><pre>
+{@literal @}Override
+public void sinkEvents(int eventBitsToAdd) {
+  if (isOrWasAttached()) {
+    /{@literal *} customized sink code goes here {@literal *}/
+  } else {
+    super.sinkEvents(eventBitsToAdd);
+ }
+} </pre>
+<pre class="source">
+void sinkEvents(int eventBitsToAdd) {
+ if (isOrWasAttached()) {
+   super.sinkEvents(eventsToSink);
+ } else {
+   eventsToSink |= eventBitsToAdd;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to TextBoxBase.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>This method is overridden so that any object can be viewed in the debugger
+as an HTML snippet.</p>
+<p>@return a string representation of the object</p>
+<pre class="source">
+String toString() {
+ if (_element == null) {
+   return "(null handle)";
+ }
+ return getElement().toString();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="unsinkEvents">
+<button class="show-code">Code</button>
+void <strong>unsinkEvents</strong>(int eventBitsToRemove) <a class="anchor-link" href="#unsinkEvents"
+              title="Permalink to TextBoxBase.unsinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a set of events from this object's event list.</p>
+<p>@param eventBitsToRemove a bitfield representing the set of events to be</p>
+<pre><code>     removed from this element's event set
+</code></pre>
+<p>@see #sinkEvents
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void unsinkEvents(int eventBitsToRemove) {
+ Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:24.903</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

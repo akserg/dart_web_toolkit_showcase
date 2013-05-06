@@ -1,0 +1,104 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SplitterScheduledCommand class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="SplitterScheduledCommand">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/SplitterScheduledCommand.html">SplitterScheduledCommand</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SplitterScheduledCommand</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class SplitterScheduledCommand extends ScheduledCommand {
+
+ Splitter _splitter;
+
+ SplitterScheduledCommand(this._splitter);
+
+ /**
+  * Invokes the command.
+  */
+ void execute() {
+   _splitter._layoutCommand = null;
+   _splitter._splitLayoutPanel.forceLayout();
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>SplitterScheduledCommand</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SplitterScheduledCommand">
+<button class="show-code">Code</button>
+new <strong>SplitterScheduledCommand</strong>(<a href="../dart_web_toolkit_ui/Splitter.html">Splitter</a> _splitter) <a class="anchor-link" href="#SplitterScheduledCommand"
+              title="Permalink to SplitterScheduledCommand.SplitterScheduledCommand">#</a></h4>
+<div class="doc">
+<pre class="source">
+SplitterScheduledCommand(this._splitter);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="execute">
+<button class="show-code">Code</button>
+void <strong>execute</strong>() <a class="anchor-link" href="#execute"
+              title="Permalink to SplitterScheduledCommand.execute">#</a></h4>
+<div class="doc">
+<p>Invokes the command.</p>
+<pre class="source">
+void execute() {
+ _splitter._layoutCommand = null;
+ _splitter._splitLayoutPanel.forceLayout();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:25.530</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

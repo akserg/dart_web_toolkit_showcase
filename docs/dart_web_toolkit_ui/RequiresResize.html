@@ -1,0 +1,85 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>RequiresResize abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="RequiresResize">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/RequiresResize.html">RequiresResize</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>RequiresResize</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This interface designates that its implementor needs to be informed whenever
+its size is modified.</p><p>
+Widgets that implement this interface should only be added to those that
+implement {@link ProvidesResize}. Failure to do so will usually result in
+{@link #onResize()} not being called.
+</p>
+<pre class="source">
+abstract class RequiresResize {
+
+ /**
+  * This method must be called whenever the implementor's size has been
+  * modified.
+  */
+ void onResize();
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DeckLayoutPanel.html">DeckLayoutPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DockLayoutPanel.html">DockLayoutPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HeaderPanel.html">HeaderPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/LayoutPanel.html">LayoutPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ResizeComposite.html">ResizeComposite</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ScrollPanel.html">ScrollPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/SimpleLayoutPanel.html">SimpleLayoutPanel</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="onResize">
+abstract void <strong>onResize</strong>() <a class="anchor-link" href="#onResize"
+              title="Permalink to RequiresResize.onResize">#</a></h4>
+<div class="doc">
+<p>This method must be called whenever the implementor's size has been
+modified.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:26.797</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

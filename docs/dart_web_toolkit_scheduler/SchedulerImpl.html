@@ -1,0 +1,750 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SchedulerImpl class / dart_web_toolkit_scheduler Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_scheduler" data-type="SchedulerImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_scheduler.html">dart_web_toolkit_scheduler</a> &rsaquo; <a href="../dart_web_toolkit_scheduler/SchedulerImpl.html">SchedulerImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SchedulerImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This is used by Scheduler to collaborate with Impl in order to have
+FinallyCommands executed.</p>
+<pre class="source">
+class SchedulerImpl extends Scheduler {
+
+ /**
+  * The delay between flushing the task queues.
+  */
+ static const int _FLUSHER_DELAY = 1;
+
+ /**
+  * The delay between checking up on SSW problems.
+  */
+ static const int _RESCUE_DELAY = 50;
+
+ /**
+  * The amount of time that we're willing to spend executing
+  * IncrementalCommands.
+  */
+ static int _TIME_SLICE = 100;
+
+ /**
+  * Provides lazy-init pattern for the task queues.
+  */
+ static List&lt;Task&gt; _push(List&lt;Task&gt; queue, Task task) {
+   if (queue == null) {
+     queue = _createQueue();
+   }
+   queue.add(task);
+   return queue;
+ }
+
+ /**
+  * Extract boilerplate code.
+  */
+ static List&lt;Task&gt; _createQueue() {
+   return new List&lt;Task&gt;();
+ }
+
+ static void _scheduleFixedDelayImpl(RepeatingCommand cmd, int delayMs) {
+   Caleer caleer = new Caleer();
+   caleer.timeoutHandler = () {
+     if (cmd.execute()) {
+       new dart_async.Timer(new Duration(milliseconds:delayMs), caleer.timeoutHandler);
+     }
+   };
+   caleer.handle = new dart_async.Timer(new Duration(milliseconds:delayMs), caleer.timeoutHandler);
+ }
+
+ static void _scheduleFixedPeriodImpl(RepeatingCommand cmd, int delayMs) {
+   Caleer caleer = new Caleer();
+   caleer.timeoutHandler = () {
+     if (!cmd.execute()) {
+       // Either canceled or threw an exception
+       caleer.handle.cancel();
+     }
+   };
+   caleer.handle = new dart_async.Timer.periodic(new Duration(milliseconds:delayMs), (dart_async.Timer t){
+     caleer.timeoutHandler();
+   });
+ }
+
+ //***************
+
+ static SchedulerImpl _instance;
+
+ /**
+  * Use a GWT.create() here to make it simple to hijack the default
+  * implementation.
+  */
+ factory SchedulerImpl.Instance() {
+   if (_instance == null) {
+     _instance = new SchedulerImpl();
+   }
+   return _instance;
+ }
+
+ /**
+  * A RepeatingCommand that calls flushPostEventPumpCommands(). It repeats if
+  * there are any outstanding deferred or incremental commands.
+  */
+ Flusher flusher;
+
+ /**
+  * This provides some backup for the main flusher task in case it gets shut
+  * down by a slow-script warning.
+  */
+ Rescuer rescue;
+
+ /*
+  * Work queues. Timers store their state on the function, so we don't need to
+  * track them. They are not final so that we don't have to shorten them.
+  * Processing the values in the queues is a one-shot, and then the array is
+  * discarded.
+  */
+ List&lt;Task&gt; deferredCommands;
+ List&lt;Task&gt; entryCommands;
+ List&lt;Task&gt; finallyCommands;
+ List&lt;Task&gt; incrementalCommands;
+
+ /*
+  * These two flags are used to control the state of the flusher and rescuer
+  * commands.
+  */
+ bool _flushRunning = false;
+ bool _shouldBeRunning = false;
+
+ SchedulerImpl();
+
+ void maybeSchedulePostEventPumpCommands() {
+   if (!_shouldBeRunning) {
+     _shouldBeRunning = true;
+
+     if (flusher == null) {
+       flusher = new Flusher(this);
+     }
+     _scheduleFixedDelayImpl(flusher, _FLUSHER_DELAY);
+
+     if (rescue == null) {
+       rescue = new Rescuer(this);
+     }
+     _scheduleFixedDelayImpl(rescue, _RESCUE_DELAY);
+   }
+ }
+
+ //****************************
+ // Implementation of Scheduler
+ //****************************
+
+ /**
+  * A deferred command is executed after the browser event loop returns.
+  */
+ void scheduleDeferred(ScheduledCommand cmd) {
+   deferredCommands = _push(deferredCommands, new Task.fromScheduledCommand(cmd));
+   maybeSchedulePostEventPumpCommands();
+ }
+
+ /**
+  * An "entry" command will be executed before GWT-generated code is invoked by
+  * the browser's event loop. The {@link RepeatingCommand} will be called once
+  * per entry from the event loop until &lt;code&gt;false&lt;/code&gt; is returned. This
+  * type of command is appropriate for instrumentation or code that needs to
+  * know when "something happens."
+  * &lt;p&gt;
+  * If an entry command schedules another entry command, the second command
+  * will be executed before control flow continues to the GWT-generated code.
+  */
+ void scheduleRepeatingEntry(RepeatingCommand cmd) {
+   entryCommands = _push(entryCommands, new Task.fromRepeatingCommand(cmd));
+ }
+
+ /**
+  * An "entry" command will be executed before GWT-generated code is invoked by
+  * the browser's event loop. This type of command is appropriate for code that
+  * needs to know when "something happens."
+  * &lt;p&gt;
+  * If an entry command schedules another entry command, the second command
+  * will be executed before control flow continues to the GWT-generated code.
+  */
+ void scheduleEntry(ScheduledCommand cmd) {
+   entryCommands = _push(entryCommands, new Task.fromScheduledCommand(cmd));
+ }
+
+ /**
+  * A "finally" command will be executed before GWT-generated code returns
+  * control to the browser's event loop. The {@link RepeatingCommand#execute()}
+  * method will be called once per exit to the event loop until
+  * &lt;code&gt;false&lt;/code&gt; is returned. This type of command is appropriate for
+  * instrumentation or cleanup code.
+  * &lt;p&gt;
+  * If a finally command schedules another finally command, the second command
+  * will be executed before control flow returns to the browser.
+  */
+ void scheduleRepeatingFinally(RepeatingCommand cmd) {
+   finallyCommands = _push(finallyCommands, new Task.fromRepeatingCommand(cmd));
+ }
+
+ /**
+  * A "finally" command will be executed before GWT-generated code returns
+  * control to the browser's event loop. This type of command is used to
+  * aggregate small amounts of work before performing a non-recurring,
+  * heavyweight operation.
+  * &lt;p&gt;
+  * If a finally command schedules another finally command, the second command
+  * will be executed before control flow returns to the browser.
+  * &lt;p&gt;
+  * Consider the following:
+  *
+  * &lt;pre&gt;
+  * try {
+  *   nativeEventCallback(); // Calls scheduleFinally one or more times
+  * } finally {
+  *   executeFinallyCommands();
+  * }
+  * &lt;/pre&gt;
+  *
+  * @see com.google.gwt.dom.client.StyleInjector
+  */
+ void scheduleFinally(ScheduledCommand cmd) {
+   finallyCommands = _push(finallyCommands, new Task.fromScheduledCommand(cmd));
+ }
+
+ /**
+  * Schedules a repeating command that is scheduled with a constant delay. That
+  * is, the next invocation of the command will be scheduled for
+  * &lt;code&gt;delayMs&lt;/code&gt; milliseconds after the last invocation completes.
+  * &lt;p&gt;
+  * For example, assume that a command takes 30ms to run and a 100ms delay is
+  * provided. The second invocation of the command will occur at 130ms after
+  * the first invocation starts.
+  *
+  * @param cmd the command to execute
+  * @param delayMs the amount of time to wait after one invocation ends before
+  *          the next invocation
+  */
+ void scheduleFixedDelay(RepeatingCommand cmd, int delayMs) {
+   _scheduleFixedDelayImpl(cmd, delayMs);
+ }
+
+ /**
+  * Schedules a repeating command that is scheduled with a constant
+  * periodicity. That is, the command will be invoked every
+  * &lt;code&gt;delayMs&lt;/code&gt; milliseconds, regardless of how long the previous
+  * invocation took to complete.
+  *
+  * @param cmd the command to execute
+  * @param delayMs the period with which the command is executed
+  */
+ void scheduleFixedPeriod(RepeatingCommand cmd, int delayMs) {
+   _scheduleFixedPeriodImpl(cmd, delayMs);
+ }
+
+ /**
+  * Schedules a repeating command that performs incremental work. This type of
+  * command is encouraged for long-running processes that perform computation
+  * or that manipulate the DOM. The commands in this queue are invoked many
+  * times in rapid succession and are then deferred to allow the browser to
+  * process its event queue.
+  *
+  * @param cmd the command to execute
+  */
+ void scheduleIncremental(RepeatingCommand cmd) {
+   // Push repeating commands onto the same initial queue for relative order
+   deferredCommands = _push(deferredCommands, new Task.fromRepeatingCommand(cmd));
+   maybeSchedulePostEventPumpCommands();
+ }
+
+
+ /**
+  * Execute a list of Tasks that hold RepeatingCommands.
+  *
+  * @return A replacement array that is possibly a shorter copy of
+  *         &lt;code&gt;tasks&lt;/code&gt;
+  */
+ static List&lt;Task&gt; _runRepeatingTasks(List&lt;Task&gt; tasks) {
+   assert (tasks != null); // : "tasks";
+
+   int length = tasks.length;
+   if (length == 0) {
+     return null;
+   }
+
+   bool canceledSomeTasks = false;
+   int start = (new DateTime.now()).millisecond; // Duration.currentTimeMillis();
+
+   while ((new DateTime.now()).millisecond - start &lt; _TIME_SLICE) {
+     for (int i = 0; i &lt; length; i++) {
+       assert (tasks.length == length); // : "Working array length changed "  + tasks.length() + " != " + length;
+       Task t = tasks[i];
+       if (t == null) {
+         continue;
+       }
+
+       assert (t.isRepeating()); // : "Found a non-repeating Task";
+
+       if (!t.executeRepeating()) {
+         tasks[i] = null;
+         canceledSomeTasks = true;
+       }
+     }
+   }
+
+   if (canceledSomeTasks) {
+     List&lt;Task&gt; newTasks = _createQueue();
+     // Remove tombstones
+     for (int i = 0; i &lt; length; i++) {
+       if (tasks[i] != null) {
+         newTasks.add(tasks[i]);
+       }
+     }
+     assert (newTasks.length &lt; length);
+     return newTasks.length == 0 ? null : newTasks;
+   } else {
+     return tasks;
+   }
+ }
+
+ /**
+  * Execute a list of Tasks that hold both ScheduledCommands and
+  * RepeatingCommands. Any RepeatingCommands in the &lt;code&gt;tasks&lt;/code&gt; queue
+  * that want to repeat will be pushed onto the &lt;code&gt;rescheduled&lt;/code&gt; queue.
+  * The contents of &lt;code&gt;tasks&lt;/code&gt; may not be altered while this method is
+  * executing.
+  *
+  * @return &lt;code&gt;rescheduled&lt;/code&gt; or a newly-allocated array if
+  *         &lt;code&gt;rescheduled&lt;/code&gt; is null.
+  */
+ static List&lt;Task&gt; _runScheduledTasks(List&lt;Task&gt; tasks, List&lt;Task&gt; rescheduled) {
+   assert (tasks != null); // : "tasks";
+
+   for (int i = 0, j = tasks.length; i &lt; j; i++) {
+     assert (tasks.length == j); // : "Working array length changed ${tasks.length()} != $j";
+     Task t = tasks[i];
+
+     try {
+       // Move repeating commands to incremental commands queue
+       if (t.isRepeating()) {
+         if (t.executeRepeating()) {
+           rescheduled = _push(rescheduled, t);
+         }
+       } else {
+         t.executeScheduled();
+       }
+     } on Exception catch (e) {
+//        if (GWT.getUncaughtExceptionHandler() != null) {
+//          GWT.getUncaughtExceptionHandler().onUncaughtException(e);
+//        }
+       print(e);
+     }
+   }
+   return rescheduled;
+ }
+
+ bool isWorkQueued() {
+   return deferredCommands != null || incrementalCommands != null;
+ }
+ //******************
+ // Called by Flusher
+ //******************
+
+ void flushPostEventPumpCommands() {
+   if (deferredCommands != null) {
+     List&lt;Task&gt; oldDeferred = deferredCommands;
+     deferredCommands = null;
+
+     /* We might not have any incremental commands queued. */
+     if (incrementalCommands == null) {
+       incrementalCommands = _createQueue();
+     }
+     _runScheduledTasks(oldDeferred, incrementalCommands);
+   }
+
+   if (incrementalCommands != null) {
+     incrementalCommands = _runRepeatingTasks(incrementalCommands);
+   }
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_scheduler/Scheduler.html">Scheduler</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>SchedulerImpl</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SchedulerImpl">
+<button class="show-code">Code</button>
+new <strong>SchedulerImpl</strong>() <a class="anchor-link" href="#SchedulerImpl"
+              title="Permalink to SchedulerImpl.SchedulerImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+SchedulerImpl();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="SchedulerImpl.Instance">
+<button class="show-code">Code</button>
+factory <strong>SchedulerImpl.Instance</strong>() <a class="anchor-link" href="#SchedulerImpl.Instance"
+              title="Permalink to SchedulerImpl.SchedulerImpl.Instance">#</a></h4>
+<div class="doc">
+<p>Use a GWT.create() here to make it simple to hijack the default
+implementation.</p>
+<pre class="source">
+factory SchedulerImpl.Instance() {
+ if (_instance == null) {
+   _instance = new SchedulerImpl();
+ }
+ return _instance;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="deferredCommands">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_scheduler/Task.html">Task</a>&gt;         <strong>deferredCommands</strong> <a class="anchor-link"
+            href="#deferredCommands"
+            title="Permalink to SchedulerImpl.deferredCommands">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+List&lt;Task&gt; deferredCommands
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="entryCommands">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_scheduler/Task.html">Task</a>&gt;         <strong>entryCommands</strong> <a class="anchor-link"
+            href="#entryCommands"
+            title="Permalink to SchedulerImpl.entryCommands">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+List&lt;Task&gt; entryCommands
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="finallyCommands">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_scheduler/Task.html">Task</a>&gt;         <strong>finallyCommands</strong> <a class="anchor-link"
+            href="#finallyCommands"
+            title="Permalink to SchedulerImpl.finallyCommands">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+List&lt;Task&gt; finallyCommands
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="flusher">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_scheduler/Flusher.html">Flusher</a>         <strong>flusher</strong> <a class="anchor-link"
+            href="#flusher"
+            title="Permalink to SchedulerImpl.flusher">#</a>
+        </h4>
+        <div class="doc">
+<p>A RepeatingCommand that calls flushPostEventPumpCommands(). It repeats if
+there are any outstanding deferred or incremental commands.</p>
+<pre class="source">
+Flusher flusher
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="incrementalCommands">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_scheduler/Task.html">Task</a>&gt;         <strong>incrementalCommands</strong> <a class="anchor-link"
+            href="#incrementalCommands"
+            title="Permalink to SchedulerImpl.incrementalCommands">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+List&lt;Task&gt; incrementalCommands
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="rescue">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_scheduler/Rescuer.html">Rescuer</a>         <strong>rescue</strong> <a class="anchor-link"
+            href="#rescue"
+            title="Permalink to SchedulerImpl.rescue">#</a>
+        </h4>
+        <div class="doc">
+<p>This provides some backup for the main flusher task in case it gets shut
+down by a slow-script warning.</p>
+<pre class="source">
+Rescuer rescue
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="flushPostEventPumpCommands">
+<button class="show-code">Code</button>
+void <strong>flushPostEventPumpCommands</strong>() <a class="anchor-link" href="#flushPostEventPumpCommands"
+              title="Permalink to SchedulerImpl.flushPostEventPumpCommands">#</a></h4>
+<div class="doc">
+<pre class="source">
+void flushPostEventPumpCommands() {
+ if (deferredCommands != null) {
+   List&lt;Task&gt; oldDeferred = deferredCommands;
+   deferredCommands = null;
+
+   /* We might not have any incremental commands queued. */
+   if (incrementalCommands == null) {
+     incrementalCommands = _createQueue();
+   }
+   _runScheduledTasks(oldDeferred, incrementalCommands);
+ }
+
+ if (incrementalCommands != null) {
+   incrementalCommands = _runRepeatingTasks(incrementalCommands);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isWorkQueued">
+<button class="show-code">Code</button>
+bool <strong>isWorkQueued</strong>() <a class="anchor-link" href="#isWorkQueued"
+              title="Permalink to SchedulerImpl.isWorkQueued">#</a></h4>
+<div class="doc">
+<pre class="source">
+bool isWorkQueued() {
+ return deferredCommands != null || incrementalCommands != null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="maybeSchedulePostEventPumpCommands">
+<button class="show-code">Code</button>
+void <strong>maybeSchedulePostEventPumpCommands</strong>() <a class="anchor-link" href="#maybeSchedulePostEventPumpCommands"
+              title="Permalink to SchedulerImpl.maybeSchedulePostEventPumpCommands">#</a></h4>
+<div class="doc">
+<pre class="source">
+void maybeSchedulePostEventPumpCommands() {
+ if (!_shouldBeRunning) {
+   _shouldBeRunning = true;
+
+   if (flusher == null) {
+     flusher = new Flusher(this);
+   }
+   _scheduleFixedDelayImpl(flusher, _FLUSHER_DELAY);
+
+   if (rescue == null) {
+     rescue = new Rescuer(this);
+   }
+   _scheduleFixedDelayImpl(rescue, _RESCUE_DELAY);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleDeferred">
+<button class="show-code">Code</button>
+void <strong>scheduleDeferred</strong>(<a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a> cmd) <a class="anchor-link" href="#scheduleDeferred"
+              title="Permalink to SchedulerImpl.scheduleDeferred">#</a></h4>
+<div class="doc">
+<p>A deferred command is executed after the browser event loop returns.</p>
+<pre class="source">
+void scheduleDeferred(ScheduledCommand cmd) {
+ deferredCommands = _push(deferredCommands, new Task.fromScheduledCommand(cmd));
+ maybeSchedulePostEventPumpCommands();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleEntry">
+<button class="show-code">Code</button>
+void <strong>scheduleEntry</strong>(<a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a> cmd) <a class="anchor-link" href="#scheduleEntry"
+              title="Permalink to SchedulerImpl.scheduleEntry">#</a></h4>
+<div class="doc">
+<p>An "entry" command will be executed before GWT-generated code is invoked by
+the browser's event loop. This type of command is appropriate for code that
+needs to know when "something happens."
+&lt;p>
+If an entry command schedules another entry command, the second command
+will be executed before control flow continues to the GWT-generated code.</p>
+<pre class="source">
+void scheduleEntry(ScheduledCommand cmd) {
+ entryCommands = _push(entryCommands, new Task.fromScheduledCommand(cmd));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleFinally">
+<button class="show-code">Code</button>
+void <strong>scheduleFinally</strong>(<a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a> cmd) <a class="anchor-link" href="#scheduleFinally"
+              title="Permalink to SchedulerImpl.scheduleFinally">#</a></h4>
+<div class="doc">
+<p>A "finally" command will be executed before GWT-generated code returns
+control to the browser's event loop. This type of command is used to
+aggregate small amounts of work before performing a non-recurring,
+heavyweight operation.
+&lt;p>
+If a finally command schedules another finally command, the second command
+will be executed before control flow returns to the browser.
+&lt;p>
+Consider the following:</p><pre>
+try {
+  nativeEventCallback(); // Calls scheduleFinally one or more times
+} finally {
+  executeFinallyCommands();
+}
+</pre>
+<p>@see com.google.gwt.dom.client.StyleInjector</p>
+<pre class="source">
+void scheduleFinally(ScheduledCommand cmd) {
+ finallyCommands = _push(finallyCommands, new Task.fromScheduledCommand(cmd));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleFixedDelay">
+<button class="show-code">Code</button>
+void <strong>scheduleFixedDelay</strong>(<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> cmd, int delayMs) <a class="anchor-link" href="#scheduleFixedDelay"
+              title="Permalink to SchedulerImpl.scheduleFixedDelay">#</a></h4>
+<div class="doc">
+<p>Schedules a repeating command that is scheduled with a constant delay. That
+is, the next invocation of the command will be scheduled for
+&lt;code>delayMs&lt;/code> milliseconds after the last invocation completes.
+&lt;p>
+For example, assume that a command takes 30ms to run and a 100ms delay is
+provided. The second invocation of the command will occur at 130ms after
+the first invocation starts.</p>
+<p>@param cmd the command to execute
+@param delayMs the amount of time to wait after one invocation ends before</p>
+<pre><code>     the next invocation
+</code></pre>
+<pre class="source">
+void scheduleFixedDelay(RepeatingCommand cmd, int delayMs) {
+ _scheduleFixedDelayImpl(cmd, delayMs);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleFixedPeriod">
+<button class="show-code">Code</button>
+void <strong>scheduleFixedPeriod</strong>(<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> cmd, int delayMs) <a class="anchor-link" href="#scheduleFixedPeriod"
+              title="Permalink to SchedulerImpl.scheduleFixedPeriod">#</a></h4>
+<div class="doc">
+<p>Schedules a repeating command that is scheduled with a constant
+periodicity. That is, the command will be invoked every
+&lt;code>delayMs&lt;/code> milliseconds, regardless of how long the previous
+invocation took to complete.</p>
+<p>@param cmd the command to execute
+@param delayMs the period with which the command is executed</p>
+<pre class="source">
+void scheduleFixedPeriod(RepeatingCommand cmd, int delayMs) {
+ _scheduleFixedPeriodImpl(cmd, delayMs);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleIncremental">
+<button class="show-code">Code</button>
+void <strong>scheduleIncremental</strong>(<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> cmd) <a class="anchor-link" href="#scheduleIncremental"
+              title="Permalink to SchedulerImpl.scheduleIncremental">#</a></h4>
+<div class="doc">
+<p>Schedules a repeating command that performs incremental work. This type of
+command is encouraged for long-running processes that perform computation
+or that manipulate the DOM. The commands in this queue are invoked many
+times in rapid succession and are then deferred to allow the browser to
+process its event queue.</p>
+<p>@param cmd the command to execute</p>
+<pre class="source">
+void scheduleIncremental(RepeatingCommand cmd) {
+ // Push repeating commands onto the same initial queue for relative order
+ deferredCommands = _push(deferredCommands, new Task.fromRepeatingCommand(cmd));
+ maybeSchedulePostEventPumpCommands();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleRepeatingEntry">
+<button class="show-code">Code</button>
+void <strong>scheduleRepeatingEntry</strong>(<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> cmd) <a class="anchor-link" href="#scheduleRepeatingEntry"
+              title="Permalink to SchedulerImpl.scheduleRepeatingEntry">#</a></h4>
+<div class="doc">
+<p>An "entry" command will be executed before GWT-generated code is invoked by
+the browser's event loop. The {@link RepeatingCommand} will be called once
+per entry from the event loop until &lt;code>false&lt;/code> is returned. This
+type of command is appropriate for instrumentation or code that needs to
+know when "something happens."
+&lt;p>
+If an entry command schedules another entry command, the second command
+will be executed before control flow continues to the GWT-generated code.</p>
+<pre class="source">
+void scheduleRepeatingEntry(RepeatingCommand cmd) {
+ entryCommands = _push(entryCommands, new Task.fromRepeatingCommand(cmd));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scheduleRepeatingFinally">
+<button class="show-code">Code</button>
+void <strong>scheduleRepeatingFinally</strong>(<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> cmd) <a class="anchor-link" href="#scheduleRepeatingFinally"
+              title="Permalink to SchedulerImpl.scheduleRepeatingFinally">#</a></h4>
+<div class="doc">
+<p>A "finally" command will be executed before GWT-generated code returns
+control to the browser's event loop. The {@link RepeatingCommand#execute()}
+method will be called once per exit to the event loop until
+&lt;code>false&lt;/code> is returned. This type of command is appropriate for
+instrumentation or cleanup code.
+&lt;p>
+If a finally command schedules another finally command, the second command
+will be executed before control flow returns to the browser.</p>
+<pre class="source">
+void scheduleRepeatingFinally(RepeatingCommand cmd) {
+ finallyCommands = _push(finallyCommands, new Task.fromRepeatingCommand(cmd));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.597</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

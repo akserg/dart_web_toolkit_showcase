@@ -1,0 +1,249 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>BidiFormatterBase abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="BidiFormatterBase">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/BidiFormatterBase.html">BidiFormatterBase</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>BidiFormatterBase</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Base class for {@link BidiFormatter} and {@link SafeHtmlBidiFormatter} that
+contains their common implementation.</p>
+<pre class="source">
+abstract class BidiFormatterBase {
+
+ bool alwaysSpan;
+ Direction contextDir;
+
+ BidiFormatterBase(this.contextDir, this.alwaysSpan);
+
+ /**
+  * @see BidiFormatter#spanWrapWithKnownDir(HasDirection.Direction, String, boolean, boolean)
+  *
+  * @param dir {@code str}'s direction
+  * @param str The input string
+  * @param isHtml Whether {@code str} is HTML / HTML-escaped
+  * @param dirReset Whether to append a trailing unicode bidi mark matching the
+  *          context direction, when needed, to prevent the possible garbling
+  *          of whatever may follow {@code str}
+  * @return Input string after applying the above processing.
+  */
+ String spanWrapWithKnownDirBase(Direction dir, String str, bool isHtml, bool dirReset) {
+   bool dirCondition = dir != Direction.DEFAULT &amp;&amp; dir != contextDir;
+   String origStr = str;
+//    if (!isHtml) {
+//      str = SafeHtmlUtils.htmlEscape(str);
+//    }
+
+   StringBuffer result = new StringBuffer();
+   if (alwaysSpan || dirCondition) {
+     result.write("&lt;span");
+     if (dirCondition) {
+       result.write(" ");
+       result.write(dir == Direction.RTL ? "dir=rtl" : "dir=ltr");
+     }
+     result.write("&gt;");
+     result.write(str);
+     result.write("&lt;/span&gt;");
+   } else {
+     result.write(str);
+   }
+   // origStr is passed (more efficient when isHtml is false).
+   result.write(dirResetIfNeeded(origStr, dir, isHtml, dirReset));
+   return result.toString();
+ }
+
+ /**
+  * Returns a unicode BiDi mark matching the context direction (LRM or RLM) if
+  * {@code dirReset}, and if the overall direction or the exit direction of
+  * {@code str} are opposite to the context direction. Otherwise returns the
+  * empty string.
+  *
+  * @param str The input string
+  * @param dir {@code str}'s overall direction
+  * @param isHtml Whether {@code str} is HTML / HTML-escaped
+  * @param dirReset Whether to perform the reset
+  * @return A unicode BiDi mark or the empty string.
+  */
+ String dirResetIfNeeded(String str, Direction dir, bool isHtml, bool dirReset) {
+   // endsWithRtl and endsWithLtr are called only if needed (short-circuit).
+   if (dirReset
+       &amp;&amp; ((contextDir == Direction.LTR &amp;&amp;
+           (dir == Direction.RTL ||
+            BidiUtils.get().endsWithRtl(str, isHtml))) ||
+           (contextDir == Direction.RTL &amp;&amp;
+           (dir == Direction.LTR ||
+            BidiUtils.get().endsWithLtr(str, isHtml))))) {
+     return contextDir == Direction.LTR ? Format.LRM_STRING : Format.RLM_STRING;
+   } else {
+     return "";
+   }
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/BidiFormatter.html">BidiFormatter</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="BidiFormatterBase">
+<button class="show-code">Code</button>
+new <strong>BidiFormatterBase</strong>(<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> contextDir, bool alwaysSpan) <a class="anchor-link" href="#BidiFormatterBase"
+              title="Permalink to BidiFormatterBase.BidiFormatterBase">#</a></h4>
+<div class="doc">
+<pre class="source">
+BidiFormatterBase(this.contextDir, this.alwaysSpan);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="alwaysSpan">
+<button class="show-code">Code</button>
+bool         <strong>alwaysSpan</strong> <a class="anchor-link"
+            href="#alwaysSpan"
+            title="Permalink to BidiFormatterBase.alwaysSpan">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool alwaysSpan
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="contextDir">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a>         <strong>contextDir</strong> <a class="anchor-link"
+            href="#contextDir"
+            title="Permalink to BidiFormatterBase.contextDir">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Direction contextDir
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="dirResetIfNeeded">
+<button class="show-code">Code</button>
+String <strong>dirResetIfNeeded</strong>(String str, <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> dir, bool isHtml, bool dirReset) <a class="anchor-link" href="#dirResetIfNeeded"
+              title="Permalink to BidiFormatterBase.dirResetIfNeeded">#</a></h4>
+<div class="doc">
+<p>Returns a unicode BiDi mark matching the context direction (LRM or RLM) if
+{@code dirReset}, and if the overall direction or the exit direction of
+{@code str} are opposite to the context direction. Otherwise returns the
+empty string.</p>
+<p>@param str The input string
+@param dir {@code str}'s overall direction
+@param isHtml Whether {@code str} is HTML / HTML-escaped
+@param dirReset Whether to perform the reset
+@return A unicode BiDi mark or the empty string.</p>
+<pre class="source">
+String dirResetIfNeeded(String str, Direction dir, bool isHtml, bool dirReset) {
+ // endsWithRtl and endsWithLtr are called only if needed (short-circuit).
+ if (dirReset
+     &amp;&amp; ((contextDir == Direction.LTR &amp;&amp;
+         (dir == Direction.RTL ||
+          BidiUtils.get().endsWithRtl(str, isHtml))) ||
+         (contextDir == Direction.RTL &amp;&amp;
+         (dir == Direction.LTR ||
+          BidiUtils.get().endsWithLtr(str, isHtml))))) {
+   return contextDir == Direction.LTR ? Format.LRM_STRING : Format.RLM_STRING;
+ } else {
+   return "";
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="spanWrapWithKnownDirBase">
+<button class="show-code">Code</button>
+String <strong>spanWrapWithKnownDirBase</strong>(<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> dir, String str, bool isHtml, bool dirReset) <a class="anchor-link" href="#spanWrapWithKnownDirBase"
+              title="Permalink to BidiFormatterBase.spanWrapWithKnownDirBase">#</a></h4>
+<div class="doc">
+<p>@see BidiFormatter#spanWrapWithKnownDir(HasDirection.Direction, String, boolean, boolean)</p>
+<p>@param dir {@code str}'s direction
+@param str The input string
+@param isHtml Whether {@code str} is HTML / HTML-escaped
+@param dirReset Whether to append a trailing unicode bidi mark matching the</p>
+<pre><code>     context direction, when needed, to prevent the possible garbling
+     of whatever may follow {@code str}
+</code></pre>
+<p>@return Input string after applying the above processing.</p>
+<pre class="source">
+String spanWrapWithKnownDirBase(Direction dir, String str, bool isHtml, bool dirReset) {
+ bool dirCondition = dir != Direction.DEFAULT &amp;&amp; dir != contextDir;
+ String origStr = str;
+//    if (!isHtml) {
+//      str = SafeHtmlUtils.htmlEscape(str);
+//    }
+
+ StringBuffer result = new StringBuffer();
+ if (alwaysSpan || dirCondition) {
+   result.write("&lt;span");
+   if (dirCondition) {
+     result.write(" ");
+     result.write(dir == Direction.RTL ? "dir=rtl" : "dir=ltr");
+   }
+   result.write("&gt;");
+   result.write(str);
+   result.write("&lt;/span&gt;");
+ } else {
+   result.write(str);
+ }
+ // origStr is passed (more efficient when isHtml is false).
+ result.write(dirResetIfNeeded(origStr, dir, isHtml, dirReset));
+ return result.toString();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.370</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

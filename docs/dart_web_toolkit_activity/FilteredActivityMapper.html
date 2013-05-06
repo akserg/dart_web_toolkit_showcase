@@ -1,0 +1,141 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>FilteredActivityMapper class / dart_web_toolkit_activity Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_activity" data-type="FilteredActivityMapper">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_activity.html">dart_web_toolkit_activity</a> &rsaquo; <a href="../dart_web_toolkit_activity/FilteredActivityMapper.html">FilteredActivityMapper</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>FilteredActivityMapper</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Wraps an activity mapper and applies a filter to the place objects that it
+sees.</p>
+<pre class="source">
+class FilteredActivityMapper implements ActivityMapper {
+
+ final ActivityMapperFilter filter;
+ final ActivityMapper wrapped;
+
+ /**
+  * Constructs a FilteredActivityMapper object.
+  *
+  * @param filter a Filter object
+  * @param wrapped an ActivityMapper object
+  */
+ FilteredActivityMapper(this.filter, this.wrapped);
+
+ Activity getActivity(Place place) {
+   return wrapped.getActivity(filter.filter(place));
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_activity/ActivityMapper.html">ActivityMapper</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="FilteredActivityMapper">
+<button class="show-code">Code</button>
+new <strong>FilteredActivityMapper</strong>(<a href="../dart_web_toolkit_activity/ActivityMapperFilter.html">ActivityMapperFilter</a> filter, <a href="../dart_web_toolkit_activity/ActivityMapper.html">ActivityMapper</a> wrapped) <a class="anchor-link" href="#FilteredActivityMapper"
+              title="Permalink to FilteredActivityMapper.FilteredActivityMapper">#</a></h4>
+<div class="doc">
+<p>Constructs a FilteredActivityMapper object.</p>
+<p>@param filter a Filter object
+@param wrapped an ActivityMapper object</p>
+<pre class="source">
+FilteredActivityMapper(this.filter, this.wrapped);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="filter">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_activity/ActivityMapperFilter.html">ActivityMapperFilter</a>         <strong>filter</strong> <a class="anchor-link"
+            href="#filter"
+            title="Permalink to FilteredActivityMapper.filter">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final ActivityMapperFilter filter
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="wrapped">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_activity/ActivityMapper.html">ActivityMapper</a>         <strong>wrapped</strong> <a class="anchor-link"
+            href="#wrapped"
+            title="Permalink to FilteredActivityMapper.wrapped">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final ActivityMapper wrapped
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getActivity">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_activity/Activity.html">Activity</a> <strong>getActivity</strong>(<a href="../dart_web_toolkit_place/Place.html">Place</a> place) <a class="anchor-link" href="#getActivity"
+              title="Permalink to FilteredActivityMapper.getActivity">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the activity to run for the given {@link Place}, or null.</p>
+<p>@param place a Place object</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_activity/ActivityMapper.html">ActivityMapper</a> </div></div>
+<pre class="source">
+Activity getActivity(Place place) {
+ return wrapped.getActivity(filter.filter(place));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:17.885</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

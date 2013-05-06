@@ -1,0 +1,112 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AnimationCallback2 class / dart_web_toolkit_animation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_animation" data-type="AnimationCallback2">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_animation.html">dart_web_toolkit_animation</a> &rsaquo; <a href="../dart_web_toolkit_animation/AnimationCallback2.html">AnimationCallback2</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AnimationCallback2</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class AnimationCallback2 implements AnimationCallback {
+
+ Animation _animation;
+
+ AnimationCallback2(this._animation);
+
+ void execute(int timestamp) {
+   if (_animation.update(timestamp)) {
+     // Schedule the next animation frame.
+     _animation.requestHandle = _animation.scheduler.requestAnimationFrame(_animation.callback, _animation.element);
+   } else {
+     _animation.requestHandle = null;
+   }
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AnimationCallback2">
+<button class="show-code">Code</button>
+new <strong>AnimationCallback2</strong>(<a href="../dart_web_toolkit_animation/Animation.html">Animation</a> _animation) <a class="anchor-link" href="#AnimationCallback2"
+              title="Permalink to AnimationCallback2.AnimationCallback2">#</a></h4>
+<div class="doc">
+<pre class="source">
+AnimationCallback2(this._animation);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="execute">
+<button class="show-code">Code</button>
+void <strong>execute</strong>(int timestamp) <a class="anchor-link" href="#execute"
+              title="Permalink to AnimationCallback2.execute">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Invokes the command.</p>
+<p>@param timestamp the current timestamp</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a> </div></div>
+<pre class="source">
+void execute(int timestamp) {
+ if (_animation.update(timestamp)) {
+   // Schedule the next animation frame.
+   _animation.requestHandle = _animation.scheduler.requestAnimationFrame(_animation.callback, _animation.element);
+ } else {
+   _animation.requestHandle = null;
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.015</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

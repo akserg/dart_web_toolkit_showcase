@@ -1,0 +1,143 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DragSupportDetector class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="DragSupportDetector">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/DragSupportDetector.html">DragSupportDetector</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DragSupportDetector</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Detector for browser support of drag events.</p>
+<pre class="source">
+class DragSupportDetector {
+
+ bool _isSupported;
+
+ /**
+  * Using a run-time check, return true if drag events are supported.
+  *
+  * @return true if supported, false otherwise.
+  */
+ bool get isSupported =&gt; _isSupported;
+
+ DragSupportDetector() {
+   _isSupported = detectDragSupport();
+ }
+ 
+ bool detectDragSupport() {
+   dart_html.DivElement elem = new dart_html.DivElement();
+   try {
+     elem.onDragStart.listen((dart_html.Event evt){
+       return;
+     });
+   } on Exception catch(e) {
+     return false;
+   }
+   return true;//(typeof elem.ondragstart) == "function";
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DragSupportDetectorNo.html">DragSupportDetectorNo</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="DragSupportDetector">
+<button class="show-code">Code</button>
+new <strong>DragSupportDetector</strong>() <a class="anchor-link" href="#DragSupportDetector"
+              title="Permalink to DragSupportDetector.DragSupportDetector">#</a></h4>
+<div class="doc">
+<pre class="source">
+DragSupportDetector() {
+ _isSupported = detectDragSupport();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="isSupported">
+<button class="show-code">Code</button>
+final bool         <strong>isSupported</strong> <a class="anchor-link"
+            href="#isSupported"
+            title="Permalink to DragSupportDetector.isSupported">#</a>
+        </h4>
+        <div class="doc">
+<p>Using a run-time check, return true if drag events are supported.</p>
+<p>@return true if supported, false otherwise.</p>
+<pre class="source">
+bool get isSupported =&gt; _isSupported;
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="detectDragSupport">
+<button class="show-code">Code</button>
+bool <strong>detectDragSupport</strong>() <a class="anchor-link" href="#detectDragSupport"
+              title="Permalink to DragSupportDetector.detectDragSupport">#</a></h4>
+<div class="doc">
+<pre class="source">
+bool detectDragSupport() {
+ dart_html.DivElement elem = new dart_html.DivElement();
+ try {
+   elem.onDragStart.listen((dart_html.Event evt){
+     return;
+   });
+ } on Exception catch(e) {
+   return false;
+ }
+ return true;//(typeof elem.ondragstart) == "function";
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.250</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

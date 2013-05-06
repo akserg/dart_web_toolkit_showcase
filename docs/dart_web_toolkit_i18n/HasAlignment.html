@@ -1,0 +1,123 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasAlignment abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="HasAlignment">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/HasAlignment.html">HasAlignment</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasAlignment</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A widget that implements this interface has an intrinsic alignment which
+can be manipulated using these methods and constants.</p>
+<pre class="source">
+abstract class HasAlignment implements HasHorizontalAlignment, HasVerticalAlignment {
+
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DockPanel.html">DockPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HorizontalPanel.html">HorizontalPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/VerticalPanel.html">VerticalPanel</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/HasVerticalAlignment.html">HasVerticalAlignment</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a></span></p>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="getHorizontalAlignment">
+abstract <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> <strong>getHorizontalAlignment</strong>() <a class="anchor-link" href="#getHorizontalAlignment"
+              title="Permalink to HasAlignment.getHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a> </div><div class="doc">
+<p>Gets the horizontal alignment.</p>
+<p>@return the current horizontal alignment (</p>
+<pre><code>    {@link HasHorizontalAlignment#ALIGN_LEFT},
+    {@link HasHorizontalAlignment#ALIGN_CENTER},
+    {@link HasHorizontalAlignment#ALIGN_RIGHT},
+    {@link HasHorizontalAlignment#ALIGN_JUSTIFY}, or
+    null).
+</code></pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getVerticalAlignment">
+abstract <a href="../dart_web_toolkit_i18n/VerticalAlignmentConstant.html">VerticalAlignmentConstant</a> <strong>getVerticalAlignment</strong>() <a class="anchor-link" href="#getVerticalAlignment"
+              title="Permalink to HasAlignment.getVerticalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/HasVerticalAlignment.html">HasVerticalAlignment</a> </div><div class="doc">
+<p>Gets the vertical alignment.</p>
+<p>@return the current vertical alignment.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHorizontalAlignment">
+abstract void <strong>setHorizontalAlignment</strong>(<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> align) <a class="anchor-link" href="#setHorizontalAlignment"
+              title="Permalink to HasAlignment.setHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a> </div><div class="doc">
+<p>Sets the horizontal alignment.
+&lt;p> Use {@code null} to clear horizontal alignment, allowing it to be
+determined by the standard HTML mechanisms such as inheritance and CSS
+rules.</p>
+<p>@param align the horizontal alignment (</p>
+<pre><code>    {@link HasHorizontalAlignment#ALIGN_LEFT},
+    {@link HasHorizontalAlignment#ALIGN_CENTER},
+    {@link HasHorizontalAlignment#ALIGN_RIGHT},
+    {@link HasHorizontalAlignment#ALIGN_JUSTIFY},
+    {@link HasHorizontalAlignment#ALIGN_LOCALE_START}, or
+    {@link HasHorizontalAlignment#ALIGN_LOCALE_END}).
+</code></pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setVerticalAlignment">
+abstract void <strong>setVerticalAlignment</strong>(<a href="../dart_web_toolkit_i18n/VerticalAlignmentConstant.html">VerticalAlignmentConstant</a> align) <a class="anchor-link" href="#setVerticalAlignment"
+              title="Permalink to HasAlignment.setVerticalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/HasVerticalAlignment.html">HasVerticalAlignment</a> </div><div class="doc">
+<p>Sets the vertical alignment.</p>
+<p>@param align the vertical alignment (</p>
+<pre><code>     {@link HasVerticalAlignment#ALIGN_TOP},
+     {@link HasVerticalAlignment#ALIGN_MIDDLE}, or
+     {@link HasVerticalAlignment#ALIGN_BOTTOM}).
+</code></pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.050</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

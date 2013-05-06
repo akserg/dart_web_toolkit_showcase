@@ -1,0 +1,2400 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>TabLayoutPanel class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="TabLayoutPanel">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/TabLayoutPanel.html">TabLayoutPanel</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>TabLayoutPanel</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A panel that represents a tabbed set of pages, each of which contains another
+widget. Its child widgets are shown as the user selects the various <em>tabs
+associated with them. The </em>tabs can contain arbitrary text, HTML, or widgets.</p><p>
+This widget will <em>only</em> work in standards mode, which requires that
+the HTML page in which it is run have an explicit &lt;!DOCTYPE&gt;
+declaration.
+</p><h3>CSS Style Rules</h3>
+<dl>
+<dt>.gwt-TabLayoutPanel
+<dd>the panel itself
+<dt>.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs
+<dd>the tab bar element
+<dt>.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab
+<dd>an individual tab
+<dt>.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabInner
+<dd>an element nested in each tab (useful for styling)
+<dt>.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent
+<dd>applied to all child content widgets
+</dl><p>
+<h3>Example</h3>
+{@example com.google.gwt.examples.TabLayoutPanelExample}<h3>Use in UiBinder Templates</h3>
+<p>
+A TabLayoutPanel element in a {@link com.google.gwt.uibinder.client.UiBinder
+UiBinder} template must have a <code>barHeight</code> attribute with a double
+value, and may have a <code>barUnit</code> attribute with a
+{@link com.google.gwt.dom.client.Style.Unit Style.Unit} value.
+<code>barUnit</code> defaults to PX.
+<p>
+The children of a TabLayoutPanel element are laid out in &lt;g:tab>
+elements. Each tab can have one widget child and one of two types of header
+elements. A &lt;g:header> element can hold html, or a &lt;g:customHeader>
+element can hold a widget. (Note that the tags of the header elements are
+not capitalized. This is meant to signal that the head is not a runtime
+object, and so cannot have a <code>ui:field</code> attribute.)
+<p>
+For example:<pre>
+&lt;g:TabLayoutPanel barUnit='EM' barHeight='3'>
+ &lt;g:tab>
+   &lt;g:header size='7'>&lt;b>HTML&lt;/b> header&lt;/g:header>
+   &lt;g:Label>able&lt;/g:Label>
+ &lt;/g:tab>
+ &lt;g:tab>
+   &lt;g:customHeader size='7'>
+     &lt;g:Label>Custom header&lt;/g:Label>
+   &lt;/g:customHeader>
+   &lt;g:Label>baker&lt;/g:Label>
+ &lt;/g:tab>
+&lt;/g:TabLayoutPanel>
+</pre>
+<pre class="source">
+class TabLayoutPanel extends ResizeComposite implements HasWidgets, ProvidesResize, IndexedPanelForIsWidget, AnimatedLayout, HasBeforeSelectionHandlers&lt;int&gt;, HasSelectionHandlers&lt;int&gt; {
+
+ static final String _CONTENT_CONTAINER_STYLE = "dwt-TabLayoutPanelContentContainer";
+ static final String _CONTENT_STYLE = "dwt-TabLayoutPanelContent";
+ static final String _TAB_STYLE = "dwt-TabLayoutPanelTab";
+ 
+ static final String _TAB_INNER_STYLE = "dwt-TabLayoutPanelTabInner";
+ 
+ static final int _BIG_ENOUGH_TO_NOT_WRAP = 16384;
+
+ _TabbedDeckLayoutPanel _deckPanel;
+ final FlowPanel _tabBar = new FlowPanel();
+ final List&lt;_Tab&gt; _tabs = new List&lt;_Tab&gt;();
+ int _selectedIndex = -1;
+
+ /**
+  * Creates an empty tab panel.
+  *
+  * @param barHeight the size of the tab bar
+  * @param barUnit the unit in which the tab bar size is specified
+  */
+ TabLayoutPanel(double barHeight, Unit barUnit) {
+   _deckPanel = new _TabbedDeckLayoutPanel(this);
+   _deckPanel.addStyleName(_CONTENT_CONTAINER_STYLE);
+   //
+   LayoutPanel panel = new LayoutPanel();
+   initWidget(panel);
+
+   // Add the tab bar to the panel.
+   panel.add(_tabBar);
+   panel.setWidgetLeftRight(_tabBar, 0.0, Unit.PX, 0.0, Unit.PX);
+   panel.setWidgetTopHeight(_tabBar, 0.0, Unit.PX, barHeight, barUnit);
+   panel.setWidgetVerticalPosition(_tabBar, Alignment.END);
+
+   // Add the deck panel to the panel.
+   panel.add(_deckPanel);
+   panel.setWidgetLeftRight(_deckPanel, 0.0, Unit.PX, 0.0, Unit.PX);
+   panel.setWidgetTopBottom(_deckPanel, barHeight, barUnit, 0.0, Unit.PX);
+
+   // Make the tab bar extremely wide so that _tabs themselves never wrap.
+   // (Its layout container is overflow:hidden)
+   _tabBar.getElement().style.width = _BIG_ENOUGH_TO_NOT_WRAP.toString() + Unit.PX.value;
+
+   _tabBar.clearAndSetStyleName("dwt-TabLayoutPanelTabs");
+   clearAndSetStyleName("dwt-TabLayoutPanel");
+ }
+
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void addIsWidget(IsWidget w) {
+//    add(asWidgetOrNull(w));
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void addIsWidgetTab(IsWidget w, IsWidget tab) {
+//    addIsWidget(asWidgetOrNull(w), asWidgetOrNull(tab));
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void addIsWidgetText(IsWidget w, String text) {
+//    add(asWidgetOrNull(w), text);
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void add(IsWidget w, String text, bool asHtml) {
+//    add(asWidgetOrNull(w), text, asHtml);
+//  }
+
+//  /**
+//   * Adds a widget to the panel. If the Widget is already attached, it will be
+//   * moved to the right-most index.
+//   *
+//   * @param child the widget to be added
+//   * @param html the html to be shown on its tab
+//   */
+//  void add(Widget child, SafeHtml html) {
+//    add(child, html.asString(), true);
+//  }
+
+ void add(Widget w) {
+   throw new Exception("A tabText parameter must be specified with add().");
+ }
+ 
+ /**
+  * Adds a widget to the panel. If the Widget is already attached, it will be
+  * moved to the right-most index.
+  *
+  * @param child the widget to be added
+  * @param text the text to be shown on its tab
+  * @param asHtml &lt;code&gt;true&lt;/code&gt; to treat the specified text as HTML
+  */
+ void addTabText(Widget child, [String text = "", bool asHtml = false]) {
+   insert(child, getWidgetCount(), text, asHtml);
+ }
+
+ /**
+  * Adds a widget to the panel. If the Widget is already attached, it will be
+  * moved to the right-most index.
+  *
+  * @param child the widget to be added
+  * @param tab the widget to be placed in the associated tab
+  */
+ void addTab(Widget child, Widget tab) {
+   insertTab(child, tab, getWidgetCount());
+ }
+
+ HandlerRegistration addBeforeSelectionHandler(
+     BeforeSelectionHandler&lt;int&gt; handler) {
+   return addHandler(handler, BeforeSelectionEvent.getType());
+ }
+
+ HandlerRegistration addSelectionHandler(
+     SelectionHandler&lt;int&gt; handler) {
+   return addHandler(handler, SelectionEvent.getType());
+ }
+
+ void animate(int duration, [LayoutAnimationCallback callback = null]) {
+   _deckPanel.animate(duration, callback);
+ }
+
+ void clear() {
+   Iterator&lt;Widget&gt; it = iterator() as Iterator&lt;Widget&gt;;
+   while (it.moveNext()) {
+     Widget widget = it.current;
+     widget.removeFromParent();
+   }
+ }
+
+ void forceLayout() {
+   _deckPanel.forceLayout();
+ }
+
+ /**
+  * Get the duration of the animated transition between _tabs.
+  *
+  * @return the duration in milliseconds
+  */
+ int getAnimationDuration() {
+   return _deckPanel.getAnimationDuration();
+ }
+
+ /**
+  * Gets the index of the currently-selected tab.
+  *
+  * @return the selected index, or &lt;code&gt;-1&lt;/code&gt; if none is selected.
+  */
+ int getSelectedIndex() {
+   return _selectedIndex;
+ }
+
+ /**
+  * Gets the widget in the tab at the given index.
+  *
+  * @param index the index of the tab to be retrieved
+  * @return the tab's widget
+  */
+ Widget getTabWidgetById(int index) {
+   checkIndex(index);
+   return _tabs[index].getWidget();
+ }
+
+ /**
+  * Convenience overload to allow {@link IsWidget} to be used directly.
+  */
+ Widget getTabIsWidget(IsWidget child) {
+   return getTabWidget(asWidgetOrNull(child));
+ }
+
+ /**
+  * Gets the widget in the tab associated with the given child widget.
+  *
+  * @param child the child whose tab is to be retrieved
+  * @return the tab's widget
+  */
+ Widget getTabWidget(Widget child) {
+   checkChild(child);
+   return getWidgetById(getWidgetIndex(child));
+ }
+
+ /**
+  * Returns the widget at the given index.
+  */
+ Widget getWidgetById(int index) {
+   return _deckPanel.getWidget(index);
+ }
+
+ /**
+  * Returns the number of _tabs and widgets.
+  */
+ int getWidgetCount() {
+   return _deckPanel.getWidgetCount();
+ }
+
+ /**
+  * Convenience overload to allow {@link IsWidget} to be used directly.
+  */
+ int getWidgetIndexIsWidget(IsWidget child) {
+   return getWidgetIndex(asWidgetOrNull(child));
+ }
+
+ /**
+  * Returns the index of the given child, or -1 if it is not a child.
+  */
+ int getWidgetIndex(Widget child) {
+   return _deckPanel.getWidgetIndex(child);
+ }
+
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void insert(IsWidget child, int beforeIndex) {
+//    insert(asWidgetOrNull(child), beforeIndex);
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void insert(IsWidget child, IsWidget tab, int beforeIndex) {
+//    insert(asWidgetOrNull(child), asWidgetOrNull(tab), beforeIndex);
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void insert(IsWidget child, String text, bool asHtml, int beforeIndex) {
+//    insert(asWidgetOrNull(child), text, asHtml, beforeIndex);
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void insert(IsWidget child, String text, int beforeIndex) {
+//    insert(asWidgetOrNull(child), text, beforeIndex);
+//  }
+
+//  /**
+//   * Inserts a widget into the panel. If the Widget is already attached, it will
+//   * be moved to the requested index.
+//   *
+//   * @param child the widget to be added
+//   * @param html the html to be shown on its tab
+//   * @param beforeIndex the index before which it will be inserted
+//   */
+//  void insert(Widget child, SafeHtml html, int beforeIndex) {
+//    insert(child, html.asString(), true, beforeIndex);
+//  }
+
+ /**
+  * Inserts a widget into the panel. If the Widget is already attached, it will
+  * be moved to the requested index.
+  *
+  * @param child the widget to be added
+  * @param text the text to be shown on its tab
+  * @param asHtml &lt;code&gt;true&lt;/code&gt; to treat the specified text as HTML
+  * @param beforeIndex the index before which it will be inserted
+  */
+ void insert(Widget child, int beforeIndex, [String text = "", bool asHtml = false]) {
+   Widget contents;
+   if (asHtml) {
+     contents = new Html(text);
+   } else {
+     contents = new Label(text);
+   }
+   insertTab(child, contents, beforeIndex);
+ }
+
+ /**
+  * Inserts a widget into the panel. If the Widget is already attached, it will
+  * be moved to the requested index.
+  *
+  * @param child the widget to be added
+  * @param tab the widget to be placed in the associated tab
+  * @param beforeIndex the index before which it will be inserted
+  */
+ void insertTab(Widget child, Widget tab, int beforeIndex) {
+   _insert(child, new _Tab(this, tab), beforeIndex);
+ }
+
+ /**
+  * Check whether or not transitions slide in vertically or horizontally.
+  * Defaults to horizontally.
+  *
+  * @return true for vertical transitions, false for horizontal
+  */
+ bool isAnimationVertical() {
+   return _deckPanel.isAnimationVertical();
+ }
+
+ Iterator&lt;Widget&gt; iterator() {
+   return _deckPanel.iterator();
+ }
+
+ bool removeAt(int index) {
+   if ((index &lt; 0) || (index &gt;= getWidgetCount())) {
+     return false;
+   }
+
+   Widget child = getWidgetById(index);
+   _tabBar.removeAt(index);
+   _deckPanel._removeProtected(child);
+   child.removeStyleName(_CONTENT_STYLE);
+
+   _Tab tab = _tabs.removeAt(index);
+   tab.getWidget().removeFromParent();
+
+   if (index == _selectedIndex) {
+     // If the selected tab is being removed, select the first tab (if there
+     // is one).
+     _selectedIndex = -1;
+     if (getWidgetCount() &gt; 0) {
+       selectTab(0);
+     }
+   } else if (index &lt; _selectedIndex) {
+     // If the _selectedIndex is greater than the one being removed, it needs
+     // to be adjusted.
+     --_selectedIndex;
+   }
+   return true;
+ }
+
+ bool remove(Widget w) {
+   int index = getWidgetIndex(w);
+   if (index == -1) {
+     return false;
+   }
+
+   return removeAt(index);
+ }
+
+ /**
+  * Programmatically selects the specified tab.
+  *
+  * @param index the index of the tab to be selected
+  * @param fireEvents true to fire events, false not to
+  */
+ void selectTab(int index, [bool fireEvents = true]) {
+   checkIndex(index);
+   if (index == _selectedIndex) {
+     return;
+   }
+
+   // Fire the before selection event, giving the recipients a chance to
+   // cancel the selection.
+   if (fireEvents) {
+     BeforeSelectionEvent&lt;int&gt; event = BeforeSelectionEvent.fire(this, index);
+     if ((event != null) &amp;&amp; event.isCanceled()) {
+       return;
+     }
+   }
+
+   // Update the _tabs being selected and unselected.
+   if (_selectedIndex != -1) {
+     _tabs[_selectedIndex].setSelected(false);
+   }
+
+   _deckPanel.showWidgetAt(index);
+   _tabs[index].setSelected(true);
+   _selectedIndex = index;
+
+   // Fire the selection event.
+   if (fireEvents) {
+     SelectionEvent.fire(this, index);
+   }
+ }
+
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void selectTab(IsWidget child) {
+//    selectTab(asWidgetOrNull(child));
+//  }
+//
+//  /**
+//   * Convenience overload to allow {@link IsWidget} to be used directly.
+//   */
+//  void selectTab(IsWidget child, bool fireEvents) {
+//    selectTab(asWidgetOrNull(child), fireEvents);
+//  }
+
+ /**
+  * Programmatically selects the specified tab.
+  *
+  * @param child the child whose tab is to be selected
+  * @param fireEvents true to fire events, false not to
+  */
+ void selectTabWidget(Widget child, [bool fireEvents = true]) {
+   selectTab(getWidgetIndex(child), fireEvents);
+ }
+
+ /**
+  * Set the duration of the animated transition between _tabs.
+  *
+  * @param duration the duration in milliseconds.
+  */
+ void setAnimationDuration(int duration) {
+   _deckPanel.setAnimationDuration(duration);
+ }
+
+ /**
+  * Set whether or not transitions slide in vertically or horizontally.
+  *
+  * @param isVertical true for vertical transitions, false for horizontal
+  */
+ void setAnimationVertical(bool isVertical) {
+   _deckPanel.setAnimationVertical(isVertical);
+ }
+
+ /**
+  * Sets a tab's HTML contents.
+  *
+  * Use care when setting an object's HTML; it is an easy way to expose
+  * script-based security problems. Consider using
+  * {@link #setTabHTML(int, SafeHtml)} or
+  * {@link #setTabText(int, String)} whenever possible.
+  *
+  * @param index the index of the tab whose HTML is to be set
+  * @param html the tab's new HTML contents
+  */
+ void setTabHtml(int index, String html) {
+   checkIndex(index);
+   _tabs[index].setWidget(new Html(html));
+ }
+
+//  /**
+//   * Sets a tab's HTML contents.
+//   *
+//   * @param index the index of the tab whose HTML is to be set
+//   * @param html the tab's new HTML contents
+//   */
+//  void setTabHhtml(int index, SafeHtml html) {
+//    setTabHTML(index, html.asString());
+//  }
+
+ /**
+  * Sets a tab's text contents.
+  *
+  * @param index the index of the tab whose text is to be set
+  * @param text the object's new text
+  */
+ void setTabText(int index, String text) {
+   checkIndex(index);
+   _tabs[index].setWidget(new Label(text));
+ }
+
+ void checkChild(Widget child) {
+   assert (getWidgetIndex(child) &gt;= 0); // : "Child is not a part of this panel";
+ }
+
+ void checkIndex(int index) {
+   assert ((index &gt;= 0) &amp;&amp; (index &lt; getWidgetCount())); // : "Index out of bounds";
+ }
+
+ void _insert(Widget child, _Tab tab, int beforeIndex) {
+   assert ((beforeIndex &gt;= 0) &amp;&amp; (beforeIndex &lt;= getWidgetCount())); // : "beforeIndex out of bounds";
+
+   // Check to see if the TabPanel already contains the Widget. If so,
+   // remove it and see if we need to shift the position to the left.
+   int idx = getWidgetIndex(child);
+   if (idx != -1) {
+     remove(child);
+     if (idx &lt; beforeIndex) {
+       beforeIndex--;
+     }
+   }
+
+   _deckPanel._insertProtected(child, beforeIndex);
+//    _tabs.insertRange(beforeIndex, 1, tab);
+   _tabs.insert(beforeIndex, tab);
+   _tabBar.insertWidget(tab, beforeIndex);
+   tab.addClickHandler(new ClickHandlerAdapter((ClickEvent event) {
+     selectTabWidget(child);
+   }));
+
+   child.addStyleName(_CONTENT_STYLE);
+
+   if (_selectedIndex == -1) {
+     selectTab(0);
+   } else if (_selectedIndex &gt;= beforeIndex) {
+     // If we inserted before the currently selected tab, its index has just
+     // increased.
+     _selectedIndex++;
+   }
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Composite.html">Composite</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ResizeComposite.html">ResizeComposite</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>TabLayoutPanel</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasSelectionHandlers.html">HasSelectionHandlers&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasBeforeSelectionHandlers.html">HasBeforeSelectionHandlers&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimatedLayout.html">AnimatedLayout</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/IndexedPanelForIsWidget.html">IndexedPanelForIsWidget</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ProvidesResize.html">ProvidesResize</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="TabLayoutPanel">
+<button class="show-code">Code</button>
+new <strong>TabLayoutPanel</strong>(double barHeight, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> barUnit) <a class="anchor-link" href="#TabLayoutPanel"
+              title="Permalink to TabLayoutPanel.TabLayoutPanel">#</a></h4>
+<div class="doc">
+<p>Creates an empty tab panel.</p>
+<p>@param barHeight the size of the tab bar
+@param barUnit the unit in which the tab bar size is specified</p>
+<pre class="source">
+TabLayoutPanel(double barHeight, Unit barUnit) {
+ _deckPanel = new _TabbedDeckLayoutPanel(this);
+ _deckPanel.addStyleName(_CONTENT_CONTAINER_STYLE);
+ //
+ LayoutPanel panel = new LayoutPanel();
+ initWidget(panel);
+
+ // Add the tab bar to the panel.
+ panel.add(_tabBar);
+ panel.setWidgetLeftRight(_tabBar, 0.0, Unit.PX, 0.0, Unit.PX);
+ panel.setWidgetTopHeight(_tabBar, 0.0, Unit.PX, barHeight, barUnit);
+ panel.setWidgetVerticalPosition(_tabBar, Alignment.END);
+
+ // Add the deck panel to the panel.
+ panel.add(_deckPanel);
+ panel.setWidgetLeftRight(_deckPanel, 0.0, Unit.PX, 0.0, Unit.PX);
+ panel.setWidgetTopBottom(_deckPanel, barHeight, barUnit, 0.0, Unit.PX);
+
+ // Make the tab bar extremely wide so that _tabs themselves never wrap.
+ // (Its layout container is overflow:hidden)
+ _tabBar.getElement().style.width = _BIG_ENOUGH_TO_NOT_WRAP.toString() + Unit.PX.value;
+
+ _tabBar.clearAndSetStyleName("dwt-TabLayoutPanelTabs");
+ clearAndSetStyleName("dwt-TabLayoutPanel");
+}
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="eventsToSink">
+<button class="show-code">Code</button>
+int         <strong>eventsToSink</strong> <a class="anchor-link"
+            href="#eventsToSink"
+            title="Permalink to TabLayoutPanel.eventsToSink">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>A set og events that should be sunk when the widget is attached to
+the DOM. (We delay the sinking of events to improve startup performance.)
+When the widget is attached, this is set is empty</p>
+<p>Package protected to allow Composite to see it.</p>
+<pre class="source">
+int eventsToSink = 0
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title">
+<button class="show-code">Code</button>
+String <strong>get title</strong> <a class="anchor-link" href="#title"
+              title="Permalink to TabLayoutPanel.get title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the title associated with this object. The title is the 'tool-tip'
+displayed to users when they hover over the object.</p>
+<p>@return the object's title</p>
+<pre class="source">
+String get title =&gt; getElement().title;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title=">
+<button class="show-code">Code</button>
+void <strong>set title</strong>(String value) <a class="anchor-link" href="#title="
+              title="Permalink to TabLayoutPanel.set title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the element's title.</p>
+<pre class="source">
+void set title(String value) {
+ getElement().title = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible">
+<button class="show-code">Code</button>
+bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to TabLayoutPanel.get visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Determines whether or not this object is visible. Note that this does not
+necessarily take into account whether or not the receiver's parent is
+visible, or even if it is attached to the
+<code>Document</code>. The default implementation of this trait in <code>UIObject</code> is
+based on the value of a dom element's style object's display attribute.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible</p>
+<pre class="source">
+bool get visible =&gt; isVisible(getElement());
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible=">
+<button class="show-code">Code</button>
+void <strong>set visible</strong>(bool visible) <a class="anchor-link" href="#visible="
+              title="Permalink to TabLayoutPanel.set visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets whether this object is visible.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void set visible(bool visible) {
+ setVisible(getElement(), visible);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="add">
+<button class="show-code">Code</button>
+void <strong>add</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#add"
+              title="Permalink to TabLayoutPanel.add">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a child widget.</p>
+<p>@param w the widget to be added
+@throws UnsupportedOperationException if this method is not supported (most</p>
+<pre><code>      often this means that a specific overload must be called)
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+void add(Widget w) {
+ throw new Exception("A tabText parameter must be specified with add().");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addAttachHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addAttachHandler</strong>(<a href="../dart_web_toolkit_event/AttachEventHandler.html">AttachEventHandler</a> handler) <a class="anchor-link" href="#addAttachHandler"
+              title="Permalink to TabLayoutPanel.addAttachHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds an <code>AttachEvent</code> handler.</p>
+<p>@param handler the handler
+@return the handler registration</p>
+<pre class="source">
+HandlerRegistration addAttachHandler(AttachEventHandler handler) {
+ return addHandler(handler, AttachEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addBeforeSelectionHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBeforeSelectionHandler</strong>(<a href="../dart_web_toolkit_event/BeforeSelectionHandler.html">BeforeSelectionHandler</a>&lt;int&gt; handler) <a class="anchor-link" href="#addBeforeSelectionHandler"
+              title="Permalink to TabLayoutPanel.addBeforeSelectionHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link BeforeSelectionEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasBeforeSelectionHandlers.html">HasBeforeSelectionHandlers</a>&lt;int&gt; </div></div>
+<pre class="source">
+HandlerRegistration addBeforeSelectionHandler(
+   BeforeSelectionHandler&lt;int&gt; handler) {
+ return addHandler(handler, BeforeSelectionEvent.getType());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addBitlessDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBitlessDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addBitlessDomHandler"
+              title="Permalink to TabLayoutPanel.addBitlessDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>For &lt;a href=
+"http://code.google.com/p/google-web-toolkit/wiki/UnderstandingMemoryLeaks"</p>
+<blockquote>
+<p>browsers which do not leak&lt;/a>, adds a native event handler to the widget.</p></blockquote>
+<p>Note that, unlike the
+{@link #addDomHandler(EventHandler, com.google.gwt.event.dom.client.DomEvent.Type)}
+implementation, there is no need to attach the widget to the DOM in order
+to cause the event handlers to be attached.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addBitlessDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null);; // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ sinkBitlessEvent(type.eventName);
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addDomHandler"
+              title="Permalink to TabLayoutPanel.addDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds a native event handler to the widget and sinks the corresponding
+native event. If you do not want to sink the native event, use the generic
+addHandler method instead.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null); // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ int typeInt = IEvent.getTypeInt(type.eventName);
+ if (typeInt == -1) {
+   sinkBitlessEvent(type.eventName);
+ } else {
+   sinkEvents(typeInt);
+ }
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a>&gt; type) <a class="anchor-link" href="#addHandler"
+              title="Permalink to TabLayoutPanel.addHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds this handler to the widget.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event type
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&gt; type) {
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addSelectionHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addSelectionHandler</strong>(<a href="../dart_web_toolkit_event/SelectionHandler.html">SelectionHandler</a>&lt;int&gt; handler) <a class="anchor-link" href="#addSelectionHandler"
+              title="Permalink to TabLayoutPanel.addSelectionHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link SelectionEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasSelectionHandlers.html">HasSelectionHandlers</a>&lt;int&gt; </div></div>
+<pre class="source">
+HandlerRegistration addSelectionHandler(
+   SelectionHandler&lt;int&gt; handler) {
+ return addHandler(handler, SelectionEvent.getType());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>addStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#addStyleDependentName"
+              title="Permalink to TabLayoutPanel.addStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a dependent style name by specifying the style name's suffix. The
+actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added.
+@see #setStylePrimaryName(String)
+@see #removeStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)
+@see #addStyleName(String)</p>
+<pre class="source">
+void addStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(String style) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to TabLayoutPanel.addStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a secondary or dependent style name to this object. A secondary style
+name is an additional style name that is, in HTML/CSS terms, included as a
+space-separated token in the value of the CSS &lt;code>class&lt;/code> attribute
+for this object's root element.</p><p>
+The most important use for this method is to add a special kind of
+secondary style name called a <i>dependent style name</i>. To add a
+dependent style name, use {@link #addStyleDependentName(String)}, which
+will prefix the 'style' argument with the result of
+{@link #k()} (followed by a '-'). For example, suppose
+the primary style name is <code>gwt-TextBox</code>. If the following method
+is called as <code>obj.setReadOnly(true)</code>:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+<p>  // Create a dependent style name.
+  String readOnlyStyle = "readonly";</p>
+<p>  if (readOnly) {</p>
+<pre><code>addStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  } else {</p>
+<pre><code>removeStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  }
+}&lt;/pre></p><p>
+then both of the CSS style rules below will be applied:
+</p><pre class="code">
+<p>// This rule is based on the primary style name and is always active.
+.gwt-TextBox {
+  font-size: 12pt;
+}</p>
+<p>// This rule is based on a dependent style name that is only active
+// when the widget has called addStyleName(getStylePrimaryName() +
+// "-readonly").
+.gwt-TextBox-readonly {
+  background-color: lightgrey;
+  border: none;
+}&lt;/pre></p><p>
+The code can also be simplified with
+{@link #setStyleDependentName(String, boolean)}:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+  setStyleDependentName("readonly", readOnly);
+}</pre><p>
+Dependent style names are powerful because they are automatically updated
+whenever the primary style name changes. Continuing with the example above,
+if the primary style name changed due to the following call:
+</p><pre class="code">setStylePrimaryName("my-TextThingy");</pre><p>
+then the object would be re-associated with following style rules, removing
+those that were shown above.
+</p><pre class="code">
+.my-TextThingy {
+  font-size: 20pt;
+}
+<p>.my-TextThingy-readonly {
+  background-color: red;
+  border: 2px solid yellow;
+}&lt;/pre></p><p>
+Secondary style names that are not dependent style names are not
+automatically updated when the primary style name changes.
+</p>
+<p>@param style the secondary style name to be added
+@see UIObject
+@see #removeStyleName(String)</p>
+<pre class="source">
+void addStyleName(String style) {
+ setStyleName(style, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addTab">
+<button class="show-code">Code</button>
+void <strong>addTab</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child, <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> tab) <a class="anchor-link" href="#addTab"
+              title="Permalink to TabLayoutPanel.addTab">#</a></h4>
+<div class="doc">
+<p>Adds a widget to the panel. If the Widget is already attached, it will be
+moved to the right-most index.</p>
+<p>@param child the widget to be added
+@param tab the widget to be placed in the associated tab</p>
+<pre class="source">
+void addTab(Widget child, Widget tab) {
+ insertTab(child, tab, getWidgetCount());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addTabText">
+<button class="show-code">Code</button>
+void <strong>addTabText</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child, [String text = "", bool asHtml = false]) <a class="anchor-link" href="#addTabText"
+              title="Permalink to TabLayoutPanel.addTabText">#</a></h4>
+<div class="doc">
+<p>Adds a widget to the panel. If the Widget is already attached, it will be
+moved to the right-most index.</p>
+<p>@param child the widget to be added
+@param text the text to be shown on its tab
+@param asHtml &lt;code>true&lt;/code> to treat the specified text as HTML</p>
+<pre class="source">
+void addTabText(Widget child, [String text = "", bool asHtml = false]) {
+ insert(child, getWidgetCount(), text, asHtml);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="animate">
+<button class="show-code">Code</button>
+void <strong>animate</strong>(int duration, [<a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a> callback = null]) <a class="anchor-link" href="#animate"
+              title="Permalink to TabLayoutPanel.animate">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Layout children, animating over the specified period of time.</p><p>
+This method provides a callback that will be informed of animation updates.
+This can be used to create more complex animation effects.
+</p>
+<p>@param duration the animation duration, in milliseconds
+@param callback the animation callback</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/AnimatedLayout.html">AnimatedLayout</a> </div></div>
+<pre class="source">
+void animate(int duration, [LayoutAnimationCallback callback = null]) {
+ _deckPanel.animate(duration, callback);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>asWidget</strong>() <a class="anchor-link" href="#asWidget"
+              title="Permalink to TabLayoutPanel.asWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_ui/Widget.html">Widget</a> aspect of the receiver.</p>
+<pre class="source">
+Widget asWidget() {
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="checkChild">
+<button class="show-code">Code</button>
+void <strong>checkChild</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child) <a class="anchor-link" href="#checkChild"
+              title="Permalink to TabLayoutPanel.checkChild">#</a></h4>
+<div class="doc">
+<pre class="source">
+void checkChild(Widget child) {
+ assert (getWidgetIndex(child) &gt;= 0); // : "Child is not a part of this panel";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="checkIndex">
+<button class="show-code">Code</button>
+void <strong>checkIndex</strong>(int index) <a class="anchor-link" href="#checkIndex"
+              title="Permalink to TabLayoutPanel.checkIndex">#</a></h4>
+<div class="doc">
+<pre class="source">
+void checkIndex(int index) {
+ assert ((index &gt;= 0) &amp;&amp; (index &lt; getWidgetCount())); // : "Index out of bounds";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clear">
+<button class="show-code">Code</button>
+void <strong>clear</strong>() <a class="anchor-link" href="#clear"
+              title="Permalink to TabLayoutPanel.clear">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Removes all child widgets.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+void clear() {
+ Iterator&lt;Widget&gt; it = iterator() as Iterator&lt;Widget&gt;;
+ while (it.moveNext()) {
+   Widget widget = it.current;
+   widget.removeFromParent();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="clearAndSetStyleName">
+<button class="show-code">Code</button>
+void <strong>clearAndSetStyleName</strong>(String style) <a class="anchor-link" href="#clearAndSetStyleName"
+              title="Permalink to TabLayoutPanel.clearAndSetStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Clears all of the object's style names and sets it to the given style. You
+should normally use {@link #setStylePrimaryName(String)} unless you wish to
+explicitly remove all existing styles.</p>
+<p>@param style the new style name
+@see #setStylePrimaryName(String)</p>
+<pre class="source">
+void clearAndSetStyleName(String style) {
+ setElementStyleName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="createEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>createEventBus</strong>() <a class="anchor-link" href="#createEventBus"
+              title="Permalink to TabLayoutPanel.createEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Creates the <code>SimpleEventBus</code> used by this Widget. You can override
+this method to create a custom <code>EventBus</code>.</p>
+<p>@return the <code>EventBus</code> you want to use.</p>
+<pre class="source">
+EventBus createEventBus() {
+ return new SimpleEventBus();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="delegateEvent">
+<button class="show-code">Code</button>
+void <strong>delegateEvent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> target, <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#delegateEvent"
+              title="Permalink to TabLayoutPanel.delegateEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires an event on a child widget. Used to delegate the handling of an event
+from one widget to another.</p>
+<p>@param event the event
+@param target fire the event on the given target</p>
+<pre class="source">
+void delegateEvent(Widget target, DwtEvent event) {
+ target.fireEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doAttachChildren">
+<button class="show-code">Code</button>
+void <strong>doAttachChildren</strong>() <a class="anchor-link" href="#doAttachChildren"
+              title="Permalink to TabLayoutPanel.doAttachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onAttach()} for each of its
+child widgets.</p>
+<p>@see #onAttach()</p>
+<pre class="source">
+void doAttachChildren() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doDetachChildren">
+<button class="show-code">Code</button>
+void <strong>doDetachChildren</strong>() <a class="anchor-link" href="#doDetachChildren"
+              title="Permalink to TabLayoutPanel.doDetachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onDetach()} for each of its
+child widgets.</p>
+<p>@see #onDetach()</p>
+<pre class="source">
+void doDetachChildren() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="ensureHandlers">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>ensureHandlers</strong>() <a class="anchor-link" href="#ensureHandlers"
+              title="Permalink to TabLayoutPanel.ensureHandlers">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Ensures the existence of the event bus.</p>
+<p>@return the <code>EventBus</code>.</p>
+<pre class="source">
+EventBus ensureHandlers() {
+ return _eventBus == null ? _eventBus = createEventBus() : _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="extractLengthValue">
+<button class="show-code">Code</button>
+double <strong>extractLengthValue</strong>(String s) <a class="anchor-link" href="#extractLengthValue"
+              title="Permalink to TabLayoutPanel.extractLengthValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Intended to be used to pull the value out of a CSS length. If the
+value is "auto" or "inherit", 0 will be returned.</p>
+<p>@param s The CSS length string to extract
+@return The leading numeric portion of &lt;code>s&lt;/code>, or 0 if "auto" or</p>
+<pre><code>    "inherit" are passed in.
+</code></pre>
+<pre class="source">
+double extractLengthValue(String s) {
+ if (s == "auto" || s == "inherit" || s == "") {
+   return 0.0;
+ } else {
+   // numberRegex divides the string into a leading numeric portion
+   // followed by an arbitrary portion.
+   if(numberRegex.hasMatch(s)) {
+     // Extract the leading numeric portion of string
+     s = numberRegex.firstMatch(s)[0];
+   }
+   return double.parse(s);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to TabLayoutPanel.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<code>UmbrellaException</code> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+<pre class="source">
+void fireEvent(DwtEvent event) {
+//    if (_eventBus != null) {
+//      _eventBus.fireEvent(event);
+//    }
+ if (_eventBus != null) {
+   // If it not live we should revive it.
+   if (!event.isLive()) {
+     event.revive();
+   }
+   Object oldSource = event.getSource();
+   event.overrideSource(getElement());
+   try {
+
+     // May throw an UmbrellaException.
+     _eventBus.fireEventFromSource(event, getElement());
+   } on UmbrellaException catch (e) {
+     throw new UmbrellaException(e.causes);
+   } finally {
+     if (oldSource == null) {
+       // This was my event, so I should kill it now that I'm done.
+       event.kill();
+     } else {
+       // Restoring the source for the next handler to use.
+       event.overrideSource(oldSource);
+     }
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forceLayout">
+<button class="show-code">Code</button>
+void <strong>forceLayout</strong>() <a class="anchor-link" href="#forceLayout"
+              title="Permalink to TabLayoutPanel.forceLayout">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Layout children immediately.</p><p>
+This is not normally necessary, unless you want to update child widgets'
+positions explicitly to create a starting point for a subsequent call to
+{@link #animate(int)}.
+</p>
+<p>@see #animate(int)
+@see #animate(int, Layout.AnimationCallback)</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/AnimatedLayout.html">AnimatedLayout</a> </div></div>
+<pre class="source">
+void forceLayout() {
+ _deckPanel.forceLayout();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>() <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to TabLayoutPanel.getAbsoluteLeft">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute left position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute left position</p>
+<pre class="source">
+int getAbsoluteLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>() <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to TabLayoutPanel.getAbsoluteTop">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute top position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute top position</p>
+<pre class="source">
+int getAbsoluteTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAnimationDuration">
+<button class="show-code">Code</button>
+int <strong>getAnimationDuration</strong>() <a class="anchor-link" href="#getAnimationDuration"
+              title="Permalink to TabLayoutPanel.getAnimationDuration">#</a></h4>
+<div class="doc">
+<p>Get the duration of the animated transition between _tabs.</p>
+<p>@return the duration in milliseconds</p>
+<pre class="source">
+int getAnimationDuration() {
+ return _deckPanel.getAnimationDuration();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>() <a class="anchor-link" href="#getElement"
+              title="Permalink to TabLayoutPanel.getElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets this object's browser element.</p>
+<pre class="source">
+dart_html.Element getElement() {
+ assert (_element != null); // : MISSING_ELEMENT_ERROR;
+ return _element;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>getEventBus</strong>() <a class="anchor-link" href="#getEventBus"
+              title="Permalink to TabLayoutPanel.getEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Return EventBus.</p>
+<pre class="source">
+EventBus getEventBus() {
+ return _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getLayoutData">
+<button class="show-code">Code</button>
+Object <strong>getLayoutData</strong>() <a class="anchor-link" href="#getLayoutData"
+              title="Permalink to TabLayoutPanel.getLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets the panel-defined layout data associated with this widget.</p>
+<p>@return the widget's layout data
+@see #setLayoutData</p>
+<pre class="source">
+Object getLayoutData() {
+ return _layoutData;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetHeight">
+<button class="show-code">Code</button>
+int <strong>getOffsetHeight</strong>() <a class="anchor-link" href="#getOffsetHeight"
+              title="Permalink to TabLayoutPanel.getOffsetHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset height in pixels. This is the total height of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset height</p>
+<pre class="source">
+int getOffsetHeight() {
+ return getElement().offset.height; // Dom.getElementPropertyInt(getElement(), "offsetHeight");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetWidth">
+<button class="show-code">Code</button>
+int <strong>getOffsetWidth</strong>() <a class="anchor-link" href="#getOffsetWidth"
+              title="Permalink to TabLayoutPanel.getOffsetWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset width in pixels. This is the total width of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset width</p>
+<pre class="source">
+int getOffsetWidth() {
+ return getElement().offset.width; // Dom.getElementPropertyInt(getElement(), "offsetWidth");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getParent">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getParent</strong>() <a class="anchor-link" href="#getParent"
+              title="Permalink to TabLayoutPanel.getParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets this widget's parent panel.</p>
+<p>@return the widget's parent panel</p>
+<pre class="source">
+Widget getParent() {
+ return _parent;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSelectedIndex">
+<button class="show-code">Code</button>
+int <strong>getSelectedIndex</strong>() <a class="anchor-link" href="#getSelectedIndex"
+              title="Permalink to TabLayoutPanel.getSelectedIndex">#</a></h4>
+<div class="doc">
+<p>Gets the index of the currently-selected tab.</p>
+<p>@return the selected index, or &lt;code>-1&lt;/code> if none is selected.</p>
+<pre class="source">
+int getSelectedIndex() {
+ return _selectedIndex;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>() <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to TabLayoutPanel.getStyleElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Template method that returns the element to which style names will be
+applied. By default it returns the root element, but this method may be
+overridden to apply styles to a child element.</p>
+<p>@return the element to which style names will be applied</p>
+<pre class="source">
+dart_html.Element getStyleElement() {
+ return getElement();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>() <a class="anchor-link" href="#getStyleName"
+              title="Permalink to TabLayoutPanel.getStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets all of the object's style names, as a space-separated list. If you
+wish to retrieve only the primary style name, call
+{@link #getStylePrimaryName()}.</p>
+<p>@return the objects's space-separated style names
+@see #getStylePrimaryName()</p>
+<pre class="source">
+String getStyleName() {
+ return getElementStyleName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>() <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to TabLayoutPanel.getStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the primary style name associated with the object.</p>
+<p>@return the object's primary style name
+@see #setStyleName(String)
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+String getStylePrimaryName() {
+ return getElementStylePrimaryName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTabIsWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getTabIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> child) <a class="anchor-link" href="#getTabIsWidget"
+              title="Permalink to TabLayoutPanel.getTabIsWidget">#</a></h4>
+<div class="doc">
+<p>Convenience overload to allow {@link IsWidget} to be used directly.</p>
+<pre class="source">
+Widget getTabIsWidget(IsWidget child) {
+ return getTabWidget(asWidgetOrNull(child));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTabWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getTabWidget</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child) <a class="anchor-link" href="#getTabWidget"
+              title="Permalink to TabLayoutPanel.getTabWidget">#</a></h4>
+<div class="doc">
+<p>Gets the widget in the tab associated with the given child widget.</p>
+<p>@param child the child whose tab is to be retrieved
+@return the tab's widget</p>
+<pre class="source">
+Widget getTabWidget(Widget child) {
+ checkChild(child);
+ return getWidgetById(getWidgetIndex(child));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTabWidgetById">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getTabWidgetById</strong>(int index) <a class="anchor-link" href="#getTabWidgetById"
+              title="Permalink to TabLayoutPanel.getTabWidgetById">#</a></h4>
+<div class="doc">
+<p>Gets the widget in the tab at the given index.</p>
+<p>@param index the index of the tab to be retrieved
+@return the tab's widget</p>
+<pre class="source">
+Widget getTabWidgetById(int index) {
+ checkIndex(index);
+ return _tabs[index].getWidget();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidget</strong>() <a class="anchor-link" href="#getWidget"
+              title="Permalink to TabLayoutPanel.getWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Composite.html">Composite</a> </div><div class="doc">
+<p>Provides subclasses access to the topmost widget that defines this
+composite.</p>
+<p>@return the widget</p>
+<pre class="source">
+Widget getWidget() {
+ return _widget;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getWidgetById">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidgetById</strong>(int index) <a class="anchor-link" href="#getWidgetById"
+              title="Permalink to TabLayoutPanel.getWidgetById">#</a></h4>
+<div class="doc">
+<p>Returns the widget at the given index.</p>
+<pre class="source">
+Widget getWidgetById(int index) {
+ return _deckPanel.getWidget(index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getWidgetCount">
+<button class="show-code">Code</button>
+int <strong>getWidgetCount</strong>() <a class="anchor-link" href="#getWidgetCount"
+              title="Permalink to TabLayoutPanel.getWidgetCount">#</a></h4>
+<div class="doc">
+<p>Returns the number of _tabs and widgets.</p>
+<pre class="source">
+int getWidgetCount() {
+ return _deckPanel.getWidgetCount();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getWidgetIndex">
+<button class="show-code">Code</button>
+int <strong>getWidgetIndex</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child) <a class="anchor-link" href="#getWidgetIndex"
+              title="Permalink to TabLayoutPanel.getWidgetIndex">#</a></h4>
+<div class="doc">
+<p>Returns the index of the given child, or -1 if it is not a child.</p>
+<pre class="source">
+int getWidgetIndex(Widget child) {
+ return _deckPanel.getWidgetIndex(child);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getWidgetIndexIsWidget">
+<button class="show-code">Code</button>
+int <strong>getWidgetIndexIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> child) <a class="anchor-link" href="#getWidgetIndexIsWidget"
+              title="Permalink to TabLayoutPanel.getWidgetIndexIsWidget">#</a></h4>
+<div class="doc">
+<p>Convenience overload to allow {@link IsWidget} to be used directly.</p>
+<pre class="source">
+int getWidgetIndexIsWidget(IsWidget child) {
+ return getWidgetIndex(asWidgetOrNull(child));
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="initWidget">
+<button class="show-code">Code</button>
+void <strong>initWidget</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget) <a class="anchor-link" href="#initWidget"
+              title="Permalink to TabLayoutPanel.initWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ResizeComposite.html">ResizeComposite</a> </div><div class="doc">
+<div class="inherited">
+<p>Sets the widget to be wrapped by the composite. The wrapped widget must be
+set before calling any {@link Widget} methods on this object, or adding it
+to a panel. This method may only be called once for a given composite.</p>
+<p>@param widget the widget to be wrapped</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Composite.html">Composite</a> </div></div>
+<pre class="source">
+void initWidget(Widget widget) {
+ assert (widget is RequiresResize); // : "LayoutComposite requires that its wrapped widget implement RequiresResize";
+ super.initWidget(widget);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insert">
+<button class="show-code">Code</button>
+void <strong>insert</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child, int beforeIndex, [String text = "", bool asHtml = false]) <a class="anchor-link" href="#insert"
+              title="Permalink to TabLayoutPanel.insert">#</a></h4>
+<div class="doc">
+<p>Inserts a widget into the panel. If the Widget is already attached, it will
+be moved to the requested index.</p>
+<p>@param child the widget to be added
+@param text the text to be shown on its tab
+@param asHtml &lt;code>true&lt;/code> to treat the specified text as HTML
+@param beforeIndex the index before which it will be inserted</p>
+<pre class="source">
+void insert(Widget child, int beforeIndex, [String text = "", bool asHtml = false]) {
+ Widget contents;
+ if (asHtml) {
+   contents = new Html(text);
+ } else {
+   contents = new Label(text);
+ }
+ insertTab(child, contents, beforeIndex);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insertTab">
+<button class="show-code">Code</button>
+void <strong>insertTab</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child, <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> tab, int beforeIndex) <a class="anchor-link" href="#insertTab"
+              title="Permalink to TabLayoutPanel.insertTab">#</a></h4>
+<div class="doc">
+<p>Inserts a widget into the panel. If the Widget is already attached, it will
+be moved to the requested index.</p>
+<p>@param child the widget to be added
+@param tab the widget to be placed in the associated tab
+@param beforeIndex the index before which it will be inserted</p>
+<pre class="source">
+void insertTab(Widget child, Widget tab, int beforeIndex) {
+ _insert(child, new _Tab(this, tab), beforeIndex);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isAnimationVertical">
+<button class="show-code">Code</button>
+bool <strong>isAnimationVertical</strong>() <a class="anchor-link" href="#isAnimationVertical"
+              title="Permalink to TabLayoutPanel.isAnimationVertical">#</a></h4>
+<div class="doc">
+<p>Check whether or not transitions slide in vertically or horizontally.
+Defaults to horizontally.</p>
+<p>@return true for vertical transitions, false for horizontal</p>
+<pre class="source">
+bool isAnimationVertical() {
+ return _deckPanel.isAnimationVertical();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isAttached">
+<button class="show-code">Code</button>
+bool <strong>isAttached</strong>() <a class="anchor-link" href="#isAttached"
+              title="Permalink to TabLayoutPanel.isAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Composite.html">Composite</a> </div><div class="doc">
+<p>Returns whether or not the receiver is attached to the
+{@link com.google.gwt.dom.client.Document Document}'s
+{@link com.google.gwt.dom.client.BodyElement BodyElement}.</p>
+<p>@return true if attached, false otherwise</p>
+<pre class="source">
+bool isAttached() {
+ if (_widget != null) {
+   return _widget.isAttached();
+ }
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isOrWasAttached">
+<button class="show-code">Code</button>
+bool <strong>isOrWasAttached</strong>() <a class="anchor-link" href="#isOrWasAttached"
+              title="Permalink to TabLayoutPanel.isOrWasAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Has this widget ever been attached?</p>
+<p>@return true if this widget ever been attached to the DOM, false otherwise</p>
+<pre class="source">
+bool isOrWasAttached() {
+ return eventsToSink == -1;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="iterator">
+<button class="show-code">Code</button>
+Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; <strong>iterator</strong>() <a class="anchor-link" href="#iterator"
+              title="Permalink to TabLayoutPanel.iterator">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterator</code> that iterates over this <code>Iterable</code> object.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+Iterator&lt;Widget&gt; iterator() {
+ return _deckPanel.iterator();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to TabLayoutPanel.onAttach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Composite.html">Composite</a> </div><div class="doc">
+<p>
+This method is called when a widget is attached to the browser's document.
+To receive notification after a Widget has been added to the document,
+override the {@link #onLoad} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onLoad()} or
+{@link #doAttachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onAttach()</code> to ensure that the Widget has been attached
+to its underlying Element.
+</p>
+<p>@throws IllegalStateException if this widget is already attached
+@see #onLoad()
+@see #doAttachChildren()</p>
+<pre class="source">
+void onAttach() {
+ if (!isOrWasAttached()) {
+   _widget.sinkEvents(eventsToSink);
+   eventsToSink = -1;
+ }
+
+ _widget.onAttach();
+
+ // Clobber the widget's call to setEventListener(), causing all events to
+ // be routed to this composite, which will delegate back to the widget by
+ // default (note: it's not necessary to clear this in onDetach(), because
+ // the widget's onDetach will do so).
+ Dom.setEventListener(getElement(), this);
+
+ // Call onLoad() directly, because we're not calling super.onAttach().
+ onLoad();
+ AttachEvent.fire(this, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onBrowserEvent">
+<button class="show-code">Code</button>
+void <strong>onBrowserEvent</strong>(Event event) <a class="anchor-link" href="#onBrowserEvent"
+              title="Permalink to TabLayoutPanel.onBrowserEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Composite.html">Composite</a> </div><div class="doc">
+<p>Fired whenever a browser event is received.</p>
+<p>@param event the event received</p>
+<p>TODO</p>
+<pre class="source">
+void onBrowserEvent(dart_html.Event event) {
+ // Fire any handler added to the composite itself.
+ super.onBrowserEvent(event);
+
+ // Delegate events to the widget.
+ _widget.onBrowserEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to TabLayoutPanel.onDetach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Composite.html">Composite</a> </div><div class="doc">
+<p>
+This method is called when a widget is detached from the browser's
+document. To receive notification before a Widget is removed from the
+document, override the {@link #onUnload} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onUnload()} or
+{@link #doDetachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onDetach()</code> to ensure that the Widget has been detached
+from the underlying Element. Failure to do so will result in application
+memory leaks due to circular references between DOM Elements and JavaScript
+objects.
+</p>
+<p>@throws IllegalStateException if this widget is already detached
+@see #onUnload()
+@see #doDetachChildren()</p>
+<pre class="source">
+void onDetach() {
+ try {
+   onUnload();
+   AttachEvent.fire(this, false);
+ } finally {
+   // We don't want an exception in user code to keep us from calling the
+   // super implementation (or event listeners won't get cleaned up and
+   // the attached flag will be wrong).
+   _widget.onDetach();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onLoad">
+<button class="show-code">Code</button>
+void <strong>onLoad</strong>() <a class="anchor-link" href="#onLoad"
+              title="Permalink to TabLayoutPanel.onLoad">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately after a widget becomes attached to the
+browser's document.</p>
+<pre class="source">
+void onLoad() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onResize">
+<button class="show-code">Code</button>
+void <strong>onResize</strong>() <a class="anchor-link" href="#onResize"
+              title="Permalink to TabLayoutPanel.onResize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ResizeComposite.html">ResizeComposite</a> </div><div class="doc">
+<div class="inherited">
+<p>This method must be called whenever the implementor's size has been
+modified.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/RequiresResize.html">RequiresResize</a> </div></div>
+<pre class="source">
+void onResize() {
+ (getWidget() as RequiresResize).onResize();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onUnload">
+<button class="show-code">Code</button>
+void <strong>onUnload</strong>() <a class="anchor-link" href="#onUnload"
+              title="Permalink to TabLayoutPanel.onUnload">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately before a widget will be detached from the
+browser's document.</p>
+<pre class="source">
+void onUnload() {
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="remove">
+<button class="show-code">Code</button>
+bool <strong>remove</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#remove"
+              title="Permalink to TabLayoutPanel.remove">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Removes a child widget.</p>
+<p>@param w the widget to be removed
+@return &lt;code>true&lt;/code> if the widget was present</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+bool remove(Widget w) {
+ int index = getWidgetIndex(w);
+ if (index == -1) {
+   return false;
+ }
+
+ return removeAt(index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeAt">
+<button class="show-code">Code</button>
+bool <strong>removeAt</strong>(int index) <a class="anchor-link" href="#removeAt"
+              title="Permalink to TabLayoutPanel.removeAt">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Removes the widget at the specified index.</p>
+<p>@param index the index of the widget to be removed
+@return &lt;code>false&lt;/code> if the widget is not present</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/IndexedPanel.html">IndexedPanel</a> </div></div>
+<pre class="source">
+bool removeAt(int index) {
+ if ((index &lt; 0) || (index &gt;= getWidgetCount())) {
+   return false;
+ }
+
+ Widget child = getWidgetById(index);
+ _tabBar.removeAt(index);
+ _deckPanel._removeProtected(child);
+ child.removeStyleName(_CONTENT_STYLE);
+
+ _Tab tab = _tabs.removeAt(index);
+ tab.getWidget().removeFromParent();
+
+ if (index == _selectedIndex) {
+   // If the selected tab is being removed, select the first tab (if there
+   // is one).
+   _selectedIndex = -1;
+   if (getWidgetCount() &gt; 0) {
+     selectTab(0);
+   }
+ } else if (index &lt; _selectedIndex) {
+   // If the _selectedIndex is greater than the one being removed, it needs
+   // to be adjusted.
+   --_selectedIndex;
+ }
+ return true;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeFromParent">
+<button class="show-code">Code</button>
+void <strong>removeFromParent</strong>() <a class="anchor-link" href="#removeFromParent"
+              title="Permalink to TabLayoutPanel.removeFromParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Removes this widget from its parent widget, if one exists.</p><p>
+If it has no parent, this method does nothing. If it is a "root" widget
+(meaning it's been added to the detach list via
+{@link RootPanel#detachOnWindowClose(Widget)}), it will be removed from the
+detached immediately. This makes it possible for Composites and Panels to
+adopt root widgets.
+</p>
+<p>@throws IllegalStateException if this widget's parent does not support</p>
+<pre><code>      removal (e.g. {@link Composite})
+</code></pre>
+<pre class="source">
+void removeFromParent() {
+ if (_parent == null) {
+   // If the widget had no parent, check to see if it was in the detach list
+   // and remove it if necessary.
+   if (RootPanel.isInDetachList(this)) {
+     RootPanel.detachNow(this);
+   }
+ } else if (_parent is HasWidgets) {
+   (_parent as HasWidgets).remove(this);
+ } else if (_parent != null) {
+   throw new Exception("This widget's parent does not implement HasWidgets");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>removeStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#removeStyleDependentName"
+              title="Permalink to TabLayoutPanel.removeStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a dependent style name by specifying the style name's suffix.</p>
+<p>@param styleSuffix the suffix of the dependent style to be removed
+@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)</p>
+<pre class="source">
+void removeStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(String style) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to TabLayoutPanel.removeStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a style name. This method is typically used to remove secondary
+style names, but it can be used to remove primary stylenames as well. That
+use is not recommended.</p>
+<p>@param style the secondary style name to be removed
+@see #addStyleName(String)
+@see #setStyleName(String, boolean)</p>
+<pre class="source">
+void removeStyleName(String style) {
+ setStyleName(style, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="replaceElement">
+<button class="show-code">Code</button>
+void <strong>replaceElement</strong>(Element elem) <a class="anchor-link" href="#replaceElement"
+              title="Permalink to TabLayoutPanel.replaceElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Replaces this object's browser element.</p>
+<p>This method exists only to support a specific use-case in Image, and should
+not be used by other classes.</p>
+<p>@param elem the object's new element</p>
+<pre class="source">
+void replaceElement(dart_html.Element elem) {
+ if (isAttached()) {
+   // Remove old event listener to avoid leaking. onDetach will not do this
+   // for us, because it is only called when the widget itself is detached
+   // from the document.
+   Dom.setEventListener(getElement(), null);
+ }
+
+ super.replaceElement(elem);
+
+ if (isAttached()) {
+   // Hook the event listener back up on the new element. onAttach will not
+   // do this for us, because it is only called when the widget itself is
+   // attached to the document.
+   Dom.setEventListener(getElement(), this);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selectTab">
+<button class="show-code">Code</button>
+void <strong>selectTab</strong>(int index, [bool fireEvents = true]) <a class="anchor-link" href="#selectTab"
+              title="Permalink to TabLayoutPanel.selectTab">#</a></h4>
+<div class="doc">
+<p>Programmatically selects the specified tab.</p>
+<p>@param index the index of the tab to be selected
+@param fireEvents true to fire events, false not to</p>
+<pre class="source">
+void selectTab(int index, [bool fireEvents = true]) {
+ checkIndex(index);
+ if (index == _selectedIndex) {
+   return;
+ }
+
+ // Fire the before selection event, giving the recipients a chance to
+ // cancel the selection.
+ if (fireEvents) {
+   BeforeSelectionEvent&lt;int&gt; event = BeforeSelectionEvent.fire(this, index);
+   if ((event != null) &amp;&amp; event.isCanceled()) {
+     return;
+   }
+ }
+
+ // Update the _tabs being selected and unselected.
+ if (_selectedIndex != -1) {
+   _tabs[_selectedIndex].setSelected(false);
+ }
+
+ _deckPanel.showWidgetAt(index);
+ _tabs[index].setSelected(true);
+ _selectedIndex = index;
+
+ // Fire the selection event.
+ if (fireEvents) {
+   SelectionEvent.fire(this, index);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="selectTabWidget">
+<button class="show-code">Code</button>
+void <strong>selectTabWidget</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child, [bool fireEvents = true]) <a class="anchor-link" href="#selectTabWidget"
+              title="Permalink to TabLayoutPanel.selectTabWidget">#</a></h4>
+<div class="doc">
+<p>Programmatically selects the specified tab.</p>
+<p>@param child the child whose tab is to be selected
+@param fireEvents true to fire events, false not to</p>
+<pre class="source">
+void selectTabWidget(Widget child, [bool fireEvents = true]) {
+ selectTab(getWidgetIndex(child), fireEvents);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAnimationDuration">
+<button class="show-code">Code</button>
+void <strong>setAnimationDuration</strong>(int duration) <a class="anchor-link" href="#setAnimationDuration"
+              title="Permalink to TabLayoutPanel.setAnimationDuration">#</a></h4>
+<div class="doc">
+<p>Set the duration of the animated transition between _tabs.</p>
+<p>@param duration the duration in milliseconds.</p>
+<pre class="source">
+void setAnimationDuration(int duration) {
+ _deckPanel.setAnimationDuration(duration);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAnimationVertical">
+<button class="show-code">Code</button>
+void <strong>setAnimationVertical</strong>(bool isVertical) <a class="anchor-link" href="#setAnimationVertical"
+              title="Permalink to TabLayoutPanel.setAnimationVertical">#</a></h4>
+<div class="doc">
+<p>Set whether or not transitions slide in vertically or horizontally.</p>
+<p>@param isVertical true for vertical transitions, false for horizontal</p>
+<pre class="source">
+void setAnimationVertical(bool isVertical) {
+ _deckPanel.setAnimationVertical(isVertical);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element elem) <a class="anchor-link" href="#setElement"
+              title="Permalink to TabLayoutPanel.setElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets this object's browser element. UIObject subclasses must call this
+method before attempting to call any other methods, and it may only be
+called once.</p>
+<p>@param elem the object's element</p>
+<pre class="source">
+void setElement(dart_html.Element elem) {
+ assert (_element == null);
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to TabLayoutPanel.setHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's height. This height does not include decorations such as
+border, margin, and padding.</p>
+<p>@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setHeight(String height) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(height.trim().toLowerCase()) &gt;= 0); // : "CSS heights should not be negative";
+ Dom.setStyleAttribute(getElement(), "height", height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setLayoutData">
+<button class="show-code">Code</button>
+void <strong>setLayoutData</strong>(Object value) <a class="anchor-link" href="#setLayoutData"
+              title="Permalink to TabLayoutPanel.setLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets the panel-defined layout data associated with this widget. Only the
+panel that currently contains a widget should ever set this value. It
+serves as a place to store layout bookkeeping data associated with a
+widget.</p>
+<p>@param layoutData the widget's layout data</p>
+<pre class="source">
+void setLayoutData(Object value) {
+ this._layoutData = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setParent">
+<button class="show-code">Code</button>
+void <strong>setParent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> parent) <a class="anchor-link" href="#setParent"
+              title="Permalink to TabLayoutPanel.setParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets this widget's parent. This method should only be called by
+{@link Panel} and {@link Composite}.</p>
+<p>@param parent the widget's new parent
+@throws IllegalStateException if &lt;code>parent&lt;/code> is non-null and the</p>
+<pre><code>      widget already has a parent
+</code></pre>
+<pre class="source">
+void setParent(Widget parent) {
+ Widget oldParent = this._parent;
+ if (parent == null) {
+   try {
+     if (oldParent != null &amp;&amp; oldParent.isAttached()) {
+       onDetach();
+       assert (!isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onDetach()";
+     }
+   } finally {
+     // Put this in a finally in case onDetach throws an exception.
+     this._parent = null;
+   }
+ } else {
+   if (oldParent != null) {
+     throw new Exception("Cannot set a new parent without first clearing the old parent");
+   }
+   this._parent = parent;
+   if (parent.isAttached()) {
+     onAttach();
+     assert (isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onAttach()";
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setPixelSize">
+<button class="show-code">Code</button>
+void <strong>setPixelSize</strong>(int width, int height) <a class="anchor-link" href="#setPixelSize"
+              title="Permalink to TabLayoutPanel.setPixelSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size, in pixels, not including decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in pixels
+@param height the object's new height, in pixels</p>
+<pre class="source">
+void setPixelSize(int width, int height) {
+ if (width &gt;= 0) {
+   setWidth(width.toString() + "px");
+ }
+ if (height &gt;= 0) {
+   setHeight(height.toString() + "px");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSize">
+<button class="show-code">Code</button>
+void <strong>setSize</strong>(String width, String height) <a class="anchor-link" href="#setSize"
+              title="Permalink to TabLayoutPanel.setSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size. This size does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")
+@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setSize(String width, String height) {
+ setWidth(width);
+ setHeight(height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>setStyleDependentName</strong>(String styleSuffix, bool add) <a class="anchor-link" href="#setStyleDependentName"
+              title="Permalink to TabLayoutPanel.setStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a dependent style name by specifying the style name's
+suffix. The actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleName(String, boolean)
+@see #removeStyleDependentName(String)</p>
+<pre class="source">
+void setStyleDependentName(String styleSuffix, bool add) {
+ setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(String style, bool add) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to TabLayoutPanel.setStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a style name. This method is typically used to remove
+secondary style names, but it can be used to remove primary stylenames as
+well. That use is not recommended.</p>
+<p>@param style the style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStyleName(String style, bool add) {
+ manageElementStyleName(getStyleElement(), style, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(String style) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to TabLayoutPanel.setStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's primary style name and updates all dependent style names.</p>
+<p>@param style the new primary style name
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStylePrimaryName(String style) {
+ setElementStylePrimaryName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTabHtml">
+<button class="show-code">Code</button>
+void <strong>setTabHtml</strong>(int index, String html) <a class="anchor-link" href="#setTabHtml"
+              title="Permalink to TabLayoutPanel.setTabHtml">#</a></h4>
+<div class="doc">
+<p>Sets a tab's HTML contents.</p>
+<p>Use care when setting an object's HTML; it is an easy way to expose
+script-based security problems. Consider using
+{@link #setTabHTML(int, SafeHtml)} or
+{@link #setTabText(int, String)} whenever possible.</p>
+<p>@param index the index of the tab whose HTML is to be set
+@param html the tab's new HTML contents</p>
+<pre class="source">
+void setTabHtml(int index, String html) {
+ checkIndex(index);
+ _tabs[index].setWidget(new Html(html));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTabText">
+<button class="show-code">Code</button>
+void <strong>setTabText</strong>(int index, String text) <a class="anchor-link" href="#setTabText"
+              title="Permalink to TabLayoutPanel.setTabText">#</a></h4>
+<div class="doc">
+<p>Sets a tab's text contents.</p>
+<p>@param index the index of the tab whose text is to be set
+@param text the object's new text</p>
+<pre class="source">
+void setTabText(int index, String text) {
+ checkIndex(index);
+ _tabs[index].setWidget(new Label(text));
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to TabLayoutPanel.setWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's width. This width does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setWidth(String width) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(width.trim().toLowerCase()) &gt;= 0); // : "CSS widths should not be negative";
+ Dom.setStyleAttribute(getElement(), "width", width);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to TabLayoutPanel.sinkBitlessEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sinks a named event. Note that only {@link Widget widgets} may actually
+receive events, but can receive events from all objects contained within
+them.</p>
+<p>@param eventTypeName name of the event to sink on this element
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkBitlessEvent(String eventTypeName) {
+ Dom.sinkBitlessEvent(getElement(), eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(int eventBitsToAdd) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to TabLayoutPanel.sinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Overridden to defer the call to super.sinkEvents until the first time this
+widget is attached to the dom, as a performance enhancement. Subclasses
+wishing to customize sinkEvents can preserve this deferred sink behavior by
+putting their implementation behind a check of
+&lt;code>isOrWasAttached()&lt;/code>:</p><pre>
+{@literal @}Override
+public void sinkEvents(int eventBitsToAdd) {
+  if (isOrWasAttached()) {
+    /{@literal *} customized sink code goes here {@literal *}/
+  } else {
+    super.sinkEvents(eventBitsToAdd);
+ }
+} </pre>
+<pre class="source">
+void sinkEvents(int eventBitsToAdd) {
+ if (isOrWasAttached()) {
+   super.sinkEvents(eventsToSink);
+ } else {
+   eventsToSink |= eventBitsToAdd;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to TabLayoutPanel.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>This method is overridden so that any object can be viewed in the debugger
+as an HTML snippet.</p>
+<p>@return a string representation of the object</p>
+<pre class="source">
+String toString() {
+ if (_element == null) {
+   return "(null handle)";
+ }
+ return getElement().toString();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="unsinkEvents">
+<button class="show-code">Code</button>
+void <strong>unsinkEvents</strong>(int eventBitsToRemove) <a class="anchor-link" href="#unsinkEvents"
+              title="Permalink to TabLayoutPanel.unsinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a set of events from this object's event list.</p>
+<p>@param eventBitsToRemove a bitfield representing the set of events to be</p>
+<pre><code>     removed from this element's event set
+</code></pre>
+<p>@see #sinkEvents
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void unsinkEvents(int eventBitsToRemove) {
+ Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:23.290</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

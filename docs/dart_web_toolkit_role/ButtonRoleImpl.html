@@ -1,0 +1,197 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ButtonRoleImpl class / dart_web_toolkit_role Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_role" data-type="ButtonRoleImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_role.html">dart_web_toolkit_role</a> &rsaquo; <a href="../dart_web_toolkit_role/ButtonRoleImpl.html">ButtonRoleImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ButtonRoleImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implements {@link ButtonRole}.</p>
+<pre class="source">
+class ButtonRoleImpl extends Role implements ButtonRole {
+
+ ButtonRoleImpl(String roleName) : super(roleName);
+
+ //*****************************
+ // Implementation of ButtonRole
+ //*****************************
+
+ void setAriaPressedState(dart_html.Element element, PressedValue value) {
+   State.PRESSED.set(element, value);
+ }
+
+ String getAriaPressedState(dart_html.Element element) {
+   return State.PRESSED.get(element);
+ }
+
+ void removeAriaPressedState(dart_html.Element element) {
+   State.PRESSED.remove(element);
+ }
+
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/Role.html">Role</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ButtonRoleImpl</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/ButtonRole.html">ButtonRole</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ButtonRoleImpl">
+<button class="show-code">Code</button>
+new <strong>ButtonRoleImpl</strong>(String roleName) <a class="anchor-link" href="#ButtonRoleImpl"
+              title="Permalink to ButtonRoleImpl.ButtonRoleImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+ButtonRoleImpl(String roleName) : super(roleName);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="get">
+<button class="show-code">Code</button>
+String <strong>get</strong>(Element element) <a class="anchor-link" href="#get"
+              title="Permalink to ButtonRoleImpl.get">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Role.html">Role</a> </div><div class="doc">
+<p>Gets the role for the element {@code element}. If none is set, "" is returned.</p>
+<p>@param element HTML element
+@return The role attribute value</p>
+<pre class="source">
+String get(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ return element.attributes[ATTR_NAME_ROLE];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAriaPressedState">
+<button class="show-code">Code</button>
+String <strong>getAriaPressedState</strong>(Element element) <a class="anchor-link" href="#getAriaPressedState"
+              title="Permalink to ButtonRoleImpl.getAriaPressedState">#</a></h4>
+<div class="doc">
+<pre class="source">
+String getAriaPressedState(dart_html.Element element) {
+ return State.PRESSED.get(element);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getName">
+<button class="show-code">Code</button>
+String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to ButtonRoleImpl.getName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Role.html">Role</a> </div><div class="doc">
+<p>Gets the role name</p>
+<p>@return The role name</p>
+<pre class="source">
+String getName() {
+ return _roleName;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="remove">
+<button class="show-code">Code</button>
+void <strong>remove</strong>(Element element) <a class="anchor-link" href="#remove"
+              title="Permalink to ButtonRoleImpl.remove">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Role.html">Role</a> </div><div class="doc">
+<p>Removes the role for element {@code element}</p>
+<p>@param element HTML element</p>
+<pre class="source">
+void remove(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ element.attributes.remove(ATTR_NAME_ROLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeAriaPressedState">
+<button class="show-code">Code</button>
+void <strong>removeAriaPressedState</strong>(Element element) <a class="anchor-link" href="#removeAriaPressedState"
+              title="Permalink to ButtonRoleImpl.removeAriaPressedState">#</a></h4>
+<div class="doc">
+<pre class="source">
+void removeAriaPressedState(dart_html.Element element) {
+ State.PRESSED.remove(element);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="set">
+<button class="show-code">Code</button>
+void <strong>set</strong>(Element element) <a class="anchor-link" href="#set"
+              title="Permalink to ButtonRoleImpl.set">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Role.html">Role</a> </div><div class="doc">
+<p>Sets the role to element {@code element}</p>
+<p>@param element HTML element</p>
+<pre class="source">
+void set(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ element.attributes[ATTR_NAME_ROLE] = _roleName;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAriaPressedState">
+<button class="show-code">Code</button>
+void <strong>setAriaPressedState</strong>(Element element, <a href="../dart_web_toolkit_role/PressedValue.html">PressedValue</a> value) <a class="anchor-link" href="#setAriaPressedState"
+              title="Permalink to ButtonRoleImpl.setAriaPressedState">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setAriaPressedState(dart_html.Element element, PressedValue value) {
+ State.PRESSED.set(element, value);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.536</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,635 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ActivityManager class / dart_web_toolkit_activity Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_activity" data-type="ActivityManager">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_activity.html">dart_web_toolkit_activity</a> &rsaquo; <a href="../dart_web_toolkit_activity/ActivityManager.html">ActivityManager</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ActivityManager</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Manages {@link Activity} objects that should be kicked off in response to
+{@link PlaceChangeEvent} events. Each activity can start itself
+asynchronously, and provides a widget to be shown when it's ready to run.</p>
+<pre class="source">
+class ActivityManager implements PlaceChangeEventHandler, PlaceChangeRequestEventHandler {
+
+ static final Activity NULL_ACTIVITY = new _AbstractActivity();
+
+ final ActivityMapper mapper;
+
+ final EventBus eventBus;
+
+ /*
+  * Note that we use the legacy class from com.google.gwt.event.shared, because
+  * we can't change the Activity interface.
+  */
+ ResettableEventBus stopperedEventBus;
+
+ Activity currentActivity = NULL_ACTIVITY;
+
+ AcceptsOneWidget display;
+
+ bool startingNext = false;
+
+ HandlerRegistration handlerRegistration;
+
+ /**
+  * Create an ActivityManager. Next call {@link #setDisplay}.
+  * 
+  * @param mapper finds the {@link Activity} for a given
+  *          {@link com.google.gwt.place.shared.Place}
+  * @param eventBus source of {@link PlaceChangeEvent} and
+  *          {@link PlaceChangeRequestEvent} events.
+  */
+ ActivityManager(this.mapper, this.eventBus) {
+   stopperedEventBus = new ResettableEventBus(eventBus);
+ }
+
+ /**
+ * Returns an event bus which is in use by the currently running activity.
+ * &lt;p&gt;
+ * Any handlers attached to the returned event bus will be de-registered when
+ * the current activity is stopped.
+ *
+ * @return the event bus used by the current activity
+ */
+ EventBus getActiveEventBus() {
+   return stopperedEventBus;
+ }
+
+ /**
+  * Deactivate the current activity, find the next one from our ActivityMapper,
+  * and start it.
+  * &lt;p&gt;
+  * The current activity's widget will be hidden immediately, which can cause
+  * flicker if the next activity provides its widget asynchronously. That can
+  * be minimized by decent caching. Perenially slow activities might mitigate
+  * this by providing a widget immediately, with some kind of "loading"
+  * treatment.
+  */
+ void onPlaceChange(PlaceChangeEvent event) {
+   Activity nextActivity = getNextActivity(event);
+
+   Exception caughtOnStop = null;
+   Exception caughtOnCancel = null;
+   Exception caughtOnStart = null;
+
+   if (nextActivity == null) {
+     nextActivity = NULL_ACTIVITY;
+   }
+
+   if (currentActivity == nextActivity) {
+     return;
+   }
+
+   if (startingNext) {
+     // The place changed again before the new current activity showed its
+     // widget
+     caughtOnCancel = tryStopOrCancel(false);
+     currentActivity = NULL_ACTIVITY;
+     startingNext = false;
+   } else if (currentActivity != NULL_ACTIVITY) {
+     showWidget(null);
+
+     /*
+      * Kill off the activity's handlers, so it doesn't have to worry about
+      * them accidentally firing as a side effect of its tear down
+      */
+     stopperedEventBus.removeHandlers();
+     caughtOnStop = tryStopOrCancel(true);
+   }
+
+   currentActivity = nextActivity;
+
+   if (currentActivity == NULL_ACTIVITY) {
+     showWidget(null);
+   } else {
+     startingNext = true;
+     caughtOnStart = tryStart();
+   }
+
+   if (caughtOnStart != null || caughtOnCancel != null || caughtOnStop != null) {
+     Set&lt;Exception&gt; causes = new dart_collection.LinkedHashSet&lt;Exception&gt;();
+     if (caughtOnStop != null) {
+       causes.add(caughtOnStop);
+     }
+     if (caughtOnCancel != null) {
+       causes.add(caughtOnCancel);
+     }
+     if (caughtOnStart != null) {
+       causes.add(caughtOnStart);
+     }
+
+     throw new UmbrellaException(causes);
+   }
+ }
+
+ /**
+  * Reject the place change if the current activity is not willing to stop.
+  * 
+  * @see com.google.gwt.place.shared.PlaceChangeRequestEvent.Handler#onPlaceChangeRequest(PlaceChangeRequestEvent)
+  */
+ void onPlaceChangeRequest(PlaceChangeRequestEvent event) {
+   event.setWarning(currentActivity.mayStop());
+ }
+
+ /**
+  * Sets the display for the receiver, and has the side effect of starting or
+  * stopping its monitoring the event bus for place change events.
+  * &lt;p&gt;
+  * If you are disposing of an ActivityManager, it is important to call
+  * setDisplay(null) to get it to deregister from the event bus, so that it can
+  * be garbage collected.
+  * 
+  * @param display an instance of AcceptsOneWidget
+  */
+ void setDisplay(AcceptsOneWidget display) {
+   bool wasActive = (null != this.display);
+   bool willBeActive = (null != display);
+   this.display = display;
+   if (wasActive != willBeActive) {
+     updateHandlers(willBeActive);
+   }
+ }
+
+ Activity getNextActivity(PlaceChangeEvent event) {
+   if (display == null) {
+     /*
+      * Display may have been nulled during PlaceChangeEvent dispatch. Don't
+      * bother the mapper, just return a null to ensure we shut down the
+      * current activity
+      */
+     return null;
+   }
+   return mapper.getActivity(event.getNewPlace());
+ }
+
+ void showWidget(IsWidget view) {
+   if (display != null) {
+     display.setWidgetIsWidget(view);
+   }
+ }
+
+ Exception tryStart() {
+   Exception caughtOnStart = null;
+   try {
+     /*
+      * Wrap the actual display with a per-call instance that protects the
+      * display from canceled or stopped activities, and which maintains our
+      * startingNext state.
+      */
+     currentActivity.start(new _ProtectedDisplay(this, currentActivity), stopperedEventBus);
+   } on Exception catch (t) {
+     caughtOnStart = t;
+   }
+   return caughtOnStart;
+ }
+
+ Exception tryStopOrCancel(bool stop) {
+   Exception caughtOnStop = null;
+   try {
+     if (stop) {
+       currentActivity.onStop();
+     } else {
+       currentActivity.onCancel();
+     }
+   } on Exception catch (t) {
+     caughtOnStop = t;
+   } finally {
+     /*
+      * Kill off the handlers again in case it was naughty and added new ones
+      * during onstop or oncancel
+      */
+     stopperedEventBus.removeHandlers();
+   }
+   return caughtOnStop;
+ }
+
+ void updateHandlers(bool activate) {
+   if (activate) {
+     final HandlerRegistration placeReg = eventBus.addHandler(PlaceChangeEvent.TYPE, this);
+     final HandlerRegistration placeRequestReg =
+         eventBus.addHandler(PlaceChangeRequestEvent.TYPE, this);
+
+     this.handlerRegistration = new _ActivityHandlerRegistration(placeReg, placeRequestReg);
+   } else {
+     if (handlerRegistration != null) {
+       handlerRegistration.removeHandler();
+       handlerRegistration = null;
+     }
+   }
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_place/PlaceChangeRequestEventHandler.html">PlaceChangeRequestEventHandler</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_place/PlaceChangeEventHandler.html">PlaceChangeEventHandler</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="NULL_ACTIVITY">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_activity/Activity.html">Activity</a>         <strong>NULL_ACTIVITY</strong> <a class="anchor-link"
+            href="#NULL_ACTIVITY"
+            title="Permalink to ActivityManager.NULL_ACTIVITY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static final Activity NULL_ACTIVITY = new _AbstractActivity()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ActivityManager">
+<button class="show-code">Code</button>
+new <strong>ActivityManager</strong>(<a href="../dart_web_toolkit_activity/ActivityMapper.html">ActivityMapper</a> mapper, <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> eventBus) <a class="anchor-link" href="#ActivityManager"
+              title="Permalink to ActivityManager.ActivityManager">#</a></h4>
+<div class="doc">
+<p>Create an ActivityManager. Next call {@link #setDisplay}.</p>
+<p>@param mapper finds the {@link Activity} for a given</p>
+<pre><code>     {@link com.google.gwt.place.shared.Place}
+</code></pre>
+<p>@param eventBus source of {@link PlaceChangeEvent} and</p>
+<pre><code>     {@link PlaceChangeRequestEvent} events.
+</code></pre>
+<pre class="source">
+ActivityManager(this.mapper, this.eventBus) {
+ stopperedEventBus = new ResettableEventBus(eventBus);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="currentActivity">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_activity/Activity.html">Activity</a>         <strong>currentActivity</strong> <a class="anchor-link"
+            href="#currentActivity"
+            title="Permalink to ActivityManager.currentActivity">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Activity currentActivity = NULL_ACTIVITY
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="display">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/AcceptsOneWidget.html">AcceptsOneWidget</a>         <strong>display</strong> <a class="anchor-link"
+            href="#display"
+            title="Permalink to ActivityManager.display">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+AcceptsOneWidget display
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="eventBus">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a>         <strong>eventBus</strong> <a class="anchor-link"
+            href="#eventBus"
+            title="Permalink to ActivityManager.eventBus">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final EventBus eventBus
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="handlerRegistration">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a>         <strong>handlerRegistration</strong> <a class="anchor-link"
+            href="#handlerRegistration"
+            title="Permalink to ActivityManager.handlerRegistration">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+HandlerRegistration handlerRegistration
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="mapper">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_activity/ActivityMapper.html">ActivityMapper</a>         <strong>mapper</strong> <a class="anchor-link"
+            href="#mapper"
+            title="Permalink to ActivityManager.mapper">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final ActivityMapper mapper
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="startingNext">
+<button class="show-code">Code</button>
+bool         <strong>startingNext</strong> <a class="anchor-link"
+            href="#startingNext"
+            title="Permalink to ActivityManager.startingNext">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool startingNext = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="stopperedEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/ResettableEventBus.html">ResettableEventBus</a>         <strong>stopperedEventBus</strong> <a class="anchor-link"
+            href="#stopperedEventBus"
+            title="Permalink to ActivityManager.stopperedEventBus">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+ResettableEventBus stopperedEventBus
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getActiveEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>getActiveEventBus</strong>() <a class="anchor-link" href="#getActiveEventBus"
+              title="Permalink to ActivityManager.getActiveEventBus">#</a></h4>
+<div class="doc">
+<p>Returns an event bus which is in use by the currently running activity.
+&lt;p>
+Any handlers attached to the returned event bus will be de-registered when
+the current activity is stopped.</p>
+<p>@return the event bus used by the current activity</p>
+<pre class="source">
+EventBus getActiveEventBus() {
+ return stopperedEventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getNextActivity">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_activity/Activity.html">Activity</a> <strong>getNextActivity</strong>(<a href="../dart_web_toolkit_place/PlaceChangeEvent.html">PlaceChangeEvent</a> event) <a class="anchor-link" href="#getNextActivity"
+              title="Permalink to ActivityManager.getNextActivity">#</a></h4>
+<div class="doc">
+<pre class="source">
+Activity getNextActivity(PlaceChangeEvent event) {
+ if (display == null) {
+   /*
+    * Display may have been nulled during PlaceChangeEvent dispatch. Don't
+    * bother the mapper, just return a null to ensure we shut down the
+    * current activity
+    */
+   return null;
+ }
+ return mapper.getActivity(event.getNewPlace());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onPlaceChange">
+<button class="show-code">Code</button>
+void <strong>onPlaceChange</strong>(<a href="../dart_web_toolkit_place/PlaceChangeEvent.html">PlaceChangeEvent</a> event) <a class="anchor-link" href="#onPlaceChange"
+              title="Permalink to ActivityManager.onPlaceChange">#</a></h4>
+<div class="doc">
+<p>Deactivate the current activity, find the next one from our ActivityMapper,
+and start it.
+&lt;p>
+The current activity's widget will be hidden immediately, which can cause
+flicker if the next activity provides its widget asynchronously. That can
+be minimized by decent caching. Perenially slow activities might mitigate
+this by providing a widget immediately, with some kind of "loading"
+treatment.</p>
+<pre class="source">
+void onPlaceChange(PlaceChangeEvent event) {
+ Activity nextActivity = getNextActivity(event);
+
+ Exception caughtOnStop = null;
+ Exception caughtOnCancel = null;
+ Exception caughtOnStart = null;
+
+ if (nextActivity == null) {
+   nextActivity = NULL_ACTIVITY;
+ }
+
+ if (currentActivity == nextActivity) {
+   return;
+ }
+
+ if (startingNext) {
+   // The place changed again before the new current activity showed its
+   // widget
+   caughtOnCancel = tryStopOrCancel(false);
+   currentActivity = NULL_ACTIVITY;
+   startingNext = false;
+ } else if (currentActivity != NULL_ACTIVITY) {
+   showWidget(null);
+
+   /*
+    * Kill off the activity's handlers, so it doesn't have to worry about
+    * them accidentally firing as a side effect of its tear down
+    */
+   stopperedEventBus.removeHandlers();
+   caughtOnStop = tryStopOrCancel(true);
+ }
+
+ currentActivity = nextActivity;
+
+ if (currentActivity == NULL_ACTIVITY) {
+   showWidget(null);
+ } else {
+   startingNext = true;
+   caughtOnStart = tryStart();
+ }
+
+ if (caughtOnStart != null || caughtOnCancel != null || caughtOnStop != null) {
+   Set&lt;Exception&gt; causes = new dart_collection.LinkedHashSet&lt;Exception&gt;();
+   if (caughtOnStop != null) {
+     causes.add(caughtOnStop);
+   }
+   if (caughtOnCancel != null) {
+     causes.add(caughtOnCancel);
+   }
+   if (caughtOnStart != null) {
+     causes.add(caughtOnStart);
+   }
+
+   throw new UmbrellaException(causes);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onPlaceChangeRequest">
+<button class="show-code">Code</button>
+void <strong>onPlaceChangeRequest</strong>(<a href="../dart_web_toolkit_place/PlaceChangeRequestEvent.html">PlaceChangeRequestEvent</a> event) <a class="anchor-link" href="#onPlaceChangeRequest"
+              title="Permalink to ActivityManager.onPlaceChangeRequest">#</a></h4>
+<div class="doc">
+<p>Reject the place change if the current activity is not willing to stop.</p>
+<p>@see com.google.gwt.place.shared.PlaceChangeRequestEvent.Handler#onPlaceChangeRequest(PlaceChangeRequestEvent)</p>
+<pre class="source">
+void onPlaceChangeRequest(PlaceChangeRequestEvent event) {
+ event.setWarning(currentActivity.mayStop());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDisplay">
+<button class="show-code">Code</button>
+void <strong>setDisplay</strong>(<a href="../dart_web_toolkit_ui/AcceptsOneWidget.html">AcceptsOneWidget</a> display) <a class="anchor-link" href="#setDisplay"
+              title="Permalink to ActivityManager.setDisplay">#</a></h4>
+<div class="doc">
+<p>Sets the display for the receiver, and has the side effect of starting or
+stopping its monitoring the event bus for place change events.
+&lt;p>
+If you are disposing of an ActivityManager, it is important to call
+setDisplay(null) to get it to deregister from the event bus, so that it can
+be garbage collected.</p>
+<p>@param display an instance of AcceptsOneWidget</p>
+<pre class="source">
+void setDisplay(AcceptsOneWidget display) {
+ bool wasActive = (null != this.display);
+ bool willBeActive = (null != display);
+ this.display = display;
+ if (wasActive != willBeActive) {
+   updateHandlers(willBeActive);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="showWidget">
+<button class="show-code">Code</button>
+void <strong>showWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> view) <a class="anchor-link" href="#showWidget"
+              title="Permalink to ActivityManager.showWidget">#</a></h4>
+<div class="doc">
+<pre class="source">
+void showWidget(IsWidget view) {
+ if (display != null) {
+   display.setWidgetIsWidget(view);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tryStart">
+<button class="show-code">Code</button>
+Exception <strong>tryStart</strong>() <a class="anchor-link" href="#tryStart"
+              title="Permalink to ActivityManager.tryStart">#</a></h4>
+<div class="doc">
+<pre class="source">
+Exception tryStart() {
+ Exception caughtOnStart = null;
+ try {
+   /*
+    * Wrap the actual display with a per-call instance that protects the
+    * display from canceled or stopped activities, and which maintains our
+    * startingNext state.
+    */
+   currentActivity.start(new _ProtectedDisplay(this, currentActivity), stopperedEventBus);
+ } on Exception catch (t) {
+   caughtOnStart = t;
+ }
+ return caughtOnStart;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tryStopOrCancel">
+<button class="show-code">Code</button>
+Exception <strong>tryStopOrCancel</strong>(bool stop) <a class="anchor-link" href="#tryStopOrCancel"
+              title="Permalink to ActivityManager.tryStopOrCancel">#</a></h4>
+<div class="doc">
+<pre class="source">
+Exception tryStopOrCancel(bool stop) {
+ Exception caughtOnStop = null;
+ try {
+   if (stop) {
+     currentActivity.onStop();
+   } else {
+     currentActivity.onCancel();
+   }
+ } on Exception catch (t) {
+   caughtOnStop = t;
+ } finally {
+   /*
+    * Kill off the handlers again in case it was naughty and added new ones
+    * during onstop or oncancel
+    */
+   stopperedEventBus.removeHandlers();
+ }
+ return caughtOnStop;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="updateHandlers">
+<button class="show-code">Code</button>
+void <strong>updateHandlers</strong>(bool activate) <a class="anchor-link" href="#updateHandlers"
+              title="Permalink to ActivityManager.updateHandlers">#</a></h4>
+<div class="doc">
+<pre class="source">
+void updateHandlers(bool activate) {
+ if (activate) {
+   final HandlerRegistration placeReg = eventBus.addHandler(PlaceChangeEvent.TYPE, this);
+   final HandlerRegistration placeRequestReg =
+       eventBus.addHandler(PlaceChangeRequestEvent.TYPE, this);
+
+   this.handlerRegistration = new _ActivityHandlerRegistration(placeReg, placeRequestReg);
+ } else {
+   if (handlerRegistration != null) {
+     handlerRegistration.removeHandler();
+     handlerRegistration = null;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:17.926</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

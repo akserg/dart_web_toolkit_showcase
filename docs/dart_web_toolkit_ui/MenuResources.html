@@ -1,0 +1,166 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>MenuResources class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="MenuResources">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/MenuResources.html">MenuResources</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>MenuResources</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Default menu resources.</p>
+<pre class="source">
+class MenuResources implements MenuResource {
+
+ ImageResource _resource;
+
+ const String MENU_RESOURCE = "menuBarSubMenuIcon.gif";
+ const String MENU_RESOURCE_RTL = "menuBarSubMenuIcon_rtl.gif";
+
+ MenuResources();
+
+ Source get source {
+   return null;
+ }
+
+ /**
+  * An image indicating a {@link MenuItem} has an associated submenu.
+  */
+ ImageResource menuBarSubMenuIcon() {
+   if (_resource == null) {
+     // We must check is left or right based locales we using here.
+     _resource = _getMenuImageResourcePrototype(MENU_RESOURCE);
+   }
+   return _resource;
+ }
+
+ ImageResourcePrototype _getMenuImageResourcePrototype(String name) {
+   String uri = DWT.getModuleBaseURL() + "resource/images/" + name;
+   ImageResourcePrototype imageResource = new ImageResourcePrototype(name, 
+       UriUtils.fromTrustedString(uri), 0, 0, 5, 9, false, false);
+   return imageResource;
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/MenuResource.html">MenuResource</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="MenuResources">
+<button class="show-code">Code</button>
+new <strong>MenuResources</strong>() <a class="anchor-link" href="#MenuResources"
+              title="Permalink to MenuResources.MenuResources">#</a></h4>
+<div class="doc">
+<pre class="source">
+MenuResources();
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="MENU_RESOURCE">
+<button class="show-code">Code</button>
+const String         <strong>MENU_RESOURCE</strong> <a class="anchor-link"
+            href="#MENU_RESOURCE"
+            title="Permalink to MenuResources.MENU_RESOURCE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+const String MENU_RESOURCE = "menuBarSubMenuIcon.gif"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MENU_RESOURCE_RTL">
+<button class="show-code">Code</button>
+const String         <strong>MENU_RESOURCE_RTL</strong> <a class="anchor-link"
+            href="#MENU_RESOURCE_RTL"
+            title="Permalink to MenuResources.MENU_RESOURCE_RTL">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+const String MENU_RESOURCE_RTL = "menuBarSubMenuIcon_rtl.gif"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="source">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_resource/Source.html">Source</a>         <strong>source</strong> <a class="anchor-link"
+            href="#source"
+            title="Permalink to MenuResources.source">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Source get source {
+ return null;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="menuBarSubMenuIcon">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_resource/ImageResource.html">ImageResource</a> <strong>menuBarSubMenuIcon</strong>() <a class="anchor-link" href="#menuBarSubMenuIcon"
+              title="Permalink to MenuResources.menuBarSubMenuIcon">#</a></h4>
+<div class="doc">
+<p>An image indicating a {@link MenuItem} has an associated submenu.</p>
+<pre class="source">
+ImageResource menuBarSubMenuIcon() {
+ if (_resource == null) {
+   // We must check is left or right based locales we using here.
+   _resource = _getMenuImageResourcePrototype(MENU_RESOURCE);
+ }
+ return _resource;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:21.148</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

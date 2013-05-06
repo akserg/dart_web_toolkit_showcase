@@ -1,0 +1,591 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PredefinedFormat&lt;int&gt; class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="PredefinedFormat&amp;lt;int&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat&lt;int&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PredefinedFormat&lt;int&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Predefined date/time formats -- see {@link CustomDateTimeFormat} if you
+need some format that isn't supplied here.</p>
+<pre class="source">
+class PredefinedFormat&lt;int&gt; extends Enum {
+
+ const PredefinedFormat(int type) : super (type);
+
+// TODO(jat): Javadoc to explain these formats
+
+ /**
+  * ISO 8601 date format, fixed across all locales.
+  * &lt;p&gt;Example: {@code 2008-10-03T10:29:40.046-04:00}
+  * &lt;p&gt;http://code.google.com/p/google-web-toolkit/issues/detail?id=3068
+  * &lt;p&gt;http://www.iso.org/iso/support/faqs/faqs_widely_used_standards/widely_used_standards_other/date_and_time_format.htm
+  */
+ static const PredefinedFormat ISO_8601 = const PredefinedFormat(0);
+
+ /**
+  * RFC 2822 date format, fixed across all locales.
+  * &lt;p&gt;Example: {@code Thu, 20 May 2010 17:54:50 -0700}
+  * &lt;p&gt;http://tools.ietf.org/html/rfc2822#section-3.3
+  */
+ static const PredefinedFormat RFC_2822 = const PredefinedFormat(1);
+
+ static const PredefinedFormat DATE_FULL = const PredefinedFormat(2);
+ static const PredefinedFormat DATE_LONG = const PredefinedFormat(3);
+ static const PredefinedFormat DATE_MEDIUM = const PredefinedFormat(4);
+ static const PredefinedFormat DATE_SHORT = const PredefinedFormat(5);
+
+ static const PredefinedFormat TIME_FULL = const PredefinedFormat(6);
+ static const PredefinedFormat TIME_LONG = const PredefinedFormat(7);
+ static const PredefinedFormat TIME_MEDIUM = const PredefinedFormat(8);
+ static const PredefinedFormat TIME_SHORT = const PredefinedFormat(9);
+
+ static const PredefinedFormat DATE_TIME_FULL = const PredefinedFormat(10);
+ static const PredefinedFormat DATE_TIME_LONG = const PredefinedFormat(11);
+ static const PredefinedFormat DATE_TIME_MEDIUM = const PredefinedFormat(12);
+ static const PredefinedFormat DATE_TIME_SHORT = const PredefinedFormat(13);
+
+ static const PredefinedFormat DAY = const PredefinedFormat(14);
+ static const PredefinedFormat HOUR_MINUTE = const PredefinedFormat(15);
+ static const PredefinedFormat HOUR_MINUTE_SECOND = const PredefinedFormat(16);
+ static const PredefinedFormat HOUR24_MINUTE = const PredefinedFormat(17);
+ static const PredefinedFormat HOUR24_MINUTE_SECOND = const PredefinedFormat(18);
+ static const PredefinedFormat MINUTE_SECOND = const PredefinedFormat(19);
+ static const PredefinedFormat MONTH = const PredefinedFormat(20);
+ static const PredefinedFormat MONTH_ABBR = const PredefinedFormat(21);
+ static const PredefinedFormat MONTH_ABBR_DAY = const PredefinedFormat(22);
+ static const PredefinedFormat MONTH_DAY = const PredefinedFormat(23);
+ static const PredefinedFormat MONTH_NUM_DAY = const PredefinedFormat(24);
+ static const PredefinedFormat MONTH_WEEKDAY_DAY = const PredefinedFormat(25);
+ static const PredefinedFormat YEAR = const PredefinedFormat(26);
+ static const PredefinedFormat YEAR_MONTH = const PredefinedFormat(27);
+ static const PredefinedFormat YEAR_MONTH_ABBR = const PredefinedFormat(28);
+ static const PredefinedFormat YEAR_MONTH_ABBR_DAY = const PredefinedFormat(29);
+ static const PredefinedFormat YEAR_MONTH_DAY = const PredefinedFormat(30);
+ static const PredefinedFormat YEAR_MONTH_NUM = const PredefinedFormat(31);
+ static const PredefinedFormat YEAR_MONTH_NUM_DAY = const PredefinedFormat(32);
+ static const PredefinedFormat YEAR_MONTH_WEEKDAY_DAY = const PredefinedFormat(33);
+ static const PredefinedFormat YEAR_QUARTER = const PredefinedFormat(34);
+ static const PredefinedFormat YEAR_QUARTER_ABBR = const PredefinedFormat(35);
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Enum.html">Enum</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>PredefinedFormat&lt;int&gt;</strong></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="DATE_FULL">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_FULL</strong> <a class="anchor-link"
+            href="#DATE_FULL"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_FULL">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_FULL = const PredefinedFormat(2)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_LONG">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_LONG</strong> <a class="anchor-link"
+            href="#DATE_LONG"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_LONG">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_LONG = const PredefinedFormat(3)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_MEDIUM">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_MEDIUM</strong> <a class="anchor-link"
+            href="#DATE_MEDIUM"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_MEDIUM">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_MEDIUM = const PredefinedFormat(4)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_SHORT">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_SHORT</strong> <a class="anchor-link"
+            href="#DATE_SHORT"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_SHORT">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_SHORT = const PredefinedFormat(5)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_TIME_FULL">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_TIME_FULL</strong> <a class="anchor-link"
+            href="#DATE_TIME_FULL"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_TIME_FULL">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_TIME_FULL = const PredefinedFormat(10)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_TIME_LONG">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_TIME_LONG</strong> <a class="anchor-link"
+            href="#DATE_TIME_LONG"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_TIME_LONG">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_TIME_LONG = const PredefinedFormat(11)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_TIME_MEDIUM">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_TIME_MEDIUM</strong> <a class="anchor-link"
+            href="#DATE_TIME_MEDIUM"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_TIME_MEDIUM">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_TIME_MEDIUM = const PredefinedFormat(12)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DATE_TIME_SHORT">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DATE_TIME_SHORT</strong> <a class="anchor-link"
+            href="#DATE_TIME_SHORT"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DATE_TIME_SHORT">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DATE_TIME_SHORT = const PredefinedFormat(13)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>DAY</strong> <a class="anchor-link"
+            href="#DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat DAY = const PredefinedFormat(14)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HOUR24_MINUTE">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>HOUR24_MINUTE</strong> <a class="anchor-link"
+            href="#HOUR24_MINUTE"
+            title="Permalink to PredefinedFormat&lt;int&gt;.HOUR24_MINUTE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat HOUR24_MINUTE = const PredefinedFormat(17)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HOUR24_MINUTE_SECOND">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>HOUR24_MINUTE_SECOND</strong> <a class="anchor-link"
+            href="#HOUR24_MINUTE_SECOND"
+            title="Permalink to PredefinedFormat&lt;int&gt;.HOUR24_MINUTE_SECOND">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat HOUR24_MINUTE_SECOND = const PredefinedFormat(18)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HOUR_MINUTE">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>HOUR_MINUTE</strong> <a class="anchor-link"
+            href="#HOUR_MINUTE"
+            title="Permalink to PredefinedFormat&lt;int&gt;.HOUR_MINUTE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat HOUR_MINUTE = const PredefinedFormat(15)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HOUR_MINUTE_SECOND">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>HOUR_MINUTE_SECOND</strong> <a class="anchor-link"
+            href="#HOUR_MINUTE_SECOND"
+            title="Permalink to PredefinedFormat&lt;int&gt;.HOUR_MINUTE_SECOND">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat HOUR_MINUTE_SECOND = const PredefinedFormat(16)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ISO_8601">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>ISO_8601</strong> <a class="anchor-link"
+            href="#ISO_8601"
+            title="Permalink to PredefinedFormat&lt;int&gt;.ISO_8601">#</a>
+        </h4>
+        <div class="doc">
+<p>ISO 8601 date format, fixed across all locales.
+&lt;p>Example: {@code 2008-10-03T10:29:40.046-04:00}
+&lt;p>http://code.google.com/p/google-web-toolkit/issues/detail?id=3068
+&lt;p>http://www.iso.org/iso/support/faqs/faqs<em>widely</em>used<em>standards/widely</em>used<em>standards</em>other/date<em>and</em>time_format.htm</p>
+<pre class="source">
+static const PredefinedFormat ISO_8601 = const PredefinedFormat(0)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MINUTE_SECOND">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MINUTE_SECOND</strong> <a class="anchor-link"
+            href="#MINUTE_SECOND"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MINUTE_SECOND">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MINUTE_SECOND = const PredefinedFormat(19)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MONTH">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MONTH</strong> <a class="anchor-link"
+            href="#MONTH"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MONTH">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MONTH = const PredefinedFormat(20)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MONTH_ABBR">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MONTH_ABBR</strong> <a class="anchor-link"
+            href="#MONTH_ABBR"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MONTH_ABBR">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MONTH_ABBR = const PredefinedFormat(21)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MONTH_ABBR_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MONTH_ABBR_DAY</strong> <a class="anchor-link"
+            href="#MONTH_ABBR_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MONTH_ABBR_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MONTH_ABBR_DAY = const PredefinedFormat(22)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MONTH_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MONTH_DAY</strong> <a class="anchor-link"
+            href="#MONTH_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MONTH_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MONTH_DAY = const PredefinedFormat(23)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MONTH_NUM_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MONTH_NUM_DAY</strong> <a class="anchor-link"
+            href="#MONTH_NUM_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MONTH_NUM_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MONTH_NUM_DAY = const PredefinedFormat(24)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MONTH_WEEKDAY_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>MONTH_WEEKDAY_DAY</strong> <a class="anchor-link"
+            href="#MONTH_WEEKDAY_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.MONTH_WEEKDAY_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat MONTH_WEEKDAY_DAY = const PredefinedFormat(25)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="RFC_2822">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>RFC_2822</strong> <a class="anchor-link"
+            href="#RFC_2822"
+            title="Permalink to PredefinedFormat&lt;int&gt;.RFC_2822">#</a>
+        </h4>
+        <div class="doc">
+<p>RFC 2822 date format, fixed across all locales.
+&lt;p>Example: {@code Thu, 20 May 2010 17:54:50 -0700}
+&lt;p>http://tools.ietf.org/html/rfc2822#section-3.3</p>
+<pre class="source">
+static const PredefinedFormat RFC_2822 = const PredefinedFormat(1)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TIME_FULL">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>TIME_FULL</strong> <a class="anchor-link"
+            href="#TIME_FULL"
+            title="Permalink to PredefinedFormat&lt;int&gt;.TIME_FULL">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat TIME_FULL = const PredefinedFormat(6)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TIME_LONG">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>TIME_LONG</strong> <a class="anchor-link"
+            href="#TIME_LONG"
+            title="Permalink to PredefinedFormat&lt;int&gt;.TIME_LONG">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat TIME_LONG = const PredefinedFormat(7)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TIME_MEDIUM">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>TIME_MEDIUM</strong> <a class="anchor-link"
+            href="#TIME_MEDIUM"
+            title="Permalink to PredefinedFormat&lt;int&gt;.TIME_MEDIUM">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat TIME_MEDIUM = const PredefinedFormat(8)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TIME_SHORT">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>TIME_SHORT</strong> <a class="anchor-link"
+            href="#TIME_SHORT"
+            title="Permalink to PredefinedFormat&lt;int&gt;.TIME_SHORT">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat TIME_SHORT = const PredefinedFormat(9)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR</strong> <a class="anchor-link"
+            href="#YEAR"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR = const PredefinedFormat(26)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH</strong> <a class="anchor-link"
+            href="#YEAR_MONTH"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH = const PredefinedFormat(27)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH_ABBR">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH_ABBR</strong> <a class="anchor-link"
+            href="#YEAR_MONTH_ABBR"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH_ABBR">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH_ABBR = const PredefinedFormat(28)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH_ABBR_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH_ABBR_DAY</strong> <a class="anchor-link"
+            href="#YEAR_MONTH_ABBR_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH_ABBR_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH_ABBR_DAY = const PredefinedFormat(29)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH_DAY</strong> <a class="anchor-link"
+            href="#YEAR_MONTH_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH_DAY = const PredefinedFormat(30)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH_NUM">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH_NUM</strong> <a class="anchor-link"
+            href="#YEAR_MONTH_NUM"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH_NUM">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH_NUM = const PredefinedFormat(31)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH_NUM_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH_NUM_DAY</strong> <a class="anchor-link"
+            href="#YEAR_MONTH_NUM_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH_NUM_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH_NUM_DAY = const PredefinedFormat(32)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_MONTH_WEEKDAY_DAY">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_MONTH_WEEKDAY_DAY</strong> <a class="anchor-link"
+            href="#YEAR_MONTH_WEEKDAY_DAY"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_MONTH_WEEKDAY_DAY">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_MONTH_WEEKDAY_DAY = const PredefinedFormat(33)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_QUARTER">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_QUARTER</strong> <a class="anchor-link"
+            href="#YEAR_QUARTER"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_QUARTER">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_QUARTER = const PredefinedFormat(34)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="YEAR_QUARTER_ABBR">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat</a>         <strong>YEAR_QUARTER_ABBR</strong> <a class="anchor-link"
+            href="#YEAR_QUARTER_ABBR"
+            title="Permalink to PredefinedFormat&lt;int&gt;.YEAR_QUARTER_ABBR">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PredefinedFormat YEAR_QUARTER_ABBR = const PredefinedFormat(35)
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="PredefinedFormat">
+<button class="show-code">Code</button>
+const <strong>PredefinedFormat</strong>(<a href="../dart_web_toolkit_i18n/PredefinedFormat.html">int</a> type) <a class="anchor-link" href="#PredefinedFormat"
+              title="Permalink to PredefinedFormat&lt;int&gt;.PredefinedFormat">#</a></h4>
+<div class="doc">
+<pre class="source">
+const PredefinedFormat(int type) : super (type);
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="value">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_i18n/PredefinedFormat.html">T</a>         <strong>value</strong> <a class="anchor-link"
+            href="#value"
+            title="Permalink to PredefinedFormat&lt;int&gt;.value">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_util/Enum.html">Enum</a> </div><div class="doc">
+<pre class="source">
+T get value =&gt; _value;
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.297</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

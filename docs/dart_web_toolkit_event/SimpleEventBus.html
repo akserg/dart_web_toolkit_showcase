@@ -1,0 +1,573 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SimpleEventBus&lt;H&gt; class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="SimpleEventBus&amp;lt;H&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/SimpleEventBus.html">SimpleEventBus&lt;H&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SimpleEventBus&lt;H&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Basic implementation of <a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a>.</p>
+<pre class="source">
+class SimpleEventBus&lt;H&gt; extends EventBus&lt;H&gt; {
+
+ static _EmptySource _emptySource = new _EmptySource();
+
+ /**
+  * Map of event type to map of event source to list of their handlers.
+  */
+ Map&lt;EventType, Map&lt;Object, List&gt;&gt; map = new Map&lt;EventType, Map&lt;Object, List&gt;&gt;();
+
+ int _firingDepth = 0;
+
+ /**
+  * Add and remove operations received during dispatch.
+  */
+ List&lt;Command&gt; _deferredDeltas;
+
+ /**
+  * Allows creation of an instance that fires its handlers in the reverse of
+  * the order in which they were added, although filtered handlers all fire
+  * before unfiltered handlers.
+  */
+ SimpleEventBus();
+
+ /**
+  * @deprecated required by legacy features in GWT's old HandlerManager
+  */
+ //@Deprecated
+ bool isEventHandled(EventType&lt;H&gt; type) {
+   return map.containsKey(type);
+ }
+
+ /**
+  * Adds an unfiltered [handler] to receive events of this [type] from all sources.
+  *
+  * It is rare to call this method directly. More typically an [Event]
+  * subclass will provide a static &lt;code&gt;register&lt;/code&gt; method, or a widget
+  * will accept handlers directly.
+  *
+  * @param &lt;H&gt; The type of handler
+  * @param type the event type associated with this handler
+  * @param handler the handler
+  * @return the handler registration, can be stored in order to remove the
+  *         handler later
+  */
+ HandlerRegistration addHandler(EventType&lt;H&gt; type, H handler) {
+   return _doAdd(type, _emptySource, handler);
+ }
+
+ /**
+  * Adds a [handler] to receive events of this [type] from the given [source].
+  *
+  * It is rare to call this method directly. More typically a [Event]
+  * subclass will provide a static &lt;code&gt;register&lt;/code&gt; method, or a widget
+  * will accept handlers directly.
+  *
+  * @param &lt;H&gt; The type of handler
+  * @param type the event type associated with this handler
+  * @param source the source associated with this handler
+  * @param handler the handler
+  * @return the handler registration, can be stored in order to remove the
+  *         handler later
+  */
+ HandlerRegistration addHandlerToSource(EventType&lt;H&gt; type, Object source, H handler) {
+   assert(source != null);
+   //
+   return _doAdd(type, source, handler);
+ }
+
+ HandlerRegistration _doAdd(EventType&lt;H&gt; type, Object source, H handler) {
+   assert(type != null);
+   assert(handler != null);
+   //
+   if (_firingDepth &gt; 0) {
+     _enqueueAdd(type, source, handler);
+   } else {
+     _doAddNow(type, source, handler);
+   }
+
+   return new _HandlerRegistration(this, type, source, handler);
+ }
+
+ void _doAddNow(EventType&lt;H&gt; type, Object source, H handler) {
+   List&lt;H&gt; l = ensureHandlerList(type, source);
+   l.add(handler);
+ }
+
+ List&lt;H&gt; ensureHandlerList(EventType&lt;H&gt; type, Object source) {
+   Map&lt;Object, List&gt; sourceMap;
+   if (map.containsKey(type)) {
+     sourceMap = map[type];
+   } else {
+     sourceMap = new Map&lt;Object, List&gt;();
+     map[type] = sourceMap;
+   }
+
+   // safe, we control the puts.
+   List&lt;H&gt; handlers;
+   if (sourceMap.containsKey(source)) {
+     handlers = sourceMap[source];
+   } else {
+     handlers = new List&lt;H&gt;();
+     sourceMap[source] = handlers;
+   }
+
+   return handlers;
+ }
+
+ void _doRemove(EventType&lt;H&gt; type, Object source, H handler) {
+   if (_firingDepth &gt; 0) {
+     _enqueueRemove(type, source, handler);
+   } else {
+     _doRemoveNow(type, source, handler);
+   }
+ }
+
+ void _doRemoveNow(EventType&lt;H&gt; type, Object source, H handler) {
+   List&lt;H&gt; l = getHandlerList(type, source);
+
+   int indx = l.indexOf(handler);
+   if (indx != -1) {
+     l.removeAt(indx);
+     if (l.isEmpty) {
+       prune(type, source);
+     }
+   }
+ }
+
+ void prune(EventType type, Object source) {
+   if (map.containsKey(type)) {
+     Map&lt;Object, List&gt; sourceMap = map[type];
+     List pruned = sourceMap.remove(source);
+
+     assert (pruned != null); // : "Can't prune what wasn't there";
+     assert (pruned.isEmpty); // : "Pruned unempty list!";
+
+     if (sourceMap.isEmpty) {
+       map.remove(type);
+     }
+   }
+ }
+
+ //********
+ // COMMAND
+ //********
+
+ void _defer(Command command) {
+   if (_deferredDeltas == null) {
+     _deferredDeltas = new List&lt;Command&gt;();
+   }
+   _deferredDeltas.add(command);
+ }
+
+ void _handleQueuedAddsAndRemoves() {
+   if (_deferredDeltas != null) {
+     try {
+       for (Command c in _deferredDeltas) {
+         c.execute();
+       }
+     } finally {
+       _deferredDeltas = null;
+     }
+   }
+ }
+
+ void _enqueueRemove(EventType&lt;H&gt; type, Object source, H handler) {
+   _defer(new _RemoveCommand(this, type, source, handler));
+ }
+
+ void _enqueueAdd(EventType&lt;H&gt; type, Object source, H handler) {
+   _defer(new _AddCommand(this, type, source, handler));
+ }
+
+ //*******
+ // FIRING
+ //*******
+
+ /**
+  * Fires the event from no source. Only unfiltered handlers will receive it.
+  *
+  * Any exceptions thrown by handlers will be bundled into a
+  * [UmbrellaException] and then re-thrown after all handlers have
+  * completed. An exception thrown by a handler will not prevent other handlers
+  * from executing.
+  *
+  * @throws UmbrellaException wrapping exceptions thrown by handlers
+  *
+  * @param event the event to fire
+  */
+ void fireEvent(IEvent event) {
+   _doFire(event, null);
+ }
+
+ /**
+  * Fires the given event to the handlers listening to the event's type.
+  *
+  * Any exceptions thrown by handlers will be bundled into a
+  * [UmbrellaException] and then re-thrown after all handlers have
+  * completed. An exception thrown by a handler will not prevent other handlers
+  * from executing.
+  *
+  * @throws UmbrellaException wrapping exceptions thrown by handlers
+  *
+  * @param event the event to fire
+  */
+ void fireEventFromSource(IEvent event, Object source) {
+   assert(source != null);
+   _doFire(event, source);
+ }
+
+
+ void _doFire(IEvent event, Object source) {
+   assert(event != null);
+   try {
+     _firingDepth++;
+
+     if (source != null) {
+       event.setSource(source);
+     }
+
+     List&lt;H&gt; handlers = getDispatchList(event.getAssociatedType(), source);
+     Set&lt;Exception&gt; causes = null;
+
+     for (int i = 0; i &lt; handlers.length; i++) {
+       H handler = handlers[i];
+//      for (Iterator&lt;H&gt; it = handlers.iterator; it.moveNext();) {
+//        H handler = it.current;
+
+       try {
+         EventBus.dispatchEvent(event, handler);
+       } on Exception catch (e) {
+         if (causes == null) {
+           causes = new Set&lt;Exception&gt;();
+         }
+         causes.add(e);
+       }
+     }
+
+     if (causes != null) {
+       throw new UmbrellaException(causes);
+     }
+   } finally {
+     _firingDepth--;
+     if (_firingDepth == 0) {
+       _handleQueuedAddsAndRemoves();
+     }
+   }
+ }
+
+ List&lt;H&gt; getDispatchList(EventType&lt;H&gt; type, Object source) {
+   List&lt;H&gt; directHandlers = getHandlerList(type, source);
+   if (source == null) {
+     return directHandlers;
+   }
+
+   List&lt;H&gt; globalHandlers = getHandlerList(type, _emptySource);
+
+   List&lt;H&gt; rtn = new List&lt;H&gt;.from(directHandlers);
+   if (globalHandlers.length &gt; 0) {
+     rtn.addAll(globalHandlers);
+   }
+   return rtn;
+ }
+
+ List&lt;H&gt; getHandlerList(EventType&lt;H&gt; type, Object source) {
+   if (map.containsKey(type)) {
+     Map&lt;Object, List&gt; sourceMap = map[type];
+     //
+     if (source == null) {
+       source = _emptySource;
+     }
+     if (source != null &amp;&amp; sourceMap.containsKey(source)) {
+       return sourceMap[source];
+     }
+   }
+   return new List&lt;H&gt;();
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/EventBus.html">EventBus&lt;H&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>SimpleEventBus&lt;H&gt;</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SimpleEventBus">
+<button class="show-code">Code</button>
+new <strong>SimpleEventBus</strong>() <a class="anchor-link" href="#SimpleEventBus"
+              title="Permalink to SimpleEventBus&lt;H&gt;.SimpleEventBus">#</a></h4>
+<div class="doc">
+<p>Allows creation of an instance that fires its handlers in the reverse of
+the order in which they were added, although filtered handlers all fire
+before unfiltered handlers.</p>
+<pre class="source">
+SimpleEventBus();
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="map">
+<button class="show-code">Code</button>
+Map&lt;<a href="../dart_web_toolkit_event/EventType.html">EventType</a>, Map&lt;Object, List&gt;&gt;         <strong>map</strong> <a class="anchor-link"
+            href="#map"
+            title="Permalink to SimpleEventBus&lt;H&gt;.map">#</a>
+        </h4>
+        <div class="doc">
+<p>Map of event type to map of event source to list of their handlers.</p>
+<pre class="source">
+Map&lt;EventType, Map&lt;Object, List&gt;&gt; map = new Map&lt;EventType, Map&lt;Object, List&gt;&gt;()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; type, <a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a> handler) <a class="anchor-link" href="#addHandler"
+              title="Permalink to SimpleEventBus&lt;H&gt;.addHandler">#</a></h4>
+<div class="doc">
+<p>Adds an unfiltered 
+<span class="param">handler</span> to receive events of this 
+<span class="param">type</span> from all sources.</p>
+<p>It is rare to call this method directly. More typically an <code>Event</code>
+subclass will provide a static &lt;code>register&lt;/code> method, or a widget
+will accept handlers directly.</p>
+<p>@param &lt;H> The type of handler
+@param type the event type associated with this handler
+@param handler the handler
+@return the handler registration, can be stored in order to remove the</p>
+<pre><code>    handler later
+</code></pre>
+<pre class="source">
+HandlerRegistration addHandler(EventType&lt;H&gt; type, H handler) {
+ return _doAdd(type, _emptySource, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addHandlerToSource">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandlerToSource</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; type, Object source, <a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a> handler) <a class="anchor-link" href="#addHandlerToSource"
+              title="Permalink to SimpleEventBus&lt;H&gt;.addHandlerToSource">#</a></h4>
+<div class="doc">
+<p>Adds a 
+<span class="param">handler</span> to receive events of this 
+<span class="param">type</span> from the given 
+<span class="param">source</span>.</p>
+<p>It is rare to call this method directly. More typically a <code>Event</code>
+subclass will provide a static &lt;code>register&lt;/code> method, or a widget
+will accept handlers directly.</p>
+<p>@param &lt;H> The type of handler
+@param type the event type associated with this handler
+@param source the source associated with this handler
+@param handler the handler
+@return the handler registration, can be stored in order to remove the</p>
+<pre><code>    handler later
+</code></pre>
+<pre class="source">
+HandlerRegistration addHandlerToSource(EventType&lt;H&gt; type, Object source, H handler) {
+ assert(source != null);
+ //
+ return _doAdd(type, source, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureHandlerList">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; <strong>ensureHandlerList</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; type, Object source) <a class="anchor-link" href="#ensureHandlerList"
+              title="Permalink to SimpleEventBus&lt;H&gt;.ensureHandlerList">#</a></h4>
+<div class="doc">
+<pre class="source">
+List&lt;H&gt; ensureHandlerList(EventType&lt;H&gt; type, Object source) {
+ Map&lt;Object, List&gt; sourceMap;
+ if (map.containsKey(type)) {
+   sourceMap = map[type];
+ } else {
+   sourceMap = new Map&lt;Object, List&gt;();
+   map[type] = sourceMap;
+ }
+
+ // safe, we control the puts.
+ List&lt;H&gt; handlers;
+ if (sourceMap.containsKey(source)) {
+   handlers = sourceMap[source];
+ } else {
+   handlers = new List&lt;H&gt;();
+   sourceMap[source] = handlers;
+ }
+
+ return handlers;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to SimpleEventBus&lt;H&gt;.fireEvent">#</a></h4>
+<div class="doc">
+<p>Fires the event from no source. Only unfiltered handlers will receive it.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@throws UmbrellaException wrapping exceptions thrown by handlers</p>
+<p>@param event the event to fire</p>
+<pre class="source">
+void fireEvent(IEvent event) {
+ _doFire(event, null);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fireEventFromSource">
+<button class="show-code">Code</button>
+void <strong>fireEventFromSource</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event, Object source) <a class="anchor-link" href="#fireEventFromSource"
+              title="Permalink to SimpleEventBus&lt;H&gt;.fireEventFromSource">#</a></h4>
+<div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@throws UmbrellaException wrapping exceptions thrown by handlers</p>
+<p>@param event the event to fire</p>
+<pre class="source">
+void fireEventFromSource(IEvent event, Object source) {
+ assert(source != null);
+ _doFire(event, source);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDispatchList">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; <strong>getDispatchList</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; type, Object source) <a class="anchor-link" href="#getDispatchList"
+              title="Permalink to SimpleEventBus&lt;H&gt;.getDispatchList">#</a></h4>
+<div class="doc">
+<pre class="source">
+List&lt;H&gt; getDispatchList(EventType&lt;H&gt; type, Object source) {
+ List&lt;H&gt; directHandlers = getHandlerList(type, source);
+ if (source == null) {
+   return directHandlers;
+ }
+
+ List&lt;H&gt; globalHandlers = getHandlerList(type, _emptySource);
+
+ List&lt;H&gt; rtn = new List&lt;H&gt;.from(directHandlers);
+ if (globalHandlers.length &gt; 0) {
+   rtn.addAll(globalHandlers);
+ }
+ return rtn;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getHandlerList">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; <strong>getHandlerList</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; type, Object source) <a class="anchor-link" href="#getHandlerList"
+              title="Permalink to SimpleEventBus&lt;H&gt;.getHandlerList">#</a></h4>
+<div class="doc">
+<pre class="source">
+List&lt;H&gt; getHandlerList(EventType&lt;H&gt; type, Object source) {
+ if (map.containsKey(type)) {
+   Map&lt;Object, List&gt; sourceMap = map[type];
+   //
+   if (source == null) {
+     source = _emptySource;
+   }
+   if (source != null &amp;&amp; sourceMap.containsKey(source)) {
+     return sourceMap[source];
+   }
+ }
+ return new List&lt;H&gt;();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isEventHandled">
+<button class="show-code">Code</button>
+bool <strong>isEventHandled</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/SimpleEventBus.html">H</a>&gt; type) <a class="anchor-link" href="#isEventHandled"
+              title="Permalink to SimpleEventBus&lt;H&gt;.isEventHandled">#</a></h4>
+<div class="doc">
+<p>@deprecated required by legacy features in GWT's old HandlerManager</p>
+<pre class="source">
+bool isEventHandled(EventType&lt;H&gt; type) {
+ return map.containsKey(type);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="prune">
+<button class="show-code">Code</button>
+void <strong>prune</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a> type, Object source) <a class="anchor-link" href="#prune"
+              title="Permalink to SimpleEventBus&lt;H&gt;.prune">#</a></h4>
+<div class="doc">
+<pre class="source">
+void prune(EventType type, Object source) {
+ if (map.containsKey(type)) {
+   Map&lt;Object, List&gt; sourceMap = map[type];
+   List pruned = sourceMap.remove(source);
+
+   assert (pruned != null); // : "Can't prune what wasn't there";
+   assert (pruned.isEmpty); // : "Pruned unempty list!";
+
+   if (sourceMap.isEmpty) {
+     map.remove(type);
+   }
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.592</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

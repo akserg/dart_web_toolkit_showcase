@@ -1,0 +1,172 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Response abstract class / dart_web_toolkit_http Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_http" data-type="Response">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_http.html">dart_web_toolkit_http</a> &rsaquo; <a href="../dart_web_toolkit_http/Response.html">Response</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Response</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Wrapper which provides access to the components of an HTTP response.</p><h3>Required Module</h3>
+Modules that use this class should inherit
+<code>com.google.gwt.http.HTTP</code>.
+<p>{@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}</p>
+<pre class="source">
+abstract class Response {
+
+ /**
+  * Returns the value of the requested header or null if the header was not
+  * specified.
+  * 
+  * @param header the header to query for
+  * @return the value of response header
+  * 
+  * @throws IllegalArgumentException if the header name is empty
+  * @throws NullPointerException if the header name is null
+  */
+ String getHeader(String header);
+
+ /**
+  * Returns an array of HTTP headers associated with this response.
+  * 
+  * @return array of HTTP headers; returns zero length array if there are no
+  *         headers
+  */
+ List&lt;Header&gt; getHeaders();
+
+ /**
+  * Returns all headers as a single string. The individual headers are
+  * delimited by a CR (U+000D) LF (U+000A) pair. An individual header is
+  * formatted according to &lt;a href="http://ietf.org/rfc/rfc2616"&gt; RFC 2616&lt;/a&gt;.
+  * 
+  * @return all headers as a single string delimited by CRLF pairs
+  */
+ String getHeadersAsString();
+
+ /**
+  * Returns the HTTP status code that is part of this response.
+  * 
+  * @return the HTTP status code
+  */
+ int getStatusCode();
+
+ /**
+  * Returns the HTTP status message text.
+  * 
+  * @return the HTTP status message text
+  */
+ String getStatusText();
+
+ /**
+  * Returns the text associated with the response.
+  * 
+  * @return the response text
+  */
+ String getText();
+}
+</pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getHeader">
+abstract String <strong>getHeader</strong>(String header) <a class="anchor-link" href="#getHeader"
+              title="Permalink to Response.getHeader">#</a></h4>
+<div class="doc">
+<p>Returns the value of the requested header or null if the header was not
+specified.</p>
+<p>@param header the header to query for
+@return the value of response header</p>
+<p>@throws IllegalArgumentException if the header name is empty
+@throws NullPointerException if the header name is null</p>
+</div>
+</div>
+<div class="method"><h4 id="getHeaders">
+abstract List&lt;<a href="../dart_web_toolkit_http/Header.html">Header</a>&gt; <strong>getHeaders</strong>() <a class="anchor-link" href="#getHeaders"
+              title="Permalink to Response.getHeaders">#</a></h4>
+<div class="doc">
+<p>Returns an array of HTTP headers associated with this response.</p>
+<p>@return array of HTTP headers; returns zero length array if there are no</p>
+<pre><code>    headers
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="getHeadersAsString">
+abstract String <strong>getHeadersAsString</strong>() <a class="anchor-link" href="#getHeadersAsString"
+              title="Permalink to Response.getHeadersAsString">#</a></h4>
+<div class="doc">
+<p>Returns all headers as a single string. The individual headers are
+delimited by a CR (U+000D) LF (U+000A) pair. An individual header is
+formatted according to &lt;a href="http://ietf.org/rfc/rfc2616"> RFC 2616&lt;/a>.</p>
+<p>@return all headers as a single string delimited by CRLF pairs</p>
+</div>
+</div>
+<div class="method"><h4 id="getStatusCode">
+abstract int <strong>getStatusCode</strong>() <a class="anchor-link" href="#getStatusCode"
+              title="Permalink to Response.getStatusCode">#</a></h4>
+<div class="doc">
+<p>Returns the HTTP status code that is part of this response.</p>
+<p>@return the HTTP status code</p>
+</div>
+</div>
+<div class="method"><h4 id="getStatusText">
+abstract String <strong>getStatusText</strong>() <a class="anchor-link" href="#getStatusText"
+              title="Permalink to Response.getStatusText">#</a></h4>
+<div class="doc">
+<p>Returns the HTTP status message text.</p>
+<p>@return the HTTP status message text</p>
+</div>
+</div>
+<div class="method"><h4 id="getText">
+abstract String <strong>getText</strong>() <a class="anchor-link" href="#getText"
+              title="Permalink to Response.getText">#</a></h4>
+<div class="doc">
+<p>Returns the text associated with the response.</p>
+<p>@return the response text</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.893</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

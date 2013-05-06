@@ -1,0 +1,287 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>LocaleInfoImpl class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="LocaleInfoImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/LocaleInfoImpl.html">LocaleInfoImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>LocaleInfoImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation detail of LocaleInfo -- not a API and subject to
+change.</p>
+<p>Generated interface for locale information.  The default implementation
+returns null, which is used if the i18n module is not imported.</p>
+<p>@see com.google.gwt.i18n.client.LocaleInfo</p>
+<pre class="source">
+class LocaleInfoImpl {
+ /**
+  * Returns the runtime locale (note that this requires the i18n locale property
+  * provider's assistance).
+  */
+ static String getRuntimeLocale() {
+   return ""; //dart_html.document.$dom_attributes["__gwt_Locale"]; // $wnd['__gwt_Locale'];
+ }
+
+ /**
+  * Returns an array of available locale names.
+  */
+ List&lt;String&gt; getAvailableLocaleNames() {
+   return null;
+ }
+
+ /**
+  * Create a {@link DateTimeFormatInfo} instance appropriate for this locale.
+  *
+  * Note that the caller takes care of any caching so subclasses need not
+  * bother.
+  *
+  * @return a {@link DateTimeFormatInfo} instance
+  */
+ DateTimeFormatInfo getDateTimeFormatInfo() {
+   return new DateTimeFormatInfoImpl();
+ }
+
+ /**
+  * Returns the name of the name of the cookie holding the locale to use,
+  * which is defined in the config property {@code locale.cookie}.
+  *
+  * @return locale cookie name, or null if none
+  */
+ String getLocaleCookieName() {
+   return null;
+ }
+
+ /**
+  * Returns the current locale name, such as "default, "en_US", etc.
+  */
+ String getLocaleName() {
+   return null;
+ }
+
+ /**
+  * Returns the display name of the requested locale in its native locale, if
+  * possible. If no native localization is available, the English name will
+  * be returned, or as a last resort just the locale name will be returned.  If
+  * the locale name is unknown (including user overrides), null is returned.
+  *
+  * @param localeName the name of the locale to lookup.
+  * @return the name of the locale in its native locale
+  */
+ String getLocaleNativeDisplayName(String localeName) {
+   return null;
+ }
+
+ /**
+  * Returns the name of the query parameter holding the locale to use, which is
+  * defined in the config property {@code locale.queryparam}.
+  *
+  * @return locale URL query parameter name, or null if none
+  */
+ String getLocaleQueryParam() {
+   return null;
+ }
+
+//  /**
+//   * @return an implementation of {@link LocalizedNames} for this locale.
+//   */
+//  LocalizedNames getLocalizedNames() {
+//    return new LocalizedNamesImpl(); // GWT.create(LocalizedNamesImpl.class);
+//  }
+
+ /**
+  * Returns a NumberConstants instance appropriate for this locale.
+  */
+ NumberConstants getNumberConstants() {
+   return new NumberConstantsImpl(); //GWT.create(NumberConstantsImpl.class);
+ }
+
+ /**
+  * Returns true if any locale supported by this build of the app is RTL.
+  */
+ bool hasAnyRTL() {
+   return false;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="getRuntimeLocale">
+<button class="show-code">Code</button>
+String <strong>getRuntimeLocale</strong>() <a class="anchor-link" href="#getRuntimeLocale"
+              title="Permalink to LocaleInfoImpl.getRuntimeLocale">#</a></h4>
+<div class="doc">
+<p>Returns the runtime locale (note that this requires the i18n locale property
+provider's assistance).</p>
+<pre class="source">
+static String getRuntimeLocale() {
+ return ""; //dart_html.document.$dom_attributes["__gwt_Locale"]; // $wnd['__gwt_Locale'];
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getAvailableLocaleNames">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>getAvailableLocaleNames</strong>() <a class="anchor-link" href="#getAvailableLocaleNames"
+              title="Permalink to LocaleInfoImpl.getAvailableLocaleNames">#</a></h4>
+<div class="doc">
+<p>Returns an array of available locale names.</p>
+<pre class="source">
+List&lt;String&gt; getAvailableLocaleNames() {
+ return null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDateTimeFormatInfo">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> <strong>getDateTimeFormatInfo</strong>() <a class="anchor-link" href="#getDateTimeFormatInfo"
+              title="Permalink to LocaleInfoImpl.getDateTimeFormatInfo">#</a></h4>
+<div class="doc">
+<p>Create a {@link DateTimeFormatInfo} instance appropriate for this locale.</p>
+<p>Note that the caller takes care of any caching so subclasses need not
+bother.</p>
+<p>@return a {@link DateTimeFormatInfo} instance</p>
+<pre class="source">
+DateTimeFormatInfo getDateTimeFormatInfo() {
+ return new DateTimeFormatInfoImpl();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getLocaleCookieName">
+<button class="show-code">Code</button>
+String <strong>getLocaleCookieName</strong>() <a class="anchor-link" href="#getLocaleCookieName"
+              title="Permalink to LocaleInfoImpl.getLocaleCookieName">#</a></h4>
+<div class="doc">
+<p>Returns the name of the name of the cookie holding the locale to use,
+which is defined in the config property {@code locale.cookie}.</p>
+<p>@return locale cookie name, or null if none</p>
+<pre class="source">
+String getLocaleCookieName() {
+ return null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getLocaleName">
+<button class="show-code">Code</button>
+String <strong>getLocaleName</strong>() <a class="anchor-link" href="#getLocaleName"
+              title="Permalink to LocaleInfoImpl.getLocaleName">#</a></h4>
+<div class="doc">
+<p>Returns the current locale name, such as "default, "en_US", etc.</p>
+<pre class="source">
+String getLocaleName() {
+ return null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getLocaleNativeDisplayName">
+<button class="show-code">Code</button>
+String <strong>getLocaleNativeDisplayName</strong>(String localeName) <a class="anchor-link" href="#getLocaleNativeDisplayName"
+              title="Permalink to LocaleInfoImpl.getLocaleNativeDisplayName">#</a></h4>
+<div class="doc">
+<p>Returns the display name of the requested locale in its native locale, if
+possible. If no native localization is available, the English name will
+be returned, or as a last resort just the locale name will be returned.  If
+the locale name is unknown (including user overrides), null is returned.</p>
+<p>@param localeName the name of the locale to lookup.
+@return the name of the locale in its native locale</p>
+<pre class="source">
+String getLocaleNativeDisplayName(String localeName) {
+ return null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getLocaleQueryParam">
+<button class="show-code">Code</button>
+String <strong>getLocaleQueryParam</strong>() <a class="anchor-link" href="#getLocaleQueryParam"
+              title="Permalink to LocaleInfoImpl.getLocaleQueryParam">#</a></h4>
+<div class="doc">
+<p>Returns the name of the query parameter holding the locale to use, which is
+defined in the config property {@code locale.queryparam}.</p>
+<p>@return locale URL query parameter name, or null if none</p>
+<pre class="source">
+String getLocaleQueryParam() {
+ return null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getNumberConstants">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/NumberConstants.html">NumberConstants</a> <strong>getNumberConstants</strong>() <a class="anchor-link" href="#getNumberConstants"
+              title="Permalink to LocaleInfoImpl.getNumberConstants">#</a></h4>
+<div class="doc">
+<p>Returns a NumberConstants instance appropriate for this locale.</p>
+<pre class="source">
+NumberConstants getNumberConstants() {
+ return new NumberConstantsImpl(); //GWT.create(NumberConstantsImpl.class);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="hasAnyRTL">
+<button class="show-code">Code</button>
+bool <strong>hasAnyRTL</strong>() <a class="anchor-link" href="#hasAnyRTL"
+              title="Permalink to LocaleInfoImpl.hasAnyRTL">#</a></h4>
+<div class="doc">
+<p>Returns true if any locale supported by this build of the app is RTL.</p>
+<pre class="source">
+bool hasAnyRTL() {
+ return false;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.963</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

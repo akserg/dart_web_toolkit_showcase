@@ -1,0 +1,818 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DateTimeFormatInfo abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="DateTimeFormatInfo">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DateTimeFormatInfo</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Information required for formatting and parsing localized date/time values.</p><p>Implementors should subclass {@link DefaultDateTimeFormatInfo} so when
+methods are added they will get reasonable defaults and not break.  See the
+same class for example values returned by these methods.
+<pre class="source">
+abstract class DateTimeFormatInfo {
+ /**
+  * Returns array of strings containing abbreviations for Ante Meridiem and
+  * Post Meridiem.
+  */
+ List&lt;String&gt; ampms();
+
+ /**
+  * Returns a safe default date format.
+  */
+ String dateFormat();
+
+ /**
+  * Returns a "full" date format.
+  */
+ String dateFormatFull();
+
+ /**
+  * Returns a "long" date format.
+  */
+ String dateFormatLong();
+
+ /**
+  * Returns a "medium" date format.
+  */
+ String dateFormatMedium();
+
+ /**
+  * Returns a "short" date format.
+  */
+ String dateFormatShort();
+
+ /**
+  * Returns a date/time format from a date format pattern and a time format
+  * pattern, using the locale default joining.
+  *
+  * @param timePattern the time pattern String
+  * @param datePattern the data pattern String
+  */
+ String dateTime(String timePattern, String datePattern);
+
+ /**
+  * Returns a date/time format from a date format pattern and a time format
+  * pattern, using "full" joining.
+  *
+  * @param timePattern the time pattern String
+  * @param datePattern the data pattern String
+  */
+ String dateTimeFull(String timePattern, String datePattern);
+
+ /**
+  * Returns a date/time format from a date format pattern and a time format
+  * pattern, using "full" joining.
+  *
+  * @param timePattern the time pattern String
+  * @param datePattern the data pattern String
+  */
+ String dateTimeLong(String timePattern, String datePattern);
+
+ /**
+  * Returns a date/time format from a date format pattern and a time format
+  * pattern, using "full" joining.
+  *
+  * @param timePattern the time pattern String
+  * @param datePattern the data pattern String
+  */
+ String dateTimeMedium(String timePattern, String datePattern);
+
+ /**
+  * Returns a date/time format from a date format pattern and a time format
+  * pattern, using "full" joining.
+  *
+  * @param timePattern the time pattern String
+  * @param datePattern the data pattern String
+  */
+ String dateTimeShort(String timePattern, String datePattern);
+
+ /**
+  * Returns an array of the full era names.
+  */
+ List&lt;String&gt; erasFull();
+
+ /**
+  * Returns abbreviations of the era names.
+  */
+ List&lt;String&gt; erasShort();
+
+ /**
+  * Returns the day which generally comes first in a weekly calendar view, as
+  * an index into the return value of {@link #weekdaysFull()}.
+  */
+ int firstDayOfTheWeek();
+
+ /**
+  * Returns localized format equivalent to the "d" skeleton pattern.
+  */
+ String formatDay();
+
+ /**
+  * Returns localized format equivalent to the "hm" skeleton pattern.
+  */
+ String formatHour12Minute();
+
+ /**
+  * Returns localized format equivalent to the "hms" skeleton pattern.
+  */
+ String formatHour12MinuteSecond();
+
+ /**
+  * Returns localized format equivalent to the "Hm" skeleton pattern.
+  */
+ String formatHour24Minute();
+
+ /**
+  * Returns localized format equivalent to the "Hms" skeleton pattern.
+  */
+ String formatHour24MinuteSecond();
+
+ /**
+  * Returns localized format equivalent to the "ms" skeleton pattern.
+  */
+ String formatMinuteSecond();
+
+ /**
+  * Returns localized format equivalent to the "MMM" skeleton pattern.
+  */
+ String formatMonthAbbrev();
+
+ /**
+  * Returns localized format equivalent to the "MMMd" skeleton pattern.
+  */
+ String formatMonthAbbrevDay();
+
+ /**
+  * Returns localized format equivalent to the "MMMM" skeleton pattern.
+  */
+ String formatMonthFull();
+
+ /**
+  * Returns localized format equivalent to the "MMMMd" skeleton pattern.
+  */
+ String formatMonthFullDay();
+
+ /**
+  * Returns localized format equivalent to the "MMMMEEEEd" skeleton pattern.
+  */
+ String formatMonthFullWeekdayDay();
+
+ /**
+  * Returns localized format equivalent to the "Md" skeleton pattern.
+  */
+ String formatMonthNumDay();
+
+ /**
+  * Returns localized format equivalent to the "y" skeleton pattern.
+  */
+ String formatYear();
+
+ /**
+  * Returns localized format equivalent to the "yMMM" skeleton pattern.
+  */
+ String formatYearMonthAbbrev();
+
+ /**
+  * Returns localized format equivalent to the "yMMMd" skeleton pattern.
+  */
+ String formatYearMonthAbbrevDay();
+
+ /**
+  * Returns localized format equivalent to the "yMMMM" skeleton pattern.
+  */
+ String formatYearMonthFull();
+
+ /**
+  * Returns localized format equivalent to the "yMMMMd" skeleton pattern.
+  */
+ String formatYearMonthFullDay();
+
+ /**
+  * Returns localized format equivalent to the "yM" skeleton pattern.
+  */
+ String formatYearMonthNum();
+
+ /**
+  * Returns localized format equivalent to the "yMd" skeleton pattern.
+  */
+ String formatYearMonthNumDay();
+
+ /**
+  * Returns localized format equivalent to the "yMMMEEEd" skeleton pattern.
+  */
+ String formatYearMonthWeekdayDay();
+
+ /**
+  * Returns localized format equivalent to the "yQQQQ" skeleton pattern.
+  */
+ String formatYearQuarterFull();
+
+ /**
+  * Returns localized format equivalent to the "yQ" skeleton pattern.
+  */
+ String formatYearQuarterShort();
+
+ /**
+  * Returns an array of full month names.
+  */
+ List&lt;String&gt; monthsFull();
+
+ /**
+  * Returns an array of month names for use in a stand-alone context.
+  */
+ List&lt;String&gt; monthsFullStandalone();
+
+ /**
+  * Returns an array of the shortest abbreviations for months, typically a
+  * single character and not guaranteed to be unique.
+  */
+ List&lt;String&gt; monthsNarrow();
+
+ /**
+  * Returns an array of the shortest abbreviations for months suitable for use
+  * in a stand-alone context, typically a single character and not guaranteed
+  * to be unique.
+  */
+ List&lt;String&gt; monthsNarrowStandalone();
+
+ /**
+  * Returns an array of month abbreviations.
+  */
+ List&lt;String&gt; monthsShort();
+
+ /**
+  * Returns an array of month abbreviations, suitable for use in a stand-alone
+  * context.
+  */
+ List&lt;String&gt; monthsShortStandalone();
+
+ /**
+  * Returns an array of full quarter names.
+  */
+ List&lt;String&gt; quartersFull();
+
+ /**
+  * Returns an array of abbreviations for quarters.
+  */
+ List&lt;String&gt; quartersShort();
+
+ /**
+  * Returns a safe default time format.
+  */
+ String timeFormat();
+
+ /**
+  * Returns a "full" time format.
+  */
+ String timeFormatFull();
+
+ /**
+  * Returns a "long" time format.
+  */
+ String timeFormatLong();
+
+ /**
+  * Returns a "medium" time format.
+  */
+ String timeFormatMedium();
+
+ /**
+  * Returns a "short" time format.
+  */
+ String timeFormatShort();
+
+ /**
+  * Returns an array of the full names of weekdays.
+  */
+ List&lt;String&gt; weekdaysFull();
+
+ /**
+  * Returns an array of the full names of weekdays, suitable for use in a
+  * stand-alone context.
+  */
+ List&lt;String&gt; weekdaysFullStandalone();
+
+ /**
+  * Returns an array of the shortest abbreviations for weekdays, typically a
+  * single character and not guaranteed to be unique.
+  */
+ List&lt;String&gt; weekdaysNarrow();
+
+ /**
+  * Returns an array of the shortest abbreviations for weekdays suitable for
+  * use in a stand-alone context, typically a single character and not
+  * guaranteed to be unique.
+  */
+ List&lt;String&gt; weekdaysNarrowStandalone();
+
+ /**
+  * Returns an array of abbreviations for weekdays.
+  */
+ List&lt;String&gt; weekdaysShort();
+
+ /**
+  * Returns an array of abbreviations for weekdays, suitable for use in a
+  * stand-alone context.
+  */
+ List&lt;String&gt; weekdaysShortStandalone();
+
+ /**
+  * Returns the day which ends the weekend, as an index into the return value
+  * of {@link #weekdaysFull()}.
+  *
+  * &lt;p&gt;Note that this value may be numerically less than
+  * {@link #weekendStart()} - for example, {@link #weekendStart()} of 6 and
+  * {@link #weekendEnd()} of 0 means Saturday and Sunday are the weekend.
+  */
+ int weekendEnd();
+
+ /**
+  * Returns the day which starts the weekend, as an index into the return value
+  * of {@link #weekdaysFull()}.
+  */
+ int weekendStart();
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="ampms">
+abstract List&lt;String&gt; <strong>ampms</strong>() <a class="anchor-link" href="#ampms"
+              title="Permalink to DateTimeFormatInfo.ampms">#</a></h4>
+<div class="doc">
+<p>Returns array of strings containing abbreviations for Ante Meridiem and
+Post Meridiem.</p>
+</div>
+</div>
+<div class="method"><h4 id="dateFormat">
+abstract String <strong>dateFormat</strong>() <a class="anchor-link" href="#dateFormat"
+              title="Permalink to DateTimeFormatInfo.dateFormat">#</a></h4>
+<div class="doc">
+<p>Returns a safe default date format.</p>
+</div>
+</div>
+<div class="method"><h4 id="dateFormatFull">
+abstract String <strong>dateFormatFull</strong>() <a class="anchor-link" href="#dateFormatFull"
+              title="Permalink to DateTimeFormatInfo.dateFormatFull">#</a></h4>
+<div class="doc">
+<p>Returns a "full" date format.</p>
+</div>
+</div>
+<div class="method"><h4 id="dateFormatLong">
+abstract String <strong>dateFormatLong</strong>() <a class="anchor-link" href="#dateFormatLong"
+              title="Permalink to DateTimeFormatInfo.dateFormatLong">#</a></h4>
+<div class="doc">
+<p>Returns a "long" date format.</p>
+</div>
+</div>
+<div class="method"><h4 id="dateFormatMedium">
+abstract String <strong>dateFormatMedium</strong>() <a class="anchor-link" href="#dateFormatMedium"
+              title="Permalink to DateTimeFormatInfo.dateFormatMedium">#</a></h4>
+<div class="doc">
+<p>Returns a "medium" date format.</p>
+</div>
+</div>
+<div class="method"><h4 id="dateFormatShort">
+abstract String <strong>dateFormatShort</strong>() <a class="anchor-link" href="#dateFormatShort"
+              title="Permalink to DateTimeFormatInfo.dateFormatShort">#</a></h4>
+<div class="doc">
+<p>Returns a "short" date format.</p>
+</div>
+</div>
+<div class="method"><h4 id="dateTime">
+abstract String <strong>dateTime</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTime"
+              title="Permalink to DateTimeFormatInfo.dateTime">#</a></h4>
+<div class="doc">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using the locale default joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+</div>
+</div>
+<div class="method"><h4 id="dateTimeFull">
+abstract String <strong>dateTimeFull</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeFull"
+              title="Permalink to DateTimeFormatInfo.dateTimeFull">#</a></h4>
+<div class="doc">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+</div>
+</div>
+<div class="method"><h4 id="dateTimeLong">
+abstract String <strong>dateTimeLong</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeLong"
+              title="Permalink to DateTimeFormatInfo.dateTimeLong">#</a></h4>
+<div class="doc">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+</div>
+</div>
+<div class="method"><h4 id="dateTimeMedium">
+abstract String <strong>dateTimeMedium</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeMedium"
+              title="Permalink to DateTimeFormatInfo.dateTimeMedium">#</a></h4>
+<div class="doc">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+</div>
+</div>
+<div class="method"><h4 id="dateTimeShort">
+abstract String <strong>dateTimeShort</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeShort"
+              title="Permalink to DateTimeFormatInfo.dateTimeShort">#</a></h4>
+<div class="doc">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+</div>
+</div>
+<div class="method"><h4 id="erasFull">
+abstract List&lt;String&gt; <strong>erasFull</strong>() <a class="anchor-link" href="#erasFull"
+              title="Permalink to DateTimeFormatInfo.erasFull">#</a></h4>
+<div class="doc">
+<p>Returns an array of the full era names.</p>
+</div>
+</div>
+<div class="method"><h4 id="erasShort">
+abstract List&lt;String&gt; <strong>erasShort</strong>() <a class="anchor-link" href="#erasShort"
+              title="Permalink to DateTimeFormatInfo.erasShort">#</a></h4>
+<div class="doc">
+<p>Returns abbreviations of the era names.</p>
+</div>
+</div>
+<div class="method"><h4 id="firstDayOfTheWeek">
+abstract int <strong>firstDayOfTheWeek</strong>() <a class="anchor-link" href="#firstDayOfTheWeek"
+              title="Permalink to DateTimeFormatInfo.firstDayOfTheWeek">#</a></h4>
+<div class="doc">
+<p>Returns the day which generally comes first in a weekly calendar view, as
+an index into the return value of {@link #weekdaysFull()}.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatDay">
+abstract String <strong>formatDay</strong>() <a class="anchor-link" href="#formatDay"
+              title="Permalink to DateTimeFormatInfo.formatDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "d" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatHour12Minute">
+abstract String <strong>formatHour12Minute</strong>() <a class="anchor-link" href="#formatHour12Minute"
+              title="Permalink to DateTimeFormatInfo.formatHour12Minute">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "hm" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatHour12MinuteSecond">
+abstract String <strong>formatHour12MinuteSecond</strong>() <a class="anchor-link" href="#formatHour12MinuteSecond"
+              title="Permalink to DateTimeFormatInfo.formatHour12MinuteSecond">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "hms" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatHour24Minute">
+abstract String <strong>formatHour24Minute</strong>() <a class="anchor-link" href="#formatHour24Minute"
+              title="Permalink to DateTimeFormatInfo.formatHour24Minute">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "Hm" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatHour24MinuteSecond">
+abstract String <strong>formatHour24MinuteSecond</strong>() <a class="anchor-link" href="#formatHour24MinuteSecond"
+              title="Permalink to DateTimeFormatInfo.formatHour24MinuteSecond">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "Hms" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMinuteSecond">
+abstract String <strong>formatMinuteSecond</strong>() <a class="anchor-link" href="#formatMinuteSecond"
+              title="Permalink to DateTimeFormatInfo.formatMinuteSecond">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "ms" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMonthAbbrev">
+abstract String <strong>formatMonthAbbrev</strong>() <a class="anchor-link" href="#formatMonthAbbrev"
+              title="Permalink to DateTimeFormatInfo.formatMonthAbbrev">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "MMM" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMonthAbbrevDay">
+abstract String <strong>formatMonthAbbrevDay</strong>() <a class="anchor-link" href="#formatMonthAbbrevDay"
+              title="Permalink to DateTimeFormatInfo.formatMonthAbbrevDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "MMMd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMonthFull">
+abstract String <strong>formatMonthFull</strong>() <a class="anchor-link" href="#formatMonthFull"
+              title="Permalink to DateTimeFormatInfo.formatMonthFull">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "MMMM" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMonthFullDay">
+abstract String <strong>formatMonthFullDay</strong>() <a class="anchor-link" href="#formatMonthFullDay"
+              title="Permalink to DateTimeFormatInfo.formatMonthFullDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "MMMMd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMonthFullWeekdayDay">
+abstract String <strong>formatMonthFullWeekdayDay</strong>() <a class="anchor-link" href="#formatMonthFullWeekdayDay"
+              title="Permalink to DateTimeFormatInfo.formatMonthFullWeekdayDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "MMMMEEEEd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatMonthNumDay">
+abstract String <strong>formatMonthNumDay</strong>() <a class="anchor-link" href="#formatMonthNumDay"
+              title="Permalink to DateTimeFormatInfo.formatMonthNumDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "Md" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYear">
+abstract String <strong>formatYear</strong>() <a class="anchor-link" href="#formatYear"
+              title="Permalink to DateTimeFormatInfo.formatYear">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "y" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthAbbrev">
+abstract String <strong>formatYearMonthAbbrev</strong>() <a class="anchor-link" href="#formatYearMonthAbbrev"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthAbbrev">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yMMM" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthAbbrevDay">
+abstract String <strong>formatYearMonthAbbrevDay</strong>() <a class="anchor-link" href="#formatYearMonthAbbrevDay"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthAbbrevDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yMMMd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthFull">
+abstract String <strong>formatYearMonthFull</strong>() <a class="anchor-link" href="#formatYearMonthFull"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthFull">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yMMMM" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthFullDay">
+abstract String <strong>formatYearMonthFullDay</strong>() <a class="anchor-link" href="#formatYearMonthFullDay"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthFullDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yMMMMd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthNum">
+abstract String <strong>formatYearMonthNum</strong>() <a class="anchor-link" href="#formatYearMonthNum"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthNum">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yM" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthNumDay">
+abstract String <strong>formatYearMonthNumDay</strong>() <a class="anchor-link" href="#formatYearMonthNumDay"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthNumDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yMd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearMonthWeekdayDay">
+abstract String <strong>formatYearMonthWeekdayDay</strong>() <a class="anchor-link" href="#formatYearMonthWeekdayDay"
+              title="Permalink to DateTimeFormatInfo.formatYearMonthWeekdayDay">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yMMMEEEd" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearQuarterFull">
+abstract String <strong>formatYearQuarterFull</strong>() <a class="anchor-link" href="#formatYearQuarterFull"
+              title="Permalink to DateTimeFormatInfo.formatYearQuarterFull">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yQQQQ" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="formatYearQuarterShort">
+abstract String <strong>formatYearQuarterShort</strong>() <a class="anchor-link" href="#formatYearQuarterShort"
+              title="Permalink to DateTimeFormatInfo.formatYearQuarterShort">#</a></h4>
+<div class="doc">
+<p>Returns localized format equivalent to the "yQ" skeleton pattern.</p>
+</div>
+</div>
+<div class="method"><h4 id="monthsFull">
+abstract List&lt;String&gt; <strong>monthsFull</strong>() <a class="anchor-link" href="#monthsFull"
+              title="Permalink to DateTimeFormatInfo.monthsFull">#</a></h4>
+<div class="doc">
+<p>Returns an array of full month names.</p>
+</div>
+</div>
+<div class="method"><h4 id="monthsFullStandalone">
+abstract List&lt;String&gt; <strong>monthsFullStandalone</strong>() <a class="anchor-link" href="#monthsFullStandalone"
+              title="Permalink to DateTimeFormatInfo.monthsFullStandalone">#</a></h4>
+<div class="doc">
+<p>Returns an array of month names for use in a stand-alone context.</p>
+</div>
+</div>
+<div class="method"><h4 id="monthsNarrow">
+abstract List&lt;String&gt; <strong>monthsNarrow</strong>() <a class="anchor-link" href="#monthsNarrow"
+              title="Permalink to DateTimeFormatInfo.monthsNarrow">#</a></h4>
+<div class="doc">
+<p>Returns an array of the shortest abbreviations for months, typically a
+single character and not guaranteed to be unique.</p>
+</div>
+</div>
+<div class="method"><h4 id="monthsNarrowStandalone">
+abstract List&lt;String&gt; <strong>monthsNarrowStandalone</strong>() <a class="anchor-link" href="#monthsNarrowStandalone"
+              title="Permalink to DateTimeFormatInfo.monthsNarrowStandalone">#</a></h4>
+<div class="doc">
+<p>Returns an array of the shortest abbreviations for months suitable for use
+in a stand-alone context, typically a single character and not guaranteed
+to be unique.</p>
+</div>
+</div>
+<div class="method"><h4 id="monthsShort">
+abstract List&lt;String&gt; <strong>monthsShort</strong>() <a class="anchor-link" href="#monthsShort"
+              title="Permalink to DateTimeFormatInfo.monthsShort">#</a></h4>
+<div class="doc">
+<p>Returns an array of month abbreviations.</p>
+</div>
+</div>
+<div class="method"><h4 id="monthsShortStandalone">
+abstract List&lt;String&gt; <strong>monthsShortStandalone</strong>() <a class="anchor-link" href="#monthsShortStandalone"
+              title="Permalink to DateTimeFormatInfo.monthsShortStandalone">#</a></h4>
+<div class="doc">
+<p>Returns an array of month abbreviations, suitable for use in a stand-alone
+context.</p>
+</div>
+</div>
+<div class="method"><h4 id="quartersFull">
+abstract List&lt;String&gt; <strong>quartersFull</strong>() <a class="anchor-link" href="#quartersFull"
+              title="Permalink to DateTimeFormatInfo.quartersFull">#</a></h4>
+<div class="doc">
+<p>Returns an array of full quarter names.</p>
+</div>
+</div>
+<div class="method"><h4 id="quartersShort">
+abstract List&lt;String&gt; <strong>quartersShort</strong>() <a class="anchor-link" href="#quartersShort"
+              title="Permalink to DateTimeFormatInfo.quartersShort">#</a></h4>
+<div class="doc">
+<p>Returns an array of abbreviations for quarters.</p>
+</div>
+</div>
+<div class="method"><h4 id="timeFormat">
+abstract String <strong>timeFormat</strong>() <a class="anchor-link" href="#timeFormat"
+              title="Permalink to DateTimeFormatInfo.timeFormat">#</a></h4>
+<div class="doc">
+<p>Returns a safe default time format.</p>
+</div>
+</div>
+<div class="method"><h4 id="timeFormatFull">
+abstract String <strong>timeFormatFull</strong>() <a class="anchor-link" href="#timeFormatFull"
+              title="Permalink to DateTimeFormatInfo.timeFormatFull">#</a></h4>
+<div class="doc">
+<p>Returns a "full" time format.</p>
+</div>
+</div>
+<div class="method"><h4 id="timeFormatLong">
+abstract String <strong>timeFormatLong</strong>() <a class="anchor-link" href="#timeFormatLong"
+              title="Permalink to DateTimeFormatInfo.timeFormatLong">#</a></h4>
+<div class="doc">
+<p>Returns a "long" time format.</p>
+</div>
+</div>
+<div class="method"><h4 id="timeFormatMedium">
+abstract String <strong>timeFormatMedium</strong>() <a class="anchor-link" href="#timeFormatMedium"
+              title="Permalink to DateTimeFormatInfo.timeFormatMedium">#</a></h4>
+<div class="doc">
+<p>Returns a "medium" time format.</p>
+</div>
+</div>
+<div class="method"><h4 id="timeFormatShort">
+abstract String <strong>timeFormatShort</strong>() <a class="anchor-link" href="#timeFormatShort"
+              title="Permalink to DateTimeFormatInfo.timeFormatShort">#</a></h4>
+<div class="doc">
+<p>Returns a "short" time format.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekdaysFull">
+abstract List&lt;String&gt; <strong>weekdaysFull</strong>() <a class="anchor-link" href="#weekdaysFull"
+              title="Permalink to DateTimeFormatInfo.weekdaysFull">#</a></h4>
+<div class="doc">
+<p>Returns an array of the full names of weekdays.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekdaysFullStandalone">
+abstract List&lt;String&gt; <strong>weekdaysFullStandalone</strong>() <a class="anchor-link" href="#weekdaysFullStandalone"
+              title="Permalink to DateTimeFormatInfo.weekdaysFullStandalone">#</a></h4>
+<div class="doc">
+<p>Returns an array of the full names of weekdays, suitable for use in a
+stand-alone context.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekdaysNarrow">
+abstract List&lt;String&gt; <strong>weekdaysNarrow</strong>() <a class="anchor-link" href="#weekdaysNarrow"
+              title="Permalink to DateTimeFormatInfo.weekdaysNarrow">#</a></h4>
+<div class="doc">
+<p>Returns an array of the shortest abbreviations for weekdays, typically a
+single character and not guaranteed to be unique.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekdaysNarrowStandalone">
+abstract List&lt;String&gt; <strong>weekdaysNarrowStandalone</strong>() <a class="anchor-link" href="#weekdaysNarrowStandalone"
+              title="Permalink to DateTimeFormatInfo.weekdaysNarrowStandalone">#</a></h4>
+<div class="doc">
+<p>Returns an array of the shortest abbreviations for weekdays suitable for
+use in a stand-alone context, typically a single character and not
+guaranteed to be unique.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekdaysShort">
+abstract List&lt;String&gt; <strong>weekdaysShort</strong>() <a class="anchor-link" href="#weekdaysShort"
+              title="Permalink to DateTimeFormatInfo.weekdaysShort">#</a></h4>
+<div class="doc">
+<p>Returns an array of abbreviations for weekdays.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekdaysShortStandalone">
+abstract List&lt;String&gt; <strong>weekdaysShortStandalone</strong>() <a class="anchor-link" href="#weekdaysShortStandalone"
+              title="Permalink to DateTimeFormatInfo.weekdaysShortStandalone">#</a></h4>
+<div class="doc">
+<p>Returns an array of abbreviations for weekdays, suitable for use in a
+stand-alone context.</p>
+</div>
+</div>
+<div class="method"><h4 id="weekendEnd">
+abstract int <strong>weekendEnd</strong>() <a class="anchor-link" href="#weekendEnd"
+              title="Permalink to DateTimeFormatInfo.weekendEnd">#</a></h4>
+<div class="doc">
+<p>Returns the day which ends the weekend, as an index into the return value
+of {@link #weekdaysFull()}.</p><p>Note that this value may be numerically less than
+{@link #weekendStart()} - for example, {@link #weekendStart()} of 6 and
+{@link #weekendEnd()} of 0 means Saturday and Sunday are the weekend.
+</div>
+</div>
+<div class="method"><h4 id="weekendStart">
+abstract int <strong>weekendStart</strong>() <a class="anchor-link" href="#weekendStart"
+              title="Permalink to DateTimeFormatInfo.weekendStart">#</a></h4>
+<div class="doc">
+<p>Returns the day which starts the weekend, as an index into the return value
+of {@link #weekdaysFull()}.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.284</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,190 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>FocusImplDefault class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="FocusImplDefault">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/FocusImplDefault.html">FocusImplDefault</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>FocusImplDefault</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class FocusImplDefault implements FocusImpl {
+
+ /**
+  * Remove focus from [Element].
+  */
+ void blur(dart_html.Element elem) {
+   elem.blur();
+ }
+
+ /**
+  * Create focusable element.
+  */
+ dart_html.Element createFocusable() {
+   dart_html.DivElement div = new dart_html.DivElement();
+   div.attributes['tabIndex'] = '0';
+   return div;
+ }
+
+ /**
+  * Set focus on [Element].
+  */
+ void focus(dart_html.Element elem) {
+   elem.focus();
+ }
+
+ /**
+  * Return [Element] tab index.
+  */
+ int getTabIndex(dart_html.Element elem) {
+   return elem.tabIndex;
+ }
+
+ /**
+  * Set [Element] tab [index].
+  */
+ void setTabIndex(dart_html.Element elem, int index) {
+   elem.attributes['tabIndex'] = index.toString();
+ }
+
+ /**
+  * Set Access Key for keyboard navigation.
+  */
+ void setAccessKey(dart_html.Element elem, int key) {
+//    elem.accessKey = key.toString();
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="blur">
+<button class="show-code">Code</button>
+void <strong>blur</strong>(Element elem) <a class="anchor-link" href="#blur"
+              title="Permalink to FocusImplDefault.blur">#</a></h4>
+<div class="doc">
+<p>Remove focus from <code>Element</code>.</p>
+<pre class="source">
+void blur(dart_html.Element elem) {
+ elem.blur();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createFocusable">
+<button class="show-code">Code</button>
+Element <strong>createFocusable</strong>() <a class="anchor-link" href="#createFocusable"
+              title="Permalink to FocusImplDefault.createFocusable">#</a></h4>
+<div class="doc">
+<p>Create focusable element.</p>
+<pre class="source">
+dart_html.Element createFocusable() {
+ dart_html.DivElement div = new dart_html.DivElement();
+ div.attributes['tabIndex'] = '0';
+ return div;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="focus">
+<button class="show-code">Code</button>
+void <strong>focus</strong>(Element elem) <a class="anchor-link" href="#focus"
+              title="Permalink to FocusImplDefault.focus">#</a></h4>
+<div class="doc">
+<p>Set focus on <code>Element</code>.</p>
+<pre class="source">
+void focus(dart_html.Element elem) {
+ elem.focus();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTabIndex">
+<button class="show-code">Code</button>
+int <strong>getTabIndex</strong>(Element elem) <a class="anchor-link" href="#getTabIndex"
+              title="Permalink to FocusImplDefault.getTabIndex">#</a></h4>
+<div class="doc">
+<p>Return <code>Element</code> tab index.</p>
+<pre class="source">
+int getTabIndex(dart_html.Element elem) {
+ return elem.tabIndex;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAccessKey">
+<button class="show-code">Code</button>
+void <strong>setAccessKey</strong>(Element elem, int key) <a class="anchor-link" href="#setAccessKey"
+              title="Permalink to FocusImplDefault.setAccessKey">#</a></h4>
+<div class="doc">
+<p>Set Access Key for keyboard navigation.</p>
+<pre class="source">
+void setAccessKey(dart_html.Element elem, int key) {
+//    elem.accessKey = key.toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTabIndex">
+<button class="show-code">Code</button>
+void <strong>setTabIndex</strong>(Element elem, int index) <a class="anchor-link" href="#setTabIndex"
+              title="Permalink to FocusImplDefault.setTabIndex">#</a></h4>
+<div class="doc">
+<p>Set <code>Element</code> tab 
+<span class="param">index</span>.</p>
+<pre class="source">
+void setTabIndex(dart_html.Element elem, int index) {
+ elem.attributes['tabIndex'] = index.toString();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.714</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

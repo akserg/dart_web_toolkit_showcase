@@ -1,0 +1,1498 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Dom class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="Dom">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/Dom.html">Dom</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Dom</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This class provides a set of static methods that allow you to manipulate the
+browser's Document Object Model (DOM). It contains methods for manipulating
+both <code>Element</code>s and <code>Event</code>s.</p>
+<pre class="source">
+class Dom {
+
+ /**
+  * DOM helper class Implementation.
+  */
+ static DomImpl impl = new DomImpl.browserDependent();
+ static dart_html.Element _sCaptureElem;
+ // The current event being fired
+ static dart_html.Event _currentEvent;
+
+ /**
+  * Determine whether one element is equal to, or the child of, another.
+  *
+  * @param parent the potential parent element
+  * @param child the potential child element
+  * @return &lt;code&gt;true&lt;/code&gt; if the relationship holds
+  */
+ static bool isOrHasChild(dart_html.Element parent, dart_html.Element child) {
+   return impl.isOrHasChild(parent, child);
+ }
+
+ /**
+  * Gets an element's n-th child element.
+  *
+  * @param parent the element whose child is to be retrieved
+  * @param index the index of the child element
+  * @return the n-th child element
+  */
+ static dart_html.Element getChild(dart_html.Element parent, int index) {
+   return impl.getChild(parent, index);
+ }
+
+ /**
+  * Gets the number of child elements present in a given parent element.
+  *
+  * @param parent the element whose children are to be counted
+  * @return the number of children
+  */
+ static int getChildCount(dart_html.Element parent) {
+   return impl.getChildCount(parent);
+ }
+
+ /**
+  * Scrolls the given element into view.
+  *
+  * &lt;p&gt;
+  * This method crawls up the DOM hierarchy, adjusting the scrollLeft and
+  * scrollTop properties of each scrollable element to ensure that the
+  * specified element is completely in view. It adjusts each scroll position by
+  * the minimum amount necessary.
+  * &lt;/p&gt;
+  *
+  * @param elem the element to be made visible
+  */
+ static void scrollIntoView(dart_html.Element elem) {
+   assert(elem != null);
+   elem.scrollIntoView();
+ }
+
+ /**
+  * Initialize the event system if it has not already been initialized.
+  */
+ static void maybeInitializeEventSystem() {
+   impl.maybeInitializeEventSystem();
+ }
+
+ /**
+  * Gets any named property from an element, as a string.
+  *
+  * @param elem the element whose property is to be retrieved
+  * @param prop the name of the property
+  * @return the property's value
+  */
+ static String getElementProperty(dart_html.Element elem, String prop) {
+   assert(elem != null);
+   assert(prop != null);
+   //
+   String eProp = elem.attributes[prop];
+   return eProp == null ? null : eProp;
+ }
+
+ /**
+  * Gets any named property from an element, as an int.
+  *
+  * @param elem the element whose property is to be retrieved
+  * @param prop the name of the property
+  * @return the property's value as an int
+  */
+ static int getElementPropertyInt(dart_html.Element elem, String prop) {
+   String eProp = getElementProperty(elem, prop);
+   //
+   if (eProp == null) {
+     return 0;
+   } else {
+     int intProp = int.parse(eProp);
+     return intProp != null ? intProp : 0;
+   }
+ }
+
+ /**
+  * Gets any named property from an element, as a boolean.
+  *
+  * @param elem the element whose property is to be retrieved
+  * @param prop the name of the property
+  * @return the property's value as a boolean
+  */
+ static bool getElementPropertyBoolean(dart_html.Element elem, String prop) {
+   String eProp = getElementProperty(elem, prop);
+   //
+   return eProp == 'true';
+ }
+
+ /**
+  * Gets any named property from an element, as a boolean.
+  *
+  * @param elem the element whose property is to be retrieved
+  * @param prop the name of the property
+  * @return the property's value as a boolean
+  */
+ static void setElementPropertyBoolean(dart_html.Element elem, String prop, bool value) {
+   assert(elem != null);
+   assert(prop != null);
+   assert(value != null);
+   //
+   elem.attributes[prop] = value.toString();
+ }
+
+ /**
+  * Sets a property on the given element.
+  *
+  * @param elem the element whose property is to be set
+  * @param prop the name of the property to be set
+  * @param value the new property value
+  */
+ static void setElementProperty(dart_html.Element elem, String prop, String value) {
+   assert(elem != null);
+   assert(prop != null);
+   assert(value != null);
+   //
+   elem.attributes[prop] = value;
+ }
+
+ /**
+  * Sets an int property on the given element.
+  *
+  * @param elem the element whose property is to be set
+  * @param prop the name of the property to be set
+  * @param value the new property value as an int
+  */
+ static void setElementPropertyInt(dart_html.Element elem, String prop, int value) {
+   assert(elem != null);
+   assert(prop != null);
+   assert(value != null);
+   //
+   elem.attributes[prop] = value.toString();
+ }
+
+ /**
+  * Sets an attribute on a given element.
+  *
+  * @param elem element whose attribute is to be set
+  * @param attr the name of the attribute
+  * @param value the value to which the attribute should be set
+  */
+ static void setElementAttribute(dart_html.Element elem, String attr, String value) {
+   elem.attributes[attr] = value;
+ }
+
+ /**
+  * Removes the named attribute from the given element.
+  *
+  * @param elem the element whose attribute is to be removed
+  * @param attr the name of the element to remove
+  */
+ static void removeElementAttribute(dart_html.Element elem, String attr) {
+   elem.attributes.remove(attr);
+ }
+
+ /**
+  * Sets the {@link EventListener} to receive events for the given element.
+  * Only one such listener may exist for a single element.
+  *
+  * @param elem the element whose listener is to be set
+  * @param listener the listener to receive {@link Event events}
+  */
+ static void setEventListener(dart_html.Element elem, EventListener listener) {
+   impl.setEventListener(elem, listener);
+ }
+
+ /**
+  * Gets an element's absolute left coordinate in the document's coordinate
+  * system.
+  *
+  * @param elem the element to be measured
+  * @return the element's absolute left coordinate
+  */
+ static int getAbsoluteLeft(dart_html.Element elem) {
+   return impl.getAbsoluteLeft(elem);
+ }
+
+ /**
+  * Gets an element's absolute top coordinate in the document's coordinate
+  * system.
+  *
+  * @param elem the element to be measured
+  * @return the element's absolute top coordinate
+  */
+ static int getAbsoluteTop(dart_html.Element elem) {
+   return impl.getAbsoluteTop(elem);
+ }
+
+ /**
+  * Sets an attribute on the given element's style.
+  *
+  * @param elem the element whose style attribute is to be set
+  * @param attr the name of the style attribute to be set
+  * @param value the style attribute's new value
+  */
+ static void setStyleAttribute(dart_html.Element elem, String attr, String value) {
+   elem.style.setProperty(attr, value);
+ }
+
+ /**
+  * Sets an integer attribute on the given element's style.
+  *
+  * @param elem the element whose style attribute is to be set
+  * @param attr the name of the style attribute to be set
+  * @param value the style attribute's new integer value
+  */
+ static void setIntStyleAttribute(dart_html.Element elem, String attr, int value) {
+   assert(elem != null);
+   assert(attr != null);
+   assert(value != null);
+   elem.style.setProperty(attr, value.toString());
+ }
+
+ static int uniqueId = 0;
+
+ /**
+  * Generates a unique DOM id. The id is of the form "dwt-id-&lt;unique integer&gt;".
+  *
+  * @return a unique DOM id
+  */
+ static String createUniqueId() {
+   //return Document.get().createUniqueId();
+   return "dwt-id-${uniqueId++}";
+ }
+
+ /**
+  * Inserts an element as a child of the given parent element.
+  * &lt;p&gt;
+  * If the child element is a {@link com.google.gwt.user.client.ui.PotentialElement}, it is first
+  * resolved.
+  * &lt;/p&gt;
+  *
+  * @param parent the parent element
+  * @param child the child element to add to &lt;code&gt;parent&lt;/code&gt;
+  * @param index the index before which the child will be inserted (any value
+  *          greater than the number of existing children will cause the child
+  *          to be appended)
+  * @see com.google.gwt.user.client.ui.PotentialElement#resolve(Element)
+  */
+ static void insertChild(dart_html.Element parent, dart_html.Element child, int index) {
+   //assert !PotentialElement.isPotential(parent) : "Cannot insert into a PotentialElement";
+
+   // If child isn't a PotentialElement, resolve() returns
+   // the Element itself.
+   //impl.insertChild(parent, PotentialElement.resolve(child).&lt;Element&gt; cast(), index);
+   impl.insertChild(parent, child, index);
+ }
+
+ /**
+  * Gets the first child element of the given element.
+  *
+  * @param elem the element whose child is to be retrieved
+  * @return the child element
+  */
+ static dart_html.Element getFirstChild(dart_html.Element elem) {
+   return elem.$dom_firstElementChild;
+ }
+
+ //********
+ // Capture
+ //********
+
+ /**
+  * Gets the element that currently has mouse capture.
+  *
+  * @return a handle to the capture element, or &lt;code&gt;null&lt;/code&gt; if none
+  *         exists
+  */
+ static dart_html.Element getCaptureElement() {
+   return _sCaptureElem;
+ }
+
+ /**
+  * Releases mouse/touch/gesture capture on the given element. Calling this
+  * method has no effect if the element does not currently have
+  * mouse/touch/gesture capture.
+  *
+  * @param elem the element to release capture
+  * @see #setCapture(Element)
+  */
+ static void releaseCapture(dart_html.Element elem) {
+   if ((_sCaptureElem != null) &amp;&amp; elem == _sCaptureElem) {
+     _sCaptureElem = null;
+   }
+   impl.releaseCapture(elem);
+ }
+
+ /**
+  * Sets mouse/touch/gesture capture on the given element. This element will
+  * directly receive all mouse events until {@link #releaseCapture(Element)} is
+  * called on it.
+  *
+  * @param elem the element on which to set mouse/touch/gesture capture
+  */
+ static void setCapture(dart_html.Element elem) {
+   _sCaptureElem = elem;
+   impl.setCapture(elem);
+ }
+
+ /**
+  * The height of the document's client area.
+  *
+  * @return the document's client height
+  */
+ static int getClientHeight() {
+   return dart_html.window.innerHeight; ////dart_html.document.body.clientHeight;
+ }
+
+ /**
+  * The width of the document's client area.
+  *
+  * @return the document's client width
+  */
+ static int getClientWidth() {
+   return dart_html.window.innerWidth; //dart_html.document.body.clientWidth;
+ }
+
+ /**
+  * The number of pixels that the document's content is scrolled from the left.
+  *
+  * &lt;p&gt;
+  * If the document is in RTL mode, this method will return a negative value of
+  * the number of pixels scrolled from the right.
+  * &lt;/p&gt;
+  *
+  * @return the document's left scroll position
+  */
+ static int getScrollLeft() {
+   return dart_html.document.body.scrollLeft;
+ }
+
+ /**
+  * The number of pixels that the document's content is scrolled from the top.
+  *
+  * @return the document's top scroll position
+  */
+ static int getScrollTop() {
+   return dart_html.document.body.scrollTop;
+ }
+
+ /**
+  * The width of the scrollable area of the document.
+  *
+  * @return the width of the document's scrollable area
+  */
+ static int getScrollWidth() {
+   return dart_html.document.body.scrollWidth;
+ }
+
+ /**
+  * The height of the scrollable area of the document.
+  *
+  * @return the height of the document's scrollable area
+  */
+ static int getScrollHeight() {
+   return dart_html.document.body.scrollHeight;
+ }
+
+ /**
+  * Clones an element.
+  *
+  * @param elem the element to be cloned
+  * @param deep should children be cloned as well?
+  */
+ static dart_html.Element clone(dart_html.Element elem, bool deep) {
+   return elem.clone(deep);
+ }
+
+ //*******
+ // Events
+ //*******
+
+ /**
+  * Sinks a named event. Events will be fired to the nearest
+  * {@link EventListener} specified on any of the element's parents.
+  *
+  * @param elem the element whose events are to be retrieved
+  * @param eventTypeName name of the event to sink on this element
+  */
+ static void sinkBitlessEvent(dart_html.Element elem, String eventTypeName) {
+   impl.sinkBitlessEvent(elem, eventTypeName);
+ }
+
+ /**
+  * Sets the current set of events sunk by a given element. These events will
+  * be fired to the nearest {@link EventListener} specified on any of the
+  * element's parents.
+  *
+  * @param elem the element whose events are to be retrieved
+  * @param eventBits a bitfield describing the events sunk on this element (its
+  *          possible values are described in {@link Event})
+  */
+ static void sinkEvents(dart_html.Element elem, int eventBits) {
+   impl.sinkEvents(elem, eventBits);
+ }
+
+ /**
+  * Gets the current set of events sunk by a given element.
+  *
+  * @param elem the element whose events are to be retrieved
+  * @return a bitfield describing the events sunk on this element (its possible
+  *         values are described in {@link Event})
+  */
+ static int getEventsSunk(dart_html.Element elem) {
+   return impl.getEventsSunk(elem);
+ }
+
+ /**
+  * This method is called directly by native code when any event is fired.
+  *
+  * @param evt the handle to the event being fired.
+  * @param elem the handle to the element that received the event.
+  * @param listener the listener associated with the element that received the
+  *          event.
+  */
+ static void dispatchEvent(dart_html.Event evt, dart_html.Element elem, EventListener listener) {
+   // Preserve the current event in case we are in a reentrant event dispatch.
+   dart_html.Event prevCurrentEvent = _currentEvent;
+   _currentEvent = evt;
+
+   _dispatchEventImpl(evt, elem, listener);
+
+   _currentEvent = prevCurrentEvent;
+ }
+
+ static void _dispatchEventImpl(dart_html.Event evt, dart_html.Element elem, EventListener listener) {
+   // If this element has capture...
+   if (elem == _sCaptureElem) {
+     // ... and it's losing capture, clear sCaptureElem.
+     if (eventGetType(evt) == IEvent.ONLOSECAPTURE) {
+       _sCaptureElem = null;
+     }
+   }
+
+   // Pass the event to the listener.
+   listener.onBrowserEvent(evt);
+ }
+
+ /**
+  * Gets the element to which the mouse pointer was moved (only valid for
+  * {@link Event#ONMOUSEOUT} and {@link Event#ONMOUSEOVER}).
+  *
+  * @param evt the event to be tested
+  * @return the element to which the mouse pointer was moved
+  */
+
+ static dart_html.Element eventGetToElement(dart_html.Event evt) {
+   return impl.eventGetToElement(evt);
+ }
+
+ /**
+  * This method is called directly by native code when event preview is being
+  * used.
+  *
+  * @param evt a handle to the event being previewed
+  * @return &lt;code&gt;false&lt;/code&gt; to cancel the event
+  */
+ static bool previewEvent(dart_html.Event evt) {
+   // Fire a NativePreviewEvent to NativePreviewHandlers
+   bool ret = IEvent.fireNativePreviewEvent(evt);
+
+   // If the preview cancels the event, stop it from bubbling and performing
+   // its default action. Check for a null evt to allow unit tests to run.
+   if (!ret &amp;&amp; evt != null) {
+     evt.cancelBubble = true;// eventCancelBubble(evt, true);
+     evt.preventDefault(); //eventPreventDefault(evt);
+   }
+
+   return ret;
+ }
+
+ /**
+  * Gets the enumerated type of this event (as defined in {@link Event}).
+  *
+  * @param evt the event to be tested
+  * @return the event's enumerated type, or -1 if not defined
+  */
+ static int eventGetType(dart_html.Event evt) {
+   return impl.getEventTypeInt(evt);
+ }
+
+ /**
+  * Creates an event.
+  *
+  * &lt;p&gt;
+  * While this method may be used to create events directly, it is generally
+  * preferable to use existing helper methods such as
+  * {@link #createFocusEvent()}.
+  * &lt;/p&gt;
+  *
+  * &lt;p&gt;
+  * Also, note that on Internet Explorer the 'canBubble' and 'cancelable'
+  * arguments will be ignored (the event's behavior is inferred by the browser
+  * based upon its type).
+  * &lt;/p&gt;
+  *
+  * @param type the type of event (e.g., BrowserEvents.FOCUS, BrowserEvents.LOAD, etc)
+  * @param canBubble &lt;code&gt;true&lt;/code&gt; if the event should bubble
+  * @param cancelable &lt;code&gt;true&lt;/code&gt; if the event should be cancelable
+  * @return the event object
+  */
+ static dart_html.Event createHtmlEvent(String type, bool canBubble, bool cancelable) {
+   return impl.createHtmlEvent(type, canBubble, cancelable);
+ }
+
+ /**
+  * Creates a 'blur' event.
+  */
+ static dart_html.Event createBlurEvent() {
+   return createHtmlEvent(BrowserEvents.BLUR, false, false);
+ }
+
+ /**
+  * Creates a 'change' event.
+  */
+ static dart_html.Event createChangeEvent() {
+   return createHtmlEvent(BrowserEvents.CHANGE, false, true);
+ }
+
+ /**
+  * Creates a 'contextmenu' event.
+  *
+  * Note: Contextmenu events will not dispatch properly on Firefox 2 and
+  * earlier.
+  *
+  * @return the event object
+  */
+ static dart_html.Event createContextMenuEvent() {
+   return createHtmlEvent(BrowserEvents.CONTEXTMENU, true, true);
+ }
+
+ /**
+  * Creates an 'error' event.
+  *
+  * @return the event object
+  */
+ static dart_html.Event createErrorEvent() {
+   return createHtmlEvent(BrowserEvents.ERROR, false, false);
+ }
+
+ /**
+  * Creates a 'focus' event.
+  *
+  * @return the event object
+  */
+ static dart_html.Event createFocusEvent() {
+   return createHtmlEvent(BrowserEvents.FOCUS, false, false);
+ }
+
+ /**
+  * Creates a 'load' event.
+  *
+  * @return the event object
+  */
+ static dart_html.Event createLoadEvent() {
+   return createHtmlEvent(BrowserEvents.LOAD, false, false);
+ }
+
+ /**
+  * Creates a 'scroll' event.
+  *
+  * Note: Contextmenu events will not dispatch properly on Firefox 2 and
+  * earlier.
+  *
+  * @return the event object
+  */
+ static dart_html.Event createScrollEvent() {
+   return createHtmlEvent(BrowserEvents.SCROLL, false, false);
+ }
+
+ /**
+  * Gets the {@link EventListener} that will receive events for the given
+  * element. Only one such listener may exist for a single element.
+  *
+  * @param elem the element whose listener is to be set
+  * @return the element's event listener
+  */
+ static EventListener getEventListener(dart_html.Element elem) {
+   return impl.getEventListener(elem);
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="impl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/DomImpl.html">DomImpl</a>         <strong>impl</strong> <a class="anchor-link"
+            href="#impl"
+            title="Permalink to Dom.impl">#</a>
+        </h4>
+        <div class="doc">
+<p>DOM helper class Implementation.</p>
+<pre class="source">
+static DomImpl impl = new DomImpl.browserDependent()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="uniqueId">
+<button class="show-code">Code</button>
+int         <strong>uniqueId</strong> <a class="anchor-link"
+            href="#uniqueId"
+            title="Permalink to Dom.uniqueId">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static int uniqueId = 0
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="isOrHasChild">
+<button class="show-code">Code</button>
+bool <strong>isOrHasChild</strong>(Element parent, Element child) <a class="anchor-link" href="#isOrHasChild"
+              title="Permalink to Dom.isOrHasChild">#</a></h4>
+<div class="doc">
+<p>Determine whether one element is equal to, or the child of, another.</p>
+<p>@param parent the potential parent element
+@param child the potential child element
+@return &lt;code>true&lt;/code> if the relationship holds</p>
+<pre class="source">
+static bool isOrHasChild(dart_html.Element parent, dart_html.Element child) {
+ return impl.isOrHasChild(parent, child);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getChild">
+<button class="show-code">Code</button>
+Element <strong>getChild</strong>(Element parent, int index) <a class="anchor-link" href="#getChild"
+              title="Permalink to Dom.getChild">#</a></h4>
+<div class="doc">
+<p>Gets an element's n-th child element.</p>
+<p>@param parent the element whose child is to be retrieved
+@param index the index of the child element
+@return the n-th child element</p>
+<pre class="source">
+static dart_html.Element getChild(dart_html.Element parent, int index) {
+ return impl.getChild(parent, index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getChildCount">
+<button class="show-code">Code</button>
+int <strong>getChildCount</strong>(Element parent) <a class="anchor-link" href="#getChildCount"
+              title="Permalink to Dom.getChildCount">#</a></h4>
+<div class="doc">
+<p>Gets the number of child elements present in a given parent element.</p>
+<p>@param parent the element whose children are to be counted
+@return the number of children</p>
+<pre class="source">
+static int getChildCount(dart_html.Element parent) {
+ return impl.getChildCount(parent);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scrollIntoView">
+<button class="show-code">Code</button>
+void <strong>scrollIntoView</strong>(Element elem) <a class="anchor-link" href="#scrollIntoView"
+              title="Permalink to Dom.scrollIntoView">#</a></h4>
+<div class="doc">
+<p>Scrolls the given element into view.</p><p>
+This method crawls up the DOM hierarchy, adjusting the scrollLeft and
+scrollTop properties of each scrollable element to ensure that the
+specified element is completely in view. It adjusts each scroll position by
+the minimum amount necessary.
+</p>
+<p>@param elem the element to be made visible</p>
+<pre class="source">
+static void scrollIntoView(dart_html.Element elem) {
+ assert(elem != null);
+ elem.scrollIntoView();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="maybeInitializeEventSystem">
+<button class="show-code">Code</button>
+void <strong>maybeInitializeEventSystem</strong>() <a class="anchor-link" href="#maybeInitializeEventSystem"
+              title="Permalink to Dom.maybeInitializeEventSystem">#</a></h4>
+<div class="doc">
+<p>Initialize the event system if it has not already been initialized.</p>
+<pre class="source">
+static void maybeInitializeEventSystem() {
+ impl.maybeInitializeEventSystem();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElementProperty">
+<button class="show-code">Code</button>
+String <strong>getElementProperty</strong>(Element elem, String prop) <a class="anchor-link" href="#getElementProperty"
+              title="Permalink to Dom.getElementProperty">#</a></h4>
+<div class="doc">
+<p>Gets any named property from an element, as a string.</p>
+<p>@param elem the element whose property is to be retrieved
+@param prop the name of the property
+@return the property's value</p>
+<pre class="source">
+static String getElementProperty(dart_html.Element elem, String prop) {
+ assert(elem != null);
+ assert(prop != null);
+ //
+ String eProp = elem.attributes[prop];
+ return eProp == null ? null : eProp;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElementPropertyInt">
+<button class="show-code">Code</button>
+int <strong>getElementPropertyInt</strong>(Element elem, String prop) <a class="anchor-link" href="#getElementPropertyInt"
+              title="Permalink to Dom.getElementPropertyInt">#</a></h4>
+<div class="doc">
+<p>Gets any named property from an element, as an int.</p>
+<p>@param elem the element whose property is to be retrieved
+@param prop the name of the property
+@return the property's value as an int</p>
+<pre class="source">
+static int getElementPropertyInt(dart_html.Element elem, String prop) {
+ String eProp = getElementProperty(elem, prop);
+ //
+ if (eProp == null) {
+   return 0;
+ } else {
+   int intProp = int.parse(eProp);
+   return intProp != null ? intProp : 0;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElementPropertyBoolean">
+<button class="show-code">Code</button>
+bool <strong>getElementPropertyBoolean</strong>(Element elem, String prop) <a class="anchor-link" href="#getElementPropertyBoolean"
+              title="Permalink to Dom.getElementPropertyBoolean">#</a></h4>
+<div class="doc">
+<p>Gets any named property from an element, as a boolean.</p>
+<p>@param elem the element whose property is to be retrieved
+@param prop the name of the property
+@return the property's value as a boolean</p>
+<pre class="source">
+static bool getElementPropertyBoolean(dart_html.Element elem, String prop) {
+ String eProp = getElementProperty(elem, prop);
+ //
+ return eProp == 'true';
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElementPropertyBoolean">
+<button class="show-code">Code</button>
+void <strong>setElementPropertyBoolean</strong>(Element elem, String prop, bool value) <a class="anchor-link" href="#setElementPropertyBoolean"
+              title="Permalink to Dom.setElementPropertyBoolean">#</a></h4>
+<div class="doc">
+<p>Gets any named property from an element, as a boolean.</p>
+<p>@param elem the element whose property is to be retrieved
+@param prop the name of the property
+@return the property's value as a boolean</p>
+<pre class="source">
+static void setElementPropertyBoolean(dart_html.Element elem, String prop, bool value) {
+ assert(elem != null);
+ assert(prop != null);
+ assert(value != null);
+ //
+ elem.attributes[prop] = value.toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElementProperty">
+<button class="show-code">Code</button>
+void <strong>setElementProperty</strong>(Element elem, String prop, String value) <a class="anchor-link" href="#setElementProperty"
+              title="Permalink to Dom.setElementProperty">#</a></h4>
+<div class="doc">
+<p>Sets a property on the given element.</p>
+<p>@param elem the element whose property is to be set
+@param prop the name of the property to be set
+@param value the new property value</p>
+<pre class="source">
+static void setElementProperty(dart_html.Element elem, String prop, String value) {
+ assert(elem != null);
+ assert(prop != null);
+ assert(value != null);
+ //
+ elem.attributes[prop] = value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElementPropertyInt">
+<button class="show-code">Code</button>
+void <strong>setElementPropertyInt</strong>(Element elem, String prop, int value) <a class="anchor-link" href="#setElementPropertyInt"
+              title="Permalink to Dom.setElementPropertyInt">#</a></h4>
+<div class="doc">
+<p>Sets an int property on the given element.</p>
+<p>@param elem the element whose property is to be set
+@param prop the name of the property to be set
+@param value the new property value as an int</p>
+<pre class="source">
+static void setElementPropertyInt(dart_html.Element elem, String prop, int value) {
+ assert(elem != null);
+ assert(prop != null);
+ assert(value != null);
+ //
+ elem.attributes[prop] = value.toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElementAttribute">
+<button class="show-code">Code</button>
+void <strong>setElementAttribute</strong>(Element elem, String attr, String value) <a class="anchor-link" href="#setElementAttribute"
+              title="Permalink to Dom.setElementAttribute">#</a></h4>
+<div class="doc">
+<p>Sets an attribute on a given element.</p>
+<p>@param elem element whose attribute is to be set
+@param attr the name of the attribute
+@param value the value to which the attribute should be set</p>
+<pre class="source">
+static void setElementAttribute(dart_html.Element elem, String attr, String value) {
+ elem.attributes[attr] = value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeElementAttribute">
+<button class="show-code">Code</button>
+void <strong>removeElementAttribute</strong>(Element elem, String attr) <a class="anchor-link" href="#removeElementAttribute"
+              title="Permalink to Dom.removeElementAttribute">#</a></h4>
+<div class="doc">
+<p>Removes the named attribute from the given element.</p>
+<p>@param elem the element whose attribute is to be removed
+@param attr the name of the element to remove</p>
+<pre class="source">
+static void removeElementAttribute(dart_html.Element elem, String attr) {
+ elem.attributes.remove(attr);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setEventListener">
+<button class="show-code">Code</button>
+void <strong>setEventListener</strong>(Element elem, <a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> listener) <a class="anchor-link" href="#setEventListener"
+              title="Permalink to Dom.setEventListener">#</a></h4>
+<div class="doc">
+<p>Sets the {@link EventListener} to receive events for the given element.
+Only one such listener may exist for a single element.</p>
+<p>@param elem the element whose listener is to be set
+@param listener the listener to receive {@link Event events}</p>
+<pre class="source">
+static void setEventListener(dart_html.Element elem, EventListener listener) {
+ impl.setEventListener(elem, listener);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>(Element elem) <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to Dom.getAbsoluteLeft">#</a></h4>
+<div class="doc">
+<p>Gets an element's absolute left coordinate in the document's coordinate
+system.</p>
+<p>@param elem the element to be measured
+@return the element's absolute left coordinate</p>
+<pre class="source">
+static int getAbsoluteLeft(dart_html.Element elem) {
+ return impl.getAbsoluteLeft(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>(Element elem) <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to Dom.getAbsoluteTop">#</a></h4>
+<div class="doc">
+<p>Gets an element's absolute top coordinate in the document's coordinate
+system.</p>
+<p>@param elem the element to be measured
+@return the element's absolute top coordinate</p>
+<pre class="source">
+static int getAbsoluteTop(dart_html.Element elem) {
+ return impl.getAbsoluteTop(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStyleAttribute">
+<button class="show-code">Code</button>
+void <strong>setStyleAttribute</strong>(Element elem, String attr, String value) <a class="anchor-link" href="#setStyleAttribute"
+              title="Permalink to Dom.setStyleAttribute">#</a></h4>
+<div class="doc">
+<p>Sets an attribute on the given element's style.</p>
+<p>@param elem the element whose style attribute is to be set
+@param attr the name of the style attribute to be set
+@param value the style attribute's new value</p>
+<pre class="source">
+static void setStyleAttribute(dart_html.Element elem, String attr, String value) {
+ elem.style.setProperty(attr, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setIntStyleAttribute">
+<button class="show-code">Code</button>
+void <strong>setIntStyleAttribute</strong>(Element elem, String attr, int value) <a class="anchor-link" href="#setIntStyleAttribute"
+              title="Permalink to Dom.setIntStyleAttribute">#</a></h4>
+<div class="doc">
+<p>Sets an integer attribute on the given element's style.</p>
+<p>@param elem the element whose style attribute is to be set
+@param attr the name of the style attribute to be set
+@param value the style attribute's new integer value</p>
+<pre class="source">
+static void setIntStyleAttribute(dart_html.Element elem, String attr, int value) {
+ assert(elem != null);
+ assert(attr != null);
+ assert(value != null);
+ elem.style.setProperty(attr, value.toString());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createUniqueId">
+<button class="show-code">Code</button>
+String <strong>createUniqueId</strong>() <a class="anchor-link" href="#createUniqueId"
+              title="Permalink to Dom.createUniqueId">#</a></h4>
+<div class="doc">
+<p>Generates a unique DOM id. The id is of the form "dwt-id-&lt;unique integer>".</p>
+<p>@return a unique DOM id</p>
+<pre class="source">
+static String createUniqueId() {
+ //return Document.get().createUniqueId();
+ return "dwt-id-${uniqueId++}";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insertChild">
+<button class="show-code">Code</button>
+void <strong>insertChild</strong>(Element parent, Element child, int index) <a class="anchor-link" href="#insertChild"
+              title="Permalink to Dom.insertChild">#</a></h4>
+<div class="doc">
+<p>Inserts an element as a child of the given parent element.
+&lt;p>
+If the child element is a {@link com.google.gwt.user.client.ui.PotentialElement}, it is first
+resolved.
+&lt;/p></p>
+<p>@param parent the parent element
+@param child the child element to add to &lt;code>parent&lt;/code>
+@param index the index before which the child will be inserted (any value</p>
+<pre><code>     greater than the number of existing children will cause the child
+     to be appended)
+</code></pre>
+<p>@see com.google.gwt.user.client.ui.PotentialElement#resolve(Element)</p>
+<pre class="source">
+static void insertChild(dart_html.Element parent, dart_html.Element child, int index) {
+ //assert !PotentialElement.isPotential(parent) : "Cannot insert into a PotentialElement";
+
+ // If child isn't a PotentialElement, resolve() returns
+ // the Element itself.
+ //impl.insertChild(parent, PotentialElement.resolve(child).&lt;Element&gt; cast(), index);
+ impl.insertChild(parent, child, index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFirstChild">
+<button class="show-code">Code</button>
+Element <strong>getFirstChild</strong>(Element elem) <a class="anchor-link" href="#getFirstChild"
+              title="Permalink to Dom.getFirstChild">#</a></h4>
+<div class="doc">
+<p>Gets the first child element of the given element.</p>
+<p>@param elem the element whose child is to be retrieved
+@return the child element</p>
+<pre class="source">
+static dart_html.Element getFirstChild(dart_html.Element elem) {
+ return elem.$dom_firstElementChild;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getCaptureElement">
+<button class="show-code">Code</button>
+Element <strong>getCaptureElement</strong>() <a class="anchor-link" href="#getCaptureElement"
+              title="Permalink to Dom.getCaptureElement">#</a></h4>
+<div class="doc">
+<p>Gets the element that currently has mouse capture.</p>
+<p>@return a handle to the capture element, or &lt;code>null&lt;/code> if none</p>
+<pre><code>    exists
+</code></pre>
+<pre class="source">
+static dart_html.Element getCaptureElement() {
+ return _sCaptureElem;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="releaseCapture">
+<button class="show-code">Code</button>
+void <strong>releaseCapture</strong>(Element elem) <a class="anchor-link" href="#releaseCapture"
+              title="Permalink to Dom.releaseCapture">#</a></h4>
+<div class="doc">
+<p>Releases mouse/touch/gesture capture on the given element. Calling this
+method has no effect if the element does not currently have
+mouse/touch/gesture capture.</p>
+<p>@param elem the element to release capture
+@see #setCapture(Element)</p>
+<pre class="source">
+static void releaseCapture(dart_html.Element elem) {
+ if ((_sCaptureElem != null) &amp;&amp; elem == _sCaptureElem) {
+   _sCaptureElem = null;
+ }
+ impl.releaseCapture(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setCapture">
+<button class="show-code">Code</button>
+void <strong>setCapture</strong>(Element elem) <a class="anchor-link" href="#setCapture"
+              title="Permalink to Dom.setCapture">#</a></h4>
+<div class="doc">
+<p>Sets mouse/touch/gesture capture on the given element. This element will
+directly receive all mouse events until {@link #releaseCapture(Element)} is
+called on it.</p>
+<p>@param elem the element on which to set mouse/touch/gesture capture</p>
+<pre class="source">
+static void setCapture(dart_html.Element elem) {
+ _sCaptureElem = elem;
+ impl.setCapture(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getClientHeight">
+<button class="show-code">Code</button>
+int <strong>getClientHeight</strong>() <a class="anchor-link" href="#getClientHeight"
+              title="Permalink to Dom.getClientHeight">#</a></h4>
+<div class="doc">
+<p>The height of the document's client area.</p>
+<p>@return the document's client height</p>
+<pre class="source">
+static int getClientHeight() {
+ return dart_html.window.innerHeight; ////dart_html.document.body.clientHeight;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getClientWidth">
+<button class="show-code">Code</button>
+int <strong>getClientWidth</strong>() <a class="anchor-link" href="#getClientWidth"
+              title="Permalink to Dom.getClientWidth">#</a></h4>
+<div class="doc">
+<p>The width of the document's client area.</p>
+<p>@return the document's client width</p>
+<pre class="source">
+static int getClientWidth() {
+ return dart_html.window.innerWidth; //dart_html.document.body.clientWidth;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getScrollLeft">
+<button class="show-code">Code</button>
+int <strong>getScrollLeft</strong>() <a class="anchor-link" href="#getScrollLeft"
+              title="Permalink to Dom.getScrollLeft">#</a></h4>
+<div class="doc">
+<p>The number of pixels that the document's content is scrolled from the left.</p><p>
+If the document is in RTL mode, this method will return a negative value of
+the number of pixels scrolled from the right.
+</p>
+<p>@return the document's left scroll position</p>
+<pre class="source">
+static int getScrollLeft() {
+ return dart_html.document.body.scrollLeft;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getScrollTop">
+<button class="show-code">Code</button>
+int <strong>getScrollTop</strong>() <a class="anchor-link" href="#getScrollTop"
+              title="Permalink to Dom.getScrollTop">#</a></h4>
+<div class="doc">
+<p>The number of pixels that the document's content is scrolled from the top.</p>
+<p>@return the document's top scroll position</p>
+<pre class="source">
+static int getScrollTop() {
+ return dart_html.document.body.scrollTop;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getScrollWidth">
+<button class="show-code">Code</button>
+int <strong>getScrollWidth</strong>() <a class="anchor-link" href="#getScrollWidth"
+              title="Permalink to Dom.getScrollWidth">#</a></h4>
+<div class="doc">
+<p>The width of the scrollable area of the document.</p>
+<p>@return the width of the document's scrollable area</p>
+<pre class="source">
+static int getScrollWidth() {
+ return dart_html.document.body.scrollWidth;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getScrollHeight">
+<button class="show-code">Code</button>
+int <strong>getScrollHeight</strong>() <a class="anchor-link" href="#getScrollHeight"
+              title="Permalink to Dom.getScrollHeight">#</a></h4>
+<div class="doc">
+<p>The height of the scrollable area of the document.</p>
+<p>@return the height of the document's scrollable area</p>
+<pre class="source">
+static int getScrollHeight() {
+ return dart_html.document.body.scrollHeight;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clone">
+<button class="show-code">Code</button>
+Element <strong>clone</strong>(Element elem, bool deep) <a class="anchor-link" href="#clone"
+              title="Permalink to Dom.clone">#</a></h4>
+<div class="doc">
+<p>Clones an element.</p>
+<p>@param elem the element to be cloned
+@param deep should children be cloned as well?</p>
+<pre class="source">
+static dart_html.Element clone(dart_html.Element elem, bool deep) {
+ return elem.clone(deep);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(Element elem, String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to Dom.sinkBitlessEvent">#</a></h4>
+<div class="doc">
+<p>Sinks a named event. Events will be fired to the nearest
+{@link EventListener} specified on any of the element's parents.</p>
+<p>@param elem the element whose events are to be retrieved
+@param eventTypeName name of the event to sink on this element</p>
+<pre class="source">
+static void sinkBitlessEvent(dart_html.Element elem, String eventTypeName) {
+ impl.sinkBitlessEvent(elem, eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(Element elem, int eventBits) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to Dom.sinkEvents">#</a></h4>
+<div class="doc">
+<p>Sets the current set of events sunk by a given element. These events will
+be fired to the nearest {@link EventListener} specified on any of the
+element's parents.</p>
+<p>@param elem the element whose events are to be retrieved
+@param eventBits a bitfield describing the events sunk on this element (its</p>
+<pre><code>     possible values are described in {@link Event})
+</code></pre>
+<pre class="source">
+static void sinkEvents(dart_html.Element elem, int eventBits) {
+ impl.sinkEvents(elem, eventBits);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getEventsSunk">
+<button class="show-code">Code</button>
+int <strong>getEventsSunk</strong>(Element elem) <a class="anchor-link" href="#getEventsSunk"
+              title="Permalink to Dom.getEventsSunk">#</a></h4>
+<div class="doc">
+<p>Gets the current set of events sunk by a given element.</p>
+<p>@param elem the element whose events are to be retrieved
+@return a bitfield describing the events sunk on this element (its possible</p>
+<pre><code>    values are described in {@link Event})
+</code></pre>
+<pre class="source">
+static int getEventsSunk(dart_html.Element elem) {
+ return impl.getEventsSunk(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="dispatchEvent">
+<button class="show-code">Code</button>
+void <strong>dispatchEvent</strong>(Event evt, Element elem, <a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> listener) <a class="anchor-link" href="#dispatchEvent"
+              title="Permalink to Dom.dispatchEvent">#</a></h4>
+<div class="doc">
+<p>This method is called directly by native code when any event is fired.</p>
+<p>@param evt the handle to the event being fired.
+@param elem the handle to the element that received the event.
+@param listener the listener associated with the element that received the</p>
+<pre><code>     event.
+</code></pre>
+<pre class="source">
+static void dispatchEvent(dart_html.Event evt, dart_html.Element elem, EventListener listener) {
+ // Preserve the current event in case we are in a reentrant event dispatch.
+ dart_html.Event prevCurrentEvent = _currentEvent;
+ _currentEvent = evt;
+
+ _dispatchEventImpl(evt, elem, listener);
+
+ _currentEvent = prevCurrentEvent;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="eventGetToElement">
+<button class="show-code">Code</button>
+Element <strong>eventGetToElement</strong>(Event evt) <a class="anchor-link" href="#eventGetToElement"
+              title="Permalink to Dom.eventGetToElement">#</a></h4>
+<div class="doc">
+<p>Gets the element to which the mouse pointer was moved (only valid for
+{@link Event#ONMOUSEOUT} and {@link Event#ONMOUSEOVER}).</p>
+<p>@param evt the event to be tested
+@return the element to which the mouse pointer was moved</p>
+<pre class="source">
+static dart_html.Element eventGetToElement(dart_html.Event evt) {
+ return impl.eventGetToElement(evt);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="previewEvent">
+<button class="show-code">Code</button>
+bool <strong>previewEvent</strong>(Event evt) <a class="anchor-link" href="#previewEvent"
+              title="Permalink to Dom.previewEvent">#</a></h4>
+<div class="doc">
+<p>This method is called directly by native code when event preview is being
+used.</p>
+<p>@param evt a handle to the event being previewed
+@return &lt;code>false&lt;/code> to cancel the event</p>
+<pre class="source">
+static bool previewEvent(dart_html.Event evt) {
+ // Fire a NativePreviewEvent to NativePreviewHandlers
+ bool ret = IEvent.fireNativePreviewEvent(evt);
+
+ // If the preview cancels the event, stop it from bubbling and performing
+ // its default action. Check for a null evt to allow unit tests to run.
+ if (!ret &amp;&amp; evt != null) {
+   evt.cancelBubble = true;// eventCancelBubble(evt, true);
+   evt.preventDefault(); //eventPreventDefault(evt);
+ }
+
+ return ret;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="eventGetType">
+<button class="show-code">Code</button>
+int <strong>eventGetType</strong>(Event evt) <a class="anchor-link" href="#eventGetType"
+              title="Permalink to Dom.eventGetType">#</a></h4>
+<div class="doc">
+<p>Gets the enumerated type of this event (as defined in {@link Event}).</p>
+<p>@param evt the event to be tested
+@return the event's enumerated type, or -1 if not defined</p>
+<pre class="source">
+static int eventGetType(dart_html.Event evt) {
+ return impl.getEventTypeInt(evt);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createHtmlEvent">
+<button class="show-code">Code</button>
+Event <strong>createHtmlEvent</strong>(String type, bool canBubble, bool cancelable) <a class="anchor-link" href="#createHtmlEvent"
+              title="Permalink to Dom.createHtmlEvent">#</a></h4>
+<div class="doc">
+<p>Creates an event.</p><p>
+While this method may be used to create events directly, it is generally
+preferable to use existing helper methods such as
+{@link #createFocusEvent()}.
+</p><p>
+Also, note that on Internet Explorer the 'canBubble' and 'cancelable'
+arguments will be ignored (the event's behavior is inferred by the browser
+based upon its type).
+</p>
+<p>@param type the type of event (e.g., BrowserEvents.FOCUS, BrowserEvents.LOAD, etc)
+@param canBubble &lt;code>true&lt;/code> if the event should bubble
+@param cancelable &lt;code>true&lt;/code> if the event should be cancelable
+@return the event object</p>
+<pre class="source">
+static dart_html.Event createHtmlEvent(String type, bool canBubble, bool cancelable) {
+ return impl.createHtmlEvent(type, canBubble, cancelable);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createBlurEvent">
+<button class="show-code">Code</button>
+Event <strong>createBlurEvent</strong>() <a class="anchor-link" href="#createBlurEvent"
+              title="Permalink to Dom.createBlurEvent">#</a></h4>
+<div class="doc">
+<p>Creates a 'blur' event.</p>
+<pre class="source">
+static dart_html.Event createBlurEvent() {
+ return createHtmlEvent(BrowserEvents.BLUR, false, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createChangeEvent">
+<button class="show-code">Code</button>
+Event <strong>createChangeEvent</strong>() <a class="anchor-link" href="#createChangeEvent"
+              title="Permalink to Dom.createChangeEvent">#</a></h4>
+<div class="doc">
+<p>Creates a 'change' event.</p>
+<pre class="source">
+static dart_html.Event createChangeEvent() {
+ return createHtmlEvent(BrowserEvents.CHANGE, false, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createContextMenuEvent">
+<button class="show-code">Code</button>
+Event <strong>createContextMenuEvent</strong>() <a class="anchor-link" href="#createContextMenuEvent"
+              title="Permalink to Dom.createContextMenuEvent">#</a></h4>
+<div class="doc">
+<p>Creates a 'contextmenu' event.</p>
+<p>Note: Contextmenu events will not dispatch properly on Firefox 2 and
+earlier.</p>
+<p>@return the event object</p>
+<pre class="source">
+static dart_html.Event createContextMenuEvent() {
+ return createHtmlEvent(BrowserEvents.CONTEXTMENU, true, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createErrorEvent">
+<button class="show-code">Code</button>
+Event <strong>createErrorEvent</strong>() <a class="anchor-link" href="#createErrorEvent"
+              title="Permalink to Dom.createErrorEvent">#</a></h4>
+<div class="doc">
+<p>Creates an 'error' event.</p>
+<p>@return the event object</p>
+<pre class="source">
+static dart_html.Event createErrorEvent() {
+ return createHtmlEvent(BrowserEvents.ERROR, false, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createFocusEvent">
+<button class="show-code">Code</button>
+Event <strong>createFocusEvent</strong>() <a class="anchor-link" href="#createFocusEvent"
+              title="Permalink to Dom.createFocusEvent">#</a></h4>
+<div class="doc">
+<p>Creates a 'focus' event.</p>
+<p>@return the event object</p>
+<pre class="source">
+static dart_html.Event createFocusEvent() {
+ return createHtmlEvent(BrowserEvents.FOCUS, false, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createLoadEvent">
+<button class="show-code">Code</button>
+Event <strong>createLoadEvent</strong>() <a class="anchor-link" href="#createLoadEvent"
+              title="Permalink to Dom.createLoadEvent">#</a></h4>
+<div class="doc">
+<p>Creates a 'load' event.</p>
+<p>@return the event object</p>
+<pre class="source">
+static dart_html.Event createLoadEvent() {
+ return createHtmlEvent(BrowserEvents.LOAD, false, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createScrollEvent">
+<button class="show-code">Code</button>
+Event <strong>createScrollEvent</strong>() <a class="anchor-link" href="#createScrollEvent"
+              title="Permalink to Dom.createScrollEvent">#</a></h4>
+<div class="doc">
+<p>Creates a 'scroll' event.</p>
+<p>Note: Contextmenu events will not dispatch properly on Firefox 2 and
+earlier.</p>
+<p>@return the event object</p>
+<pre class="source">
+static dart_html.Event createScrollEvent() {
+ return createHtmlEvent(BrowserEvents.SCROLL, false, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getEventListener">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> <strong>getEventListener</strong>(Element elem) <a class="anchor-link" href="#getEventListener"
+              title="Permalink to Dom.getEventListener">#</a></h4>
+<div class="doc">
+<p>Gets the {@link EventListener} that will receive events for the given
+element. Only one such listener may exist for a single element.</p>
+<p>@param elem the element whose listener is to be set
+@return the element's event listener</p>
+<pre class="source">
+static EventListener getEventListener(dart_html.Element elem) {
+ return impl.getEventListener(elem);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.565</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,293 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ClippedImagePrototype class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ClippedImagePrototype">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ClippedImagePrototype.html">ClippedImagePrototype</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ClippedImagePrototype</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation of {@link AbstractImagePrototype} for a clipped image. This
+class is used internally by the image bundle generator and is not intended
+for general use. It is subject to change without warning.</p>
+<pre class="source">
+class ClippedImagePrototype extends AbstractImagePrototype {
+
+ static final ClippedImageImpl _impl = new ClippedImageImpl(); //GWT.create(ClippedImageImpl.class);
+
+ final int height;
+ final int left;
+ final int top;
+ final SafeUri url;
+ final int width;
+
+ ClippedImagePrototype(this.url, this.left, this.top, this.width, this.height);
+
+
+ void applyTo(Image image) {
+   image.setSafeUrlAndVisibleRect(url, left, top, width, height);
+ }
+
+
+ void applyToImageElement(dart_html.ImageElement imageElement) {
+   _impl.adjust(imageElement, url, left, top, width, height);
+ }
+
+
+ dart_html.ImageElement createElement() {
+   return _impl.createStructure(url, left, top, width, height) as dart_html.ImageElement;
+ }
+
+
+ Image createImage() {
+   return new Image.fromSafeUriAndMeasure(url, left, top, width, height);
+ }
+
+
+ SafeHtml getSafeHtml() {
+   return _impl.getSafeHtml(url, left, top, width, height);
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ClippedImagePrototype</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ClippedImagePrototype">
+<button class="show-code">Code</button>
+new <strong>ClippedImagePrototype</strong>(<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> url, int left, int top, int width, int height) <a class="anchor-link" href="#ClippedImagePrototype"
+              title="Permalink to ClippedImagePrototype.ClippedImagePrototype">#</a></h4>
+<div class="doc">
+<pre class="source">
+ClippedImagePrototype(this.url, this.left, this.top, this.width, this.height);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="height">
+<button class="show-code">Code</button>
+final int         <strong>height</strong> <a class="anchor-link"
+            href="#height"
+            title="Permalink to ClippedImagePrototype.height">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final int height
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="left">
+<button class="show-code">Code</button>
+final int         <strong>left</strong> <a class="anchor-link"
+            href="#left"
+            title="Permalink to ClippedImagePrototype.left">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final int left
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="top">
+<button class="show-code">Code</button>
+final int         <strong>top</strong> <a class="anchor-link"
+            href="#top"
+            title="Permalink to ClippedImagePrototype.top">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final int top
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="url">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a>         <strong>url</strong> <a class="anchor-link"
+            href="#url"
+            title="Permalink to ClippedImagePrototype.url">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final SafeUri url
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="width">
+<button class="show-code">Code</button>
+final int         <strong>width</strong> <a class="anchor-link"
+            href="#width"
+            title="Permalink to ClippedImagePrototype.width">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final int width
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="applyTo">
+<button class="show-code">Code</button>
+void <strong>applyTo</strong>(<a href="../dart_web_toolkit_ui/Image.html">Image</a> image) <a class="anchor-link" href="#applyTo"
+              title="Permalink to ClippedImagePrototype.applyTo">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Transforms an existing {@link Image} into the image represented by this
+prototype.</p>
+<p>@param image the instance to be transformed to match this prototype</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> </div></div>
+<pre class="source">
+void applyTo(Image image) {
+ image.setSafeUrlAndVisibleRect(url, left, top, width, height);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="applyToImageElement">
+<button class="show-code">Code</button>
+void <strong>applyToImageElement</strong>(ImageElement imageElement) <a class="anchor-link" href="#applyToImageElement"
+              title="Permalink to ClippedImagePrototype.applyToImageElement">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Transforms an existing {@link ImagePrototypeElement} into the image
+represented by this prototype.</p>
+<p>@param imageElement an &lt;code>ImagePrototypeElement&lt;/code> created by</p>
+<pre><code>     {@link #createElement()}
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> </div></div>
+<pre class="source">
+void applyToImageElement(dart_html.ImageElement imageElement) {
+ _impl.adjust(imageElement, url, left, top, width, height);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createElement">
+<button class="show-code">Code</button>
+ImageElement <strong>createElement</strong>() <a class="anchor-link" href="#createElement"
+              title="Permalink to ClippedImagePrototype.createElement">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new {@link Element} based on the image represented by this
+prototype. The DOM structure may not necessarily a simple
+&lt;code>&lt;img&gt;&lt;/code> element. It may be a more complex structure that
+should be treated opaquely.</p>
+<p>@return the &lt;code>ImagePrototypeElement&lt;/code> corresponding to the image</p>
+<pre><code>    represented by this prototype
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> </div></div>
+<pre class="source">
+dart_html.ImageElement createElement() {
+ return _impl.createStructure(url, left, top, width, height) as dart_html.ImageElement;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createImage">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Image.html">Image</a> <strong>createImage</strong>() <a class="anchor-link" href="#createImage"
+              title="Permalink to ClippedImagePrototype.createImage">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new {@link Image} instance based on the image represented by this
+prototype.</p>
+<p>@return a new {@link Image} based on this prototype</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> </div></div>
+<pre class="source">
+Image createImage() {
+ return new Image.fromSafeUriAndMeasure(url, left, top, width, height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getHtml">
+<button class="show-code">Code</button>
+String <strong>getHtml</strong>() <a class="anchor-link" href="#getHtml"
+              title="Permalink to ClippedImagePrototype.getHtml">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> </div><div class="doc">
+<p>Gets an HTML fragment that displays the image represented by this
+prototype. The HTML returned is not necessarily a simple
+&lt;code>&lt;img&gt;&lt;/code> element. It may be a more complex structure that
+should be treated opaquely.
+&lt;p>
+The default implementation calls {@link #getSafeHtml()}.</p>
+<p>@return the HTML representation of this prototype</p>
+<pre class="source">
+String getHtml() {
+ return getSafeHtml().asString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSafeHtml">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> <strong>getSafeHtml</strong>() <a class="anchor-link" href="#getSafeHtml"
+              title="Permalink to ClippedImagePrototype.getSafeHtml">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Gets an HTML fragment that displays the image represented by this
+prototype. The HTML returned is not necessarily a simple
+&lt;code>&lt;img&gt;&lt;/code> element. It may be a more complex structure that
+should be treated opaquely.
+&lt;p>
+The default implementation throws an {@link UnsupportedOperationException}.</p>
+<p>@return the HTML representation of this prototype</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> </div></div>
+<pre class="source">
+SafeHtml getSafeHtml() {
+ return _impl.getSafeHtml(url, left, top, width, height);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.672</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

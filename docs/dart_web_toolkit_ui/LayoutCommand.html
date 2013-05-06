@@ -1,0 +1,234 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>LayoutCommand class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="LayoutCommand">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/LayoutCommand.html">LayoutCommand</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>LayoutCommand</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A scheduled command used by animated layouts to ensure that only layout is
+ever performed for a panel within a given user event.</p><p>
+Note: This class assumes that {@link com.google.gwt.layout.client.Layout.Layer#getUserObject Layer.getUserObject()} will
+return the widget associated with a given layer.
+</p>
+<pre class="source">
+class LayoutCommand implements ScheduledCommand {
+
+ bool _scheduled = false;
+ bool _canceled = false;
+ int _duration = 0;
+ LayoutAnimationCallback callback;
+ Layout _layout;
+
+ /**
+  * Creates a new command for the given layout object.
+  *
+  * @param layout
+  */
+ LayoutCommand(this._layout);
+
+ /**
+  * Cancels this command. A subsequent call to
+  * {@link #schedule(int, Layout.AnimationCallback)} will re-enable it.
+  */
+ void cancel() {
+   // There's no way to "unschedule" a command, so we use a canceled flag.
+   _canceled = true;
+ }
+
+ /**
+  * Invokes the command.
+  */
+ void execute() {
+   _scheduled = false;
+   if (_canceled) {
+     return;
+   }
+
+   doBeforeLayout();
+
+   _layout.layout(_duration, new LayoutCommandAnimationCallback(this));
+ }
+
+ /**
+  * Schedules a layout. The duration and callback passed to this method will
+  * supercede any previous call that has not yet been executed.
+  *
+  * @param duration
+  * @param callback
+  */
+ void schedule(int duration, LayoutAnimationCallback callback) {
+   this._duration = duration;
+   this.callback = callback;
+
+   _canceled = false;
+   if (!_scheduled) {
+     _scheduled = true;
+     //Scheduler.get().scheduleFinally(this);
+     Scheduler.get().scheduleDeferred(this);
+   }
+ }
+
+ /**
+  * Called before the layout is executed. Override this method to perform any
+  * work that needs to happen just before it.
+  */
+ void doBeforeLayout() {
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="LayoutCommand">
+<button class="show-code">Code</button>
+new <strong>LayoutCommand</strong>(<a href="../dart_web_toolkit_layout/Layout.html">Layout</a> _layout) <a class="anchor-link" href="#LayoutCommand"
+              title="Permalink to LayoutCommand.LayoutCommand">#</a></h4>
+<div class="doc">
+<p>Creates a new command for the given layout object.</p>
+<p>@param layout</p>
+<pre class="source">
+LayoutCommand(this._layout);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="callback">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a>         <strong>callback</strong> <a class="anchor-link"
+            href="#callback"
+            title="Permalink to LayoutCommand.callback">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+LayoutAnimationCallback callback
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="cancel">
+<button class="show-code">Code</button>
+void <strong>cancel</strong>() <a class="anchor-link" href="#cancel"
+              title="Permalink to LayoutCommand.cancel">#</a></h4>
+<div class="doc">
+<p>Cancels this command. A subsequent call to
+{@link #schedule(int, Layout.AnimationCallback)} will re-enable it.</p>
+<pre class="source">
+void cancel() {
+ // There's no way to "unschedule" a command, so we use a canceled flag.
+ _canceled = true;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="doBeforeLayout">
+<button class="show-code">Code</button>
+void <strong>doBeforeLayout</strong>() <a class="anchor-link" href="#doBeforeLayout"
+              title="Permalink to LayoutCommand.doBeforeLayout">#</a></h4>
+<div class="doc">
+<p>Called before the layout is executed. Override this method to perform any
+work that needs to happen just before it.</p>
+<pre class="source">
+void doBeforeLayout() {
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="execute">
+<button class="show-code">Code</button>
+void <strong>execute</strong>() <a class="anchor-link" href="#execute"
+              title="Permalink to LayoutCommand.execute">#</a></h4>
+<div class="doc">
+<p>Invokes the command.</p>
+<pre class="source">
+void execute() {
+ _scheduled = false;
+ if (_canceled) {
+   return;
+ }
+
+ doBeforeLayout();
+
+ _layout.layout(_duration, new LayoutCommandAnimationCallback(this));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="schedule">
+<button class="show-code">Code</button>
+void <strong>schedule</strong>(int duration, <a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a> callback) <a class="anchor-link" href="#schedule"
+              title="Permalink to LayoutCommand.schedule">#</a></h4>
+<div class="doc">
+<p>Schedules a layout. The duration and callback passed to this method will
+supercede any previous call that has not yet been executed.</p>
+<p>@param duration
+@param callback</p>
+<pre class="source">
+void schedule(int duration, LayoutAnimationCallback callback) {
+ this._duration = duration;
+ this.callback = callback;
+
+ _canceled = false;
+ if (!_scheduled) {
+   _scheduled = true;
+   //Scheduler.get().scheduleFinally(this);
+   Scheduler.get().scheduleDeferred(this);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:25.837</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

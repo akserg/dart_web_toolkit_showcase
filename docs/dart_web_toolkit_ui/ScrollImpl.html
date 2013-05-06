@@ -1,0 +1,216 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ScrollImpl class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ScrollImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ScrollImpl.html">ScrollImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ScrollImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation of scrolling behavior.</p>
+<pre class="source">
+class ScrollImpl {
+ static ScrollImpl impl;
+
+ /**
+  * Get the singleton instance of {@link ScrollImpl}.
+  */
+ static ScrollImpl get() {
+   if (impl == null) {
+     impl = new ScrollImpl();
+   }
+   return impl;
+ }
+
+ /**
+  * Get the maximum horizontal scroll position.
+  *
+  * @param scrollable the scrollable element
+  * @return the maximum scroll position
+  */
+ int getMaximumHorizontalScrollPosition(dart_html.Element scrollable) {
+   return isRtl(scrollable) ? 0 : scrollable.scrollWidth - scrollable.client.width;
+ }
+
+ /**
+  * Get the minimum horizontal scroll position.
+  *
+  * @param scrollable the scrollable element
+  * @return the minimum scroll position
+  */
+ int getMinimumHorizontalScrollPosition(dart_html.Element scrollable) {
+   return isRtl(scrollable) ? scrollable.client.width - scrollable.scrollWidth : 0;
+ }
+
+ /**
+  * Initialize a scrollable element.
+  *
+  * @param scrollable the scrollable element
+  * @param container the container
+  */
+ void initialize(dart_html.Element scrollable, dart_html.Element container) {
+   // Overridden by ScrollImplTrident.
+ }
+
+ /**
+  * Check if the specified element has an RTL direction. We can't base this on
+  * the current locale because the user can modify the direction at the DOM
+  * level.
+  *
+  * @param scrollable the scrollable element
+  * @return true if the direction is RTL, false if LTR
+  */
+ bool isRtl(dart_html.Element scrollable) {
+//    var computedStyle = $doc.defaultView.getComputedStyle(scrollable, null);
+//    return computedStyle.getPropertyValue('direction') == 'rtl';
+   return false;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="impl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ScrollImpl.html">ScrollImpl</a>         <strong>impl</strong> <a class="anchor-link"
+            href="#impl"
+            title="Permalink to ScrollImpl.impl">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static ScrollImpl impl
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ScrollImpl.html">ScrollImpl</a> <strong>get</strong>() <a class="anchor-link" href="#get"
+              title="Permalink to ScrollImpl.get">#</a></h4>
+<div class="doc">
+<p>Get the singleton instance of {@link ScrollImpl}.</p>
+<pre class="source">
+static ScrollImpl get() {
+ if (impl == null) {
+   impl = new ScrollImpl();
+ }
+ return impl;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getMaximumHorizontalScrollPosition">
+<button class="show-code">Code</button>
+int <strong>getMaximumHorizontalScrollPosition</strong>(Element scrollable) <a class="anchor-link" href="#getMaximumHorizontalScrollPosition"
+              title="Permalink to ScrollImpl.getMaximumHorizontalScrollPosition">#</a></h4>
+<div class="doc">
+<p>Get the maximum horizontal scroll position.</p>
+<p>@param scrollable the scrollable element
+@return the maximum scroll position</p>
+<pre class="source">
+int getMaximumHorizontalScrollPosition(dart_html.Element scrollable) {
+ return isRtl(scrollable) ? 0 : scrollable.scrollWidth - scrollable.client.width;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getMinimumHorizontalScrollPosition">
+<button class="show-code">Code</button>
+int <strong>getMinimumHorizontalScrollPosition</strong>(Element scrollable) <a class="anchor-link" href="#getMinimumHorizontalScrollPosition"
+              title="Permalink to ScrollImpl.getMinimumHorizontalScrollPosition">#</a></h4>
+<div class="doc">
+<p>Get the minimum horizontal scroll position.</p>
+<p>@param scrollable the scrollable element
+@return the minimum scroll position</p>
+<pre class="source">
+int getMinimumHorizontalScrollPosition(dart_html.Element scrollable) {
+ return isRtl(scrollable) ? scrollable.client.width - scrollable.scrollWidth : 0;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="initialize">
+<button class="show-code">Code</button>
+void <strong>initialize</strong>(Element scrollable, Element container) <a class="anchor-link" href="#initialize"
+              title="Permalink to ScrollImpl.initialize">#</a></h4>
+<div class="doc">
+<p>Initialize a scrollable element.</p>
+<p>@param scrollable the scrollable element
+@param container the container</p>
+<pre class="source">
+void initialize(dart_html.Element scrollable, dart_html.Element container) {
+ // Overridden by ScrollImplTrident.
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isRtl">
+<button class="show-code">Code</button>
+bool <strong>isRtl</strong>(Element scrollable) <a class="anchor-link" href="#isRtl"
+              title="Permalink to ScrollImpl.isRtl">#</a></h4>
+<div class="doc">
+<p>Check if the specified element has an RTL direction. We can't base this on
+the current locale because the user can modify the direction at the DOM
+level.</p>
+<p>@param scrollable the scrollable element
+@return true if the direction is RTL, false if LTR</p>
+<pre class="source">
+bool isRtl(dart_html.Element scrollable) {
+//    var computedStyle = $doc.defaultView.getComputedStyle(scrollable, null);
+//    return computedStyle.getPropertyValue('direction') == 'rtl';
+ return false;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.686</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

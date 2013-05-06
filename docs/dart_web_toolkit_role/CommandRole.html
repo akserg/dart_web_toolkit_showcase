@@ -1,0 +1,112 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>CommandRole abstract class / dart_web_toolkit_role Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_role" data-type="CommandRole">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_role.html">dart_web_toolkit_role</a> &rsaquo; <a href="../dart_web_toolkit_role/CommandRole.html">CommandRole</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>CommandRole</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>CommandRole interface.
+The interface defines methods for setting, getting, removing states and properties.
+&lt;p>Allows ARIA Accessibility attributes to be added to widgets so that they can be identified by
+assistive technology.&lt;/p></p><p>ARIA roles define widgets and page structure that can be interpreted by a reader
+application/device. There is a set of abstract roles which are used as
+building blocks of the roles hierarchy structural and define the common properties and states
+for the concrete roles. Abstract roles cannot be set to HTML elements.</p><p>There are states and properties that are defined for a role. As roles are organized in a
+hierarchy, a role has inherited and own properties and states which can be set to the
+element.</p><p>For more details about ARIA roles check <a href="http://www.w3.org/TR/wai-aria/roles">
+The Roles Model </a>.</p>
+<pre class="source">
+abstract class CommandRole extends WidgetRole {
+
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/RoletypeRole.html">RoletypeRole</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/WidgetRole.html">WidgetRole</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>CommandRole</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/ButtonRole.html">ButtonRole</a></span></p>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="get">
+abstract String <strong>get</strong>(Element element) <a class="anchor-link" href="#get"
+              title="Permalink to CommandRole.get">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/RoletypeRole.html">RoletypeRole</a> </div><div class="doc">
+<p>Gets the role for the element {@code element}. If none is set, "" is returned.</p>
+<p>@param element HTML element
+@return The role attribute value</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="getName">
+abstract String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to CommandRole.getName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/RoletypeRole.html">RoletypeRole</a> </div><div class="doc">
+<p>Gets the role name</p>
+<p>@return The role name</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="remove">
+abstract void <strong>remove</strong>(Element element) <a class="anchor-link" href="#remove"
+              title="Permalink to CommandRole.remove">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/RoletypeRole.html">RoletypeRole</a> </div><div class="doc">
+<p>Removes the role for element {@code element}</p>
+<p>@param element HTML element</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="set">
+abstract void <strong>set</strong>(Element element) <a class="anchor-link" href="#set"
+              title="Permalink to CommandRole.set">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/RoletypeRole.html">RoletypeRole</a> </div><div class="doc">
+<p>Sets the role to element {@code element}</p>
+<p>@param element HTML element</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.561</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

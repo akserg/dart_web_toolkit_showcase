@@ -1,0 +1,832 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>RequestBuilder class / dart_web_toolkit_http Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_http" data-type="RequestBuilder">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_http.html">dart_web_toolkit_http</a> &rsaquo; <a href="../dart_web_toolkit_http/RequestBuilder.html">RequestBuilder</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>RequestBuilder</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Builder for constructing {@link com.google.gwt.http.client.Request} objects.</p><h3>Required Module</h3> Modules that use this class should inherit
+<code>com.google.gwt.http.HTTP</code>.
+<p>{@gwt.include
+com/google/gwt/examples/http/InheritsExample.gwt.xml}</p>
+<pre class="source">
+class RequestBuilder {
+ /**
+  * Specifies that the HTTP DELETE method should be used.
+  */
+ static final Method DELETE = new Method("DELETE");
+
+ /**
+  * Specifies that the HTTP GET method should be used.
+  */
+ static final Method GET = new Method("GET");
+
+ /**
+  * Specifies that the HTTP HEAD method should be used.
+  */
+ static final Method HEAD = new Method("HEAD");
+
+ /**
+  * Specifies that the HTTP POST method should be used.
+  */
+ static final Method POST = new Method("POST");
+
+ /**
+  * Specifies that the HTTP PUT method should be used.
+  */
+ static final Method PUT = new Method("PUT");
+
+ /**
+  * The callback to call when the request completes.
+  */
+ RequestCallback _callback;
+
+ /**
+  * Map of header name to value that will be added to the JavaScript
+  * XmlHttpRequest object before sending a request.
+  */
+  Map&lt;String, String&gt; _headers;
+
+ /**
+  * HTTP method to use when opening a JavaScript XmlHttpRequest object.
+  */
+  String _httpMethod;
+
+ /**
+  * Password to use when opening a JavaScript XmlHttpRequest object.
+  */
+ String _password;
+
+ /**
+  * Request data to use when sending a JavaScript XmlHttpRequest object.
+  */
+ String _requestData;
+
+ /**
+  * Timeout in milliseconds before the request timeouts and fails.
+  */
+ int _timeoutMillis;
+
+ /**
+  * URL to use when opening a JavaScript XmlHttpRequest object.
+  */
+ String _url;
+
+ /**
+  * User to use when opening a JavaScript XmlHttpRequest object.
+  */
+ String _user;
+
+ /**
+  * Creates a builder using the parameters for configuration.
+  * 
+  * @param httpMethod HTTP method to use for the request
+  * @param url URL that has already has already been encoded. Please see
+  *          {@link com.google.gwt.http.client.URL#encode(String)},
+  *          {@link com.google.gwt.http.client.URL#encodePathSegment(String)} and
+  *          {@link com.google.gwt.http.client.URL#encodeQueryString(String)} for
+  *          how to do this.
+  * @throws IllegalArgumentException if the httpMethod or URL are empty
+  * @throws NullPointerException if the httpMethod or the URL are null
+  */
+ RequestBuilder.fromMethod(Method httpMethod, String url) : this((httpMethod == null) ? null : httpMethod.toString(), url);
+
+ /**
+  * Creates a builder using the parameters values for configuration.
+  * 
+  * @param httpMethod HTTP method to use for the request
+  * @param url URL that has already has already been URL encoded. Please see
+  *          {@link com.google.gwt.http.client.URL#encode(String)} and
+  *          {@link com.google.gwt.http.client.URL#encodePathSegment(String)} and
+  *          {@link com.google.gwt.http.client.URL#encodeQueryString(String)} for
+  *          how to do this.
+  * @throws IllegalArgumentException if the httpMethod or URL are empty
+  * @throws NullPointerException if the httpMethod or the URL are null
+  */
+ RequestBuilder(this._httpMethod, this._url) {
+
+   StringValidator.throwIfEmptyOrNull("httpMethod", _httpMethod);
+   StringValidator.throwIfEmptyOrNull("url", _url);
+ }
+
+ /**
+  * Returns the callback previously set by
+  * {@link #setCallback(RequestCallback)}, or &lt;code&gt;null&lt;/code&gt; if no callback
+  * was set.
+  */
+ RequestCallback getCallback() {
+   return _callback;
+ }
+
+ /**
+  * Returns the value of a header previous set by
+  * {@link #setHeader(String, String)}, or &lt;code&gt;null&lt;/code&gt; if no such header
+  * was set.
+  * 
+  * @param header the name of the header
+  */
+ String getHeader(String header) {
+   if (_headers == null) {
+     return null;
+   }
+   return _headers[header];
+ }
+
+ /**
+  * Returns the HTTP method specified in the constructor.
+  */
+ String getHTTPMethod() {
+   return _httpMethod;
+ }
+
+ /**
+  * Returns the password previously set by {@link #setPassword(String)}, or
+  * &lt;code&gt;null&lt;/code&gt; if no password was set.
+  */
+ String getPassword() {
+   return _password;
+ }
+
+ /**
+  * Returns the requestData previously set by {@link #setRequestData(String)},
+  * or &lt;code&gt;null&lt;/code&gt; if no requestData was set.
+  */
+ String getRequestData() {
+   return _requestData;
+ }
+
+ /**
+  * Returns the timeoutMillis previously set by {@link #setTimeoutMillis(int)},
+  * or &lt;code&gt;0&lt;/code&gt; if no timeoutMillis was set.
+  */
+ int getTimeoutMillis() {
+   return _timeoutMillis;
+ }
+
+ /**
+  * Returns the HTTP URL specified in the constructor.
+  */
+ String getUrl() {
+   return _url;
+ }
+
+ /**
+  * Returns the user previously set by {@link #setUser(String)}, or
+  * &lt;code&gt;null&lt;/code&gt; if no user was set.
+  */
+ String getUser() {
+   return _user;
+ }
+
+ /**
+  * Sends an HTTP request based on the current builder configuration. If no
+  * request headers have been set, the header "Content-Type" will be used with
+  * a value of "text/plain; charset=utf-8". You must call
+  * {@link #setRequestData(String)} and {@link #setCallback(RequestCallback)}
+  * before calling this method.
+  * 
+  * @return a {@link Request} object that can be used to track the request
+  * @throws RequestException if the call fails to initiate
+  * @throws NullPointerException if a request callback has not been set
+  */
+ Request send() {
+   StringValidator.throwIfNull("callback", _callback);
+   return _doSend(_requestData, _callback);
+ }
+
+ /**
+  * Sends an HTTP request based on the current builder configuration with the
+  * specified data and callback. If no request headers have been set, the
+  * header "Content-Type" will be used with a value of "text/plain;
+  * charset=utf-8". This method does not cache &lt;code&gt;requestData&lt;/code&gt; or
+  * &lt;code&gt;callback&lt;/code&gt;.
+  * 
+  * @param requestData the data to send as part of the request
+  * @param callback the response handler to be notified when the request fails
+  *          or completes
+  * @return a {@link Request} object that can be used to track the request
+  * @throws NullPointerException if &lt;code&gt;callback&lt;/code&gt; &lt;code&gt;null&lt;/code&gt;
+  */
+ Request sendRequest(String requestData, RequestCallback callback) {
+   StringValidator.throwIfNull("callback", callback);
+   return _doSend(requestData, callback);
+ }
+
+ /**
+  * Sets the response handler for this request. This method &lt;b&gt;must&lt;/b&gt; be
+  * called before calling {@link #send()}.
+  * 
+  * @param callback the response handler to be notified when the request fails
+  *          or completes
+  * 
+  * @throws NullPointerException if &lt;code&gt;callback&lt;/code&gt; is &lt;code&gt;null&lt;/code&gt;
+  */
+ void setCallback(RequestCallback callback) {
+   StringValidator.throwIfNull("callback", callback);
+
+   this._callback = callback;
+ }
+
+ /**
+  * Sets a request header with the given name and value. If a header with the
+  * specified name has already been set then the new value overwrites the
+  * current value.
+  * 
+  * @param header the name of the header
+  * @param value the value of the header
+  * 
+  * @throws NullPointerException if header or value are null
+  * @throws IllegalArgumentException if header or value are the empty string
+  */
+ void setHeader(String header, String value) {
+   StringValidator.throwIfEmptyOrNull("header", header);
+   StringValidator.throwIfEmptyOrNull("value", value);
+
+   if (_headers == null) {
+     _headers = new Map&lt;String, String&gt;();
+   }
+
+   _headers[header] = value;
+ }
+
+ /**
+  * Sets the password to use in the request URL. This is ignored if there is no
+  * user specified.
+  * 
+  * @param password password to use in the request URL
+  * 
+  * @throws IllegalArgumentException if the password is empty
+  * @throws NullPointerException if the password is null
+  */
+ void setPassword(String password) {
+   StringValidator.throwIfEmptyOrNull("password", password);
+
+   this._password = password;
+ }
+
+ /**
+  * Sets the data to send as part of this request. This method &lt;b&gt;must&lt;/b&gt; be
+  * called before calling {@link #send()}.
+  * 
+  * @param requestData the data to send as part of the request
+  */
+ void setRequestData(String requestData) {
+   this._requestData = requestData;
+ }
+
+ /**
+  * Sets the number of milliseconds to wait for a request to complete. Should
+  * the request timeout, the
+  * {@link com.google.gwt.http.client.RequestCallback#onError(Request, Throwable)}
+  * method will be called on the callback instance given to the
+  * {@link com.google.gwt.http.client.RequestBuilder#sendRequest(String, RequestCallback)}
+  * method. The callback method will receive an instance of the
+  * {@link com.google.gwt.http.client.RequestTimeoutException} class as its
+  * {@link java.lang.Throwable} argument.
+  * 
+  * @param timeoutMillis number of milliseconds to wait before canceling the
+  *          request, a value of zero disables timeouts
+  * 
+  * @throws IllegalArgumentException if the timeout value is negative
+  */
+ void setTimeoutMillis(int timeoutMillis) {
+   if (timeoutMillis &lt; 0) {
+     throw new Exception("Timeouts cannot be negative");
+   }
+
+   this._timeoutMillis = timeoutMillis;
+ }
+
+ /**
+  * Sets the user name that will be used in the request URL.
+  * 
+  * @param user user name to use
+  * @throws IllegalArgumentException if the user is empty
+  * @throws NullPointerException if the user is null
+  */
+ void setUser(String user) {
+   StringValidator.throwIfEmptyOrNull("user", user);
+
+   this._user = user;
+ }
+
+ /**
+  * Sends an HTTP request based on the current builder configuration. If no
+  * request headers have been set, the header "Content-Type" will be used with
+  * a value of "text/plain; charset=utf-8".
+  * 
+  * @return a {@link Request} object that can be used to track the request
+  * @throws RequestException if the call fails to initiate
+  * @throws NullPointerException if request data has not been set
+  * @throws NullPointerException if a request callback has not been set
+  */
+ Request _doSend(String requestData, RequestCallback callback) {
+   dart_html.HttpRequest xmlHttpRequest = new dart_html.HttpRequest();
+
+   try {
+     if (_user != null &amp;&amp; _password != null) {
+       xmlHttpRequest.open(_httpMethod, _url, async:true, user:_user, password:_password);
+     } else if (_user != null) {
+       xmlHttpRequest.open(_httpMethod, _url, async:true, user:_user);
+     } else {
+       xmlHttpRequest.open(_httpMethod, _url);
+     }
+   } on Exception catch (e) {
+     throw new Exception("The URL $_url is invalid or violates the same-origin security restriction");
+   }
+
+   _setHeaders(xmlHttpRequest);
+
+   Request request = new Request(xmlHttpRequest, _timeoutMillis, callback);
+
+   // Must set the onreadystatechange handler before calling send().
+   xmlHttpRequest.onReadyStateChange.listen((dart_html.Event evt){
+     if (xmlHttpRequest.readyState == dart_html.HttpRequest.DONE) {
+       xmlHttpRequest.onReadyStateChange.listen(null, onError:null, onDone:null, unsubscribeOnError:true);
+       request.fireOnResponseReceived(callback);
+     }
+   });
+
+   try {
+     xmlHttpRequest.send(requestData);
+   } on Exception catch (e) {
+     throw new Exception(e.toString());
+   }
+
+   return request;
+ }
+
+ /*
+  * Internal method that actually sets our cached headers on the underlying
+  * JavaScript XmlHttpRequest object. If there are no headers set, then we set
+  * the "Content-Type" to "text/plain; charset=utf-8". This is really lining us
+  * up for integration with RPC.
+  */
+ void _setHeaders(dart_html.HttpRequest xmlHttpRequest) {
+   if (_headers != null &amp;&amp; _headers.length &gt; 0) {
+     for (String header in _headers.keys) {
+       try {
+         xmlHttpRequest.setRequestHeader(header, _headers[header]);
+       } on Exception catch (e) {
+         throw new Exception(e.toString());
+       }
+     }
+   } else {
+     xmlHttpRequest.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
+   }
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="DELETE">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_http/Method.html">Method</a>         <strong>DELETE</strong> <a class="anchor-link"
+            href="#DELETE"
+            title="Permalink to RequestBuilder.DELETE">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the HTTP DELETE method should be used.</p>
+<pre class="source">
+static final Method DELETE = new Method("DELETE")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="GET">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_http/Method.html">Method</a>         <strong>GET</strong> <a class="anchor-link"
+            href="#GET"
+            title="Permalink to RequestBuilder.GET">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the HTTP GET method should be used.</p>
+<pre class="source">
+static final Method GET = new Method("GET")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HEAD">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_http/Method.html">Method</a>         <strong>HEAD</strong> <a class="anchor-link"
+            href="#HEAD"
+            title="Permalink to RequestBuilder.HEAD">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the HTTP HEAD method should be used.</p>
+<pre class="source">
+static final Method HEAD = new Method("HEAD")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="POST">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_http/Method.html">Method</a>         <strong>POST</strong> <a class="anchor-link"
+            href="#POST"
+            title="Permalink to RequestBuilder.POST">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the HTTP POST method should be used.</p>
+<pre class="source">
+static final Method POST = new Method("POST")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="PUT">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_http/Method.html">Method</a>         <strong>PUT</strong> <a class="anchor-link"
+            href="#PUT"
+            title="Permalink to RequestBuilder.PUT">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the HTTP PUT method should be used.</p>
+<pre class="source">
+static final Method PUT = new Method("PUT")
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="RequestBuilder">
+<button class="show-code">Code</button>
+new <strong>RequestBuilder</strong>(String _httpMethod, String _url) <a class="anchor-link" href="#RequestBuilder"
+              title="Permalink to RequestBuilder.RequestBuilder">#</a></h4>
+<div class="doc">
+<p>Creates a builder using the parameters values for configuration.</p>
+<p>@param httpMethod HTTP method to use for the request
+@param url URL that has already has already been URL encoded. Please see</p>
+<pre><code>     {@link com.google.gwt.http.client.URL#encode(String)} and
+     {@link com.google.gwt.http.client.URL#encodePathSegment(String)} and
+     {@link com.google.gwt.http.client.URL#encodeQueryString(String)} for
+     how to do this.
+</code></pre>
+<p>@throws IllegalArgumentException if the httpMethod or URL are empty
+@throws NullPointerException if the httpMethod or the URL are null</p>
+<pre class="source">
+RequestBuilder(this._httpMethod, this._url) {
+
+ StringValidator.throwIfEmptyOrNull("httpMethod", _httpMethod);
+ StringValidator.throwIfEmptyOrNull("url", _url);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="RequestBuilder.fromMethod">
+<button class="show-code">Code</button>
+new <strong>RequestBuilder.fromMethod</strong>(<a href="../dart_web_toolkit_http/Method.html">Method</a> httpMethod, String url) <a class="anchor-link" href="#RequestBuilder.fromMethod"
+              title="Permalink to RequestBuilder.RequestBuilder.fromMethod">#</a></h4>
+<div class="doc">
+<p>Creates a builder using the parameters for configuration.</p>
+<p>@param httpMethod HTTP method to use for the request
+@param url URL that has already has already been encoded. Please see</p>
+<pre><code>     {@link com.google.gwt.http.client.URL#encode(String)},
+     {@link com.google.gwt.http.client.URL#encodePathSegment(String)} and
+     {@link com.google.gwt.http.client.URL#encodeQueryString(String)} for
+     how to do this.
+</code></pre>
+<p>@throws IllegalArgumentException if the httpMethod or URL are empty
+@throws NullPointerException if the httpMethod or the URL are null</p>
+<pre class="source">
+RequestBuilder.fromMethod(Method httpMethod, String url) : this((httpMethod == null) ? null : httpMethod.toString(), url);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getCallback">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_http/RequestCallback.html">RequestCallback</a> <strong>getCallback</strong>() <a class="anchor-link" href="#getCallback"
+              title="Permalink to RequestBuilder.getCallback">#</a></h4>
+<div class="doc">
+<p>Returns the callback previously set by
+{@link #setCallback(RequestCallback)}, or &lt;code>null&lt;/code> if no callback
+was set.</p>
+<pre class="source">
+RequestCallback getCallback() {
+ return _callback;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getHeader">
+<button class="show-code">Code</button>
+String <strong>getHeader</strong>(String header) <a class="anchor-link" href="#getHeader"
+              title="Permalink to RequestBuilder.getHeader">#</a></h4>
+<div class="doc">
+<p>Returns the value of a header previous set by
+{@link #setHeader(String, String)}, or &lt;code>null&lt;/code> if no such header
+was set.</p>
+<p>@param header the name of the header</p>
+<pre class="source">
+String getHeader(String header) {
+ if (_headers == null) {
+   return null;
+ }
+ return _headers[header];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getHTTPMethod">
+<button class="show-code">Code</button>
+String <strong>getHTTPMethod</strong>() <a class="anchor-link" href="#getHTTPMethod"
+              title="Permalink to RequestBuilder.getHTTPMethod">#</a></h4>
+<div class="doc">
+<p>Returns the HTTP method specified in the constructor.</p>
+<pre class="source">
+String getHTTPMethod() {
+ return _httpMethod;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPassword">
+<button class="show-code">Code</button>
+String <strong>getPassword</strong>() <a class="anchor-link" href="#getPassword"
+              title="Permalink to RequestBuilder.getPassword">#</a></h4>
+<div class="doc">
+<p>Returns the password previously set by {@link #setPassword(String)}, or
+&lt;code>null&lt;/code> if no password was set.</p>
+<pre class="source">
+String getPassword() {
+ return _password;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRequestData">
+<button class="show-code">Code</button>
+String <strong>getRequestData</strong>() <a class="anchor-link" href="#getRequestData"
+              title="Permalink to RequestBuilder.getRequestData">#</a></h4>
+<div class="doc">
+<p>Returns the requestData previously set by {@link #setRequestData(String)},
+or &lt;code>null&lt;/code> if no requestData was set.</p>
+<pre class="source">
+String getRequestData() {
+ return _requestData;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTimeoutMillis">
+<button class="show-code">Code</button>
+int <strong>getTimeoutMillis</strong>() <a class="anchor-link" href="#getTimeoutMillis"
+              title="Permalink to RequestBuilder.getTimeoutMillis">#</a></h4>
+<div class="doc">
+<p>Returns the timeoutMillis previously set by {@link #setTimeoutMillis(int)},
+or &lt;code>0&lt;/code> if no timeoutMillis was set.</p>
+<pre class="source">
+int getTimeoutMillis() {
+ return _timeoutMillis;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getUrl">
+<button class="show-code">Code</button>
+String <strong>getUrl</strong>() <a class="anchor-link" href="#getUrl"
+              title="Permalink to RequestBuilder.getUrl">#</a></h4>
+<div class="doc">
+<p>Returns the HTTP URL specified in the constructor.</p>
+<pre class="source">
+String getUrl() {
+ return _url;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getUser">
+<button class="show-code">Code</button>
+String <strong>getUser</strong>() <a class="anchor-link" href="#getUser"
+              title="Permalink to RequestBuilder.getUser">#</a></h4>
+<div class="doc">
+<p>Returns the user previously set by {@link #setUser(String)}, or
+&lt;code>null&lt;/code> if no user was set.</p>
+<pre class="source">
+String getUser() {
+ return _user;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="send">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_http/Request.html">Request</a> <strong>send</strong>() <a class="anchor-link" href="#send"
+              title="Permalink to RequestBuilder.send">#</a></h4>
+<div class="doc">
+<p>Sends an HTTP request based on the current builder configuration. If no
+request headers have been set, the header "Content-Type" will be used with
+a value of "text/plain; charset=utf-8". You must call
+{@link #setRequestData(String)} and {@link #setCallback(RequestCallback)}
+before calling this method.</p>
+<p>@return a {@link Request} object that can be used to track the request
+@throws RequestException if the call fails to initiate
+@throws NullPointerException if a request callback has not been set</p>
+<pre class="source">
+Request send() {
+ StringValidator.throwIfNull("callback", _callback);
+ return _doSend(_requestData, _callback);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sendRequest">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_http/Request.html">Request</a> <strong>sendRequest</strong>(String requestData, <a href="../dart_web_toolkit_http/RequestCallback.html">RequestCallback</a> callback) <a class="anchor-link" href="#sendRequest"
+              title="Permalink to RequestBuilder.sendRequest">#</a></h4>
+<div class="doc">
+<p>Sends an HTTP request based on the current builder configuration with the
+specified data and callback. If no request headers have been set, the
+header "Content-Type" will be used with a value of "text/plain;
+charset=utf-8". This method does not cache &lt;code>requestData&lt;/code> or
+&lt;code>callback&lt;/code>.</p>
+<p>@param requestData the data to send as part of the request
+@param callback the response handler to be notified when the request fails</p>
+<pre><code>     or completes
+</code></pre>
+<p>@return a {@link Request} object that can be used to track the request
+@throws NullPointerException if &lt;code>callback&lt;/code> &lt;code>null&lt;/code></p>
+<pre class="source">
+Request sendRequest(String requestData, RequestCallback callback) {
+ StringValidator.throwIfNull("callback", callback);
+ return _doSend(requestData, callback);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setCallback">
+<button class="show-code">Code</button>
+void <strong>setCallback</strong>(<a href="../dart_web_toolkit_http/RequestCallback.html">RequestCallback</a> callback) <a class="anchor-link" href="#setCallback"
+              title="Permalink to RequestBuilder.setCallback">#</a></h4>
+<div class="doc">
+<p>Sets the response handler for this request. This method &lt;b>must&lt;/b> be
+called before calling {@link #send()}.</p>
+<p>@param callback the response handler to be notified when the request fails</p>
+<pre><code>     or completes
+</code></pre>
+<p>@throws NullPointerException if &lt;code>callback&lt;/code> is &lt;code>null&lt;/code></p>
+<pre class="source">
+void setCallback(RequestCallback callback) {
+ StringValidator.throwIfNull("callback", callback);
+
+ this._callback = callback;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setHeader">
+<button class="show-code">Code</button>
+void <strong>setHeader</strong>(String header, String value) <a class="anchor-link" href="#setHeader"
+              title="Permalink to RequestBuilder.setHeader">#</a></h4>
+<div class="doc">
+<p>Sets a request header with the given name and value. If a header with the
+specified name has already been set then the new value overwrites the
+current value.</p>
+<p>@param header the name of the header
+@param value the value of the header</p>
+<p>@throws NullPointerException if header or value are null
+@throws IllegalArgumentException if header or value are the empty string</p>
+<pre class="source">
+void setHeader(String header, String value) {
+ StringValidator.throwIfEmptyOrNull("header", header);
+ StringValidator.throwIfEmptyOrNull("value", value);
+
+ if (_headers == null) {
+   _headers = new Map&lt;String, String&gt;();
+ }
+
+ _headers[header] = value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPassword">
+<button class="show-code">Code</button>
+void <strong>setPassword</strong>(String password) <a class="anchor-link" href="#setPassword"
+              title="Permalink to RequestBuilder.setPassword">#</a></h4>
+<div class="doc">
+<p>Sets the password to use in the request URL. This is ignored if there is no
+user specified.</p>
+<p>@param password password to use in the request URL</p>
+<p>@throws IllegalArgumentException if the password is empty
+@throws NullPointerException if the password is null</p>
+<pre class="source">
+void setPassword(String password) {
+ StringValidator.throwIfEmptyOrNull("password", password);
+
+ this._password = password;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setRequestData">
+<button class="show-code">Code</button>
+void <strong>setRequestData</strong>(String requestData) <a class="anchor-link" href="#setRequestData"
+              title="Permalink to RequestBuilder.setRequestData">#</a></h4>
+<div class="doc">
+<p>Sets the data to send as part of this request. This method &lt;b>must&lt;/b> be
+called before calling {@link #send()}.</p>
+<p>@param requestData the data to send as part of the request</p>
+<pre class="source">
+void setRequestData(String requestData) {
+ this._requestData = requestData;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTimeoutMillis">
+<button class="show-code">Code</button>
+void <strong>setTimeoutMillis</strong>(int timeoutMillis) <a class="anchor-link" href="#setTimeoutMillis"
+              title="Permalink to RequestBuilder.setTimeoutMillis">#</a></h4>
+<div class="doc">
+<p>Sets the number of milliseconds to wait for a request to complete. Should
+the request timeout, the
+{@link com.google.gwt.http.client.RequestCallback#onError(Request, Throwable)}
+method will be called on the callback instance given to the
+{@link com.google.gwt.http.client.RequestBuilder#sendRequest(String, RequestCallback)}
+method. The callback method will receive an instance of the
+{@link com.google.gwt.http.client.RequestTimeoutException} class as its
+{@link java.lang.Throwable} argument.</p>
+<p>@param timeoutMillis number of milliseconds to wait before canceling the</p>
+<pre><code>     request, a value of zero disables timeouts
+</code></pre>
+<p>@throws IllegalArgumentException if the timeout value is negative</p>
+<pre class="source">
+void setTimeoutMillis(int timeoutMillis) {
+ if (timeoutMillis &lt; 0) {
+   throw new Exception("Timeouts cannot be negative");
+ }
+
+ this._timeoutMillis = timeoutMillis;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setUser">
+<button class="show-code">Code</button>
+void <strong>setUser</strong>(String user) <a class="anchor-link" href="#setUser"
+              title="Permalink to RequestBuilder.setUser">#</a></h4>
+<div class="doc">
+<p>Sets the user name that will be used in the request URL.</p>
+<p>@param user user name to use
+@throws IllegalArgumentException if the user is empty
+@throws NullPointerException if the user is null</p>
+<pre class="source">
+void setUser(String user) {
+ StringValidator.throwIfEmptyOrNull("user", user);
+
+ this._user = user;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.699</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

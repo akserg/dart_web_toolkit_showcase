@@ -1,0 +1,589 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>UriUtils class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="UriUtils">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/UriUtils.html">UriUtils</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>UriUtils</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Utility class containing static methods for validating and sanitizing URIs.</p>
+<pre class="source">
+class UriUtils {
+//  /**
+//   * Characters that don't need %-escaping (minus letters and digits), according
+//   * to ECMAScript 5th edition for the {@code encodeURI} function.
+//   */
+//  static final String DONT_NEED_ENCODING = ";/?:@&amp;=+\$,-_.!~*'()#[]"; // could be used in IPv6 addresses
+//
+//  // used in conditional code in encode()
+//  static final RegExp ESCAPED_LBRACKET_RE = GWT.isScript() ? RegExp.compile("%5B", "g") : null;
+//  static final RegExp ESCAPED_RBRACKET_RE = GWT.isScript() ? RegExp.compile("%5D", "g") : null;
+
+ /**
+  * Encodes the URL.
+  * &lt;p&gt;
+  * In client code, this method delegates to {@link URL#encode(String)} and
+  * then unescapes brackets, as they might be used for IPv6 addresses.
+  *
+  * @param uri the URL to encode
+  * @return the %-escaped URL
+  */
+ static String encode(String uri) {
+//    uri = URL.encode(uri);
+//    // Follow the same approach as SafeHtmlUtils.htmlEscape
+//    if (uri.indexOf("%5B") != -1) {
+//      uri = ESCAPED_LBRACKET_RE.replace(uri, "[");
+//    }
+//    if (uri.indexOf("%5D") != -1) {
+//      uri = ESCAPED_RBRACKET_RE.replace(uri, "]");
+//    }
+//    return uri;
+//  } else {
+//    StringBuilder sb = new StringBuilder();
+//    byte[] utf8bytes;
+//    try {
+//      utf8bytes = uri.getBytes("UTF-8");
+//    } catch (UnsupportedEncodingException e) {
+//      // UTF-8 is guaranteed to be implemented, this code won't ever run.
+//      return null;
+//    }
+//    for (byte b : utf8bytes) {
+//      int c = b &amp; 0xFF;
+//      // This works because characters that don't need encoding are all
+//      // expressed as a single UTF-8 byte
+//      if (('a' &lt;= c &amp;&amp; c &lt;= 'z') || ('A' &lt;= c &amp;&amp; c &lt;= 'Z') || ('0' &lt;= c &amp;&amp; c &lt;= '9')
+//          || DONT_NEED_ENCODING.indexOf(c) != -1) {
+//        sb.append((char) c);
+//      } else {
+//        String hexByte = Integer.toHexString(c).toUpperCase();
+//        if (hexByte.length() == 1) {
+//          hexByte = "0" + hexByte;
+//        }
+//        sb.append('%').append(hexByte);
+//      }
+//    }
+//    return sb.toString();
+   return encodeUri(uri);
+ }
+
+ /**
+  * Encodes the URL, preserving existing %-escapes.
+  *
+  * @param uri the URL to encode
+  * @return the %-escaped URL
+  */
+ static String encodeAllowEscapes(String uri) {
+//    StringBuilder escaped = new StringBuilder();
+//
+//    bool firstSegment = true;
+//    for (String segment : uri.split("%", -1)) {
+//      if (firstSegment) {
+//        /*
+//         * The first segment is never part of a percent-escape, so we always
+//         * escape it. Note that if the input starts with a percent, we will get
+//         * an empty segment before that.
+//         */
+//        firstSegment = false;
+//        escaped.append(encode(segment));
+//        continue;
+//      }
+//
+//      if (segment.length() &gt;= 2 &amp;&amp; segment.substring(0, 2).matches("[0-9a-fA-F]{2}")) {
+//        // Append the escape without encoding.
+//        escaped.append("%").append(segment.substring(0, 2));
+//
+//        // Append the rest of the segment, escaped.
+//        escaped.append(encode(segment.substring(2)));
+//      } else {
+//        // The segment did not start with an escape, so encode the whole
+//        // segment.
+//        escaped.append("%25").append(encode(segment));
+//      }
+//    }
+//    return escaped.toString();
+   return encodeUriComponent(uri);
+ }
+
+ /**
+  * Extracts the scheme of a URI.
+  *
+  * @param uri the URI to extract the scheme from
+  * @return the URI's scheme, or {@code null} if the URI does not have one
+  */
+ static String extractScheme(String uri) {
+//    int colonPos = uri.indexOf(':');
+//    if (colonPos &lt; 0) {
+//      return null;
+//    }
+//    String scheme = uri.substring(0, colonPos);
+//    if (scheme.indexOf('/') &gt;= 0 || scheme.indexOf('#') &gt;= 0) {
+//      /*
+//       *  The URI's prefix up to the first ':' contains other URI special
+//       *  chars, and won't be interpreted as a scheme.
+//       *
+//       *  TODO(xtof): Consider basing this on URL#isValidProtocol or similar;
+//       *  however I'm worried that being too strict here will effectively
+//       *   allow dangerous schemes accepted in loosely parsing browsers.
+//       */
+//      return null;
+//    }
+//    return scheme;
+   Uri u = new Uri.fromString(uri);
+   return u.scheme;
+ }
+
+ /**
+  * Returns a {@link SafeUri} constructed from a value that is fully under
+  * the control of the program, e.g., a constant.
+  *
+  * &lt;p&gt;
+  * The string is not sanitized and no checks are performed.  The assumption
+  * that the resulting value adheres to the {@link SafeUri} type contract
+  * is entirely based on the argument being fully under program control and
+  * not being derived from a program input.
+  *
+  * &lt;p&gt;
+  * &lt;strong&gt;Convention of use:&lt;/strong&gt; This method must only be invoked on
+  * values that are fully under the program's control, such as string literals.
+  *
+  * @param s the input String
+  * @return a SafeUri instance
+  */
+ static SafeUri fromSafeConstant(String s) {
+   return new SafeUriString(s);
+ }
+
+ /**
+  * Returns a {@link SafeUri} obtained by sanitizing the provided string.
+  *
+  * &lt;p&gt;
+  * The input string is sanitized using {@link #sanitizeUri(String)}.
+  *
+  * @param s the input String
+  * @return a SafeUri instance
+  */
+ static SafeUri fromString(String s) {
+   return new SafeUriString(sanitizeUri(s));
+ }
+
+ /**
+  * Returns a {@link SafeUri} constructed from a trusted string, i.e., without
+  * sanitizing the string. No checks are performed. The calling code should be
+  * carefully reviewed to ensure the argument meets the SafeUri contract.
+  *
+  * @param s the input String
+  * @return a SafeUri instance
+  */
+ static SafeUri fromTrustedString(String s) {
+//    SafeUriHostedModeUtils.maybeCheckValidUri(s);
+   return new SafeUriString(s);
+ }
+
+ /**
+  * Determines if a {@link String} is safe to use as the value of a URI-valued
+  * HTML attribute such as {@code src} or {@code href}.
+  *
+  * &lt;p&gt;
+  * In this context, a URI is safe if it can be established that using it as
+  * the value of a URI-valued HTML attribute such as {@code src} or {@code
+  * href} cannot result in script execution. Specifically, this method deems a
+  * URI safe if it either does not have a scheme, or its scheme is one of
+  * {@code http, https, ftp, mailto}.
+  *
+  * @param uri the URI to validate
+  * @return {@code true} if {@code uri} is safe in the above sense; {@code
+  *         false} otherwise
+  */
+ static bool isSafeUri(String uri) {
+   String scheme = extractScheme(uri);
+   if (scheme == null) {
+     return true;
+   }
+   /*
+    * Special care is be taken with case-insensitive 'i' in the Turkish locale.
+    * i -&gt; to upper in Turkish locale -&gt; Д°
+    * I -&gt; to lower in Turkish locale -&gt; Д±
+    * For this reason there are two checks for mailto: "mailto" and "MAILTO"
+    * For details, see: http://www.i18nguy.com/unicode/turkish-i18n.html
+    */
+   String schemeLc = scheme.toLowerCase();
+   return ("http" == schemeLc
+       || "https" == schemeLc
+       || "ftp" == schemeLc
+       || "mailto" == schemeLc
+       || "MAILTO" == scheme.toUpperCase());
+ }
+
+ /**
+  * Sanitizes a URI.
+  *
+  * &lt;p&gt;
+  * This method returns the URI provided if it is safe to use as the the value
+  * of a URI-valued HTML attribute according to {@link #isSafeUri}, or the URI
+  * "{@code #}" otherwise.
+  *
+  * @param uri the URI to sanitize
+  * @return a sanitized String
+  */
+ static String sanitizeUri(String uri) {
+   if (isSafeUri(uri)) {
+     return encodeAllowEscapes(uri);
+   } else {
+     return "#";
+   }
+ }
+
+ /**
+  * Returns a {@link SafeUri} constructed from an untrusted string but without
+  * sanitizing it.
+  *
+  * &lt;strong&gt;Despite this method creating a SafeUri instance, no checks are
+  * performed, so the returned SafeUri is absolutely NOT guaranteed to be
+  * safe!&lt;/strong&gt;
+  *
+  * @param s the input String
+  * @return a SafeUri instance
+  * @deprecated This method is intended only for use in APIs that use
+  *             {@link SafeUri} to represent URIs, but for backwards
+  *             compatibility have methods that accept URI parameters as plain
+  *             strings.
+  */
+ static SafeUri unsafeCastFromUntrustedString(String s) {
+   return new SafeUriString(s);
+ }
+
+ // prevent instantiation
+ UriUtils() ;
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="encode">
+<button class="show-code">Code</button>
+String <strong>encode</strong>(String uri) <a class="anchor-link" href="#encode"
+              title="Permalink to UriUtils.encode">#</a></h4>
+<div class="doc">
+<p>Encodes the URL.
+&lt;p>
+In client code, this method delegates to {@link URL#encode(String)} and
+then unescapes brackets, as they might be used for IPv6 addresses.</p>
+<p>@param uri the URL to encode
+@return the %-escaped URL</p>
+<pre class="source">
+static String encode(String uri) {
+//    uri = URL.encode(uri);
+//    // Follow the same approach as SafeHtmlUtils.htmlEscape
+//    if (uri.indexOf("%5B") != -1) {
+//      uri = ESCAPED_LBRACKET_RE.replace(uri, "[");
+//    }
+//    if (uri.indexOf("%5D") != -1) {
+//      uri = ESCAPED_RBRACKET_RE.replace(uri, "]");
+//    }
+//    return uri;
+//  } else {
+//    StringBuilder sb = new StringBuilder();
+//    byte[] utf8bytes;
+//    try {
+//      utf8bytes = uri.getBytes("UTF-8");
+//    } catch (UnsupportedEncodingException e) {
+//      // UTF-8 is guaranteed to be implemented, this code won't ever run.
+//      return null;
+//    }
+//    for (byte b : utf8bytes) {
+//      int c = b &amp; 0xFF;
+//      // This works because characters that don't need encoding are all
+//      // expressed as a single UTF-8 byte
+//      if (('a' &lt;= c &amp;&amp; c &lt;= 'z') || ('A' &lt;= c &amp;&amp; c &lt;= 'Z') || ('0' &lt;= c &amp;&amp; c &lt;= '9')
+//          || DONT_NEED_ENCODING.indexOf(c) != -1) {
+//        sb.append((char) c);
+//      } else {
+//        String hexByte = Integer.toHexString(c).toUpperCase();
+//        if (hexByte.length() == 1) {
+//          hexByte = "0" + hexByte;
+//        }
+//        sb.append('%').append(hexByte);
+//      }
+//    }
+//    return sb.toString();
+ return encodeUri(uri);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="encodeAllowEscapes">
+<button class="show-code">Code</button>
+String <strong>encodeAllowEscapes</strong>(String uri) <a class="anchor-link" href="#encodeAllowEscapes"
+              title="Permalink to UriUtils.encodeAllowEscapes">#</a></h4>
+<div class="doc">
+<p>Encodes the URL, preserving existing %-escapes.</p>
+<p>@param uri the URL to encode
+@return the %-escaped URL</p>
+<pre class="source">
+static String encodeAllowEscapes(String uri) {
+//    StringBuilder escaped = new StringBuilder();
+//
+//    bool firstSegment = true;
+//    for (String segment : uri.split("%", -1)) {
+//      if (firstSegment) {
+//        /*
+//         * The first segment is never part of a percent-escape, so we always
+//         * escape it. Note that if the input starts with a percent, we will get
+//         * an empty segment before that.
+//         */
+//        firstSegment = false;
+//        escaped.append(encode(segment));
+//        continue;
+//      }
+//
+//      if (segment.length() &gt;= 2 &amp;&amp; segment.substring(0, 2).matches("[0-9a-fA-F]{2}")) {
+//        // Append the escape without encoding.
+//        escaped.append("%").append(segment.substring(0, 2));
+//
+//        // Append the rest of the segment, escaped.
+//        escaped.append(encode(segment.substring(2)));
+//      } else {
+//        // The segment did not start with an escape, so encode the whole
+//        // segment.
+//        escaped.append("%25").append(encode(segment));
+//      }
+//    }
+//    return escaped.toString();
+ return encodeUriComponent(uri);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="extractScheme">
+<button class="show-code">Code</button>
+String <strong>extractScheme</strong>(String uri) <a class="anchor-link" href="#extractScheme"
+              title="Permalink to UriUtils.extractScheme">#</a></h4>
+<div class="doc">
+<p>Extracts the scheme of a URI.</p>
+<p>@param uri the URI to extract the scheme from
+@return the URI's scheme, or {@code null} if the URI does not have one</p>
+<pre class="source">
+static String extractScheme(String uri) {
+//    int colonPos = uri.indexOf(':');
+//    if (colonPos &lt; 0) {
+//      return null;
+//    }
+//    String scheme = uri.substring(0, colonPos);
+//    if (scheme.indexOf('/') &gt;= 0 || scheme.indexOf('#') &gt;= 0) {
+//      /*
+//       *  The URI's prefix up to the first ':' contains other URI special
+//       *  chars, and won't be interpreted as a scheme.
+//       *
+//       *  TODO(xtof): Consider basing this on URL#isValidProtocol or similar;
+//       *  however I'm worried that being too strict here will effectively
+//       *   allow dangerous schemes accepted in loosely parsing browsers.
+//       */
+//      return null;
+//    }
+//    return scheme;
+ Uri u = new Uri.fromString(uri);
+ return u.scheme;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fromSafeConstant">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> <strong>fromSafeConstant</strong>(String s) <a class="anchor-link" href="#fromSafeConstant"
+              title="Permalink to UriUtils.fromSafeConstant">#</a></h4>
+<div class="doc">
+<p>Returns a {@link SafeUri} constructed from a value that is fully under
+the control of the program, e.g., a constant.</p><p>
+The string is not sanitized and no checks are performed.  The assumption
+that the resulting value adheres to the {@link SafeUri} type contract
+is entirely based on the argument being fully under program control and
+not being derived from a program input.<p>
+<strong>Convention of use:</strong> This method must only be invoked on
+values that are fully under the program's control, such as string literals.
+<p>@param s the input String
+@return a SafeUri instance</p>
+<pre class="source">
+static SafeUri fromSafeConstant(String s) {
+ return new SafeUriString(s);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fromString">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> <strong>fromString</strong>(String s) <a class="anchor-link" href="#fromString"
+              title="Permalink to UriUtils.fromString">#</a></h4>
+<div class="doc">
+<p>Returns a {@link SafeUri} obtained by sanitizing the provided string.</p><p>
+The input string is sanitized using {@link #sanitizeUri(String)}.
+<p>@param s the input String
+@return a SafeUri instance</p>
+<pre class="source">
+static SafeUri fromString(String s) {
+ return new SafeUriString(sanitizeUri(s));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fromTrustedString">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> <strong>fromTrustedString</strong>(String s) <a class="anchor-link" href="#fromTrustedString"
+              title="Permalink to UriUtils.fromTrustedString">#</a></h4>
+<div class="doc">
+<p>Returns a {@link SafeUri} constructed from a trusted string, i.e., without
+sanitizing the string. No checks are performed. The calling code should be
+carefully reviewed to ensure the argument meets the SafeUri contract.</p>
+<p>@param s the input String
+@return a SafeUri instance</p>
+<pre class="source">
+static SafeUri fromTrustedString(String s) {
+//    SafeUriHostedModeUtils.maybeCheckValidUri(s);
+ return new SafeUriString(s);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isSafeUri">
+<button class="show-code">Code</button>
+bool <strong>isSafeUri</strong>(String uri) <a class="anchor-link" href="#isSafeUri"
+              title="Permalink to UriUtils.isSafeUri">#</a></h4>
+<div class="doc">
+<p>Determines if a {@link String} is safe to use as the value of a URI-valued
+HTML attribute such as {@code src} or {@code href}.</p><p>
+In this context, a URI is safe if it can be established that using it as
+the value of a URI-valued HTML attribute such as {@code src} or {@code
+href} cannot result in script execution. Specifically, this method deems a
+URI safe if it either does not have a scheme, or its scheme is one of
+{@code http, https, ftp, mailto}.
+<p>@param uri the URI to validate
+@return {@code true} if {@code uri} is safe in the above sense; {@code</p>
+<pre><code>    false} otherwise
+</code></pre>
+<pre class="source">
+static bool isSafeUri(String uri) {
+ String scheme = extractScheme(uri);
+ if (scheme == null) {
+   return true;
+ }
+ /*
+  * Special care is be taken with case-insensitive 'i' in the Turkish locale.
+  * i -&gt; to upper in Turkish locale -&gt; Д°
+  * I -&gt; to lower in Turkish locale -&gt; Д±
+  * For this reason there are two checks for mailto: "mailto" and "MAILTO"
+  * For details, see: http://www.i18nguy.com/unicode/turkish-i18n.html
+  */
+ String schemeLc = scheme.toLowerCase();
+ return ("http" == schemeLc
+     || "https" == schemeLc
+     || "ftp" == schemeLc
+     || "mailto" == schemeLc
+     || "MAILTO" == scheme.toUpperCase());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sanitizeUri">
+<button class="show-code">Code</button>
+String <strong>sanitizeUri</strong>(String uri) <a class="anchor-link" href="#sanitizeUri"
+              title="Permalink to UriUtils.sanitizeUri">#</a></h4>
+<div class="doc">
+<p>Sanitizes a URI.</p><p>
+This method returns the URI provided if it is safe to use as the the value
+of a URI-valued HTML attribute according to {@link #isSafeUri}, or the URI
+"{@code #}" otherwise.
+<p>@param uri the URI to sanitize
+@return a sanitized String</p>
+<pre class="source">
+static String sanitizeUri(String uri) {
+ if (isSafeUri(uri)) {
+   return encodeAllowEscapes(uri);
+ } else {
+   return "#";
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="unsafeCastFromUntrustedString">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> <strong>unsafeCastFromUntrustedString</strong>(String s) <a class="anchor-link" href="#unsafeCastFromUntrustedString"
+              title="Permalink to UriUtils.unsafeCastFromUntrustedString">#</a></h4>
+<div class="doc">
+<p>Returns a {@link SafeUri} constructed from an untrusted string but without
+sanitizing it.</p><strong>Despite this method creating a SafeUri instance, no checks are
+performed, so the returned SafeUri is absolutely NOT guaranteed to be
+safe!</strong>
+<p>@param s the input String
+@return a SafeUri instance
+@deprecated This method is intended only for use in APIs that use</p>
+<pre><code>        {@link SafeUri} to represent URIs, but for backwards
+        compatibility have methods that accept URI parameters as plain
+        strings.
+</code></pre>
+<pre class="source">
+static SafeUri unsafeCastFromUntrustedString(String s) {
+ return new SafeUriString(s);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="UriUtils">
+<button class="show-code">Code</button>
+new <strong>UriUtils</strong>() <a class="anchor-link" href="#UriUtils"
+              title="Permalink to UriUtils.UriUtils">#</a></h4>
+<div class="doc">
+<pre class="source">
+UriUtils() ;
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.718</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

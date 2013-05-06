@@ -1,0 +1,135 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>RemoveIterator&lt;E&gt; abstract class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="RemoveIterator&amp;lt;E&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/RemoveIterator.html">RemoveIterator&lt;E&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>RemoveIterator&lt;E&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>An iterator over a collection supports remove elements.</p>
+<pre class="source">
+abstract class RemoveIterator&lt;E&gt; extends Iterator&lt;E&gt; {
+ /**
+  * Removes from the underlying collection the last element returned
+  * by this iterator (optional operation).  This method can be called
+  * only once per call to {@link #next}.  The behavior of an iterator
+  * is unspecified if the underlying collection is modified while the
+  * iteration is in progress in any way other than by calling this
+  * method.
+ *
+  * @throws UnsupportedOperationException if the {@code remove}
+  *         operation is not supported by this iterator
+ *
+  * @throws IllegalStateException if the {@code next} method has not
+  *         yet been called, or the {@code remove} method has already
+  *         been called after the last call to the {@code next}
+  *         method
+  */
+ void remove();
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_core/Iterator.html">Iterator&lt;E&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>RemoveIterator&lt;E&gt;</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/WidgetIterator.html">WidgetIterator</a></span></p>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="current">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_util/RemoveIterator.html">E</a>         <strong>current</strong> <a class="anchor-link"
+            href="#current"
+            title="Permalink to RemoveIterator&lt;E&gt;.current">#</a>
+        </h4>
+        <div class="inherited-from">inherited from Iterator </div><div class="doc">
+<p>Returns the current element.</p>
+<p>Return <code>null</code> if the iterator has not yet been moved to the first
+element, or if the iterator has been moved after the last element of the
+<code>Iterable</code>.</p>
+<pre class="source">
+E get current;
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="moveNext">
+abstract bool <strong>moveNext</strong>() <a class="anchor-link" href="#moveNext"
+              title="Permalink to RemoveIterator&lt;E&gt;.moveNext">#</a></h4>
+<div class="inherited-from">inherited from Iterator </div><div class="doc">
+<p>Moves to the next element. Returns true if <code>current</code> contains the next
+element. Returns false, if no element was left.</p>
+<p>It is safe to invoke <code>moveNext</code> even when the iterator is already
+positioned after the last element. In this case <code>moveNext</code> has no effect.</p>
+</div>
+</div>
+<div class="method"><h4 id="remove">
+abstract void <strong>remove</strong>() <a class="anchor-link" href="#remove"
+              title="Permalink to RemoveIterator&lt;E&gt;.remove">#</a></h4>
+<div class="doc">
+<p>Removes from the underlying collection the last element returned
+by this iterator (optional operation).  This method can be called
+only once per call to {@link #next}.  The behavior of an iterator
+is unspecified if the underlying collection is modified while the
+iteration is in progress in any way other than by calling this
+method.</p>
+<p>@throws UnsupportedOperationException if the {@code remove}</p>
+<pre><code>    operation is not supported by this iterator
+</code></pre>
+<p>@throws IllegalStateException if the {@code next} method has not</p>
+<pre><code>    yet been called, or the {@code remove} method has already
+    been called after the last call to the {@code next}
+    method
+</code></pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.735</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

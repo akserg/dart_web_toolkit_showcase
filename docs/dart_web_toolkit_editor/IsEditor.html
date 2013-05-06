@@ -1,0 +1,90 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>IsEditor&lt;E&gt; abstract class / dart_web_toolkit_editor Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_editor" data-type="IsEditor&amp;lt;E&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_editor.html">dart_web_toolkit_editor</a> &rsaquo; <a href="../dart_web_toolkit_editor/IsEditor.html">IsEditor&lt;E&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>IsEditor&lt;E&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Extended by view objects that wish to participate in an Editor hierarchy, but
+that do not implement the {@link Editor} contract directly. The primary
+advantage of the IsEditor interface is that is allows composition of behavior
+without the need to implement delegate methods for every interface
+implemented by the common editor logic.
+&lt;p>
+For example, an editor Widget that supports adding and removing elements from
+a list might wish to re-use the provided
+{@link com.google.gwt.editor.client.adapters.ListEditor ListEditor}
+controller. It might be roughly built as:</p><pre>
+class MyListEditor extends Composite implements IsEditor&lt;ListEditor&lt;Foo, FooEditor>> {
+  private ListEditor&lt;Foo, FooEditor> controller = ListEditor.of(new FooEditorSource());
+  public ListEditor&lt;Foo, FooEditor> asEditor() {return controller;}
+  void onAddButtonClicked() { controller.getList().add(new Foo()); }
+  void onClearButtonClicked() { controller.getList().clear(); }
+}
+</pre>
+By implementing only the one <code>asEditor()</code> method, the
+<code>MyListEditor</code> type is able to incorporate the
+<code>ListEditor</code> behavior without needing to write delegate methods
+for every method in <code>ListEditor</code>.
+<p>
+It is legal for a type to implement both Editor and IsEditor. In this case,
+the Editor returned from {@link #asEditor()} will be a co-Editor of the
+IsEditor instance.
+<p>@param &lt;E> the type of Editor the view object will provide
+@see CompositeEditor</p>
+<pre class="source">
+abstract class IsEditor&lt;E&gt; {
+
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/CheckBox.html">CheckBox</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Hidden.html">Hidden</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Label.html">Label</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/SimpleCheckBox.html">SimpleCheckBox</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ToggleButton.html">ToggleButton</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ValueLabel.html">ValueLabel&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ValueListBox.html">ValueListBox&lt;T&gt;</a></span></p>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.083</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

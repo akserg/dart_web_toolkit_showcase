@@ -1,0 +1,92 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Command&lt;H&gt; abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="Command&amp;lt;H&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/Command.html">Command&lt;H&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Command&lt;H&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Encapsulates an action for later execution, often from a different context.</p>
+<p>The Command interface provides a layer of separation between the code
+specifying some behavior and the code invoking that behavior. This separation
+aids in creating reusable code. For example, a
+{@link com.google.gwt.user.client.ui.MenuItem} can have a Command associated
+with it that it executes when the menu item is chosen by the user.
+Importantly, the code that constructed the Command to be executed when the
+menu item is invoked knows nothing about the internals of the MenuItem class
+and vice-versa.</p>
+<p>The Command interface is often implemented with an anonymous inner class. For
+example,</p>
+<p>Command sayHello = new Command() {
+  public void execute() {</p>
+<pre><code>Window.alert("Hello");
+</code></pre>
+<p>  }
+};
+sayHello.execute();</p>
+<pre class="source">
+abstract class Command&lt;H&gt; {
+
+ /**
+  * Causes the Command to perform its encapsulated behavior.
+  */
+ void execute();
+}
+</pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="execute">
+abstract void <strong>execute</strong>() <a class="anchor-link" href="#execute"
+              title="Permalink to Command&lt;H&gt;.execute">#</a></h4>
+<div class="doc">
+<p>Causes the Command to perform its encapsulated behavior.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.615</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

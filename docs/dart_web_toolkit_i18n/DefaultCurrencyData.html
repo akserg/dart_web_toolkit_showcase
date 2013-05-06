@@ -1,0 +1,347 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DefaultCurrencyData class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="DefaultCurrencyData">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/DefaultCurrencyData.html">DefaultCurrencyData</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DefaultCurrencyData</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A default {@link CurrencyData} implementation, so new methods can be added
+to the interface without breaking implementors if a reasonable default is
+available.</p>
+<pre class="source">
+class DefaultCurrencyData implements CurrencyData {
+
+ final String currencyCode;
+ final String currencySymbol;
+ final int fractionDigits;
+
+ /**
+  * Create a default default {@link CurrencyData} instance, returning {@code
+  * false} for all {@code isFoo} methods and using the standard symbol for the
+  * portable symbol.
+  *
+  * @param currencyCode ISO 4217 currency code
+  * @param currencySymbol symbol to use for this currency
+  * @param fractionDigits default number of fraction digits
+  */
+ DefaultCurrencyData(this.currencyCode, this.currencySymbol, [this.fractionDigits = 2]);
+
+ String getCurrencyCode() {
+   return currencyCode;
+ }
+
+ String getCurrencySymbol() {
+   return currencySymbol;
+ }
+
+ int getDefaultFractionDigits() {
+   return fractionDigits;
+ }
+
+ String getPortableCurrencySymbol() {
+   return getCurrencySymbol();
+ }
+
+ String getSimpleCurrencySymbol() {
+   return getCurrencySymbol();
+ }
+
+ bool isDeprecated() {
+   return false;
+ }
+
+ bool isSpaceForced() {
+   return false;
+ }
+
+ bool isSpacingFixed() {
+   return false;
+ }
+
+ bool isSymbolPositionFixed() {
+   return false;
+ }
+
+ bool isSymbolPrefix() {
+   return false;
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/CurrencyDataImpl.html">CurrencyDataImpl</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="DefaultCurrencyData">
+<button class="show-code">Code</button>
+new <strong>DefaultCurrencyData</strong>(String currencyCode, String currencySymbol, [int fractionDigits = 2]) <a class="anchor-link" href="#DefaultCurrencyData"
+              title="Permalink to DefaultCurrencyData.DefaultCurrencyData">#</a></h4>
+<div class="doc">
+<p>Create a default default {@link CurrencyData} instance, returning {@code
+false} for all {@code isFoo} methods and using the standard symbol for the
+portable symbol.</p>
+<p>@param currencyCode ISO 4217 currency code
+@param currencySymbol symbol to use for this currency
+@param fractionDigits default number of fraction digits</p>
+<pre class="source">
+DefaultCurrencyData(this.currencyCode, this.currencySymbol, [this.fractionDigits = 2]);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="currencyCode">
+<button class="show-code">Code</button>
+final String         <strong>currencyCode</strong> <a class="anchor-link"
+            href="#currencyCode"
+            title="Permalink to DefaultCurrencyData.currencyCode">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final String currencyCode
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="currencySymbol">
+<button class="show-code">Code</button>
+final String         <strong>currencySymbol</strong> <a class="anchor-link"
+            href="#currencySymbol"
+            title="Permalink to DefaultCurrencyData.currencySymbol">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final String currencySymbol
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="fractionDigits">
+<button class="show-code">Code</button>
+final int         <strong>fractionDigits</strong> <a class="anchor-link"
+            href="#fractionDigits"
+            title="Permalink to DefaultCurrencyData.fractionDigits">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final int fractionDigits
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getCurrencyCode">
+<button class="show-code">Code</button>
+String <strong>getCurrencyCode</strong>() <a class="anchor-link" href="#getCurrencyCode"
+              title="Permalink to DefaultCurrencyData.getCurrencyCode">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the ISO4217 code for this currency.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+String getCurrencyCode() {
+ return currencyCode;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getCurrencySymbol">
+<button class="show-code">Code</button>
+String <strong>getCurrencySymbol</strong>() <a class="anchor-link" href="#getCurrencySymbol"
+              title="Permalink to DefaultCurrencyData.getCurrencySymbol">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the default symbol to use for this currency.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+String getCurrencySymbol() {
+ return currencySymbol;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDefaultFractionDigits">
+<button class="show-code">Code</button>
+int <strong>getDefaultFractionDigits</strong>() <a class="anchor-link" href="#getDefaultFractionDigits"
+              title="Permalink to DefaultCurrencyData.getDefaultFractionDigits">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the default number of decimal positions for this currency.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+int getDefaultFractionDigits() {
+ return fractionDigits;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPortableCurrencySymbol">
+<button class="show-code">Code</button>
+String <strong>getPortableCurrencySymbol</strong>() <a class="anchor-link" href="#getPortableCurrencySymbol"
+              title="Permalink to DefaultCurrencyData.getPortableCurrencySymbol">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the default symbol to use for this currency, intended to be
+recognizable in most locales.  If such a symbol is not available, it is
+acceptable to return the same value as {@link #getCurrencySymbol()}.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+String getPortableCurrencySymbol() {
+ return getCurrencySymbol();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSimpleCurrencySymbol">
+<button class="show-code">Code</button>
+String <strong>getSimpleCurrencySymbol</strong>() <a class="anchor-link" href="#getSimpleCurrencySymbol"
+              title="Permalink to DefaultCurrencyData.getSimpleCurrencySymbol">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the simplest symbol to use for this currency, which is not guaranteed
+to be unique -- for example, this might return "$" for both USD and CAD.  It
+is acceptable to return the same value as {@link #getCurrencySymbol()}.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+String getSimpleCurrencySymbol() {
+ return getCurrencySymbol();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isDeprecated">
+<button class="show-code">Code</button>
+bool <strong>isDeprecated</strong>() <a class="anchor-link" href="#isDeprecated"
+              title="Permalink to DefaultCurrencyData.isDeprecated">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if this currency is deprecated and should not be returned by
+default in currency lists.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+bool isDeprecated() {
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isSpaceForced">
+<button class="show-code">Code</button>
+bool <strong>isSpaceForced</strong>() <a class="anchor-link" href="#isSpaceForced"
+              title="Permalink to DefaultCurrencyData.isSpaceForced">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if there should always be a space between the currency symbol
+and the number, false if there should be no space.  Ignored unless
+{@link #isSpacingFixed()} returns true.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+bool isSpaceForced() {
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isSpacingFixed">
+<button class="show-code">Code</button>
+bool <strong>isSpacingFixed</strong>() <a class="anchor-link" href="#isSpacingFixed"
+              title="Permalink to DefaultCurrencyData.isSpacingFixed">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if the spacing between the currency symbol and the number is
+fixed regardless of locale defaults.  In this case, spacing will be
+determined by {@link #isSpaceForced()}.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+bool isSpacingFixed() {
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isSymbolPositionFixed">
+<button class="show-code">Code</button>
+bool <strong>isSymbolPositionFixed</strong>() <a class="anchor-link" href="#isSymbolPositionFixed"
+              title="Permalink to DefaultCurrencyData.isSymbolPositionFixed">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if the position of the currency symbol relative to the number
+is fixed regardless of locale defaults.  In this case, the position will be
+determined by {@link #isSymbolPrefix()}.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+bool isSymbolPositionFixed() {
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isSymbolPrefix">
+<button class="show-code">Code</button>
+bool <strong>isSymbolPrefix</strong>() <a class="anchor-link" href="#isSymbolPrefix"
+              title="Permalink to DefaultCurrencyData.isSymbolPrefix">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if the currency symbol should go before the number, false if
+it should go after the number.  This is ignored unless
+{@link #isSymbolPositionFixed()} is true.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> </div></div>
+<pre class="source">
+bool isSymbolPrefix() {
+ return false;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.084</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

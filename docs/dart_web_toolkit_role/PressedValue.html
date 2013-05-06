@@ -1,0 +1,220 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PressedValue&lt;int&gt; class / dart_web_toolkit_role Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_role" data-type="PressedValue&amp;lt;int&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_role.html">dart_web_toolkit_role</a> &rsaquo; <a href="../dart_web_toolkit_role/PressedValue.html">PressedValue&lt;int&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PressedValue&lt;int&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>State enum for 'aria-pressed' values.</p>
+<pre class="source">
+class PressedValue&lt;int&gt; extends Enum&lt;int&gt; implements AriaAttributeType {
+
+ //, FALSE, MIXED, UNDEFINED;
+ static const PressedValue TRUE = const PressedValue(0);
+ static const PressedValue FALSE = const PressedValue(1);
+ static const PressedValue MIXED = const PressedValue(2);
+ static const PressedValue UNDEFINED = const PressedValue(3);
+
+ const PressedValue(int type) : super (type);
+
+ /**
+  * Gets the enum constant corresponding to {@code value} for the token type
+  * PressedValue.
+  *
+  * @param value Boolean value for which we want to get the corresponding enum constant.
+  */
+ static PressedValue of(bool value) {
+   return value ? TRUE : FALSE;
+ }
+
+ String getAriaValue() {
+   switch (this) {
+       case TRUE:
+         return "true";
+       case FALSE:
+         return "false";
+       case MIXED:
+         return "mixed";
+       case UNDEFINED:
+         return "undefined";
+   }
+   return null; // not reachable
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Enum.html">Enum&lt;int&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>PressedValue&lt;int&gt;</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/AriaAttributeType.html">AriaAttributeType</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="FALSE">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_role/PressedValue.html">PressedValue</a>         <strong>FALSE</strong> <a class="anchor-link"
+            href="#FALSE"
+            title="Permalink to PressedValue&lt;int&gt;.FALSE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PressedValue FALSE = const PressedValue(1)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MIXED">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_role/PressedValue.html">PressedValue</a>         <strong>MIXED</strong> <a class="anchor-link"
+            href="#MIXED"
+            title="Permalink to PressedValue&lt;int&gt;.MIXED">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PressedValue MIXED = const PressedValue(2)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TRUE">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_role/PressedValue.html">PressedValue</a>         <strong>TRUE</strong> <a class="anchor-link"
+            href="#TRUE"
+            title="Permalink to PressedValue&lt;int&gt;.TRUE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PressedValue TRUE = const PressedValue(0)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="UNDEFINED">
+<button class="show-code">Code</button>
+const <a href="../dart_web_toolkit_role/PressedValue.html">PressedValue</a>         <strong>UNDEFINED</strong> <a class="anchor-link"
+            href="#UNDEFINED"
+            title="Permalink to PressedValue&lt;int&gt;.UNDEFINED">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const PressedValue UNDEFINED = const PressedValue(3)
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="of">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_role/PressedValue.html">PressedValue</a> <strong>of</strong>(bool value) <a class="anchor-link" href="#of"
+              title="Permalink to PressedValue&lt;int&gt;.of">#</a></h4>
+<div class="doc">
+<p>Gets the enum constant corresponding to {@code value} for the token type
+PressedValue.</p>
+<p>@param value Boolean value for which we want to get the corresponding enum constant.</p>
+<pre class="source">
+static PressedValue of(bool value) {
+ return value ? TRUE : FALSE;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="PressedValue">
+<button class="show-code">Code</button>
+const <strong>PressedValue</strong>(<a href="../dart_web_toolkit_role/PressedValue.html">int</a> type) <a class="anchor-link" href="#PressedValue"
+              title="Permalink to PressedValue&lt;int&gt;.PressedValue">#</a></h4>
+<div class="doc">
+<pre class="source">
+const PressedValue(int type) : super (type);
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="value">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_role/PressedValue.html">T</a>         <strong>value</strong> <a class="anchor-link"
+            href="#value"
+            title="Permalink to PressedValue&lt;int&gt;.value">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_util/Enum.html">Enum</a> </div><div class="doc">
+<pre class="source">
+T get value =&gt; _value;
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getAriaValue">
+<button class="show-code">Code</button>
+String <strong>getAriaValue</strong>() <a class="anchor-link" href="#getAriaValue"
+              title="Permalink to PressedValue&lt;int&gt;.getAriaValue">#</a></h4>
+<div class="doc">
+<pre class="source">
+String getAriaValue() {
+ switch (this) {
+     case TRUE:
+       return "true";
+     case FALSE:
+       return "false";
+     case MIXED:
+       return "mixed";
+     case UNDEFINED:
+       return "undefined";
+ }
+ return null; // not reachable
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.545</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

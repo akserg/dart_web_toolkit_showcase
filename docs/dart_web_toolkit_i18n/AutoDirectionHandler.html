@@ -1,0 +1,391 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AutoDirectionHandler class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="AutoDirectionHandler">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/AutoDirectionHandler.html">AutoDirectionHandler</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AutoDirectionHandler</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Utility class for handling auto-direction adjustment.</p>
+<p>This class is useful for automatically adjusting the direction of an object
+that takes text input, while the text is being entered.</p>
+<pre class="source">
+class AutoDirectionHandler implements KeyUpHandler, HasDirectionEstimator {
+
+ /**
+  * Operates like {@link #addTo(AutoDirectionHandlerTarget, DirectionEstimator)}, but uses a
+  * default DirectionEstimator, {@link
+  * com.google.gwt.i18n.shared.WordCountDirectionEstimator} if {@code enabled},
+  * or else a null DirectionEstimator, which means disabling direction
+  * estimation.
+  *
+  * @param target Object whose direction should be automatically adjusted on
+  *     relevant events.
+  * @param enabled Whether the handler is enabled upon creation.
+  * @return AutoDirectionHandler An instance of AutoDirectionHandler for the
+  *     given object.
+  */
+ static AutoDirectionHandler addToDefault(AutoDirectionHandlerTarget target, [bool enabled = true]) {
+   return addTo(target, enabled ? WordCountDirectionEstimator.get() : null);
+ }
+
+ /**
+  * Adds auto-direction adjustment to a given object:
+  * - Creates an AutoDirectionHandler.
+  * - Initializes it with the given DirectionEstimator.
+  * - Adds it as an event handler for the relevant events on the given object.
+  * - Returns the AutoDirectionHandler, so its setAutoDir() method can be
+  * called when the object's text changes by means other than the handled
+  * events.
+  *
+  * @param target Object whose direction should be automatically adjusted on
+  *     relevant events.
+  * @param directionEstimator A DirectionEstimator object used for direction
+  *     estimation (use null to disable direction estimation).
+  * @return AutoDirectionHandler An instance of AutoDirectionHandler for the
+  *     given object.
+  */
+ static AutoDirectionHandler addTo(AutoDirectionHandlerTarget target, DirectionEstimator directionEstimator) {
+   AutoDirectionHandler autoDirHandler = new AutoDirectionHandler(target, directionEstimator);
+   return autoDirHandler;
+ }
+
+ /**
+  * A DirectionEstimator object used for direction estimation.
+  */
+ DirectionEstimator directionEstimator;
+
+ /**
+  * A HandlerRegistration object used to remove this handler.
+  */
+ HandlerRegistration handlerRegistration;
+
+ /**
+  * The object being handled.
+  */
+ AutoDirectionHandlerTarget target;
+
+ /**
+  * Private constructor. Instantiate using one of the addTo() methods.
+  *
+  * @param target Object whose direction should be automatically adjusted on
+  *     relevant events.
+  * @param directionEstimator A DirectionEstimator object used for direction
+  *     estimation.
+  */
+ AutoDirectionHandler(AutoDirectionHandlerTarget target, DirectionEstimator
+     directionEstimator) {
+   this.target = target;
+   this.handlerRegistration = null;
+   setDirectionEstimator(directionEstimator);
+ }
+
+ /**
+  * Returns the DirectionEstimator object.
+  */
+ DirectionEstimator getDirectionEstimator() {
+   return directionEstimator;
+ }
+
+ /**
+  * Automatically adjusts hasDirection's direction on KeyUpEvent events.
+  * Implementation of KeyUpHandler interface method.
+  */
+ void onKeyUp(KeyUpEvent event) {
+   refreshDirection();
+ }
+
+ /**
+  * Adjusts target's direction according to the estimated direction of the text
+  * it supplies.
+  */
+ void refreshDirection() {
+   if (directionEstimator != null) {
+     Direction dir = directionEstimator.estimateStringDirection(target.text);
+     if (dir != target.direction) {
+       target.direction = dir;
+     }
+   }
+ }
+
+ /**
+  * Toggles direction estimation on (using a default estimator) and off.
+  */
+ void enableDefaultDirectionEstimator(bool enabled) {
+   setDirectionEstimator(enabled ? WordCountDirectionEstimator.get() : null);
+ }
+
+ /**
+  * Sets the DirectionEstimator object.
+  */
+ void setDirectionEstimator(DirectionEstimator directionEstimator) {
+   this.directionEstimator = directionEstimator;
+   if ((directionEstimator == null) != (handlerRegistration == null)) {
+     if (directionEstimator == null) {
+       handlerRegistration.removeHandler();
+       handlerRegistration = null;
+     } else {
+       handlerRegistration = target.addKeyUpHandler(this);
+     }
+   }
+   refreshDirection();
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDirectionEstimator.html">HasDirectionEstimator</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/KeyUpHandler.html">KeyUpHandler</a></span></p>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="addToDefault">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/AutoDirectionHandler.html">AutoDirectionHandler</a> <strong>addToDefault</strong>(<a href="../dart_web_toolkit_i18n/AutoDirectionHandlerTarget.html">AutoDirectionHandlerTarget</a> target, [bool enabled = true]) <a class="anchor-link" href="#addToDefault"
+              title="Permalink to AutoDirectionHandler.addToDefault">#</a></h4>
+<div class="doc">
+<p>Operates like {@link #addTo(AutoDirectionHandlerTarget, DirectionEstimator)}, but uses a
+default DirectionEstimator, {@link
+com.google.gwt.i18n.shared.WordCountDirectionEstimator} if {@code enabled},
+or else a null DirectionEstimator, which means disabling direction
+estimation.</p>
+<p>@param target Object whose direction should be automatically adjusted on</p>
+<pre><code>relevant events.
+</code></pre>
+<p>@param enabled Whether the handler is enabled upon creation.
+@return AutoDirectionHandler An instance of AutoDirectionHandler for the</p>
+<pre><code>given object.
+</code></pre>
+<pre class="source">
+static AutoDirectionHandler addToDefault(AutoDirectionHandlerTarget target, [bool enabled = true]) {
+ return addTo(target, enabled ? WordCountDirectionEstimator.get() : null);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addTo">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/AutoDirectionHandler.html">AutoDirectionHandler</a> <strong>addTo</strong>(<a href="../dart_web_toolkit_i18n/AutoDirectionHandlerTarget.html">AutoDirectionHandlerTarget</a> target, <a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> directionEstimator) <a class="anchor-link" href="#addTo"
+              title="Permalink to AutoDirectionHandler.addTo">#</a></h4>
+<div class="doc">
+<p>Adds auto-direction adjustment to a given object:
+- Creates an AutoDirectionHandler.
+- Initializes it with the given DirectionEstimator.
+- Adds it as an event handler for the relevant events on the given object.
+- Returns the AutoDirectionHandler, so its setAutoDir() method can be
+called when the object's text changes by means other than the handled
+events.</p>
+<p>@param target Object whose direction should be automatically adjusted on</p>
+<pre><code>relevant events.
+</code></pre>
+<p>@param directionEstimator A DirectionEstimator object used for direction</p>
+<pre><code>estimation (use null to disable direction estimation).
+</code></pre>
+<p>@return AutoDirectionHandler An instance of AutoDirectionHandler for the</p>
+<pre><code>given object.
+</code></pre>
+<pre class="source">
+static AutoDirectionHandler addTo(AutoDirectionHandlerTarget target, DirectionEstimator directionEstimator) {
+ AutoDirectionHandler autoDirHandler = new AutoDirectionHandler(target, directionEstimator);
+ return autoDirHandler;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AutoDirectionHandler">
+<button class="show-code">Code</button>
+new <strong>AutoDirectionHandler</strong>(<a href="../dart_web_toolkit_i18n/AutoDirectionHandlerTarget.html">AutoDirectionHandlerTarget</a> target, <a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> directionEstimator) <a class="anchor-link" href="#AutoDirectionHandler"
+              title="Permalink to AutoDirectionHandler.AutoDirectionHandler">#</a></h4>
+<div class="doc">
+<p>Private constructor. Instantiate using one of the addTo() methods.</p>
+<p>@param target Object whose direction should be automatically adjusted on</p>
+<pre><code>relevant events.
+</code></pre>
+<p>@param directionEstimator A DirectionEstimator object used for direction</p>
+<pre><code>estimation.
+</code></pre>
+<pre class="source">
+AutoDirectionHandler(AutoDirectionHandlerTarget target, DirectionEstimator
+   directionEstimator) {
+ this.target = target;
+ this.handlerRegistration = null;
+ setDirectionEstimator(directionEstimator);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="directionEstimator">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a>         <strong>directionEstimator</strong> <a class="anchor-link"
+            href="#directionEstimator"
+            title="Permalink to AutoDirectionHandler.directionEstimator">#</a>
+        </h4>
+        <div class="doc">
+<p>A DirectionEstimator object used for direction estimation.</p>
+<pre class="source">
+DirectionEstimator directionEstimator
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="handlerRegistration">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a>         <strong>handlerRegistration</strong> <a class="anchor-link"
+            href="#handlerRegistration"
+            title="Permalink to AutoDirectionHandler.handlerRegistration">#</a>
+        </h4>
+        <div class="doc">
+<p>A HandlerRegistration object used to remove this handler.</p>
+<pre class="source">
+HandlerRegistration handlerRegistration
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="target">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/AutoDirectionHandlerTarget.html">AutoDirectionHandlerTarget</a>         <strong>target</strong> <a class="anchor-link"
+            href="#target"
+            title="Permalink to AutoDirectionHandler.target">#</a>
+        </h4>
+        <div class="doc">
+<p>The object being handled.</p>
+<pre class="source">
+AutoDirectionHandlerTarget target
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="enableDefaultDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>enableDefaultDirectionEstimator</strong>(bool enabled) <a class="anchor-link" href="#enableDefaultDirectionEstimator"
+              title="Permalink to AutoDirectionHandler.enableDefaultDirectionEstimator">#</a></h4>
+<div class="doc">
+<p>Toggles direction estimation on (using a default estimator) and off.</p>
+<pre class="source">
+void enableDefaultDirectionEstimator(bool enabled) {
+ setDirectionEstimator(enabled ? WordCountDirectionEstimator.get() : null);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDirectionEstimator">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> <strong>getDirectionEstimator</strong>() <a class="anchor-link" href="#getDirectionEstimator"
+              title="Permalink to AutoDirectionHandler.getDirectionEstimator">#</a></h4>
+<div class="doc">
+<p>Returns the DirectionEstimator object.</p>
+<pre class="source">
+DirectionEstimator getDirectionEstimator() {
+ return directionEstimator;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onKeyUp">
+<button class="show-code">Code</button>
+void <strong>onKeyUp</strong>(<a href="../dart_web_toolkit_event/KeyUpEvent.html">KeyUpEvent</a> event) <a class="anchor-link" href="#onKeyUp"
+              title="Permalink to AutoDirectionHandler.onKeyUp">#</a></h4>
+<div class="doc">
+<p>Automatically adjusts hasDirection's direction on KeyUpEvent events.
+Implementation of KeyUpHandler interface method.</p>
+<pre class="source">
+void onKeyUp(KeyUpEvent event) {
+ refreshDirection();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="refreshDirection">
+<button class="show-code">Code</button>
+void <strong>refreshDirection</strong>() <a class="anchor-link" href="#refreshDirection"
+              title="Permalink to AutoDirectionHandler.refreshDirection">#</a></h4>
+<div class="doc">
+<p>Adjusts target's direction according to the estimated direction of the text
+it supplies.</p>
+<pre class="source">
+void refreshDirection() {
+ if (directionEstimator != null) {
+   Direction dir = directionEstimator.estimateStringDirection(target.text);
+   if (dir != target.direction) {
+     target.direction = dir;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>setDirectionEstimator</strong>(<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> directionEstimator) <a class="anchor-link" href="#setDirectionEstimator"
+              title="Permalink to AutoDirectionHandler.setDirectionEstimator">#</a></h4>
+<div class="doc">
+<p>Sets the DirectionEstimator object.</p>
+<pre class="source">
+void setDirectionEstimator(DirectionEstimator directionEstimator) {
+ this.directionEstimator = directionEstimator;
+ if ((directionEstimator == null) != (handlerRegistration == null)) {
+   if (directionEstimator == null) {
+     handlerRegistration.removeHandler();
+     handlerRegistration = null;
+   } else {
+     handlerRegistration = target.addKeyUpHandler(this);
+   }
+ }
+ refreshDirection();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.014</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

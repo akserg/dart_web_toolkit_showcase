@@ -1,0 +1,151 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>CaptionPanelImpl class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="CaptionPanelImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/CaptionPanelImpl.html">CaptionPanelImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>CaptionPanelImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation class without browser-specific hacks.</p>
+<pre class="source">
+class CaptionPanelImpl {
+
+ factory CaptionPanelImpl.browserDependant() {
+   return new CaptionPanelImpl();
+ }
+
+ CaptionPanelImpl();
+
+ void setCaption(dart_html.FieldSetElement fieldset, dart_html.Element legend, String caption, [bool asHtml = true]) {
+   // TODO(bruce): rewrite to be inlinable
+   assert (caption != null);
+
+   if (asHtml) {
+     legend.innerHtml = caption;
+   } else {
+     legend.text = caption;
+   }
+
+   if ("" != caption) {
+     // This is formulated to become an append (if there's no widget), an
+     // insertion at index 0 (if there is a widget but no legend already), or
+     // a no-op (if the legend is already in place).
+     fieldset.insertBefore(legend, fieldset.$dom_firstChild);
+   } else if (legend.parent != null) {
+     // We remove the legend from the DOM because leaving it in with an empty
+     // string renders as an ugly gap in the top border on some browsers.
+     //fieldset.removeChild(legend);
+     legend.remove();
+   }
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/CaptionPanelImplMozilla.html">CaptionPanelImplMozilla</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/CaptionPanelImplSafari.html">CaptionPanelImplSafari</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="CaptionPanelImpl">
+<button class="show-code">Code</button>
+new <strong>CaptionPanelImpl</strong>() <a class="anchor-link" href="#CaptionPanelImpl"
+              title="Permalink to CaptionPanelImpl.CaptionPanelImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+CaptionPanelImpl();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="CaptionPanelImpl.browserDependant">
+<button class="show-code">Code</button>
+factory <strong>CaptionPanelImpl.browserDependant</strong>() <a class="anchor-link" href="#CaptionPanelImpl.browserDependant"
+              title="Permalink to CaptionPanelImpl.CaptionPanelImpl.browserDependant">#</a></h4>
+<div class="doc">
+<pre class="source">
+factory CaptionPanelImpl.browserDependant() {
+ return new CaptionPanelImpl();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="setCaption">
+<button class="show-code">Code</button>
+void <strong>setCaption</strong>(FieldSetElement fieldset, Element legend, String caption, [bool asHtml = true]) <a class="anchor-link" href="#setCaption"
+              title="Permalink to CaptionPanelImpl.setCaption">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setCaption(dart_html.FieldSetElement fieldset, dart_html.Element legend, String caption, [bool asHtml = true]) {
+ // TODO(bruce): rewrite to be inlinable
+ assert (caption != null);
+
+ if (asHtml) {
+   legend.innerHtml = caption;
+ } else {
+   legend.text = caption;
+ }
+
+ if ("" != caption) {
+   // This is formulated to become an append (if there's no widget), an
+   // insertion at index 0 (if there is a widget but no legend already), or
+   // a no-op (if the legend is already in place).
+   fieldset.insertBefore(legend, fieldset.$dom_firstChild);
+ } else if (legend.parent != null) {
+   // We remove the legend from the DOM because leaving it in with an empty
+   // string renders as an ugly gap in the top border on some browsers.
+   //fieldset.removeChild(legend);
+   legend.remove();
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:23.318</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

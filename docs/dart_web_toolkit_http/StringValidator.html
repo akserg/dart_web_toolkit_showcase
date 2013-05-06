@@ -1,0 +1,167 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>StringValidator class / dart_web_toolkit_http Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_http" data-type="StringValidator">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_http.html">dart_web_toolkit_http</a> &rsaquo; <a href="../dart_web_toolkit_http/StringValidator.html">StringValidator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>StringValidator</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Utility class for validating strings.</p>
+<p>TODO(mmendez): Is there a better place for this?</p>
+<pre class="source">
+class StringValidator {
+ /**
+  * Returns true if the string is empty or null.
+  * 
+  * @param string to test if null or empty
+  * 
+  * @return true if the string is empty or null
+  */
+ static bool isEmptyOrNullString(String string) {
+   return (string == null) || (0 == string.trim().length);
+ }
+
+ /**
+  * Throws if &lt;code&gt;value&lt;/code&gt; is &lt;code&gt;null&lt;/code&gt; or empty. This method
+  * ignores leading and trailing whitespace.
+  * 
+  * @param name the name of the value, used in error messages
+  * @param value the string value that needs to be validated
+  * 
+  * @throws IllegalArgumentException if the string is empty, or all whitespace
+  * @throws NullPointerException if the string is &lt;code&gt;null&lt;/code&gt;
+  */
+ static void throwIfEmptyOrNull(String name, String value) {
+   assert (name != null);
+   assert (name.trim().length != 0);
+
+   throwIfNull(name, value);
+
+   if (0 == value.trim().length) {
+     throw new Exception("$name cannot be empty");
+   }
+ }
+
+ /**
+  * Throws a {@link NullPointerException} if the value is &lt;code&gt;null&lt;/code&gt;.
+  * 
+  * @param name the name of the value, used in error messages
+  * @param value the value that needs to be validated
+  * 
+  * @throws NullPointerException if the value is &lt;code&gt;null&lt;/code&gt;
+  */
+ static void throwIfNull(String name, Object value) {
+   if (null == value) {
+     throw new Exception("$name cannot be null");
+   }
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="isEmptyOrNullString">
+<button class="show-code">Code</button>
+bool <strong>isEmptyOrNullString</strong>(String string) <a class="anchor-link" href="#isEmptyOrNullString"
+              title="Permalink to StringValidator.isEmptyOrNullString">#</a></h4>
+<div class="doc">
+<p>Returns true if the string is empty or null.</p>
+<p>@param string to test if null or empty</p>
+<p>@return true if the string is empty or null</p>
+<pre class="source">
+static bool isEmptyOrNullString(String string) {
+ return (string == null) || (0 == string.trim().length);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="throwIfEmptyOrNull">
+<button class="show-code">Code</button>
+void <strong>throwIfEmptyOrNull</strong>(String name, String value) <a class="anchor-link" href="#throwIfEmptyOrNull"
+              title="Permalink to StringValidator.throwIfEmptyOrNull">#</a></h4>
+<div class="doc">
+<p>Throws if &lt;code>value&lt;/code> is &lt;code>null&lt;/code> or empty. This method
+ignores leading and trailing whitespace.</p>
+<p>@param name the name of the value, used in error messages
+@param value the string value that needs to be validated</p>
+<p>@throws IllegalArgumentException if the string is empty, or all whitespace
+@throws NullPointerException if the string is &lt;code>null&lt;/code></p>
+<pre class="source">
+static void throwIfEmptyOrNull(String name, String value) {
+ assert (name != null);
+ assert (name.trim().length != 0);
+
+ throwIfNull(name, value);
+
+ if (0 == value.trim().length) {
+   throw new Exception("$name cannot be empty");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="throwIfNull">
+<button class="show-code">Code</button>
+void <strong>throwIfNull</strong>(String name, Object value) <a class="anchor-link" href="#throwIfNull"
+              title="Permalink to StringValidator.throwIfNull">#</a></h4>
+<div class="doc">
+<p>Throws a {@link NullPointerException} if the value is &lt;code>null&lt;/code>.</p>
+<p>@param name the name of the value, used in error messages
+@param value the value that needs to be validated</p>
+<p>@throws NullPointerException if the value is &lt;code>null&lt;/code></p>
+<pre class="source">
+static void throwIfNull(String name, Object value) {
+ if (null == value) {
+   throw new Exception("$name cannot be null");
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.677</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,107 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasVisibility abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="HasVisibility">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/HasVisibility.html">HasVisibility</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasVisibility</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implemented by objects that have the visibility trait.</p>
+<pre class="source">
+abstract class HasVisibility {
+
+ /**
+  * Determines whether or not this object is visible. Note that this does not
+  * necessarily take into account whether or not the receiver's parent is
+  * visible, or even if it is attached to the
+  * [Document]. The default implementation of this trait in [UIObject] is
+  * based on the value of a dom element's style object's display attribute.
+  *
+  * @return &lt;code&gt;true&lt;/code&gt; if the object is visible
+  */
+ bool get visible;
+
+ /**
+  * Sets whether this object is visible.
+  *
+  * @param visible &lt;code&gt;true&lt;/code&gt; to show the object, &lt;code&gt;false&lt;/code&gt; to
+  *          hide it
+  */
+ void set visible(bool visible);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span></p>
+<div>
+<h3>Properties</h3>
+<div class="method"><h4 id="visible">
+abstract bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to HasVisibility.get visible">#</a></h4>
+<div class="doc">
+<p>Determines whether or not this object is visible. Note that this does not
+necessarily take into account whether or not the receiver's parent is
+visible, or even if it is attached to the
+<code>Document</code>. The default implementation of this trait in <code>UIObject</code> is
+based on the value of a dom element's style object's display attribute.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible</p>
+</div>
+</div>
+<div class="method"><h4 id="visible=">
+abstract void <strong>set visible</strong>(bool visible) <a class="anchor-link" href="#visible="
+              title="Permalink to HasVisibility.set visible">#</a></h4>
+<div class="doc">
+<p>Sets whether this object is visible.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.377</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

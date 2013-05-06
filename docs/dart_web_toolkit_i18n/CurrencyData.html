@@ -1,0 +1,212 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>CurrencyData abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="CurrencyData">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>CurrencyData</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Information about a currency.</p>
+<pre class="source">
+abstract class CurrencyData {
+
+ /**
+  * Returns the ISO4217 code for this currency.
+  */
+ String getCurrencyCode();
+
+ /**
+  * Returns the default symbol to use for this currency.
+  */
+ String getCurrencySymbol();
+
+ /**
+  * Returns the default number of decimal positions for this currency.
+  */
+ int getDefaultFractionDigits();
+
+ /**
+  * Returns the default symbol to use for this currency, intended to be
+  * recognizable in most locales.  If such a symbol is not available, it is
+  * acceptable to return the same value as {@link #getCurrencySymbol()}.
+  */
+ String getPortableCurrencySymbol();
+
+ /**
+  * Returns the simplest symbol to use for this currency, which is not guaranteed
+  * to be unique -- for example, this might return "$" for both USD and CAD.  It
+  * is acceptable to return the same value as {@link #getCurrencySymbol()}.
+  */
+ String getSimpleCurrencySymbol();
+
+ /**
+  * Returns true if this currency is deprecated and should not be returned by
+  * default in currency lists.
+  */
+ bool isDeprecated();
+
+ /**
+  * Returns true if there should always be a space between the currency symbol
+  * and the number, false if there should be no space.  Ignored unless
+  * {@link #isSpacingFixed()} returns true.
+  */
+ bool isSpaceForced();
+
+ /**
+  * Returns true if the spacing between the currency symbol and the number is
+  * fixed regardless of locale defaults.  In this case, spacing will be
+  * determined by {@link #isSpaceForced()}.
+  */
+ bool isSpacingFixed();
+
+ /**
+  * Returns true if the position of the currency symbol relative to the number
+  * is fixed regardless of locale defaults.  In this case, the position will be
+  * determined by {@link #isSymbolPrefix()}.
+  */
+ bool isSymbolPositionFixed();
+
+ /**
+  * Returns true if the currency symbol should go before the number, false if
+  * it should go after the number.  This is ignored unless
+  * {@link #isSymbolPositionFixed()} is true.
+  */
+ bool isSymbolPrefix();
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/DefaultCurrencyData.html">DefaultCurrencyData</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getCurrencyCode">
+abstract String <strong>getCurrencyCode</strong>() <a class="anchor-link" href="#getCurrencyCode"
+              title="Permalink to CurrencyData.getCurrencyCode">#</a></h4>
+<div class="doc">
+<p>Returns the ISO4217 code for this currency.</p>
+</div>
+</div>
+<div class="method"><h4 id="getCurrencySymbol">
+abstract String <strong>getCurrencySymbol</strong>() <a class="anchor-link" href="#getCurrencySymbol"
+              title="Permalink to CurrencyData.getCurrencySymbol">#</a></h4>
+<div class="doc">
+<p>Returns the default symbol to use for this currency.</p>
+</div>
+</div>
+<div class="method"><h4 id="getDefaultFractionDigits">
+abstract int <strong>getDefaultFractionDigits</strong>() <a class="anchor-link" href="#getDefaultFractionDigits"
+              title="Permalink to CurrencyData.getDefaultFractionDigits">#</a></h4>
+<div class="doc">
+<p>Returns the default number of decimal positions for this currency.</p>
+</div>
+</div>
+<div class="method"><h4 id="getPortableCurrencySymbol">
+abstract String <strong>getPortableCurrencySymbol</strong>() <a class="anchor-link" href="#getPortableCurrencySymbol"
+              title="Permalink to CurrencyData.getPortableCurrencySymbol">#</a></h4>
+<div class="doc">
+<p>Returns the default symbol to use for this currency, intended to be
+recognizable in most locales.  If such a symbol is not available, it is
+acceptable to return the same value as {@link #getCurrencySymbol()}.</p>
+</div>
+</div>
+<div class="method"><h4 id="getSimpleCurrencySymbol">
+abstract String <strong>getSimpleCurrencySymbol</strong>() <a class="anchor-link" href="#getSimpleCurrencySymbol"
+              title="Permalink to CurrencyData.getSimpleCurrencySymbol">#</a></h4>
+<div class="doc">
+<p>Returns the simplest symbol to use for this currency, which is not guaranteed
+to be unique -- for example, this might return "$" for both USD and CAD.  It
+is acceptable to return the same value as {@link #getCurrencySymbol()}.</p>
+</div>
+</div>
+<div class="method"><h4 id="isDeprecated">
+abstract bool <strong>isDeprecated</strong>() <a class="anchor-link" href="#isDeprecated"
+              title="Permalink to CurrencyData.isDeprecated">#</a></h4>
+<div class="doc">
+<p>Returns true if this currency is deprecated and should not be returned by
+default in currency lists.</p>
+</div>
+</div>
+<div class="method"><h4 id="isSpaceForced">
+abstract bool <strong>isSpaceForced</strong>() <a class="anchor-link" href="#isSpaceForced"
+              title="Permalink to CurrencyData.isSpaceForced">#</a></h4>
+<div class="doc">
+<p>Returns true if there should always be a space between the currency symbol
+and the number, false if there should be no space.  Ignored unless
+{@link #isSpacingFixed()} returns true.</p>
+</div>
+</div>
+<div class="method"><h4 id="isSpacingFixed">
+abstract bool <strong>isSpacingFixed</strong>() <a class="anchor-link" href="#isSpacingFixed"
+              title="Permalink to CurrencyData.isSpacingFixed">#</a></h4>
+<div class="doc">
+<p>Returns true if the spacing between the currency symbol and the number is
+fixed regardless of locale defaults.  In this case, spacing will be
+determined by {@link #isSpaceForced()}.</p>
+</div>
+</div>
+<div class="method"><h4 id="isSymbolPositionFixed">
+abstract bool <strong>isSymbolPositionFixed</strong>() <a class="anchor-link" href="#isSymbolPositionFixed"
+              title="Permalink to CurrencyData.isSymbolPositionFixed">#</a></h4>
+<div class="doc">
+<p>Returns true if the position of the currency symbol relative to the number
+is fixed regardless of locale defaults.  In this case, the position will be
+determined by {@link #isSymbolPrefix()}.</p>
+</div>
+</div>
+<div class="method"><h4 id="isSymbolPrefix">
+abstract bool <strong>isSymbolPrefix</strong>() <a class="anchor-link" href="#isSymbolPrefix"
+              title="Permalink to CurrencyData.isSymbolPrefix">#</a></h4>
+<div class="doc">
+<p>Returns true if the currency symbol should go before the number, false if
+it should go after the number.  This is ignored unless
+{@link #isSymbolPositionFixed()} is true.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.151</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

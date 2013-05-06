@@ -1,0 +1,91 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasHandlers abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="HasHandlers">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/HasHandlers.html">HasHandlers</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasHandlers</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>An object that implements this interface has a collection of event handlers
+associated with it.</p>
+<pre class="source">
+abstract class HasHandlers {
+
+ /**
+  * Fires the given event to the handlers listening to the event's type.
+  *
+  * Any exceptions thrown by handlers will be bundled into a
+  * [UmbrellaException] and then re-thrown after all handlers have
+  * completed. An exception thrown by a handler will not prevent other handlers
+  * from executing.
+  *
+  * @param event the event
+  */
+ void fireEvent(DwtEvent event);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAttachHandlers.html">HasAttachHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasBeforeSelectionHandlers.html">HasBeforeSelectionHandlers&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasBlurHandlers.html">HasBlurHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasChangeHandlers.html">HasChangeHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasClickHandlers.html">HasClickHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasCloseHandlers.html">HasCloseHandlers&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDoubleClickHandlers.html">HasDoubleClickHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDragEndHandlers.html">HasDragEndHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDragEnterHandlers.html">HasDragEnterHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDragHandlers.html">HasDragHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDragLeaveHandlers.html">HasDragLeaveHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDragOverHandlers.html">HasDragOverHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDragStartHandlers.html">HasDragStartHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDropHandlers.html">HasDropHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasErrorHandlers.html">HasErrorHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasFocusHandlers.html">HasFocusHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasGestureChangeHandlers.html">HasGestureChangeHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasGestureEndHandlers.html">HasGestureEndHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasGestureStartHandlers.html">HasGestureStartHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasKeyDownHandlers.html">HasKeyDownHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasKeyPressHandlers.html">HasKeyPressHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasKeyUpHandlers.html">HasKeyUpHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasLoadHandlers.html">HasLoadHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasOpenHandlers.html">HasOpenHandlers&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasResizeHandlers.html">HasResizeHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasScrollHandlers.html">HasScrollHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasSelectionHandlers.html">HasSelectionHandlers&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasTouchCancelHandlers.html">HasTouchCancelHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasTouchEndHandlers.html">HasTouchEndHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasTouchMoveHandlers.html">HasTouchMoveHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasTouchStartHandlers.html">HasTouchStartHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasValueChangeHandlers.html">HasValueChangeHandlers&lt;T&gt;</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="fireEvent">
+abstract void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to HasHandlers.fireEvent">#</a></h4>
+<div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.410</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,3434 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Tree class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="Tree">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Tree.html">Tree</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Tree</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A standard hierarchical tree widget. The tree contains a hierarchy of
+{@link com.google.gwt.user.client.ui.TreeItem TreeItems} that the user can
+open, close, and select.
+&lt;p>
+&lt;img class='gallery' src='doc-files/Tree.png'/>
+&lt;/p>
+&lt;h3>CSS Style Rules&lt;/h3>
+&lt;dl>
+&lt;dt>.gwt-Tree&lt;/dt>
+&lt;dd>the tree itself&lt;/dd>
+&lt;dt>.gwt-Tree .gwt-TreeItem&lt;/dt>
+&lt;dd>a tree item&lt;/dd>
+&lt;dt>.gwt-Tree .gwt-TreeItem-selected&lt;/dt>
+&lt;dd>a selected tree item&lt;/dd>
+&lt;/dl>
+&lt;p>
+&lt;h3>Example&lt;/h3>
+{@example com.google.gwt.examples.TreeExample}
+&lt;/p></p>
+<pre class="source">
+class Tree extends Widget implements HasTreeItemsForIsWidget, HasWidgetsForIsWidget,
+   Focusable, HasAnimation, HasAllKeyHandlers,
+   HasAllFocusHandlers, HasSelectionHandlers&lt;TreeItem&gt;,
+   HasOpenHandlers&lt;TreeItem&gt;, HasCloseHandlers&lt;TreeItem&gt;, HasAllMouseHandlers {
+
+ static const int _OTHER_KEY_DOWN = 63233;
+ static const int _OTHER_KEY_LEFT = 63234;
+ static const int _OTHER_KEY_RIGHT = 63235;
+ static const int _OTHER_KEY_UP = 63232;
+
+ static bool shouldTreeDelegateFocusToElement(dart_html.Element elem) {
+   String name = ""; //elem.nodeName;
+   return ((name == "SELECT") ||
+       (name == "INPUT")  ||
+       (name == "TEXTAREA") ||
+       (name == "OPTION") ||
+       (name == "BUTTON") ||
+       (name == "LABEL"));
+ }
+
+ static bool isArrowKey(int code) {
+   switch (code) {
+     case _OTHER_KEY_DOWN:
+     case _OTHER_KEY_RIGHT:
+     case _OTHER_KEY_UP:
+     case _OTHER_KEY_LEFT:
+     case KeyCodes.KEY_DOWN:
+     case KeyCodes.KEY_RIGHT:
+     case KeyCodes.KEY_UP:
+     case KeyCodes.KEY_LEFT:
+       return true;
+     default:
+       return false;
+   }
+ }
+
+ /**
+  * Normalized key codes. Also switches KEY_RIGHT and KEY_LEFT in RTL
+  * languages.
+  */
+ static int _standardizeKeycode(int code) {
+   switch (code) {
+     case _OTHER_KEY_DOWN:
+       code = KeyCodes.KEY_DOWN;
+       break;
+     case _OTHER_KEY_RIGHT:
+       code = KeyCodes.KEY_RIGHT;
+       break;
+     case _OTHER_KEY_UP:
+       code = KeyCodes.KEY_UP;
+       break;
+     case _OTHER_KEY_LEFT:
+       code = KeyCodes.KEY_LEFT;
+       break;
+   }
+   if (LocaleInfo.getCurrentLocale().isRTL()) {
+     if (code == KeyCodes.KEY_RIGHT) {
+       code = KeyCodes.KEY_LEFT;
+     } else if (code == KeyCodes.KEY_LEFT) {
+       code = KeyCodes.KEY_RIGHT;
+     }
+   }
+   return code;
+ }
+
+ /**
+  * Map of TreeItem.widget -&gt; TreeItem.
+  */
+ Map&lt;Widget, TreeItem&gt; _childWidgets = new Map&lt;Widget, TreeItem&gt;();
+
+ TreeItem _curSelection;
+
+ dart_html.Element _focusable;
+
+ _ImageAdapter _images;
+
+ String _indentValue = "";
+
+ bool _isAnimationEnabled = false;
+
+ bool _lastWasKeyDown = false;
+
+ TreeItem _root;
+
+ bool _useLeafImages;
+
+ /**
+  * Constructs a tree that uses the specified ClientBundle for images. If this
+  * tree does not use leaf images, the width of the Resources's leaf image will
+  * control the leaf indent.
+  *
+  * @param resources a bundle that provides tree specific images
+  * @param useLeafImages use leaf images from bundle
+  */
+ Tree([_TreeResource resources = null, bool useLeafImages = false]) {
+   if (resources == null) {
+     _init(new _ImageAdapter(), useLeafImages);
+   } else {
+     _init(new _ImageAdapter(resources), useLeafImages);
+   }
+ }
+
+ /**
+  * Adds the widget as a root tree item.
+  *
+  * @see com.google.gwt.user.client.ui.HasWidgets#add(com.google.gwt.user.client.ui.Widget)
+  * @param widget widget to add.
+  */
+
+ void add(Widget widget) {
+   addWidgetItem(widget);
+ }
+
+ /**
+  * Overloaded version for IsWidget.
+  *
+  * @see #add(Widget)
+  */
+
+ void addIsWidget(IsWidget w) {
+   this.add(asWidgetOrNull(w));
+ }
+
+
+ HandlerRegistration addBlurHandler(BlurHandler handler) {
+   return addDomHandler(handler, BlurEvent.TYPE);
+ }
+
+
+ HandlerRegistration addCloseHandler(CloseHandler&lt;TreeItem&gt; handler) {
+   return addHandler(handler, CloseEvent.TYPE);
+ }
+
+
+ HandlerRegistration addFocusHandler(FocusHandler handler) {
+   return addDomHandler(handler, FocusEvent.TYPE);
+ }
+
+ /**
+  * Adds a simple tree item containing the specified html.
+  *
+  * @param itemHtml the html of the item to be added
+  * @return the item that was added
+  */
+
+ TreeItem addSafeHtmlItem(SafeHtml itemHtml) {
+   return _root.addSafeHtmlItem(itemHtml);
+ }
+
+ /**
+  * Adds an item to the root level of this tree.
+  *
+  * @param item the item to be added
+  */
+
+ void addItem(TreeItem item) {
+   _root.addItem(item);
+ }
+
+ /**
+  * Adds an item to the root level of this tree.
+  *
+  * @param isItem the wrapper of item to be added
+  */
+
+ void addIsTreeItem(IsTreeItem isItem) {
+   _root.addIsTreeItem(isItem);
+ }
+
+ /**
+  * Adds a new tree item containing the specified widget.
+  *
+  * @param widget the widget to be added
+  * @return the new item
+  */
+
+ TreeItem addWidgetItem(Widget widget) {
+   return _root.addWidgetItem(widget);
+ }
+
+ /**
+  * Overloaded version for IsWidget.
+  *
+  * @see #addItem(Widget)
+  */
+
+ TreeItem addIsWidgetItem(IsWidget w) {
+   return this.addIsWidgetItem(asWidgetOrNull(w));
+ }
+
+ HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+   return addDomHandler(handler, KeyDownEvent.TYPE);
+ }
+
+
+ HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+   return addDomHandler(handler, KeyPressEvent.TYPE);
+ }
+
+
+ HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+   return addDomHandler(handler, KeyUpEvent.TYPE);
+ }
+
+
+ HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+   return addHandler(handler, MouseDownEvent.TYPE);
+ }
+
+ HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+   return addDomHandler(handler, MouseMoveEvent.TYPE);
+ }
+
+
+ HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+   return addDomHandler(handler, MouseOutEvent.TYPE);
+ }
+
+
+ HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+   return addDomHandler(handler, MouseOverEvent.TYPE);
+ }
+
+
+ HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+   return addDomHandler(handler, MouseUpEvent.TYPE);
+ }
+
+
+ HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+   return addDomHandler(handler, MouseWheelEvent.TYPE);
+ }
+
+
+ HandlerRegistration addOpenHandler(OpenHandler&lt;TreeItem&gt; handler) {
+   return addHandler(handler, OpenEvent.TYPE);
+ }
+
+
+ HandlerRegistration addSelectionHandler(
+     SelectionHandler&lt;TreeItem&gt; handler) {
+   return addHandler(handler, SelectionEvent.TYPE);
+ }
+
+ /**
+  * Adds a simple tree item containing the specified text.
+  *
+  * @param itemText the text of the item to be added
+  * @return the item that was added
+  */
+
+ TreeItem addTextItem(String itemText) {
+   return _root.addTextItem(itemText);
+ }
+
+ /**
+  * Clears all tree items from the current tree.
+  */
+
+ void clear() {
+   int size = _root.getChildCount();
+   for (int i = size - 1; i &gt;= 0; i--) {
+     _root.getChild(i).remove();
+   }
+ }
+
+ /**
+  * Ensures that the currently-selected item is visible, opening its parents
+  * and scrolling the tree as necessary.
+  */
+ void ensureSelectedItemVisible() {
+   if (_curSelection == null) {
+     return;
+   }
+
+   TreeItem parent = _curSelection.getParentItem();
+   while (parent != null) {
+     parent.setState(true);
+     parent = parent.getParentItem();
+   }
+ }
+
+ /**
+  * Gets the top-level tree item at the specified index.
+  *
+  * @param index the index to be retrieved
+  * @return the item at that index
+  */
+ TreeItem getItem(int index) {
+   return _root.getChild(index);
+ }
+
+ /**
+  * Gets the number of items contained at the root of this tree.
+  *
+  * @return this tree's item count
+  */
+ int getItemCount() {
+   return _root.getChildCount();
+ }
+
+ /**
+  * Gets the currently selected item.
+  *
+  * @return the selected item
+  */
+ TreeItem getSelectedItem() {
+   return _curSelection;
+ }
+
+
+ int get tabIndex {
+   return FocusPanel.impl.getTabIndex(_focusable);
+ }
+
+ /**
+  * Inserts a child tree item at the specified index containing the specified
+  * html.
+  *
+  * @param beforeIndex the index where the item will be inserted
+  * @param itemHtml the html of the item to be added
+  * @return the item that was added
+  * @throws IndexOutOfBoundsException if the index is out of range
+  */
+ TreeItem insertSafeHtmlItem(int beforeIndex, SafeHtml itemHtml) {
+   return _root.insertSafeHtmlItem(beforeIndex, itemHtml);
+ }
+
+ /**
+  * Inserts an item into the root level of this tree.
+  *
+  * @param beforeIndex the index where the item will be inserted
+  * @param item the item to be added
+  * @throws IndexOutOfBoundsException if the index is out of range
+  */
+ void insertItem(int beforeIndex, TreeItem item) {
+   _root.insertItem(beforeIndex, item);
+ }
+
+ /**
+  * Inserts a child tree item at the specified index containing the specified
+  * widget.
+  *
+  * @param beforeIndex the index where the item will be inserted
+  * @param widget the widget to be added
+  * @return the item that was added
+  * @throws IndexOutOfBoundsException if the index is out of range
+  */
+ TreeItem insertWidgetItem(int beforeIndex, Widget widget) {
+   return _root.insertWidgetItem(beforeIndex, widget);
+ }
+
+ /**
+  * Inserts a child tree item at the specified index containing the specified
+  * text.
+  *
+  * @param beforeIndex the index where the item will be inserted
+  * @param itemText the text of the item to be added
+  * @return the item that was added
+  * @throws IndexOutOfBoundsException if the index is out of range
+  */
+ TreeItem insertTextItem(int beforeIndex, String itemText) {
+   return _root.insertTextItem(beforeIndex, itemText);
+ }
+
+
+ bool isAnimationEnabled() {
+   return _isAnimationEnabled;
+ }
+
+
+ Iterator&lt;Widget&gt; iterator() {
+   List&lt;Widget&gt; widgets = new List&lt;Widget&gt;.from(_childWidgets.keys);
+   return WidgetIterators.createWidgetIterator(this, widgets);
+ }
+
+
+//  @SuppressWarnings("fallthrough")
+ void onBrowserEvent(dart_html.Event event) {
+   int eventType = Dom.eventGetType(event);
+
+   switch (eventType) {
+     case IEvent.ONKEYDOWN:
+       // If nothing's selected, select the first item.
+       if (_curSelection == null) {
+         if (_root.getChildCount() &gt; 0) {
+           _onSelection(_root.getChild(0), true, true);
+         }
+         super.onBrowserEvent(event);
+         return;
+       }
+       break;
+       // Intentional fallthrough.
+     case IEvent.ONKEYPRESS:
+     case IEvent.ONKEYUP:
+       dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+       // Issue 1890: Do not block history navigation via alt+left/right
+
+       if (kEvent.altKey || kEvent.metaKey) {
+         super.onBrowserEvent(event);
+         return;
+       }
+       break;
+   }
+
+   switch (eventType) {
+     case IEvent.ONCLICK:
+       dart_html.Element e = event.target as dart_html.Element;
+       if (shouldTreeDelegateFocusToElement(e)) {
+         // The click event should have given focus to this element already.
+         // Avoid moving focus back up to the tree (so that focusable widgets
+         // attached to TreeItems can receive keyboard events).
+       } else if ((_curSelection != null) &amp;&amp; Dom.isOrHasChild(_curSelection.getContentElem(), e)) {
+         focus = true;
+       }
+       break;
+
+     case IEvent.ONMOUSEDOWN:
+       // Currently, the way we're using image bundles causes extraneous events
+       // to be sunk on individual items' open/close images. This leads to an
+       // extra event reaching the Tree, which we will ignore here.
+       // Also, ignore middle and right clicks here.
+       dart_html.MouseEvent mEvent = event as dart_html.MouseEvent;
+       if (mEvent.currentTarget == getElement() &amp;&amp; mEvent.button == IEvent.BUTTON_LEFT) {
+         _elementClicked(event.target as dart_html.Element);
+       }
+       break;
+     case IEvent.ONKEYDOWN:
+       _keyboardNavigation(event);
+       _lastWasKeyDown = true;
+       break;
+
+     case IEvent.ONKEYPRESS:
+       if (!_lastWasKeyDown) {
+         _keyboardNavigation(event);
+       }
+       _lastWasKeyDown = false;
+       break;
+
+     case IEvent.ONKEYUP:
+       dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+       if (kEvent.keyCode == KeyCodes.KEY_TAB) {
+         List&lt;dart_html.Element&gt; chain = new List&lt;dart_html.Element&gt;();
+         _collectElementChain(chain, getElement(), event.target);
+         TreeItem item = _findItemByChain(chain, 0, _root);
+         if (item != getSelectedItem()) {
+           setSelectedItem(item, true);
+         }
+       }
+       _lastWasKeyDown = false;
+       break;
+   }
+
+   switch (eventType) {
+     case IEvent.ONKEYDOWN:
+     case IEvent.ONKEYUP:
+       dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+       if (isArrowKey(kEvent.keyCode)) {
+         event.cancelBubble = true;
+         event.preventDefault();
+         return;
+       }
+       break;
+   }
+
+   // We must call super for all handlers.
+   super.onBrowserEvent(event);
+ }
+
+
+ bool remove(Widget w) {
+   // Validate.
+   TreeItem item = _childWidgets[w];
+   if (item == null) {
+     return false;
+   }
+
+   // Delegate to TreeItem.setWidget, which performs correct removal.
+   item.setWidget(null);
+   return true;
+ }
+
+ /**
+  * Overloaded version for IsWidget.
+  *
+  * @see #remove(Widget)
+  */
+
+ bool removeIsWidget(IsWidget w) {
+   return this.remove(w.asWidget());
+ }
+
+ /**
+  * Removes an item from the root level of this tree.
+  *
+  * @param item the item to be removed
+  */
+
+ void removeItem(TreeItem item) {
+   _root.removeItem(item);
+ }
+
+ /**
+  * Removes an item from the _root level of this tree.
+  *
+  * @param isItem the wrapper of item to be removed
+  */
+
+ void removeIsTreeItem(IsTreeItem isItem) {
+   if (isItem != null) {
+     TreeItem item = isItem.asTreeItem();
+     removeItem(item);
+   }
+ }
+
+ /**
+  * Removes all items from the root level of this tree.
+  */
+
+ void removeItems() {
+   while (getItemCount() &gt; 0) {
+     removeItem(getItem(0));
+   }
+ }
+
+ void set accessKey(int key) {
+   FocusPanel.impl.setAccessKey(_focusable, key);
+ }
+
+
+ void setAnimationEnabled(bool enable) {
+   _isAnimationEnabled = enable;
+ }
+
+
+ void set focus(bool val) {
+   if (val) {
+     FocusPanel.impl.focus(_focusable);
+   } else {
+     FocusPanel.impl.blur(_focusable);
+   }
+ }
+
+ /**
+  * Selects a specified item.
+  *
+  * @param item the item to be selected, or &lt;code&gt;null&lt;/code&gt; to deselect all
+  *          items
+  * @param fireEvents &lt;code&gt;true&lt;/code&gt; to allow selection events to be fired
+  */
+ void setSelectedItem(TreeItem item, [bool fireEvents = true]) {
+   if (item == null) {
+     if (_curSelection == null) {
+       return;
+     }
+     _curSelection.setSelected(false);
+     _curSelection = null;
+     return;
+   }
+
+   _onSelection(item, fireEvents, true);
+ }
+
+
+ void set tabIndex(int index) {
+   FocusPanel.impl.setTabIndex(_focusable, index);
+ }
+
+ /**
+  * Iterator of tree items.
+  *
+  * @return the iterator
+  */
+ Iterator&lt;TreeItem&gt; treeItemIterator() {
+   List&lt;TreeItem&gt; accum = new List&lt;TreeItem&gt;();
+   _root.addTreeItems(accum);
+   return accum.iterator;
+ }
+
+
+ void doAttachChildren() {
+   try {
+     AttachDetachException.tryCommand(this.iterator(), AttachDetachException.attachCommand);
+   } finally {
+     Dom.setEventListener(_focusable, this);
+   }
+ }
+
+
+ void doDetachChildren() {
+   try {
+     AttachDetachException.tryCommand(this.iterator(), AttachDetachException.detachCommand);
+   } finally {
+     Dom.setEventListener(_focusable, null);
+   }
+ }
+
+ /**
+  * Indicates if keyboard navigation is enabled for the Tree and for a given
+  * TreeItem. Subclasses of Tree can override this function to selectively
+  * enable or disable keyboard navigation.
+  *
+  * @param currentItem the currently selected TreeItem
+  * @return &lt;code&gt;true&lt;/code&gt; if the Tree will response to arrow keys by
+  *         changing the currently selected item
+  */
+ bool isKeyboardNavigationEnabled(TreeItem currentItem) {
+   return true;
+ }
+
+ void onLoad() {
+   _root.updateStateRecursive();
+ }
+
+ void adopt(Widget widget, TreeItem treeItem) {
+   assert (!_childWidgets.containsKey(widget));
+   _childWidgets[widget] = treeItem;
+   widget.setParent(this);
+ }
+
+ void fireStateChanged(TreeItem item, bool open) {
+   if (open) {
+     OpenEvent.fire(this, item);
+   } else {
+     CloseEvent.fire(this, item);
+   }
+ }
+
+ /*
+  * This method exists solely to support unit tests.
+  */
+ Map&lt;Widget, TreeItem&gt; getChildWidgets() {
+   return _childWidgets;
+ }
+
+ _ImageAdapter getImages() {
+   return _images;
+ }
+
+ void maybeUpdateSelection(TreeItem itemThatChangedState, bool isItemOpening) {
+   /**
+    * If we just closed the item, let's check to see if this item is the parent
+    * of the currently selected item. If so, we should make this item the
+    * currently selected selected item.
+    */
+   if (!isItemOpening) {
+     TreeItem tempItem = _curSelection;
+     while (tempItem != null) {
+       if (tempItem == itemThatChangedState) {
+         setSelectedItem(itemThatChangedState);
+         return;
+       }
+       tempItem = tempItem.getParentItem();
+     }
+   }
+ }
+
+ void orphan(Widget widget) {
+   // Validation should already be done.
+   assert (widget.getParent() == this);
+
+   // Orphan.
+   try {
+     widget.setParent(null);
+   } finally {
+     // Logical detach.
+     _childWidgets.remove(widget);
+   }
+ }
+
+ /**
+  * Called only from {@link TreeItem}: Shows the closed image on that tree
+  * item.
+  *
+  * @param treeItem the tree item
+  */
+ void showClosedImage(TreeItem treeItem) {
+   _showImage(treeItem, _images.treeClosed());
+ }
+
+ /**
+  * Called only from {@link TreeItem}: Shows the leaf image on a tree item.
+  *
+  * @param treeItem the tree item
+  */
+ void showLeafImage(TreeItem treeItem) {
+   if (_useLeafImages || treeItem.isFullNode()) {
+     _showImage(treeItem, _images.treeLeaf());
+   } else if (LocaleInfo.getCurrentLocale().isRTL()) {
+     treeItem.getElement().style.paddingRight = _indentValue;
+   } else {
+     treeItem.getElement().style.paddingLeft = _indentValue;
+   }
+ }
+
+ /**
+  * Called only from {@link TreeItem}: Shows the open image on a tree item.
+  *
+  * @param treeItem the tree item
+  */
+ void showOpenImage(TreeItem treeItem) {
+   _showImage(treeItem, _images.treeOpen());
+ }
+
+ /**
+  * Collects parents going up the element tree, terminated at the tree root.
+  */
+ void _collectElementChain(List&lt;dart_html.Element&gt; chain, dart_html.Element hRoot,
+     dart_html.Element hElem) {
+   if ((hElem == null) || (hElem == hRoot)) {
+     return;
+   }
+
+   _collectElementChain(chain, hRoot, hElem.parent);
+   chain.add(hElem);
+ }
+
+ bool _elementClicked(dart_html.Element hElem) {
+   List&lt;dart_html.Element&gt; chain = new List&lt;dart_html.Element&gt;();
+   _collectElementChain(chain, getElement(), hElem);
+
+   TreeItem item = _findItemByChain(chain, 0, _root);
+   if (item != null &amp;&amp; item != _root) {
+     if (item.getChildCount() &gt; 0
+         &amp;&amp; Dom.isOrHasChild(item.getImageElement(), hElem)) {
+       item.setState(!item.getState(), true);
+       return true;
+     } else if (Dom.isOrHasChild(item.getElement(), hElem)) {
+       _onSelection(item, true, !shouldTreeDelegateFocusToElement(hElem));
+       return true;
+     }
+   }
+
+   return false;
+ }
+
+ TreeItem _findDeepestOpenChild(TreeItem item) {
+   if (!item.getState()) {
+     return item;
+   }
+   return _findDeepestOpenChild(item.getChild(item.getChildCount() - 1));
+ }
+
+ TreeItem _findItemByChain(List&lt;dart_html.Element&gt; chain, int idx,
+     TreeItem root) {
+   if (idx == chain.length) {
+     return root;
+   }
+
+   dart_html.Element hCurElem = chain[idx];
+   for (int i = 0, n = root.getChildCount(); i &lt; n; ++i) {
+     TreeItem child = root.getChild(i);
+     if (child.getElement() == hCurElem) {
+       TreeItem retItem = _findItemByChain(chain, idx + 1, root.getChild(i));
+       if (retItem == null) {
+         return child;
+       }
+       return retItem;
+     }
+   }
+
+   return _findItemByChain(chain, idx + 1, root);
+ }
+
+ /**
+  * Get the top parent above this {@link TreeItem} that is in closed state. In
+  * other words, get the parent that is guaranteed to be visible.
+  *
+  * @param item
+  * @return the closed parent, or null if all parents are opened
+  */
+ TreeItem _getTopClosedParent(TreeItem item) {
+   TreeItem topClosedParent = null;
+   TreeItem parent = item.getParentItem();
+   while (parent != null &amp;&amp; parent != _root) {
+     if (!parent.getState()) {
+       topClosedParent = parent;
+     }
+     parent = parent.getParentItem();
+   }
+   return topClosedParent;
+ }
+
+ void _init(_ImageAdapter images, bool useLeafImages) {
+   _setImages(images, useLeafImages);
+   setElement(new dart_html.DivElement());
+
+   getElement().style.position = "relative";
+
+   // Fix rendering problem with relatively-positioned elements and their
+   // children by
+   // forcing the element that is positioned relatively to 'have layout'
+   getElement().style.zoom = "1";
+
+   _focusable = FocusPanel.impl.createFocusable();
+   _focusable.style.fontSize = "0";
+   _focusable.style.position = "absolute";
+
+   // Hide focus outline in Mozilla/Webkit/Opera
+   _focusable.style.outline = "0px";
+
+   // Hide focus outline in IE 6/7
+   Dom.setElementAttribute(_focusable, "hideFocus", "true");
+
+   Dom.setIntStyleAttribute(_focusable, "zIndex", -1);
+   getElement().append(_focusable);
+
+   sinkEvents(IEvent.ONMOUSEDOWN | IEvent.ONCLICK | IEvent.KEYEVENTS);
+   Dom.sinkEvents(_focusable, IEvent.FOCUSEVENTS);
+
+   // The 'root' item is invisible and serves only as a container
+   // for all top-level items.
+   _root = new TreeItem(isRoot:true);
+   _root.setTree(this);
+   clearAndSetStyleName("dwt-Tree");
+
+   // Add a11y role "tree"
+//    Roles.getTreeRole().set(_focusable);
+ }
+
+ void _keyboardNavigation(dart_html.Event event) {
+   // Handle keyboard events if keyboard navigation is enabled
+   if (isKeyboardNavigationEnabled(_curSelection)) {
+     dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+     int code = kEvent.keyCode;
+
+     switch (_standardizeKeycode(code)) {
+       case KeyCodes.KEY_UP:
+         _moveSelectionUp(_curSelection);
+         break;
+       case KeyCodes.KEY_DOWN:
+         _moveSelectionDown(_curSelection, true);
+         break;
+       case KeyCodes.KEY_LEFT:
+         _maybeCollapseTreeItem();
+         break;
+       case KeyCodes.KEY_RIGHT:
+         _maybeExpandTreeItem();
+         break;
+       default:
+         return;
+     }
+   }
+ }
+
+ void _maybeCollapseTreeItem() {
+
+   TreeItem topClosedParent = _getTopClosedParent(_curSelection);
+   if (topClosedParent != null) {
+     // Select the first visible parent if _curSelection is hidden
+     setSelectedItem(topClosedParent);
+   } else if (_curSelection.getState()) {
+     _curSelection.setState(false);
+   } else {
+     TreeItem parent = _curSelection.getParentItem();
+     if (parent != null) {
+       setSelectedItem(parent);
+     }
+   }
+ }
+
+ void _maybeExpandTreeItem() {
+
+   TreeItem topClosedParent = _getTopClosedParent(_curSelection);
+   if (topClosedParent != null) {
+     // Select the first visible parent if _curSelection is hidden
+     setSelectedItem(topClosedParent);
+   } else if (!_curSelection.getState()) {
+     _curSelection.setState(true);
+   } else if (_curSelection.getChildCount() &gt; 0) {
+     setSelectedItem(_curSelection.getChild(0));
+   }
+ }
+
+ /**
+  * Move the tree focus to the specified selected item.
+  */
+ void _moveFocus() {
+   Focusable focusableWidget = _curSelection.getFocusable();
+   if (focusableWidget != null) {
+     focusableWidget.focus = true;
+     Dom.scrollIntoView((focusableWidget as Widget).getElement());
+   } else {
+     // Get the location and size of the given item's content element relative
+     // to the tree.
+     dart_html.Element selectedElem = _curSelection.getContentElem();
+     int containerLeft = getAbsoluteLeft();
+     int containerTop = getAbsoluteTop();
+
+     int left = Dom.getAbsoluteLeft(selectedElem) - containerLeft;
+     int top = Dom.getAbsoluteTop(selectedElem) - containerTop;
+     int width = Dom.getElementPropertyInt(selectedElem, "offsetWidth");
+     int height = Dom.getElementPropertyInt(selectedElem, "offsetHeight");
+
+     // If the item is not visible, quite here
+     if (width == 0 || height == 0) {
+       Dom.setIntStyleAttribute(_focusable, "left", 0);
+       Dom.setIntStyleAttribute(_focusable, "top", 0);
+       return;
+     }
+
+     // Set the _focusable element's position and size to exactly underlap the
+     // item's content element.
+     Dom.setStyleAttribute(_focusable, "left", "${left}px");
+     Dom.setStyleAttribute(_focusable, "top", "${top}px");
+     Dom.setStyleAttribute(_focusable, "width", "${width}px");
+     Dom.setStyleAttribute(_focusable, "height", "${height}px");
+
+     // Scroll it into view.
+     Dom.scrollIntoView(_focusable);
+
+     // Update ARIA attributes to reflect the information from the
+     // newly-selected item.
+     _updateAriaAttributes();
+
+     // Ensure Focus is set, as focus may have been previously delegated by
+     // tree.
+     focus = true;
+   }
+ }
+
+ /**
+  * Moves to the next item, going into children as if dig is enabled.
+  */
+ void _moveSelectionDown(TreeItem sel, bool dig) {
+   if (sel == _root) {
+     return;
+   }
+
+   // Find a parent that is visible
+   TreeItem topClosedParent = _getTopClosedParent(sel);
+   if (topClosedParent != null) {
+     _moveSelectionDown(topClosedParent, false);
+     return;
+   }
+
+   TreeItem parent = sel.getParentItem();
+   if (parent == null) {
+     parent = _root;
+   }
+   int idx = parent.getChildIndex(sel);
+
+   if (!dig || !sel.getState()) {
+     if (idx &lt; parent.getChildCount() - 1) {
+       _onSelection(parent.getChild(idx + 1), true, true);
+     } else {
+       _moveSelectionDown(parent, false);
+     }
+   } else if (sel.getChildCount() &gt; 0) {
+     _onSelection(sel.getChild(0), true, true);
+   }
+ }
+
+ /**
+  * Moves the selected item up one.
+  */
+ void _moveSelectionUp(TreeItem sel) {
+   // Find a parent that is visible
+   TreeItem topClosedParent = _getTopClosedParent(sel);
+   if (topClosedParent != null) {
+     _onSelection(topClosedParent, true, true);
+     return;
+   }
+
+   TreeItem parent = sel.getParentItem();
+   if (parent == null) {
+     parent = _root;
+   }
+   int idx = parent.getChildIndex(sel);
+
+   if (idx &gt; 0) {
+     TreeItem sibling = parent.getChild(idx - 1);
+     _onSelection(_findDeepestOpenChild(sibling), true, true);
+   } else {
+     _onSelection(parent, true, true);
+   }
+ }
+
+ void _onSelection(TreeItem item, bool fireEvents, bool moveFocus) {
+   // 'root' isn't a real item, so don't let it be selected
+   // (some cases in the keyboard handler will try to do this)
+   if (item == _root) {
+     return;
+   }
+
+   if (_curSelection != null) {
+     _curSelection.setSelected(false);
+   }
+   _curSelection = item;
+
+   if (_curSelection != null) {
+     if (moveFocus) {
+       _moveFocus();
+     }
+     // Select the item and fire the selection event.
+     _curSelection.setSelected(true);
+     if (fireEvents) {
+       SelectionEvent.fire(this, _curSelection);
+     }
+   }
+ }
+
+ void _setImages(_ImageAdapter images, bool useLeafImages) {
+   this._images = images;
+   this._useLeafImages = useLeafImages;
+
+   if (!useLeafImages) {
+     Image image = images.treeLeaf().createImage();
+     image.getElement().style.visibility = "hidden";
+     RootPanel.get().add(image);
+     int size = image.getWidth() + TreeItem.IMAGE_PAD;
+     image.removeFromParent();
+     _indentValue = "${size}px";
+   }
+ }
+
+ void _showImage(TreeItem treeItem, AbstractImagePrototype proto) {
+   dart_html.Element holder = treeItem.getImageHolderElement();
+   dart_html.ImageElement child = Dom.getFirstChild(holder) as dart_html.ImageElement;
+   if (child == null) {
+     // If no image element has been created yet, create one from the
+     // prototype.
+     holder.append(proto.createElement());
+   } else {
+     // Otherwise, simply apply the prototype to the existing element.
+     proto.applyToImageElement(child);
+   }
+ }
+
+ void _updateAriaAttributes() {
+
+   dart_html.Element curSelectionContentElem = _curSelection.getContentElem();
+
+   // Set the 'aria-level' state. To do this, we need to compute the level of
+   // the currently selected item.
+
+   // We initialize itemLevel to -1 because the level value is zero-based.
+   // Note that the root node is not a part of the TreeItem hierachy, and we
+   // do not consider the root node to have a designated level. The level of
+   // the root's children is level 0, its children's children is level 1, etc.
+
+   int curSelectionLevel = -1;
+   TreeItem tempItem = _curSelection;
+
+   while (tempItem != null) {
+     tempItem = tempItem.getParentItem();
+     ++curSelectionLevel;
+   }
+
+//    Roles.getTreeitemRole().setAriaLevelProperty(curSelectionContentElem, curSelectionLevel + 1);
+
+   // Set the 'aria-setsize' and 'aria-posinset' states. To do this, we need to
+   // compute the the number of siblings that the currently selected item has,
+   // and the item's position among its siblings.
+
+   TreeItem curSelectionParent = _curSelection.getParentItem();
+   if (curSelectionParent == null) {
+     curSelectionParent = _root;
+   }
+
+//    Roles.getTreeitemRole().setAriaSetsizeProperty(curSelectionContentElem,
+//        curSelectionParent.getChildCount());
+
+   int curSelectionIndex = curSelectionParent.getChildIndex(_curSelection);
+
+//    Roles.getTreeitemRole().setAriaPosinsetProperty(curSelectionContentElem,
+//        curSelectionIndex + 1);
+
+   // Set the 'aria-expanded' state. This depends on the state of the currently
+   // selected item.
+   // If the item has no children, we remove the 'aria-expanded' state.
+
+//    if (_curSelection.getChildCount() == 0) {
+//      Roles.getTreeitemRole().removeAriaExpandedState(curSelectionContentElem);
+//
+//    } else {
+//      Roles.getTreeitemRole().setAriaExpandedState(curSelectionContentElem,
+//            ExpandedValue.of(_curSelection.getState()));
+//    }
+
+   // Make sure that 'aria-selected' is true.
+
+//    Roles.getTreeitemRole().setAriaSelectedState(curSelectionContentElem,
+//        SelectedValue.of(true));
+
+   // Update the 'aria-activedescendant' state for the focusable element to
+   // match the id of the currently selected item
+
+//    Roles.getTreeRole().setAriaActivedescendantProperty(_focusable,
+//        IdReference.of(Dom.getElementAttribute(curSelectionContentElem, "id")));
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>Tree</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAllMouseHandlers.html">HasAllMouseHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasCloseHandlers.html">HasCloseHandlers&lt;TreeItem&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasOpenHandlers.html">HasOpenHandlers&lt;TreeItem&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasSelectionHandlers.html">HasSelectionHandlers&lt;TreeItem&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAllFocusHandlers.html">HasAllFocusHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAllKeyHandlers.html">HasAllKeyHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAnimation.html">HasAnimation</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/Focusable.html">Focusable</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HasWidgetsForIsWidget.html">HasWidgetsForIsWidget</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HasTreeItemsForIsWidget.html">HasTreeItemsForIsWidget</a></span></p>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="shouldTreeDelegateFocusToElement">
+<button class="show-code">Code</button>
+bool <strong>shouldTreeDelegateFocusToElement</strong>(Element elem) <a class="anchor-link" href="#shouldTreeDelegateFocusToElement"
+              title="Permalink to Tree.shouldTreeDelegateFocusToElement">#</a></h4>
+<div class="doc">
+<pre class="source">
+static bool shouldTreeDelegateFocusToElement(dart_html.Element elem) {
+ String name = ""; //elem.nodeName;
+ return ((name == "SELECT") ||
+     (name == "INPUT")  ||
+     (name == "TEXTAREA") ||
+     (name == "OPTION") ||
+     (name == "BUTTON") ||
+     (name == "LABEL"));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isArrowKey">
+<button class="show-code">Code</button>
+bool <strong>isArrowKey</strong>(int code) <a class="anchor-link" href="#isArrowKey"
+              title="Permalink to Tree.isArrowKey">#</a></h4>
+<div class="doc">
+<pre class="source">
+static bool isArrowKey(int code) {
+ switch (code) {
+   case _OTHER_KEY_DOWN:
+   case _OTHER_KEY_RIGHT:
+   case _OTHER_KEY_UP:
+   case _OTHER_KEY_LEFT:
+   case KeyCodes.KEY_DOWN:
+   case KeyCodes.KEY_RIGHT:
+   case KeyCodes.KEY_UP:
+   case KeyCodes.KEY_LEFT:
+     return true;
+   default:
+     return false;
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Tree">
+<button class="show-code">Code</button>
+new <strong>Tree</strong>([<a href="../dart_web_toolkit_ui/_TreeResource.html">_TreeResource</a> resources = null, bool useLeafImages = false]) <a class="anchor-link" href="#Tree"
+              title="Permalink to Tree.Tree">#</a></h4>
+<div class="doc">
+<p>Constructs a tree that uses the specified ClientBundle for images. If this
+tree does not use leaf images, the width of the Resources's leaf image will
+control the leaf indent.</p>
+<p>@param resources a bundle that provides tree specific images
+@param useLeafImages use leaf images from bundle</p>
+<pre class="source">
+Tree([_TreeResource resources = null, bool useLeafImages = false]) {
+ if (resources == null) {
+   _init(new _ImageAdapter(), useLeafImages);
+ } else {
+   _init(new _ImageAdapter(resources), useLeafImages);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="method"><h4 id="accessKey=">
+<button class="show-code">Code</button>
+void <strong>set accessKey</strong>(int key) <a class="anchor-link" href="#accessKey="
+              title="Permalink to Tree.set accessKey">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Sets the widget's 'access key'. This key is used (in conjunction with a
+browser-specific modifier key) to automatically focus the widget.</p>
+<p>@param key the widget's access key</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/Focusable.html">Focusable</a> </div></div>
+<pre class="source">
+void set accessKey(int key) {
+ FocusPanel.impl.setAccessKey(_focusable, key);
+}
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="eventsToSink">
+<button class="show-code">Code</button>
+int         <strong>eventsToSink</strong> <a class="anchor-link"
+            href="#eventsToSink"
+            title="Permalink to Tree.eventsToSink">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>A set og events that should be sunk when the widget is attached to
+the DOM. (We delay the sinking of events to improve startup performance.)
+When the widget is attached, this is set is empty</p>
+<p>Package protected to allow Composite to see it.</p>
+<pre class="source">
+int eventsToSink = 0
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="focus=">
+<button class="show-code">Code</button>
+void <strong>set focus</strong>(bool val) <a class="anchor-link" href="#focus="
+              title="Permalink to Tree.set focus">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Explicitly focus/unfocus this widget. Only one widget can have focus at a
+time, and the widget that does will receive all keyboard events.</p>
+<p>@param focused whether this widget should take focus or release it</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/Focusable.html">Focusable</a> </div></div>
+<pre class="source">
+void set focus(bool val) {
+ if (val) {
+   FocusPanel.impl.focus(_focusable);
+ } else {
+   FocusPanel.impl.blur(_focusable);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tabIndex">
+<button class="show-code">Code</button>
+int <strong>get tabIndex</strong> <a class="anchor-link" href="#tabIndex"
+              title="Permalink to Tree.get tabIndex">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Gets the widget's position in the tab index.</p>
+<p>@return the widget's tab index</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/Focusable.html">Focusable</a> </div></div>
+<pre class="source">
+int get tabIndex {
+ return FocusPanel.impl.getTabIndex(_focusable);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tabIndex=">
+<button class="show-code">Code</button>
+void <strong>set tabIndex</strong>(int index) <a class="anchor-link" href="#tabIndex="
+              title="Permalink to Tree.set tabIndex">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Sets the widget's position in the tab index. If more than one widget has
+the same tab index, each such widget will receive focus in an arbitrary
+order. Setting the tab index to &lt;code>-1&lt;/code> will cause this widget to
+be removed from the tab order.</p>
+<p>@param index the widget's tab index</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/Focusable.html">Focusable</a> </div></div>
+<pre class="source">
+void set tabIndex(int index) {
+ FocusPanel.impl.setTabIndex(_focusable, index);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title">
+<button class="show-code">Code</button>
+String <strong>get title</strong> <a class="anchor-link" href="#title"
+              title="Permalink to Tree.get title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the title associated with this object. The title is the 'tool-tip'
+displayed to users when they hover over the object.</p>
+<p>@return the object's title</p>
+<pre class="source">
+String get title =&gt; getElement().title;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title=">
+<button class="show-code">Code</button>
+void <strong>set title</strong>(String value) <a class="anchor-link" href="#title="
+              title="Permalink to Tree.set title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the element's title.</p>
+<pre class="source">
+void set title(String value) {
+ getElement().title = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible">
+<button class="show-code">Code</button>
+bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to Tree.get visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Determines whether or not this object is visible. Note that this does not
+necessarily take into account whether or not the receiver's parent is
+visible, or even if it is attached to the
+<code>Document</code>. The default implementation of this trait in <code>UIObject</code> is
+based on the value of a dom element's style object's display attribute.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible</p>
+<pre class="source">
+bool get visible =&gt; isVisible(getElement());
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible=">
+<button class="show-code">Code</button>
+void <strong>set visible</strong>(bool visible) <a class="anchor-link" href="#visible="
+              title="Permalink to Tree.set visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets whether this object is visible.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void set visible(bool visible) {
+ setVisible(getElement(), visible);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="add">
+<button class="show-code">Code</button>
+void <strong>add</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget) <a class="anchor-link" href="#add"
+              title="Permalink to Tree.add">#</a></h4>
+<div class="doc">
+<p>Adds the widget as a root tree item.</p>
+<p>@see com.google.gwt.user.client.ui.HasWidgets#add(com.google.gwt.user.client.ui.Widget)
+@param widget widget to add.</p>
+<pre class="source">
+void add(Widget widget) {
+ addWidgetItem(widget);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addAttachHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addAttachHandler</strong>(<a href="../dart_web_toolkit_event/AttachEventHandler.html">AttachEventHandler</a> handler) <a class="anchor-link" href="#addAttachHandler"
+              title="Permalink to Tree.addAttachHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds an <code>AttachEvent</code> handler.</p>
+<p>@param handler the handler
+@return the handler registration</p>
+<pre class="source">
+HandlerRegistration addAttachHandler(AttachEventHandler handler) {
+ return addHandler(handler, AttachEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addBitlessDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBitlessDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addBitlessDomHandler"
+              title="Permalink to Tree.addBitlessDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>For &lt;a href=
+"http://code.google.com/p/google-web-toolkit/wiki/UnderstandingMemoryLeaks"</p>
+<blockquote>
+<p>browsers which do not leak&lt;/a>, adds a native event handler to the widget.</p></blockquote>
+<p>Note that, unlike the
+{@link #addDomHandler(EventHandler, com.google.gwt.event.dom.client.DomEvent.Type)}
+implementation, there is no need to attach the widget to the DOM in order
+to cause the event handlers to be attached.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addBitlessDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null);; // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ sinkBitlessEvent(type.eventName);
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addBlurHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBlurHandler</strong>(<a href="../dart_web_toolkit_event/BlurHandler.html">BlurHandler</a> handler) <a class="anchor-link" href="#addBlurHandler"
+              title="Permalink to Tree.addBlurHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link BlurEvent} handler.</p>
+<p>@param handler the blur handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasBlurHandlers.html">HasBlurHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addBlurHandler(BlurHandler handler) {
+ return addDomHandler(handler, BlurEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addCloseHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addCloseHandler</strong>(<a href="../dart_web_toolkit_event/CloseHandler.html">CloseHandler</a>&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; handler) <a class="anchor-link" href="#addCloseHandler"
+              title="Permalink to Tree.addCloseHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link CloseEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasCloseHandlers.html">HasCloseHandlers</a>&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; </div></div>
+<pre class="source">
+HandlerRegistration addCloseHandler(CloseHandler&lt;TreeItem&gt; handler) {
+ return addHandler(handler, CloseEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addDomHandler"
+              title="Permalink to Tree.addDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds a native event handler to the widget and sinks the corresponding
+native event. If you do not want to sink the native event, use the generic
+addHandler method instead.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null); // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ int typeInt = IEvent.getTypeInt(type.eventName);
+ if (typeInt == -1) {
+   sinkBitlessEvent(type.eventName);
+ } else {
+   sinkEvents(typeInt);
+ }
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addFocusHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addFocusHandler</strong>(<a href="../dart_web_toolkit_event/FocusHandler.html">FocusHandler</a> handler) <a class="anchor-link" href="#addFocusHandler"
+              title="Permalink to Tree.addFocusHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link FocusEvent} handler.</p>
+<p>@param handler the focus handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasFocusHandlers.html">HasFocusHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addFocusHandler(FocusHandler handler) {
+ return addDomHandler(handler, FocusEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a>&gt; type) <a class="anchor-link" href="#addHandler"
+              title="Permalink to Tree.addHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds this handler to the widget.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event type
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&gt; type) {
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addIsTreeItem">
+<button class="show-code">Code</button>
+void <strong>addIsTreeItem</strong>(<a href="../dart_web_toolkit_ui/IsTreeItem.html">IsTreeItem</a> isItem) <a class="anchor-link" href="#addIsTreeItem"
+              title="Permalink to Tree.addIsTreeItem">#</a></h4>
+<div class="doc">
+<p>Adds an item to the root level of this tree.</p>
+<p>@param isItem the wrapper of item to be added</p>
+<pre class="source">
+void addIsTreeItem(IsTreeItem isItem) {
+ _root.addIsTreeItem(isItem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addIsWidget">
+<button class="show-code">Code</button>
+void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#addIsWidget"
+              title="Permalink to Tree.addIsWidget">#</a></h4>
+<div class="doc">
+<p>Overloaded version for IsWidget.</p>
+<p>@see #add(Widget)</p>
+<pre class="source">
+void addIsWidget(IsWidget w) {
+ this.add(asWidgetOrNull(w));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addIsWidgetItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addIsWidgetItem</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#addIsWidgetItem"
+              title="Permalink to Tree.addIsWidgetItem">#</a></h4>
+<div class="doc">
+<p>Overloaded version for IsWidget.</p>
+<p>@see #addItem(Widget)</p>
+<pre class="source">
+TreeItem addIsWidgetItem(IsWidget w) {
+ return this.addIsWidgetItem(asWidgetOrNull(w));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addItem">
+<button class="show-code">Code</button>
+void <strong>addItem</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item) <a class="anchor-link" href="#addItem"
+              title="Permalink to Tree.addItem">#</a></h4>
+<div class="doc">
+<p>Adds an item to the root level of this tree.</p>
+<p>@param item the item to be added</p>
+<pre class="source">
+void addItem(TreeItem item) {
+ _root.addItem(item);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addKeyDownHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyDownHandler</strong>(<a href="../dart_web_toolkit_event/KeyDownHandler.html">KeyDownHandler</a> handler) <a class="anchor-link" href="#addKeyDownHandler"
+              title="Permalink to Tree.addKeyDownHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link KeyDownEvent} handler.</p>
+<p>@param handler the key down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasKeyDownHandlers.html">HasKeyDownHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+ return addDomHandler(handler, KeyDownEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addKeyPressHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyPressHandler</strong>(<a href="../dart_web_toolkit_event/KeyPressHandler.html">KeyPressHandler</a> handler) <a class="anchor-link" href="#addKeyPressHandler"
+              title="Permalink to Tree.addKeyPressHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link KeyPressEvent} handler.</p>
+<p>@param handler the key press handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasKeyPressHandlers.html">HasKeyPressHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+ return addDomHandler(handler, KeyPressEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addKeyUpHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyUpHandler</strong>(<a href="../dart_web_toolkit_event/KeyUpHandler.html">KeyUpHandler</a> handler) <a class="anchor-link" href="#addKeyUpHandler"
+              title="Permalink to Tree.addKeyUpHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link KeyUpEvent} handler.</p>
+<p>@param handler the key up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasKeyUpHandlers.html">HasKeyUpHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+ return addDomHandler(handler, KeyUpEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseDownHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseDownHandler</strong>(<a href="../dart_web_toolkit_event/MouseDownHandler.html">MouseDownHandler</a> handler) <a class="anchor-link" href="#addMouseDownHandler"
+              title="Permalink to Tree.addMouseDownHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseDownEvent} handler.</p>
+<p>@param handler the mouse down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+ return addHandler(handler, MouseDownEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseMoveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseMoveHandler</strong>(<a href="../dart_web_toolkit_event/MouseMoveHandler.html">MouseMoveHandler</a> handler) <a class="anchor-link" href="#addMouseMoveHandler"
+              title="Permalink to Tree.addMouseMoveHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseMoveEvent} handler.</p>
+<p>@param handler the mouse move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+ return addDomHandler(handler, MouseMoveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseOutHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOutHandler</strong>(<a href="../dart_web_toolkit_event/MouseOutHandler.html">MouseOutHandler</a> handler) <a class="anchor-link" href="#addMouseOutHandler"
+              title="Permalink to Tree.addMouseOutHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOutEvent} handler.</p>
+<p>@param handler the mouse out handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+ return addDomHandler(handler, MouseOutEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseOverHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOverHandler</strong>(<a href="../dart_web_toolkit_event/MouseOverHandler.html">MouseOverHandler</a> handler) <a class="anchor-link" href="#addMouseOverHandler"
+              title="Permalink to Tree.addMouseOverHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOverEvent} handler.</p>
+<p>@param handler the mouse over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+ return addDomHandler(handler, MouseOverEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseUpHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseUpHandler</strong>(<a href="../dart_web_toolkit_event/MouseUpHandler.html">MouseUpHandler</a> handler) <a class="anchor-link" href="#addMouseUpHandler"
+              title="Permalink to Tree.addMouseUpHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseUpEvent} handler.</p>
+<p>@param handler the mouse up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+ return addDomHandler(handler, MouseUpEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseWheelHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseWheelHandler</strong>(<a href="../dart_web_toolkit_event/MouseWheelHandler.html">MouseWheelHandler</a> handler) <a class="anchor-link" href="#addMouseWheelHandler"
+              title="Permalink to Tree.addMouseWheelHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseWheelEvent} handler.</p>
+<p>@param handler the mouse wheel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+ return addDomHandler(handler, MouseWheelEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addOpenHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addOpenHandler</strong>(<a href="../dart_web_toolkit_event/OpenHandler.html">OpenHandler</a>&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; handler) <a class="anchor-link" href="#addOpenHandler"
+              title="Permalink to Tree.addOpenHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds an {@link OpenEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasOpenHandlers.html">HasOpenHandlers</a>&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; </div></div>
+<pre class="source">
+HandlerRegistration addOpenHandler(OpenHandler&lt;TreeItem&gt; handler) {
+ return addHandler(handler, OpenEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addSafeHtmlItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addSafeHtmlItem</strong>(<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> itemHtml) <a class="anchor-link" href="#addSafeHtmlItem"
+              title="Permalink to Tree.addSafeHtmlItem">#</a></h4>
+<div class="doc">
+<p>Adds a simple tree item containing the specified html.</p>
+<p>@param itemHtml the html of the item to be added
+@return the item that was added</p>
+<pre class="source">
+TreeItem addSafeHtmlItem(SafeHtml itemHtml) {
+ return _root.addSafeHtmlItem(itemHtml);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addSelectionHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addSelectionHandler</strong>(<a href="../dart_web_toolkit_event/SelectionHandler.html">SelectionHandler</a>&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; handler) <a class="anchor-link" href="#addSelectionHandler"
+              title="Permalink to Tree.addSelectionHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link SelectionEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasSelectionHandlers.html">HasSelectionHandlers</a>&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; </div></div>
+<pre class="source">
+HandlerRegistration addSelectionHandler(
+   SelectionHandler&lt;TreeItem&gt; handler) {
+ return addHandler(handler, SelectionEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>addStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#addStyleDependentName"
+              title="Permalink to Tree.addStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a dependent style name by specifying the style name's suffix. The
+actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added.
+@see #setStylePrimaryName(String)
+@see #removeStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)
+@see #addStyleName(String)</p>
+<pre class="source">
+void addStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(String style) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to Tree.addStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a secondary or dependent style name to this object. A secondary style
+name is an additional style name that is, in HTML/CSS terms, included as a
+space-separated token in the value of the CSS &lt;code>class&lt;/code> attribute
+for this object's root element.</p><p>
+The most important use for this method is to add a special kind of
+secondary style name called a <i>dependent style name</i>. To add a
+dependent style name, use {@link #addStyleDependentName(String)}, which
+will prefix the 'style' argument with the result of
+{@link #k()} (followed by a '-'). For example, suppose
+the primary style name is <code>gwt-TextBox</code>. If the following method
+is called as <code>obj.setReadOnly(true)</code>:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+<p>  // Create a dependent style name.
+  String readOnlyStyle = "readonly";</p>
+<p>  if (readOnly) {</p>
+<pre><code>addStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  } else {</p>
+<pre><code>removeStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  }
+}&lt;/pre></p><p>
+then both of the CSS style rules below will be applied:
+</p><pre class="code">
+<p>// This rule is based on the primary style name and is always active.
+.gwt-TextBox {
+  font-size: 12pt;
+}</p>
+<p>// This rule is based on a dependent style name that is only active
+// when the widget has called addStyleName(getStylePrimaryName() +
+// "-readonly").
+.gwt-TextBox-readonly {
+  background-color: lightgrey;
+  border: none;
+}&lt;/pre></p><p>
+The code can also be simplified with
+{@link #setStyleDependentName(String, boolean)}:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+  setStyleDependentName("readonly", readOnly);
+}</pre><p>
+Dependent style names are powerful because they are automatically updated
+whenever the primary style name changes. Continuing with the example above,
+if the primary style name changed due to the following call:
+</p><pre class="code">setStylePrimaryName("my-TextThingy");</pre><p>
+then the object would be re-associated with following style rules, removing
+those that were shown above.
+</p><pre class="code">
+.my-TextThingy {
+  font-size: 20pt;
+}
+<p>.my-TextThingy-readonly {
+  background-color: red;
+  border: 2px solid yellow;
+}&lt;/pre></p><p>
+Secondary style names that are not dependent style names are not
+automatically updated when the primary style name changes.
+</p>
+<p>@param style the secondary style name to be added
+@see UIObject
+@see #removeStyleName(String)</p>
+<pre class="source">
+void addStyleName(String style) {
+ setStyleName(style, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addTextItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addTextItem</strong>(String itemText) <a class="anchor-link" href="#addTextItem"
+              title="Permalink to Tree.addTextItem">#</a></h4>
+<div class="doc">
+<p>Adds a simple tree item containing the specified text.</p>
+<p>@param itemText the text of the item to be added
+@return the item that was added</p>
+<pre class="source">
+TreeItem addTextItem(String itemText) {
+ return _root.addTextItem(itemText);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addWidgetItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addWidgetItem</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget) <a class="anchor-link" href="#addWidgetItem"
+              title="Permalink to Tree.addWidgetItem">#</a></h4>
+<div class="doc">
+<p>Adds a new tree item containing the specified widget.</p>
+<p>@param widget the widget to be added
+@return the new item</p>
+<pre class="source">
+TreeItem addWidgetItem(Widget widget) {
+ return _root.addWidgetItem(widget);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="adopt">
+<button class="show-code">Code</button>
+void <strong>adopt</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> treeItem) <a class="anchor-link" href="#adopt"
+              title="Permalink to Tree.adopt">#</a></h4>
+<div class="doc">
+<pre class="source">
+void adopt(Widget widget, TreeItem treeItem) {
+ assert (!_childWidgets.containsKey(widget));
+ _childWidgets[widget] = treeItem;
+ widget.setParent(this);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>asWidget</strong>() <a class="anchor-link" href="#asWidget"
+              title="Permalink to Tree.asWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_ui/Widget.html">Widget</a> aspect of the receiver.</p>
+<pre class="source">
+Widget asWidget() {
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clear">
+<button class="show-code">Code</button>
+void <strong>clear</strong>() <a class="anchor-link" href="#clear"
+              title="Permalink to Tree.clear">#</a></h4>
+<div class="doc">
+<p>Clears all tree items from the current tree.</p>
+<pre class="source">
+void clear() {
+ int size = _root.getChildCount();
+ for (int i = size - 1; i &gt;= 0; i--) {
+   _root.getChild(i).remove();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="clearAndSetStyleName">
+<button class="show-code">Code</button>
+void <strong>clearAndSetStyleName</strong>(String style) <a class="anchor-link" href="#clearAndSetStyleName"
+              title="Permalink to Tree.clearAndSetStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Clears all of the object's style names and sets it to the given style. You
+should normally use {@link #setStylePrimaryName(String)} unless you wish to
+explicitly remove all existing styles.</p>
+<p>@param style the new style name
+@see #setStylePrimaryName(String)</p>
+<pre class="source">
+void clearAndSetStyleName(String style) {
+ setElementStyleName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="createEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>createEventBus</strong>() <a class="anchor-link" href="#createEventBus"
+              title="Permalink to Tree.createEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Creates the <code>SimpleEventBus</code> used by this Widget. You can override
+this method to create a custom <code>EventBus</code>.</p>
+<p>@return the <code>EventBus</code> you want to use.</p>
+<pre class="source">
+EventBus createEventBus() {
+ return new SimpleEventBus();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="delegateEvent">
+<button class="show-code">Code</button>
+void <strong>delegateEvent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> target, <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#delegateEvent"
+              title="Permalink to Tree.delegateEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires an event on a child widget. Used to delegate the handling of an event
+from one widget to another.</p>
+<p>@param event the event
+@param target fire the event on the given target</p>
+<pre class="source">
+void delegateEvent(Widget target, DwtEvent event) {
+ target.fireEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="doAttachChildren">
+<button class="show-code">Code</button>
+void <strong>doAttachChildren</strong>() <a class="anchor-link" href="#doAttachChildren"
+              title="Permalink to Tree.doAttachChildren">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onAttach()} for each of its
+child widgets.</p>
+<p>@see #onAttach()</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void doAttachChildren() {
+ try {
+   AttachDetachException.tryCommand(this.iterator(), AttachDetachException.attachCommand);
+ } finally {
+   Dom.setEventListener(_focusable, this);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="doDetachChildren">
+<button class="show-code">Code</button>
+void <strong>doDetachChildren</strong>() <a class="anchor-link" href="#doDetachChildren"
+              title="Permalink to Tree.doDetachChildren">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onDetach()} for each of its
+child widgets.</p>
+<p>@see #onDetach()</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void doDetachChildren() {
+ try {
+   AttachDetachException.tryCommand(this.iterator(), AttachDetachException.detachCommand);
+ } finally {
+   Dom.setEventListener(_focusable, null);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="ensureHandlers">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>ensureHandlers</strong>() <a class="anchor-link" href="#ensureHandlers"
+              title="Permalink to Tree.ensureHandlers">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Ensures the existence of the event bus.</p>
+<p>@return the <code>EventBus</code>.</p>
+<pre class="source">
+EventBus ensureHandlers() {
+ return _eventBus == null ? _eventBus = createEventBus() : _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureSelectedItemVisible">
+<button class="show-code">Code</button>
+void <strong>ensureSelectedItemVisible</strong>() <a class="anchor-link" href="#ensureSelectedItemVisible"
+              title="Permalink to Tree.ensureSelectedItemVisible">#</a></h4>
+<div class="doc">
+<p>Ensures that the currently-selected item is visible, opening its parents
+and scrolling the tree as necessary.</p>
+<pre class="source">
+void ensureSelectedItemVisible() {
+ if (_curSelection == null) {
+   return;
+ }
+
+ TreeItem parent = _curSelection.getParentItem();
+ while (parent != null) {
+   parent.setState(true);
+   parent = parent.getParentItem();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="extractLengthValue">
+<button class="show-code">Code</button>
+double <strong>extractLengthValue</strong>(String s) <a class="anchor-link" href="#extractLengthValue"
+              title="Permalink to Tree.extractLengthValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Intended to be used to pull the value out of a CSS length. If the
+value is "auto" or "inherit", 0 will be returned.</p>
+<p>@param s The CSS length string to extract
+@return The leading numeric portion of &lt;code>s&lt;/code>, or 0 if "auto" or</p>
+<pre><code>    "inherit" are passed in.
+</code></pre>
+<pre class="source">
+double extractLengthValue(String s) {
+ if (s == "auto" || s == "inherit" || s == "") {
+   return 0.0;
+ } else {
+   // numberRegex divides the string into a leading numeric portion
+   // followed by an arbitrary portion.
+   if(numberRegex.hasMatch(s)) {
+     // Extract the leading numeric portion of string
+     s = numberRegex.firstMatch(s)[0];
+   }
+   return double.parse(s);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to Tree.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<code>UmbrellaException</code> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+<pre class="source">
+void fireEvent(DwtEvent event) {
+//    if (_eventBus != null) {
+//      _eventBus.fireEvent(event);
+//    }
+ if (_eventBus != null) {
+   // If it not live we should revive it.
+   if (!event.isLive()) {
+     event.revive();
+   }
+   Object oldSource = event.getSource();
+   event.overrideSource(getElement());
+   try {
+
+     // May throw an UmbrellaException.
+     _eventBus.fireEventFromSource(event, getElement());
+   } on UmbrellaException catch (e) {
+     throw new UmbrellaException(e.causes);
+   } finally {
+     if (oldSource == null) {
+       // This was my event, so I should kill it now that I'm done.
+       event.kill();
+     } else {
+       // Restoring the source for the next handler to use.
+       event.overrideSource(oldSource);
+     }
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fireStateChanged">
+<button class="show-code">Code</button>
+void <strong>fireStateChanged</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item, bool open) <a class="anchor-link" href="#fireStateChanged"
+              title="Permalink to Tree.fireStateChanged">#</a></h4>
+<div class="doc">
+<pre class="source">
+void fireStateChanged(TreeItem item, bool open) {
+ if (open) {
+   OpenEvent.fire(this, item);
+ } else {
+   CloseEvent.fire(this, item);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>() <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to Tree.getAbsoluteLeft">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute left position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute left position</p>
+<pre class="source">
+int getAbsoluteLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>() <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to Tree.getAbsoluteTop">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute top position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute top position</p>
+<pre class="source">
+int getAbsoluteTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getChildWidgets">
+<button class="show-code">Code</button>
+Map&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>, <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; <strong>getChildWidgets</strong>() <a class="anchor-link" href="#getChildWidgets"
+              title="Permalink to Tree.getChildWidgets">#</a></h4>
+<div class="doc">
+<pre class="source">
+Map&lt;Widget, TreeItem&gt; getChildWidgets() {
+ return _childWidgets;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>() <a class="anchor-link" href="#getElement"
+              title="Permalink to Tree.getElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets this object's browser element.</p>
+<pre class="source">
+dart_html.Element getElement() {
+ assert (_element != null); // : MISSING_ELEMENT_ERROR;
+ return _element;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>getEventBus</strong>() <a class="anchor-link" href="#getEventBus"
+              title="Permalink to Tree.getEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Return EventBus.</p>
+<pre class="source">
+EventBus getEventBus() {
+ return _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getImages">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/_ImageAdapter.html">_ImageAdapter</a> <strong>getImages</strong>() <a class="anchor-link" href="#getImages"
+              title="Permalink to Tree.getImages">#</a></h4>
+<div class="doc">
+<pre class="source">
+_ImageAdapter getImages() {
+ return _images;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>getItem</strong>(int index) <a class="anchor-link" href="#getItem"
+              title="Permalink to Tree.getItem">#</a></h4>
+<div class="doc">
+<p>Gets the top-level tree item at the specified index.</p>
+<p>@param index the index to be retrieved
+@return the item at that index</p>
+<pre class="source">
+TreeItem getItem(int index) {
+ return _root.getChild(index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getItemCount">
+<button class="show-code">Code</button>
+int <strong>getItemCount</strong>() <a class="anchor-link" href="#getItemCount"
+              title="Permalink to Tree.getItemCount">#</a></h4>
+<div class="doc">
+<p>Gets the number of items contained at the root of this tree.</p>
+<p>@return this tree's item count</p>
+<pre class="source">
+int getItemCount() {
+ return _root.getChildCount();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getLayoutData">
+<button class="show-code">Code</button>
+Object <strong>getLayoutData</strong>() <a class="anchor-link" href="#getLayoutData"
+              title="Permalink to Tree.getLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets the panel-defined layout data associated with this widget.</p>
+<p>@return the widget's layout data
+@see #setLayoutData</p>
+<pre class="source">
+Object getLayoutData() {
+ return _layoutData;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetHeight">
+<button class="show-code">Code</button>
+int <strong>getOffsetHeight</strong>() <a class="anchor-link" href="#getOffsetHeight"
+              title="Permalink to Tree.getOffsetHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset height in pixels. This is the total height of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset height</p>
+<pre class="source">
+int getOffsetHeight() {
+ return getElement().offset.height; // Dom.getElementPropertyInt(getElement(), "offsetHeight");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetWidth">
+<button class="show-code">Code</button>
+int <strong>getOffsetWidth</strong>() <a class="anchor-link" href="#getOffsetWidth"
+              title="Permalink to Tree.getOffsetWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset width in pixels. This is the total width of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset width</p>
+<pre class="source">
+int getOffsetWidth() {
+ return getElement().offset.width; // Dom.getElementPropertyInt(getElement(), "offsetWidth");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getParent">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getParent</strong>() <a class="anchor-link" href="#getParent"
+              title="Permalink to Tree.getParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets this widget's parent panel.</p>
+<p>@return the widget's parent panel</p>
+<pre class="source">
+Widget getParent() {
+ return _parent;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSelectedItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>getSelectedItem</strong>() <a class="anchor-link" href="#getSelectedItem"
+              title="Permalink to Tree.getSelectedItem">#</a></h4>
+<div class="doc">
+<p>Gets the currently selected item.</p>
+<p>@return the selected item</p>
+<pre class="source">
+TreeItem getSelectedItem() {
+ return _curSelection;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>() <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to Tree.getStyleElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Template method that returns the element to which style names will be
+applied. By default it returns the root element, but this method may be
+overridden to apply styles to a child element.</p>
+<p>@return the element to which style names will be applied</p>
+<pre class="source">
+dart_html.Element getStyleElement() {
+ return getElement();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>() <a class="anchor-link" href="#getStyleName"
+              title="Permalink to Tree.getStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets all of the object's style names, as a space-separated list. If you
+wish to retrieve only the primary style name, call
+{@link #getStylePrimaryName()}.</p>
+<p>@return the objects's space-separated style names
+@see #getStylePrimaryName()</p>
+<pre class="source">
+String getStyleName() {
+ return getElementStyleName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>() <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to Tree.getStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the primary style name associated with the object.</p>
+<p>@return the object's primary style name
+@see #setStyleName(String)
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+String getStylePrimaryName() {
+ return getElementStylePrimaryName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insertItem">
+<button class="show-code">Code</button>
+void <strong>insertItem</strong>(int beforeIndex, <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item) <a class="anchor-link" href="#insertItem"
+              title="Permalink to Tree.insertItem">#</a></h4>
+<div class="doc">
+<p>Inserts an item into the root level of this tree.</p>
+<p>@param beforeIndex the index where the item will be inserted
+@param item the item to be added
+@throws IndexOutOfBoundsException if the index is out of range</p>
+<pre class="source">
+void insertItem(int beforeIndex, TreeItem item) {
+ _root.insertItem(beforeIndex, item);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insertSafeHtmlItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>insertSafeHtmlItem</strong>(int beforeIndex, <a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> itemHtml) <a class="anchor-link" href="#insertSafeHtmlItem"
+              title="Permalink to Tree.insertSafeHtmlItem">#</a></h4>
+<div class="doc">
+<p>Inserts a child tree item at the specified index containing the specified
+html.</p>
+<p>@param beforeIndex the index where the item will be inserted
+@param itemHtml the html of the item to be added
+@return the item that was added
+@throws IndexOutOfBoundsException if the index is out of range</p>
+<pre class="source">
+TreeItem insertSafeHtmlItem(int beforeIndex, SafeHtml itemHtml) {
+ return _root.insertSafeHtmlItem(beforeIndex, itemHtml);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insertTextItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>insertTextItem</strong>(int beforeIndex, String itemText) <a class="anchor-link" href="#insertTextItem"
+              title="Permalink to Tree.insertTextItem">#</a></h4>
+<div class="doc">
+<p>Inserts a child tree item at the specified index containing the specified
+text.</p>
+<p>@param beforeIndex the index where the item will be inserted
+@param itemText the text of the item to be added
+@return the item that was added
+@throws IndexOutOfBoundsException if the index is out of range</p>
+<pre class="source">
+TreeItem insertTextItem(int beforeIndex, String itemText) {
+ return _root.insertTextItem(beforeIndex, itemText);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="insertWidgetItem">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>insertWidgetItem</strong>(int beforeIndex, <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget) <a class="anchor-link" href="#insertWidgetItem"
+              title="Permalink to Tree.insertWidgetItem">#</a></h4>
+<div class="doc">
+<p>Inserts a child tree item at the specified index containing the specified
+widget.</p>
+<p>@param beforeIndex the index where the item will be inserted
+@param widget the widget to be added
+@return the item that was added
+@throws IndexOutOfBoundsException if the index is out of range</p>
+<pre class="source">
+TreeItem insertWidgetItem(int beforeIndex, Widget widget) {
+ return _root.insertWidgetItem(beforeIndex, widget);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isAnimationEnabled">
+<button class="show-code">Code</button>
+bool <strong>isAnimationEnabled</strong>() <a class="anchor-link" href="#isAnimationEnabled"
+              title="Permalink to Tree.isAnimationEnabled">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if animations are enabled, false if not.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasAnimation.html">HasAnimation</a> </div></div>
+<pre class="source">
+bool isAnimationEnabled() {
+ return _isAnimationEnabled;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isAttached">
+<button class="show-code">Code</button>
+bool <strong>isAttached</strong>() <a class="anchor-link" href="#isAttached"
+              title="Permalink to Tree.isAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns whether or not the receiver is attached to the
+{@link com.google.gwt.dom.client.Document Document}'s
+{@link com.google.gwt.dom.client.BodyElement BodyElement}.</p>
+<p>@return true if attached, false otherwise</p>
+<pre class="source">
+bool isAttached() {
+ return _attached;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isKeyboardNavigationEnabled">
+<button class="show-code">Code</button>
+bool <strong>isKeyboardNavigationEnabled</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> currentItem) <a class="anchor-link" href="#isKeyboardNavigationEnabled"
+              title="Permalink to Tree.isKeyboardNavigationEnabled">#</a></h4>
+<div class="doc">
+<p>Indicates if keyboard navigation is enabled for the Tree and for a given
+TreeItem. Subclasses of Tree can override this function to selectively
+enable or disable keyboard navigation.</p>
+<p>@param currentItem the currently selected TreeItem
+@return &lt;code>true&lt;/code> if the Tree will response to arrow keys by</p>
+<pre><code>    changing the currently selected item
+</code></pre>
+<pre class="source">
+bool isKeyboardNavigationEnabled(TreeItem currentItem) {
+ return true;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isOrWasAttached">
+<button class="show-code">Code</button>
+bool <strong>isOrWasAttached</strong>() <a class="anchor-link" href="#isOrWasAttached"
+              title="Permalink to Tree.isOrWasAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Has this widget ever been attached?</p>
+<p>@return true if this widget ever been attached to the DOM, false otherwise</p>
+<pre class="source">
+bool isOrWasAttached() {
+ return eventsToSink == -1;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="iterator">
+<button class="show-code">Code</button>
+Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; <strong>iterator</strong>() <a class="anchor-link" href="#iterator"
+              title="Permalink to Tree.iterator">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterator</code> that iterates over this <code>Iterable</code> object.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+Iterator&lt;Widget&gt; iterator() {
+ List&lt;Widget&gt; widgets = new List&lt;Widget&gt;.from(_childWidgets.keys);
+ return WidgetIterators.createWidgetIterator(this, widgets);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="maybeUpdateSelection">
+<button class="show-code">Code</button>
+void <strong>maybeUpdateSelection</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> itemThatChangedState, bool isItemOpening) <a class="anchor-link" href="#maybeUpdateSelection"
+              title="Permalink to Tree.maybeUpdateSelection">#</a></h4>
+<div class="doc">
+<pre class="source">
+void maybeUpdateSelection(TreeItem itemThatChangedState, bool isItemOpening) {
+ /**
+  * If we just closed the item, let's check to see if this item is the parent
+  * of the currently selected item. If so, we should make this item the
+  * currently selected selected item.
+  */
+ if (!isItemOpening) {
+   TreeItem tempItem = _curSelection;
+   while (tempItem != null) {
+     if (tempItem == itemThatChangedState) {
+       setSelectedItem(itemThatChangedState);
+       return;
+     }
+     tempItem = tempItem.getParentItem();
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to Tree.onAttach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is attached to the browser's document.
+To receive notification after a Widget has been added to the document,
+override the {@link #onLoad} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onLoad()} or
+{@link #doAttachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onAttach()</code> to ensure that the Widget has been attached
+to its underlying Element.
+</p>
+<p>@throws IllegalStateException if this widget is already attached
+@see #onLoad()
+@see #doAttachChildren()</p>
+<pre class="source">
+void onAttach() {
+ if (isAttached()) {
+   throw new Exception("Should only call onAttach when the widget is detached from the browser's document");
+ }
+
+ _attached = true;
+
+ // Event hookup code
+ Dom.setEventListener(getElement(), this);
+ int bitsToAdd = eventsToSink;
+ eventsToSink = -1;
+ if (bitsToAdd &gt; 0) {
+   sinkEvents(bitsToAdd);
+ }
+ doAttachChildren();
+
+ // onLoad() gets called only *after* all of the children are attached and
+ // the attached flag is set. This allows widgets to be notified when they
+ // are fully attached, and panels when all of their children are attached.
+ onLoad();
+ AttachEvent.fire(this, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onBrowserEvent">
+<button class="show-code">Code</button>
+void <strong>onBrowserEvent</strong>(Event event) <a class="anchor-link" href="#onBrowserEvent"
+              title="Permalink to Tree.onBrowserEvent">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Fired whenever a browser event is received.</p>
+<p>@param event the event received</p>
+<p>TODO</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void onBrowserEvent(dart_html.Event event) {
+ int eventType = Dom.eventGetType(event);
+
+ switch (eventType) {
+   case IEvent.ONKEYDOWN:
+     // If nothing's selected, select the first item.
+     if (_curSelection == null) {
+       if (_root.getChildCount() &gt; 0) {
+         _onSelection(_root.getChild(0), true, true);
+       }
+       super.onBrowserEvent(event);
+       return;
+     }
+     break;
+     // Intentional fallthrough.
+   case IEvent.ONKEYPRESS:
+   case IEvent.ONKEYUP:
+     dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+     // Issue 1890: Do not block history navigation via alt+left/right
+
+     if (kEvent.altKey || kEvent.metaKey) {
+       super.onBrowserEvent(event);
+       return;
+     }
+     break;
+ }
+
+ switch (eventType) {
+   case IEvent.ONCLICK:
+     dart_html.Element e = event.target as dart_html.Element;
+     if (shouldTreeDelegateFocusToElement(e)) {
+       // The click event should have given focus to this element already.
+       // Avoid moving focus back up to the tree (so that focusable widgets
+       // attached to TreeItems can receive keyboard events).
+     } else if ((_curSelection != null) &amp;&amp; Dom.isOrHasChild(_curSelection.getContentElem(), e)) {
+       focus = true;
+     }
+     break;
+
+   case IEvent.ONMOUSEDOWN:
+     // Currently, the way we're using image bundles causes extraneous events
+     // to be sunk on individual items' open/close images. This leads to an
+     // extra event reaching the Tree, which we will ignore here.
+     // Also, ignore middle and right clicks here.
+     dart_html.MouseEvent mEvent = event as dart_html.MouseEvent;
+     if (mEvent.currentTarget == getElement() &amp;&amp; mEvent.button == IEvent.BUTTON_LEFT) {
+       _elementClicked(event.target as dart_html.Element);
+     }
+     break;
+   case IEvent.ONKEYDOWN:
+     _keyboardNavigation(event);
+     _lastWasKeyDown = true;
+     break;
+
+   case IEvent.ONKEYPRESS:
+     if (!_lastWasKeyDown) {
+       _keyboardNavigation(event);
+     }
+     _lastWasKeyDown = false;
+     break;
+
+   case IEvent.ONKEYUP:
+     dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+     if (kEvent.keyCode == KeyCodes.KEY_TAB) {
+       List&lt;dart_html.Element&gt; chain = new List&lt;dart_html.Element&gt;();
+       _collectElementChain(chain, getElement(), event.target);
+       TreeItem item = _findItemByChain(chain, 0, _root);
+       if (item != getSelectedItem()) {
+         setSelectedItem(item, true);
+       }
+     }
+     _lastWasKeyDown = false;
+     break;
+ }
+
+ switch (eventType) {
+   case IEvent.ONKEYDOWN:
+   case IEvent.ONKEYUP:
+     dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
+     if (isArrowKey(kEvent.keyCode)) {
+       event.cancelBubble = true;
+       event.preventDefault();
+       return;
+     }
+     break;
+ }
+
+ // We must call super for all handlers.
+ super.onBrowserEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to Tree.onDetach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is detached from the browser's
+document. To receive notification before a Widget is removed from the
+document, override the {@link #onUnload} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onUnload()} or
+{@link #doDetachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onDetach()</code> to ensure that the Widget has been detached
+from the underlying Element. Failure to do so will result in application
+memory leaks due to circular references between DOM Elements and JavaScript
+objects.
+</p>
+<p>@throws IllegalStateException if this widget is already detached
+@see #onUnload()
+@see #doDetachChildren()</p>
+<pre class="source">
+void onDetach() {
+ if (!isAttached()) {
+   throw new Exception("Should only call onDetach when the widget is attached to the browser's document");
+ }
+
+ try {
+   // onUnload() gets called *before* everything else (the opposite of
+   // onLoad()).
+   onUnload();
+   AttachEvent.fire(this, false);
+ } finally {
+   // Put this in a finally, just in case onUnload throws an exception.
+   try {
+     doDetachChildren();
+   } finally {
+     // Put this in a finally, in case doDetachChildren throws an exception.
+     Dom.setEventListener(getElement(), null);
+     _attached = false;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onLoad">
+<button class="show-code">Code</button>
+void <strong>onLoad</strong>() <a class="anchor-link" href="#onLoad"
+              title="Permalink to Tree.onLoad">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>This method is called immediately after a widget becomes attached to the
+browser's document.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void onLoad() {
+ _root.updateStateRecursive();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onUnload">
+<button class="show-code">Code</button>
+void <strong>onUnload</strong>() <a class="anchor-link" href="#onUnload"
+              title="Permalink to Tree.onUnload">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately before a widget will be detached from the
+browser's document.</p>
+<pre class="source">
+void onUnload() {
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="orphan">
+<button class="show-code">Code</button>
+void <strong>orphan</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget) <a class="anchor-link" href="#orphan"
+              title="Permalink to Tree.orphan">#</a></h4>
+<div class="doc">
+<pre class="source">
+void orphan(Widget widget) {
+ // Validation should already be done.
+ assert (widget.getParent() == this);
+
+ // Orphan.
+ try {
+   widget.setParent(null);
+ } finally {
+   // Logical detach.
+   _childWidgets.remove(widget);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="remove">
+<button class="show-code">Code</button>
+bool <strong>remove</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#remove"
+              title="Permalink to Tree.remove">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Removes a child widget.</p>
+<p>@param w the widget to be removed
+@return &lt;code>true&lt;/code> if the widget was present</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+bool remove(Widget w) {
+ // Validate.
+ TreeItem item = _childWidgets[w];
+ if (item == null) {
+   return false;
+ }
+
+ // Delegate to TreeItem.setWidget, which performs correct removal.
+ item.setWidget(null);
+ return true;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeFromParent">
+<button class="show-code">Code</button>
+void <strong>removeFromParent</strong>() <a class="anchor-link" href="#removeFromParent"
+              title="Permalink to Tree.removeFromParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Removes this widget from its parent widget, if one exists.</p><p>
+If it has no parent, this method does nothing. If it is a "root" widget
+(meaning it's been added to the detach list via
+{@link RootPanel#detachOnWindowClose(Widget)}), it will be removed from the
+detached immediately. This makes it possible for Composites and Panels to
+adopt root widgets.
+</p>
+<p>@throws IllegalStateException if this widget's parent does not support</p>
+<pre><code>      removal (e.g. {@link Composite})
+</code></pre>
+<pre class="source">
+void removeFromParent() {
+ if (_parent == null) {
+   // If the widget had no parent, check to see if it was in the detach list
+   // and remove it if necessary.
+   if (RootPanel.isInDetachList(this)) {
+     RootPanel.detachNow(this);
+   }
+ } else if (_parent is HasWidgets) {
+   (_parent as HasWidgets).remove(this);
+ } else if (_parent != null) {
+   throw new Exception("This widget's parent does not implement HasWidgets");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeIsTreeItem">
+<button class="show-code">Code</button>
+void <strong>removeIsTreeItem</strong>(<a href="../dart_web_toolkit_ui/IsTreeItem.html">IsTreeItem</a> isItem) <a class="anchor-link" href="#removeIsTreeItem"
+              title="Permalink to Tree.removeIsTreeItem">#</a></h4>
+<div class="doc">
+<p>Removes an item from the _root level of this tree.</p>
+<p>@param isItem the wrapper of item to be removed</p>
+<pre class="source">
+void removeIsTreeItem(IsTreeItem isItem) {
+ if (isItem != null) {
+   TreeItem item = isItem.asTreeItem();
+   removeItem(item);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeIsWidget">
+<button class="show-code">Code</button>
+bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#removeIsWidget"
+              title="Permalink to Tree.removeIsWidget">#</a></h4>
+<div class="doc">
+<p>Overloaded version for IsWidget.</p>
+<p>@see #remove(Widget)</p>
+<pre class="source">
+bool removeIsWidget(IsWidget w) {
+ return this.remove(w.asWidget());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeItem">
+<button class="show-code">Code</button>
+void <strong>removeItem</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item) <a class="anchor-link" href="#removeItem"
+              title="Permalink to Tree.removeItem">#</a></h4>
+<div class="doc">
+<p>Removes an item from the root level of this tree.</p>
+<p>@param item the item to be removed</p>
+<pre class="source">
+void removeItem(TreeItem item) {
+ _root.removeItem(item);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeItems">
+<button class="show-code">Code</button>
+void <strong>removeItems</strong>() <a class="anchor-link" href="#removeItems"
+              title="Permalink to Tree.removeItems">#</a></h4>
+<div class="doc">
+<p>Removes all items from the root level of this tree.</p>
+<pre class="source">
+void removeItems() {
+ while (getItemCount() &gt; 0) {
+   removeItem(getItem(0));
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>removeStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#removeStyleDependentName"
+              title="Permalink to Tree.removeStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a dependent style name by specifying the style name's suffix.</p>
+<p>@param styleSuffix the suffix of the dependent style to be removed
+@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)</p>
+<pre class="source">
+void removeStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(String style) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to Tree.removeStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a style name. This method is typically used to remove secondary
+style names, but it can be used to remove primary stylenames as well. That
+use is not recommended.</p>
+<p>@param style the secondary style name to be removed
+@see #addStyleName(String)
+@see #setStyleName(String, boolean)</p>
+<pre class="source">
+void removeStyleName(String style) {
+ setStyleName(style, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="replaceElement">
+<button class="show-code">Code</button>
+void <strong>replaceElement</strong>(Element elem) <a class="anchor-link" href="#replaceElement"
+              title="Permalink to Tree.replaceElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Replaces this object's browser element.</p>
+<p>This method exists only to support a specific use-case in Image, and should
+not be used by other classes.</p>
+<p>@param elem the object's new element</p>
+<pre class="source">
+void replaceElement(dart_html.Element elem) {
+ if (isAttached()) {
+   // Remove old event listener to avoid leaking. onDetach will not do this
+   // for us, because it is only called when the widget itself is detached
+   // from the document.
+   Dom.setEventListener(getElement(), null);
+ }
+
+ super.replaceElement(elem);
+
+ if (isAttached()) {
+   // Hook the event listener back up on the new element. onAttach will not
+   // do this for us, because it is only called when the widget itself is
+   // attached to the document.
+   Dom.setEventListener(getElement(), this);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAnimationEnabled">
+<button class="show-code">Code</button>
+void <strong>setAnimationEnabled</strong>(bool enable) <a class="anchor-link" href="#setAnimationEnabled"
+              title="Permalink to Tree.setAnimationEnabled">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Enable or disable animations.</p>
+<p>@param enable true to enable, false to disable</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasAnimation.html">HasAnimation</a> </div></div>
+<pre class="source">
+void setAnimationEnabled(bool enable) {
+ _isAnimationEnabled = enable;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element elem) <a class="anchor-link" href="#setElement"
+              title="Permalink to Tree.setElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets this object's browser element. UIObject subclasses must call this
+method before attempting to call any other methods, and it may only be
+called once.</p>
+<p>@param elem the object's element</p>
+<pre class="source">
+void setElement(dart_html.Element elem) {
+ assert (_element == null);
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to Tree.setHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's height. This height does not include decorations such as
+border, margin, and padding.</p>
+<p>@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setHeight(String height) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(height.trim().toLowerCase()) &gt;= 0); // : "CSS heights should not be negative";
+ Dom.setStyleAttribute(getElement(), "height", height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setLayoutData">
+<button class="show-code">Code</button>
+void <strong>setLayoutData</strong>(Object value) <a class="anchor-link" href="#setLayoutData"
+              title="Permalink to Tree.setLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets the panel-defined layout data associated with this widget. Only the
+panel that currently contains a widget should ever set this value. It
+serves as a place to store layout bookkeeping data associated with a
+widget.</p>
+<p>@param layoutData the widget's layout data</p>
+<pre class="source">
+void setLayoutData(Object value) {
+ this._layoutData = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setParent">
+<button class="show-code">Code</button>
+void <strong>setParent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> parent) <a class="anchor-link" href="#setParent"
+              title="Permalink to Tree.setParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets this widget's parent. This method should only be called by
+{@link Panel} and {@link Composite}.</p>
+<p>@param parent the widget's new parent
+@throws IllegalStateException if &lt;code>parent&lt;/code> is non-null and the</p>
+<pre><code>      widget already has a parent
+</code></pre>
+<pre class="source">
+void setParent(Widget parent) {
+ Widget oldParent = this._parent;
+ if (parent == null) {
+   try {
+     if (oldParent != null &amp;&amp; oldParent.isAttached()) {
+       onDetach();
+       assert (!isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onDetach()";
+     }
+   } finally {
+     // Put this in a finally in case onDetach throws an exception.
+     this._parent = null;
+   }
+ } else {
+   if (oldParent != null) {
+     throw new Exception("Cannot set a new parent without first clearing the old parent");
+   }
+   this._parent = parent;
+   if (parent.isAttached()) {
+     onAttach();
+     assert (isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onAttach()";
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setPixelSize">
+<button class="show-code">Code</button>
+void <strong>setPixelSize</strong>(int width, int height) <a class="anchor-link" href="#setPixelSize"
+              title="Permalink to Tree.setPixelSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size, in pixels, not including decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in pixels
+@param height the object's new height, in pixels</p>
+<pre class="source">
+void setPixelSize(int width, int height) {
+ if (width &gt;= 0) {
+   setWidth(width.toString() + "px");
+ }
+ if (height &gt;= 0) {
+   setHeight(height.toString() + "px");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setSelectedItem">
+<button class="show-code">Code</button>
+void <strong>setSelectedItem</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item, [bool fireEvents = true]) <a class="anchor-link" href="#setSelectedItem"
+              title="Permalink to Tree.setSelectedItem">#</a></h4>
+<div class="doc">
+<p>Selects a specified item.</p>
+<p>@param item the item to be selected, or &lt;code>null&lt;/code> to deselect all</p>
+<pre><code>     items
+</code></pre>
+<p>@param fireEvents &lt;code>true&lt;/code> to allow selection events to be fired</p>
+<pre class="source">
+void setSelectedItem(TreeItem item, [bool fireEvents = true]) {
+ if (item == null) {
+   if (_curSelection == null) {
+     return;
+   }
+   _curSelection.setSelected(false);
+   _curSelection = null;
+   return;
+ }
+
+ _onSelection(item, fireEvents, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSize">
+<button class="show-code">Code</button>
+void <strong>setSize</strong>(String width, String height) <a class="anchor-link" href="#setSize"
+              title="Permalink to Tree.setSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size. This size does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")
+@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setSize(String width, String height) {
+ setWidth(width);
+ setHeight(height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>setStyleDependentName</strong>(String styleSuffix, bool add) <a class="anchor-link" href="#setStyleDependentName"
+              title="Permalink to Tree.setStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a dependent style name by specifying the style name's
+suffix. The actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleName(String, boolean)
+@see #removeStyleDependentName(String)</p>
+<pre class="source">
+void setStyleDependentName(String styleSuffix, bool add) {
+ setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(String style, bool add) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to Tree.setStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a style name. This method is typically used to remove
+secondary style names, but it can be used to remove primary stylenames as
+well. That use is not recommended.</p>
+<p>@param style the style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStyleName(String style, bool add) {
+ manageElementStyleName(getStyleElement(), style, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(String style) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to Tree.setStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's primary style name and updates all dependent style names.</p>
+<p>@param style the new primary style name
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStylePrimaryName(String style) {
+ setElementStylePrimaryName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to Tree.setWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's width. This width does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setWidth(String width) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(width.trim().toLowerCase()) &gt;= 0); // : "CSS widths should not be negative";
+ Dom.setStyleAttribute(getElement(), "width", width);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="showClosedImage">
+<button class="show-code">Code</button>
+void <strong>showClosedImage</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> treeItem) <a class="anchor-link" href="#showClosedImage"
+              title="Permalink to Tree.showClosedImage">#</a></h4>
+<div class="doc">
+<p>Called only from {@link TreeItem}: Shows the closed image on that tree
+item.</p>
+<p>@param treeItem the tree item</p>
+<pre class="source">
+void showClosedImage(TreeItem treeItem) {
+ _showImage(treeItem, _images.treeClosed());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="showLeafImage">
+<button class="show-code">Code</button>
+void <strong>showLeafImage</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> treeItem) <a class="anchor-link" href="#showLeafImage"
+              title="Permalink to Tree.showLeafImage">#</a></h4>
+<div class="doc">
+<p>Called only from {@link TreeItem}: Shows the leaf image on a tree item.</p>
+<p>@param treeItem the tree item</p>
+<pre class="source">
+void showLeafImage(TreeItem treeItem) {
+ if (_useLeafImages || treeItem.isFullNode()) {
+   _showImage(treeItem, _images.treeLeaf());
+ } else if (LocaleInfo.getCurrentLocale().isRTL()) {
+   treeItem.getElement().style.paddingRight = _indentValue;
+ } else {
+   treeItem.getElement().style.paddingLeft = _indentValue;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="showOpenImage">
+<button class="show-code">Code</button>
+void <strong>showOpenImage</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> treeItem) <a class="anchor-link" href="#showOpenImage"
+              title="Permalink to Tree.showOpenImage">#</a></h4>
+<div class="doc">
+<p>Called only from {@link TreeItem}: Shows the open image on a tree item.</p>
+<p>@param treeItem the tree item</p>
+<pre class="source">
+void showOpenImage(TreeItem treeItem) {
+ _showImage(treeItem, _images.treeOpen());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to Tree.sinkBitlessEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sinks a named event. Note that only {@link Widget widgets} may actually
+receive events, but can receive events from all objects contained within
+them.</p>
+<p>@param eventTypeName name of the event to sink on this element
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkBitlessEvent(String eventTypeName) {
+ Dom.sinkBitlessEvent(getElement(), eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(int eventBitsToAdd) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to Tree.sinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Overridden to defer the call to super.sinkEvents until the first time this
+widget is attached to the dom, as a performance enhancement. Subclasses
+wishing to customize sinkEvents can preserve this deferred sink behavior by
+putting their implementation behind a check of
+&lt;code>isOrWasAttached()&lt;/code>:</p><pre>
+{@literal @}Override
+public void sinkEvents(int eventBitsToAdd) {
+  if (isOrWasAttached()) {
+    /{@literal *} customized sink code goes here {@literal *}/
+  } else {
+    super.sinkEvents(eventBitsToAdd);
+ }
+} </pre>
+<pre class="source">
+void sinkEvents(int eventBitsToAdd) {
+ if (isOrWasAttached()) {
+   super.sinkEvents(eventsToSink);
+ } else {
+   eventsToSink |= eventBitsToAdd;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to Tree.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>This method is overridden so that any object can be viewed in the debugger
+as an HTML snippet.</p>
+<p>@return a string representation of the object</p>
+<pre class="source">
+String toString() {
+ if (_element == null) {
+   return "(null handle)";
+ }
+ return getElement().toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="treeItemIterator">
+<button class="show-code">Code</button>
+Iterator&lt;<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a>&gt; <strong>treeItemIterator</strong>() <a class="anchor-link" href="#treeItemIterator"
+              title="Permalink to Tree.treeItemIterator">#</a></h4>
+<div class="doc">
+<p>Iterator of tree items.</p>
+<p>@return the iterator</p>
+<pre class="source">
+Iterator&lt;TreeItem&gt; treeItemIterator() {
+ List&lt;TreeItem&gt; accum = new List&lt;TreeItem&gt;();
+ _root.addTreeItems(accum);
+ return accum.iterator;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="unsinkEvents">
+<button class="show-code">Code</button>
+void <strong>unsinkEvents</strong>(int eventBitsToRemove) <a class="anchor-link" href="#unsinkEvents"
+              title="Permalink to Tree.unsinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a set of events from this object's event list.</p>
+<p>@param eventBitsToRemove a bitfield representing the set of events to be</p>
+<pre><code>     removed from this element's event set
+</code></pre>
+<p>@see #sinkEvents
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void unsinkEvents(int eventBitsToRemove) {
+ Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:21.417</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

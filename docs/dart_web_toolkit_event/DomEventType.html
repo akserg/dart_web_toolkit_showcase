@@ -1,0 +1,134 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DomEventType&lt;H&gt; class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="DomEventType&amp;lt;H&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType&lt;H&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DomEventType&lt;H&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Type class used by dom event subclasses. Type is specialized for dom in
+order to carry information about the native event.</p>
+<p>@param &lt;H> handler type</p>
+<pre class="source">
+class DomEventType&lt;H&gt; extends EventType&lt;H&gt; {
+
+ String eventName;
+ DomEvent flyweight;
+
+ DomEventType(this.eventName, this.flyweight) {
+   DomEvent.getRegistered()[eventName] = this;
+ }
+
+
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/EventType.html">EventType&lt;H&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>DomEventType&lt;H&gt;</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="DomEventType">
+<button class="show-code">Code</button>
+new <strong>DomEventType</strong>(String eventName, <a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a> flyweight) <a class="anchor-link" href="#DomEventType"
+              title="Permalink to DomEventType&lt;H&gt;.DomEventType">#</a></h4>
+<div class="doc">
+<pre class="source">
+DomEventType(this.eventName, this.flyweight) {
+ DomEvent.getRegistered()[eventName] = this;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="eventName">
+<button class="show-code">Code</button>
+String         <strong>eventName</strong> <a class="anchor-link"
+            href="#eventName"
+            title="Permalink to DomEventType&lt;H&gt;.eventName">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String eventName
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="flyweight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a>         <strong>flyweight</strong> <a class="anchor-link"
+            href="#flyweight"
+            title="Permalink to DomEventType&lt;H&gt;.flyweight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+DomEvent flyweight
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to DomEventType&lt;H&gt;.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/EventType.html">EventType</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a string representation of this object.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+String toString() {
+ return "Event type";
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.488</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

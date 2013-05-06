@@ -1,0 +1,437 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>RowFormatter class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="RowFormatter">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/RowFormatter.html">RowFormatter</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>RowFormatter</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This class contains methods used to format a table's rows.</p>
+<pre class="source">
+class RowFormatter {
+
+ HtmlTable _table;
+
+ /**
+  * Adds a style to the specified row.
+  *
+  * @param row the row to which the style will be added
+  * @param styleName the style name to be added
+  * @see UiObject#addStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void addStyleName(int row, String styleName) {
+   UiObject.manageElementStyleName(ensureElement(row), styleName, true);
+ }
+
+ /**
+  * Gets the TR element representing the specified row.
+  *
+  * @param row the row whose TR element is to be retrieved
+  * @return the row's TR element
+  * @throws IndexOutOfBoundsException
+  */
+ dart_html.Element getElement(int row) {
+   _table.checkRowBounds(row);
+   return getRow(_table.bodyElem, row);
+ }
+
+ /**
+  * Gets the style of the specified row.
+  *
+  * @param row the row to be queried
+  * @return the style name
+  * @see UiObject#getStyleName()
+  * @throws IndexOutOfBoundsException
+  */
+ String getStyleName(int row) {
+   return UiObject.getElementStyleName(getElement(row));
+ }
+
+ /**
+  * Gets the primary style of the specified row.
+  *
+  * @param row the row to be queried
+  * @return the style name
+  * @see UiObject#getStylePrimaryName()
+  * @throws IndexOutOfBoundsException
+  */
+ String getStylePrimaryName(int row) {
+   return UiObject.getElementStylePrimaryName(getElement(row));
+ }
+
+ /**
+  * Determines whether or not this row is visible via the display style
+  * attribute.
+  *
+  * @param row the row whose visibility is to be set
+  * @return &lt;code&gt;true&lt;/code&gt; if the row is visible
+  */
+ bool isVisible(int row) {
+   dart_html.Element e = getElement(row);
+   return UiObject.isVisible(e);
+ }
+
+ /**
+  * Removes a style from the specified row.
+  *
+  * @param row the row from which the style will be removed
+  * @param styleName the style name to be removed
+  * @see UiObject#removeStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void removeStyleName(int row, String styleName) {
+   UiObject.manageElementStyleName(ensureElement(row), styleName, false);
+ }
+
+ /**
+  * Sets the style name associated with the specified row.
+  *
+  * @param row the row whose style name is to be set
+  * @param styleName the new style name
+  * @see UiObject#setStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void setStyleName(int row, String styleName) {
+   UiObject.setElementStyleName(ensureElement(row), styleName);
+ }
+
+ /**
+  * Sets the primary style name associated with the specified row.
+  *
+  * @param row the row whose style name is to be set
+  * @param styleName the new style name
+  * @see UiObject#setStylePrimaryName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void setStylePrimaryName(int row, String styleName) {
+   UiObject.setElementStylePrimaryName(ensureElement(row), styleName);
+ }
+
+ /**
+  * Sets the vertical alignment of the specified row.
+  *
+  * @param row the row whose alignment is to be set
+  * @param align the row's new vertical alignment as specified in
+  *          {@link HasVerticalAlignment}
+  * @throws IndexOutOfBoundsException
+  */
+ void setVerticalAlign(int row, VerticalAlignmentConstant align) {
+   Dom.setStyleAttribute(ensureElement(row), "verticalAlign",
+       align.getVerticalAlignString());
+ }
+
+ /**
+  * Sets whether this row is visible.
+  *
+  * @param row the row whose visibility is to be set
+  * @param visible &lt;code&gt;true&lt;/code&gt; to show the row, &lt;code&gt;false&lt;/code&gt; to
+  *          hide it
+  */
+ void setVisible(int row, bool visible) {
+   dart_html.Element e = ensureElement(row);
+   UiObject.setVisible(e, visible);
+ }
+
+ /**
+  * Ensure the TR element representing the specified row exists for
+  * subclasses that allow dynamic addition of elements.
+  *
+  * @param row the row whose TR element is to be retrieved
+  * @return the row's TR element
+  * @throws IndexOutOfBoundsException
+  */
+ dart_html.Element ensureElement(int row) {
+   _table.prepareRow(row);
+   return getRow(_table.bodyElem, row);
+ }
+
+ dart_html.Element getRow(dart_html.Element elem, int row) {
+   return (elem.parent as dart_html.TableElement).rows[row];
+ }
+
+ /**
+  * Convenience methods to set an attribute on a row.
+  *
+  * @param row cell's row
+  * @param attrName attribute to set
+  * @param value value to set
+  * @throws IndexOutOfBoundsException
+  */
+ void setAttr(int row, String attrName, String value) {
+   dart_html.Element elem = ensureElement(row);
+   Dom.setElementAttribute(elem, attrName, value);
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(int row, String styleName) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to RowFormatter.addStyleName">#</a></h4>
+<div class="doc">
+<p>Adds a style to the specified row.</p>
+<p>@param row the row to which the style will be added
+@param styleName the style name to be added
+@see UiObject#addStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void addStyleName(int row, String styleName) {
+ UiObject.manageElementStyleName(ensureElement(row), styleName, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureElement">
+<button class="show-code">Code</button>
+Element <strong>ensureElement</strong>(int row) <a class="anchor-link" href="#ensureElement"
+              title="Permalink to RowFormatter.ensureElement">#</a></h4>
+<div class="doc">
+<p>Ensure the TR element representing the specified row exists for
+subclasses that allow dynamic addition of elements.</p>
+<p>@param row the row whose TR element is to be retrieved
+@return the row's TR element
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+dart_html.Element ensureElement(int row) {
+ _table.prepareRow(row);
+ return getRow(_table.bodyElem, row);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>(int row) <a class="anchor-link" href="#getElement"
+              title="Permalink to RowFormatter.getElement">#</a></h4>
+<div class="doc">
+<p>Gets the TR element representing the specified row.</p>
+<p>@param row the row whose TR element is to be retrieved
+@return the row's TR element
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+dart_html.Element getElement(int row) {
+ _table.checkRowBounds(row);
+ return getRow(_table.bodyElem, row);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRow">
+<button class="show-code">Code</button>
+Element <strong>getRow</strong>(Element elem, int row) <a class="anchor-link" href="#getRow"
+              title="Permalink to RowFormatter.getRow">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.Element getRow(dart_html.Element elem, int row) {
+ return (elem.parent as dart_html.TableElement).rows[row];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>(int row) <a class="anchor-link" href="#getStyleName"
+              title="Permalink to RowFormatter.getStyleName">#</a></h4>
+<div class="doc">
+<p>Gets the style of the specified row.</p>
+<p>@param row the row to be queried
+@return the style name
+@see UiObject#getStyleName()
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getStyleName(int row) {
+ return UiObject.getElementStyleName(getElement(row));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>(int row) <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to RowFormatter.getStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Gets the primary style of the specified row.</p>
+<p>@param row the row to be queried
+@return the style name
+@see UiObject#getStylePrimaryName()
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getStylePrimaryName(int row) {
+ return UiObject.getElementStylePrimaryName(getElement(row));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isVisible">
+<button class="show-code">Code</button>
+bool <strong>isVisible</strong>(int row) <a class="anchor-link" href="#isVisible"
+              title="Permalink to RowFormatter.isVisible">#</a></h4>
+<div class="doc">
+<p>Determines whether or not this row is visible via the display style
+attribute.</p>
+<p>@param row the row whose visibility is to be set
+@return &lt;code>true&lt;/code> if the row is visible</p>
+<pre class="source">
+bool isVisible(int row) {
+ dart_html.Element e = getElement(row);
+ return UiObject.isVisible(e);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(int row, String styleName) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to RowFormatter.removeStyleName">#</a></h4>
+<div class="doc">
+<p>Removes a style from the specified row.</p>
+<p>@param row the row from which the style will be removed
+@param styleName the style name to be removed
+@see UiObject#removeStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void removeStyleName(int row, String styleName) {
+ UiObject.manageElementStyleName(ensureElement(row), styleName, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAttr">
+<button class="show-code">Code</button>
+void <strong>setAttr</strong>(int row, String attrName, String value) <a class="anchor-link" href="#setAttr"
+              title="Permalink to RowFormatter.setAttr">#</a></h4>
+<div class="doc">
+<p>Convenience methods to set an attribute on a row.</p>
+<p>@param row cell's row
+@param attrName attribute to set
+@param value value to set
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setAttr(int row, String attrName, String value) {
+ dart_html.Element elem = ensureElement(row);
+ Dom.setElementAttribute(elem, attrName, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(int row, String styleName) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to RowFormatter.setStyleName">#</a></h4>
+<div class="doc">
+<p>Sets the style name associated with the specified row.</p>
+<p>@param row the row whose style name is to be set
+@param styleName the new style name
+@see UiObject#setStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setStyleName(int row, String styleName) {
+ UiObject.setElementStyleName(ensureElement(row), styleName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(int row, String styleName) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to RowFormatter.setStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Sets the primary style name associated with the specified row.</p>
+<p>@param row the row whose style name is to be set
+@param styleName the new style name
+@see UiObject#setStylePrimaryName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setStylePrimaryName(int row, String styleName) {
+ UiObject.setElementStylePrimaryName(ensureElement(row), styleName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVerticalAlign">
+<button class="show-code">Code</button>
+void <strong>setVerticalAlign</strong>(int row, <a href="../dart_web_toolkit_i18n/VerticalAlignmentConstant.html">VerticalAlignmentConstant</a> align) <a class="anchor-link" href="#setVerticalAlign"
+              title="Permalink to RowFormatter.setVerticalAlign">#</a></h4>
+<div class="doc">
+<p>Sets the vertical alignment of the specified row.</p>
+<p>@param row the row whose alignment is to be set
+@param align the row's new vertical alignment as specified in</p>
+<pre><code>     {@link HasVerticalAlignment}
+</code></pre>
+<p>@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setVerticalAlign(int row, VerticalAlignmentConstant align) {
+ Dom.setStyleAttribute(ensureElement(row), "verticalAlign",
+     align.getVerticalAlignString());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVisible">
+<button class="show-code">Code</button>
+void <strong>setVisible</strong>(int row, bool visible) <a class="anchor-link" href="#setVisible"
+              title="Permalink to RowFormatter.setVisible">#</a></h4>
+<div class="doc">
+<p>Sets whether this row is visible.</p>
+<p>@param row the row whose visibility is to be set
+@param visible &lt;code>true&lt;/code> to show the row, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void setVisible(int row, bool visible) {
+ dart_html.Element e = ensureElement(row);
+ UiObject.setVisible(e, visible);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:23.057</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

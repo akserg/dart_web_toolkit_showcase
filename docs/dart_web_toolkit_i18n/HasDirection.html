@@ -1,0 +1,110 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasDirection abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="HasDirection">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/HasDirection.html">HasDirection</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasDirection</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A widget that implements this interface has the ability to override
+the document directionality for its root element.</p>
+<p>Widgets that implement this interface should be leaf widgets. More
+specifically, they should not implement the
+{@link com.google.gwt.user.client.ui.HasWidgets} interface.</p>
+<pre class="source">
+abstract class HasDirection {
+
+ /**
+  * Sets the directionality for a widget.
+  *
+  * @param value &lt;code&gt;RTL&lt;/code&gt; if the directionality should be set to right-to-left,
+  *                  &lt;code&gt;LTR&lt;/code&gt; if the directionality should be set to left-to-right
+  *                  &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality should not be explicitly set
+  */
+ void set direction(Direction value);
+
+ /**
+  * Gets the directionality of the widget.
+  *
+  * @return &lt;code&gt;RTL&lt;/code&gt; if the directionality is right-to-left,
+  *         &lt;code&gt;LTR&lt;/code&gt; if the directionality is left-to-right, or
+  *         &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality is not explicitly specified
+  */
+ Direction get direction;
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/AutoDirectionHandlerTarget.html">AutoDirectionHandlerTarget</a></span></p>
+<div>
+<h3>Properties</h3>
+<div class="method"><h4 id="direction">
+abstract <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>get direction</strong> <a class="anchor-link" href="#direction"
+              title="Permalink to HasDirection.get direction">#</a></h4>
+<div class="doc">
+<p>Gets the directionality of the widget.</p>
+<p>@return &lt;code>RTL&lt;/code> if the directionality is right-to-left,</p>
+<pre><code>    &lt;code&gt;LTR&lt;/code&gt; if the directionality is left-to-right, or
+    &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality is not explicitly specified
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="direction=">
+abstract void <strong>set direction</strong>(<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> value) <a class="anchor-link" href="#direction="
+              title="Permalink to HasDirection.set direction">#</a></h4>
+<div class="doc">
+<p>Sets the directionality for a widget.</p>
+<p>@param value &lt;code>RTL&lt;/code> if the directionality should be set to right-to-left,</p>
+<pre><code>             &lt;code&gt;LTR&lt;/code&gt; if the directionality should be set to left-to-right
+             &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality should not be explicitly set
+</code></pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.060</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

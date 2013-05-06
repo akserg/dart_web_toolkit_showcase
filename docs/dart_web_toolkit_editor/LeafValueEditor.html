@@ -1,0 +1,94 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>LeafValueEditor&lt;T&gt; abstract class / dart_web_toolkit_editor Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_editor" data-type="LeafValueEditor&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_editor.html">dart_web_toolkit_editor</a> &rsaquo; <a href="../dart_web_toolkit_editor/LeafValueEditor.html">LeafValueEditor&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>LeafValueEditor&lt;T&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Used to edit non-object or immutable values. The Editor framework will not
+descend into a LeafValueEditor.</p>
+<p>@param &lt;T> The type of primitive value
+@see com.google.gwt.editor.client.adapters.SimpleEditor</p>
+<pre class="source">
+abstract class LeafValueEditor&lt;T&gt; implements Editor&lt;T&gt;, TakesValue&lt;T&gt; {
+
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HasTextEditor.html">HasTextEditor</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/TakesValueEditor.html">TakesValueEditor&lt;T&gt;</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/TakesValue.html">TakesValue&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_editor/Editor.html">Editor&lt;T&gt;</a></span></p>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="getValue">
+abstract <a href="../dart_web_toolkit_editor/LeafValueEditor.html">V</a> <strong>getValue</strong>() <a class="anchor-link" href="#getValue"
+              title="Permalink to LeafValueEditor&lt;T&gt;.getValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/TakesValue.html">TakesValue</a> </div><div class="doc">
+<p>Returns the current value.</p>
+<p>@return the value as an object of type V
+@see #setValue</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="setValue">
+abstract void <strong>setValue</strong>(<a href="../dart_web_toolkit_editor/LeafValueEditor.html">V</a> val, [bool fireEvents = false]) <a class="anchor-link" href="#setValue"
+              title="Permalink to LeafValueEditor&lt;T&gt;.setValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/TakesValue.html">TakesValue</a> </div><div class="doc">
+<p>Sets the value.
+Fires <code>ValueChangeEvent</code> when
+fireEvents is true and the new value does not equal the existing value.</p>
+<p>@param value a value object of type V
+@see #getValue()
+@param fireEvents fire events if true and value is new</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.079</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

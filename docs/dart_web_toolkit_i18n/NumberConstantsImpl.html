@@ -1,0 +1,300 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>NumberConstantsImpl class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="NumberConstantsImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/NumberConstantsImpl.html">NumberConstantsImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>NumberConstantsImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>NumberConstantsImpl class encapsulate a collection of Number formatting
+symbols for use with Number format and parse services. This class extends
+GWT's Constants class. The actual symbol collections are defined in a set
+of property files named like "NumberConstants_xx.properties". GWT will
+will perform late binding to the property file that specific to user's
+locale.</p>
+<pre class="source">
+class NumberConstantsImpl implements Constants, NumberConstants {
+
+ String notANumber() { return "NaN"; }
+
+ String currencyPattern() { return "\$#,##0.00;(\$#,##0.00)"; }
+
+ String decimalPattern() { return "#,##0.###"; }
+
+ String decimalSeparator() { return "."; }
+
+ String defCurrencyCode() { return "USD"; }
+
+ String exponentialSymbol() { return "E"; }
+
+ String globalCurrencyPattern() { return "\$\$\$\$#,##0.00 \$\$;(\$\$\$\$#,##0.00 \$\$)"; }
+
+ String groupingSeparator() { return ","; }
+
+ String infinity() { return new String.fromCharCodes([0x221E]); }
+
+ String minusSign() { return "-"; }
+
+ String monetaryGroupingSeparator() { return ","; }
+
+ String monetarySeparator() { return "."; }
+
+ String percent() { return "%"; }
+
+ String percentPattern() { return "#,##0%"; }
+
+ String perMill() { return new String.fromCharCodes([0x2030]); }
+
+ String plusSign() { return "+"; }
+
+ String scientificPattern() { return "#E0"; }
+
+ String simpleCurrencyPattern() { return "\$\$\$\$#,##0.00;(\$\$\$\$#,##0.00)"; }
+
+ String zeroDigit() { return "0"; }
+
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/NumberConstants.html">NumberConstants</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/Constants.html">Constants</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="currencyPattern">
+<button class="show-code">Code</button>
+String <strong>currencyPattern</strong>() <a class="anchor-link" href="#currencyPattern"
+              title="Permalink to NumberConstantsImpl.currencyPattern">#</a></h4>
+<div class="doc">
+<pre class="source">
+String currencyPattern() { return "\$#,##0.00;(\$#,##0.00)"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="decimalPattern">
+<button class="show-code">Code</button>
+String <strong>decimalPattern</strong>() <a class="anchor-link" href="#decimalPattern"
+              title="Permalink to NumberConstantsImpl.decimalPattern">#</a></h4>
+<div class="doc">
+<pre class="source">
+String decimalPattern() { return "#,##0.###"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="decimalSeparator">
+<button class="show-code">Code</button>
+String <strong>decimalSeparator</strong>() <a class="anchor-link" href="#decimalSeparator"
+              title="Permalink to NumberConstantsImpl.decimalSeparator">#</a></h4>
+<div class="doc">
+<pre class="source">
+String decimalSeparator() { return "."; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="defCurrencyCode">
+<button class="show-code">Code</button>
+String <strong>defCurrencyCode</strong>() <a class="anchor-link" href="#defCurrencyCode"
+              title="Permalink to NumberConstantsImpl.defCurrencyCode">#</a></h4>
+<div class="doc">
+<pre class="source">
+String defCurrencyCode() { return "USD"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="exponentialSymbol">
+<button class="show-code">Code</button>
+String <strong>exponentialSymbol</strong>() <a class="anchor-link" href="#exponentialSymbol"
+              title="Permalink to NumberConstantsImpl.exponentialSymbol">#</a></h4>
+<div class="doc">
+<pre class="source">
+String exponentialSymbol() { return "E"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="globalCurrencyPattern">
+<button class="show-code">Code</button>
+String <strong>globalCurrencyPattern</strong>() <a class="anchor-link" href="#globalCurrencyPattern"
+              title="Permalink to NumberConstantsImpl.globalCurrencyPattern">#</a></h4>
+<div class="doc">
+<pre class="source">
+String globalCurrencyPattern() { return "\$\$\$\$#,##0.00 \$\$;(\$\$\$\$#,##0.00 \$\$)"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="groupingSeparator">
+<button class="show-code">Code</button>
+String <strong>groupingSeparator</strong>() <a class="anchor-link" href="#groupingSeparator"
+              title="Permalink to NumberConstantsImpl.groupingSeparator">#</a></h4>
+<div class="doc">
+<pre class="source">
+String groupingSeparator() { return ","; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="infinity">
+<button class="show-code">Code</button>
+String <strong>infinity</strong>() <a class="anchor-link" href="#infinity"
+              title="Permalink to NumberConstantsImpl.infinity">#</a></h4>
+<div class="doc">
+<pre class="source">
+String infinity() { return new String.fromCharCodes([0x221E]); }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="minusSign">
+<button class="show-code">Code</button>
+String <strong>minusSign</strong>() <a class="anchor-link" href="#minusSign"
+              title="Permalink to NumberConstantsImpl.minusSign">#</a></h4>
+<div class="doc">
+<pre class="source">
+String minusSign() { return "-"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="monetaryGroupingSeparator">
+<button class="show-code">Code</button>
+String <strong>monetaryGroupingSeparator</strong>() <a class="anchor-link" href="#monetaryGroupingSeparator"
+              title="Permalink to NumberConstantsImpl.monetaryGroupingSeparator">#</a></h4>
+<div class="doc">
+<pre class="source">
+String monetaryGroupingSeparator() { return ","; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="monetarySeparator">
+<button class="show-code">Code</button>
+String <strong>monetarySeparator</strong>() <a class="anchor-link" href="#monetarySeparator"
+              title="Permalink to NumberConstantsImpl.monetarySeparator">#</a></h4>
+<div class="doc">
+<pre class="source">
+String monetarySeparator() { return "."; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="notANumber">
+<button class="show-code">Code</button>
+String <strong>notANumber</strong>() <a class="anchor-link" href="#notANumber"
+              title="Permalink to NumberConstantsImpl.notANumber">#</a></h4>
+<div class="doc">
+<pre class="source">
+String notANumber() { return "NaN"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="percent">
+<button class="show-code">Code</button>
+String <strong>percent</strong>() <a class="anchor-link" href="#percent"
+              title="Permalink to NumberConstantsImpl.percent">#</a></h4>
+<div class="doc">
+<pre class="source">
+String percent() { return "%"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="percentPattern">
+<button class="show-code">Code</button>
+String <strong>percentPattern</strong>() <a class="anchor-link" href="#percentPattern"
+              title="Permalink to NumberConstantsImpl.percentPattern">#</a></h4>
+<div class="doc">
+<pre class="source">
+String percentPattern() { return "#,##0%"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="perMill">
+<button class="show-code">Code</button>
+String <strong>perMill</strong>() <a class="anchor-link" href="#perMill"
+              title="Permalink to NumberConstantsImpl.perMill">#</a></h4>
+<div class="doc">
+<pre class="source">
+String perMill() { return new String.fromCharCodes([0x2030]); }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="plusSign">
+<button class="show-code">Code</button>
+String <strong>plusSign</strong>() <a class="anchor-link" href="#plusSign"
+              title="Permalink to NumberConstantsImpl.plusSign">#</a></h4>
+<div class="doc">
+<pre class="source">
+String plusSign() { return "+"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="scientificPattern">
+<button class="show-code">Code</button>
+String <strong>scientificPattern</strong>() <a class="anchor-link" href="#scientificPattern"
+              title="Permalink to NumberConstantsImpl.scientificPattern">#</a></h4>
+<div class="doc">
+<pre class="source">
+String scientificPattern() { return "#E0"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="simpleCurrencyPattern">
+<button class="show-code">Code</button>
+String <strong>simpleCurrencyPattern</strong>() <a class="anchor-link" href="#simpleCurrencyPattern"
+              title="Permalink to NumberConstantsImpl.simpleCurrencyPattern">#</a></h4>
+<div class="doc">
+<pre class="source">
+String simpleCurrencyPattern() { return "\$\$\$\$#,##0.00;(\$\$\$\$#,##0.00)"; }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="zeroDigit">
+<button class="show-code">Code</button>
+String <strong>zeroDigit</strong>() <a class="anchor-link" href="#zeroDigit"
+              title="Permalink to NumberConstantsImpl.zeroDigit">#</a></h4>
+<div class="doc">
+<pre class="source">
+String zeroDigit() { return "0"; }
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.968</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

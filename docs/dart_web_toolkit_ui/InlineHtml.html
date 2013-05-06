@@ -1,0 +1,2068 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>InlineHtml class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="InlineHtml">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/InlineHtml.html">InlineHtml</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>InlineHtml</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A widget that can contain arbitrary HTML.</p>
+<p>This widget uses a &lt;span&gt; element, causing it to be displayed with
+inline layout.</p><p>
+If you only need a simple label (text, but not HTML), then the
+{@link com.google.gwt.user.client.ui.Label} widget is more appropriate, as it
+disallows the use of HTML, which can lead to potential security issues if not
+used properly.
+</p><p>
+<h3>Built-in Bidi Text Support</h3>
+This widget is capable of automatically adjusting its direction according to
+its content. This feature is controlled by {@link #setDirectionEstimator} or
+passing a DirectionEstimator parameter to the constructor, and is off by
+default.
+</p><h3>CSS Style Rules</h3>
+<ul class='css'>
+<li>.gwt-InlineHTML { }</li>
+</ul>
+<pre class="source">
+class InlineHtml extends Html {
+
+ /**
+  * Creates an InlineHTML widget that wraps an existing &amp;lt;div&amp;gt; or
+  * &amp;lt;span&amp;gt; element.
+  *
+  * This element must already be attached to the document. If the element is
+  * removed from the document, you must call
+  * {@link RootPanel#detachNow(Widget)}.
+  *
+  * @param element the element to be wrapped
+  */
+ factory InlineHtml.wrap(dart_html.Element element) {
+   // Assert that the element is attached.
+   //assert Document.get().getBody().isOrHasChild(element);
+
+   InlineHtml html = new InlineHtml.fromElement(element);
+
+   // Mark it attached and remember it for cleanup.
+   html.onAttach();
+   RootPanel.detachOnWindowClose(html);
+
+   return html;
+ }
+
+ /**
+  * This constructor may be used by subclasses to explicitly use an existing
+  * element. This element must be either a div or span element.
+  */
+ InlineHtml.fromElement(dart_html.Element element) : super.fromElement(element) {
+   clearAndSetStyleName("dwt-InlineHTML");
+ }
+
+ /**
+  * Creates an HTML widget with the specified HTML contents.
+  */
+ InlineHtml([String html = null]) : super.fromElement(new dart_html.SpanElement()) {
+   clearAndSetStyleName("dwt-InlineHTML");
+   if (html != null) {
+     this.html = html;
+   }
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase&lt;String&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Label.html">Label</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Html.html">Html</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>InlineHtml</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="InlineHtml">
+<button class="show-code">Code</button>
+new <strong>InlineHtml</strong>([String html = null]) <a class="anchor-link" href="#InlineHtml"
+              title="Permalink to InlineHtml.InlineHtml">#</a></h4>
+<div class="doc">
+<p>Creates an HTML widget with the specified HTML contents.</p>
+<pre class="source">
+InlineHtml([String html = null]) : super.fromElement(new dart_html.SpanElement()) {
+ clearAndSetStyleName("dwt-InlineHTML");
+ if (html != null) {
+   this.html = html;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="InlineHtml.fromElement">
+<button class="show-code">Code</button>
+new <strong>InlineHtml.fromElement</strong>(Element element) <a class="anchor-link" href="#InlineHtml.fromElement"
+              title="Permalink to InlineHtml.InlineHtml.fromElement">#</a></h4>
+<div class="doc">
+<p>This constructor may be used by subclasses to explicitly use an existing
+element. This element must be either a div or span element.</p>
+<pre class="source">
+InlineHtml.fromElement(dart_html.Element element) : super.fromElement(element) {
+ clearAndSetStyleName("dwt-InlineHTML");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="InlineHtml.wrap">
+<button class="show-code">Code</button>
+factory <strong>InlineHtml.wrap</strong>(Element element) <a class="anchor-link" href="#InlineHtml.wrap"
+              title="Permalink to InlineHtml.InlineHtml.wrap">#</a></h4>
+<div class="doc">
+<p>Creates an InlineHTML widget that wraps an existing &lt;div&gt; or
+&lt;span&gt; element.</p>
+<p>This element must already be attached to the document. If the element is
+removed from the document, you must call
+{@link RootPanel#detachNow(Widget)}.</p>
+<p>@param element the element to be wrapped</p>
+<pre class="source">
+factory InlineHtml.wrap(dart_html.Element element) {
+ // Assert that the element is attached.
+ //assert Document.get().getBody().isOrHasChild(element);
+
+ InlineHtml html = new InlineHtml.fromElement(element);
+
+ // Mark it attached and remember it for cleanup.
+ html.onAttach();
+ RootPanel.detachOnWindowClose(html);
+
+ return html;
+}
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="directionalTextHelper">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionalTextHelper.html">DirectionalTextHelper</a>         <strong>directionalTextHelper</strong> <a class="anchor-link"
+            href="#directionalTextHelper"
+            title="Permalink to InlineHtml.directionalTextHelper">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<p>The widget's DirectionalTextHelper object.</p>
+<pre class="source">
+DirectionalTextHelper directionalTextHelper
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="eventsToSink">
+<button class="show-code">Code</button>
+int         <strong>eventsToSink</strong> <a class="anchor-link"
+            href="#eventsToSink"
+            title="Permalink to InlineHtml.eventsToSink">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>A set og events that should be sunk when the widget is attached to
+the DOM. (We delay the sinking of events to improve startup performance.)
+When the widget is attached, this is set is empty</p>
+<p>Package protected to allow Composite to see it.</p>
+<pre class="source">
+int eventsToSink = 0
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="html">
+<button class="show-code">Code</button>
+String <strong>get html</strong> <a class="anchor-link" href="#html"
+              title="Permalink to InlineHtml.get html">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Html.html">Html</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets this object's contents as HTML.</p>
+<p>@return the object's HTML</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasHtml.html">HasHtml</a> </div></div>
+<pre class="source">
+String get html =&gt; directionalTextHelper.getTextOrHtml(true);
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="html=">
+<button class="show-code">Code</button>
+void <strong>set html</strong>(String val) <a class="anchor-link" href="#html="
+              title="Permalink to InlineHtml.set html">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Html.html">Html</a> </div><div class="doc">
+<p>Sets the label's content to the given HTML.
+See {@link #setText(String)} for details on potential effects on direction
+and alignment.</p>
+<p>@param html the new widget's HTML content</p>
+<pre class="source">
+void set html(String val) {
+ directionalTextHelper.setTextOrHtml(val, true);
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="text">
+<button class="show-code">Code</button>
+String <strong>get text</strong> <a class="anchor-link" href="#text"
+              title="Permalink to InlineHtml.get text">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets this object's text.</p>
+<p>@return the object's text</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasText.html">HasText</a> </div></div>
+<pre class="source">
+String get text =&gt; directionalTextHelper.getTextOrHtml(false);
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="text=">
+<button class="show-code">Code</button>
+void <strong>set text</strong>(String val) <a class="anchor-link" href="#text="
+              title="Permalink to InlineHtml.set text">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<p>Sets the label's content to the given text.
+&lt;p>
+Doesn't change the widget's direction or horizontal alignment if {@code
+directionEstimator} is null. Otherwise, the widget's direction is set using
+the estimator, and its alignment may therefore change as described in
+{@link #setText(String, com.google.gwt.i18n.client.HasDirection.Direction) setText(String, Direction)}.</p>
+<p>@param text the widget's new text</p>
+<pre class="source">
+void set text(String val) {
+ directionalTextHelper.setTextOrHtml(val, false);
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title">
+<button class="show-code">Code</button>
+String <strong>get title</strong> <a class="anchor-link" href="#title"
+              title="Permalink to InlineHtml.get title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the title associated with this object. The title is the 'tool-tip'
+displayed to users when they hover over the object.</p>
+<p>@return the object's title</p>
+<pre class="source">
+String get title =&gt; getElement().title;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title=">
+<button class="show-code">Code</button>
+void <strong>set title</strong>(String value) <a class="anchor-link" href="#title="
+              title="Permalink to InlineHtml.set title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the element's title.</p>
+<pre class="source">
+void set title(String value) {
+ getElement().title = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible">
+<button class="show-code">Code</button>
+bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to InlineHtml.get visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Determines whether or not this object is visible. Note that this does not
+necessarily take into account whether or not the receiver's parent is
+visible, or even if it is attached to the
+<code>Document</code>. The default implementation of this trait in <code>UIObject</code> is
+based on the value of a dom element's style object's display attribute.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible</p>
+<pre class="source">
+bool get visible =&gt; isVisible(getElement());
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="visible=">
+<button class="show-code">Code</button>
+void <strong>set visible</strong>(bool visible) <a class="anchor-link" href="#visible="
+              title="Permalink to InlineHtml.set visible">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets whether this object is visible.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void set visible(bool visible) {
+ setVisible(getElement(), visible);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="wordWrap">
+<button class="show-code">Code</button>
+bool <strong>get wordWrap</strong> <a class="anchor-link" href="#wordWrap"
+              title="Permalink to InlineHtml.get wordWrap">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets whether word-wrapping is enabled.</p>
+<p>@return &lt;code>true&lt;/code> if word-wrapping is enabled.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasWordWrap.html">HasWordWrap</a> </div></div>
+<pre class="source">
+bool get wordWrap =&gt; WhiteSpace.NOWRAP.value == getElement().style.whiteSpace;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="wordWrap=">
+<button class="show-code">Code</button>
+void <strong>set wordWrap</strong>(bool wrap) <a class="anchor-link" href="#wordWrap="
+              title="Permalink to InlineHtml.set wordWrap">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Sets whether word-wrapping is enabled.</p>
+<p>@param wrap &lt;code>true&lt;/code> to enable word-wrapping.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasWordWrap.html">HasWordWrap</a> </div></div>
+<pre class="source">
+void set wordWrap(bool wrap) {
+ getElement().style.whiteSpace = wrap ? WhiteSpace.NORMAL.value : WhiteSpace.NOWRAP.value;
+}
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="addAttachHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addAttachHandler</strong>(<a href="../dart_web_toolkit_event/AttachEventHandler.html">AttachEventHandler</a> handler) <a class="anchor-link" href="#addAttachHandler"
+              title="Permalink to InlineHtml.addAttachHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds an <code>AttachEvent</code> handler.</p>
+<p>@param handler the handler
+@return the handler registration</p>
+<pre class="source">
+HandlerRegistration addAttachHandler(AttachEventHandler handler) {
+ return addHandler(handler, AttachEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addBitlessDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBitlessDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addBitlessDomHandler"
+              title="Permalink to InlineHtml.addBitlessDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>For &lt;a href=
+"http://code.google.com/p/google-web-toolkit/wiki/UnderstandingMemoryLeaks"</p>
+<blockquote>
+<p>browsers which do not leak&lt;/a>, adds a native event handler to the widget.</p></blockquote>
+<p>Note that, unlike the
+{@link #addDomHandler(EventHandler, com.google.gwt.event.dom.client.DomEvent.Type)}
+implementation, there is no need to attach the widget to the DOM in order
+to cause the event handlers to be attached.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addBitlessDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null);; // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ sinkBitlessEvent(type.eventName);
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addClickHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addClickHandler</strong>(<a href="../dart_web_toolkit_event/ClickHandler.html">ClickHandler</a> handler) <a class="anchor-link" href="#addClickHandler"
+              title="Permalink to InlineHtml.addClickHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link ClickEvent} handler.</p>
+<p>@param handler the click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasClickHandlers.html">HasClickHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addClickHandler(ClickHandler handler) {
+ return addDomHandler(handler, ClickEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addDomHandler"
+              title="Permalink to InlineHtml.addDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds a native event handler to the widget and sinks the corresponding
+native event. If you do not want to sink the native event, use the generic
+addHandler method instead.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null); // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ int typeInt = IEvent.getTypeInt(type.eventName);
+ if (typeInt == -1) {
+   sinkBitlessEvent(type.eventName);
+ } else {
+   sinkEvents(typeInt);
+ }
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDoubleClickHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDoubleClickHandler</strong>(<a href="../dart_web_toolkit_event/DoubleClickHandler.html">DoubleClickHandler</a> handler) <a class="anchor-link" href="#addDoubleClickHandler"
+              title="Permalink to InlineHtml.addDoubleClickHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DoubleClickEvent} handler.</p>
+<p>@param handler the double click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDoubleClickHandlers.html">HasDoubleClickHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+ return addDomHandler(handler, DoubleClickEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragEndHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragEndHandler</strong>(<a href="../dart_web_toolkit_event/DragEndHandler.html">DragEndHandler</a> handler) <a class="anchor-link" href="#addDragEndHandler"
+              title="Permalink to InlineHtml.addDragEndHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragEndEvent} handler.</p>
+<p>@param handler the drag end handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragEndHandlers.html">HasDragEndHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+ return addDomHandler(handler, DragEndEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragEnterHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragEnterHandler</strong>(<a href="../dart_web_toolkit_event/DragEnterHandler.html">DragEnterHandler</a> handler) <a class="anchor-link" href="#addDragEnterHandler"
+              title="Permalink to InlineHtml.addDragEnterHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragEnterEvent} handler.</p>
+<p>@param handler the drag end handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragEnterHandlers.html">HasDragEnterHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+ return addDomHandler(handler, DragEnterEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragHandler</strong>(<a href="../dart_web_toolkit_event/DragHandler.html">DragHandler</a> handler) <a class="anchor-link" href="#addDragHandler"
+              title="Permalink to InlineHtml.addDragHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragEvent} handler.</p>
+<p>@param handler the drag handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragHandlers.html">HasDragHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragHandler(DragHandler handler) {
+ return addDomHandler(handler, DragEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragLeaveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragLeaveHandler</strong>(<a href="../dart_web_toolkit_event/DragLeaveHandler.html">DragLeaveHandler</a> handler) <a class="anchor-link" href="#addDragLeaveHandler"
+              title="Permalink to InlineHtml.addDragLeaveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragLeaveEvent} handler.</p>
+<p>@param handler the drag leave handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragLeaveHandlers.html">HasDragLeaveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+ return addDomHandler(handler, DragLeaveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragOverHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragOverHandler</strong>(<a href="../dart_web_toolkit_event/DragOverHandler.html">DragOverHandler</a> handler) <a class="anchor-link" href="#addDragOverHandler"
+              title="Permalink to InlineHtml.addDragOverHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragOverEvent} handler.</p>
+<p>@param handler the drag over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragOverHandlers.html">HasDragOverHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+ return addDomHandler(handler, DragOverEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDragStartHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDragStartHandler</strong>(<a href="../dart_web_toolkit_event/DragStartHandler.html">DragStartHandler</a> handler) <a class="anchor-link" href="#addDragStartHandler"
+              title="Permalink to InlineHtml.addDragStartHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DragStartEvent} handler.</p>
+<p>@param handler the drag start handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDragStartHandlers.html">HasDragStartHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+ return addDomHandler(handler, DragStartEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDropHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDropHandler</strong>(<a href="../dart_web_toolkit_event/DropHandler.html">DropHandler</a> handler) <a class="anchor-link" href="#addDropHandler"
+              title="Permalink to InlineHtml.addDropHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link DropEvent} handler.</p>
+<p>@param handler the drop handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDropHandlers.html">HasDropHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDropHandler(DropHandler handler) {
+ return addDomHandler(handler, DropEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a>&gt; type) <a class="anchor-link" href="#addHandler"
+              title="Permalink to InlineHtml.addHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds this handler to the widget.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event type
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&gt; type) {
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseDownHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseDownHandler</strong>(<a href="../dart_web_toolkit_event/MouseDownHandler.html">MouseDownHandler</a> handler) <a class="anchor-link" href="#addMouseDownHandler"
+              title="Permalink to InlineHtml.addMouseDownHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseDownEvent} handler.</p>
+<p>@param handler the mouse down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+ return addDomHandler(handler, MouseDownEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseMoveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseMoveHandler</strong>(<a href="../dart_web_toolkit_event/MouseMoveHandler.html">MouseMoveHandler</a> handler) <a class="anchor-link" href="#addMouseMoveHandler"
+              title="Permalink to InlineHtml.addMouseMoveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseMoveEvent} handler.</p>
+<p>@param handler the mouse move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+ return addDomHandler(handler, MouseMoveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseOutHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOutHandler</strong>(<a href="../dart_web_toolkit_event/MouseOutHandler.html">MouseOutHandler</a> handler) <a class="anchor-link" href="#addMouseOutHandler"
+              title="Permalink to InlineHtml.addMouseOutHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOutEvent} handler.</p>
+<p>@param handler the mouse out handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+ return addDomHandler(handler, MouseOutEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseOverHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOverHandler</strong>(<a href="../dart_web_toolkit_event/MouseOverHandler.html">MouseOverHandler</a> handler) <a class="anchor-link" href="#addMouseOverHandler"
+              title="Permalink to InlineHtml.addMouseOverHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOverEvent} handler.</p>
+<p>@param handler the mouse over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+ return addDomHandler(handler, MouseOverEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseUpHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseUpHandler</strong>(<a href="../dart_web_toolkit_event/MouseUpHandler.html">MouseUpHandler</a> handler) <a class="anchor-link" href="#addMouseUpHandler"
+              title="Permalink to InlineHtml.addMouseUpHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseUpEvent} handler.</p>
+<p>@param handler the mouse up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+ return addDomHandler(handler, MouseUpEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseWheelHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseWheelHandler</strong>(<a href="../dart_web_toolkit_event/MouseWheelHandler.html">MouseWheelHandler</a> handler) <a class="anchor-link" href="#addMouseWheelHandler"
+              title="Permalink to InlineHtml.addMouseWheelHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseWheelEvent} handler.</p>
+<p>@param handler the mouse wheel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+ return addDomHandler(handler, MouseWheelEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>addStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#addStyleDependentName"
+              title="Permalink to InlineHtml.addStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a dependent style name by specifying the style name's suffix. The
+actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added.
+@see #setStylePrimaryName(String)
+@see #removeStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)
+@see #addStyleName(String)</p>
+<pre class="source">
+void addStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(String style) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to InlineHtml.addStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a secondary or dependent style name to this object. A secondary style
+name is an additional style name that is, in HTML/CSS terms, included as a
+space-separated token in the value of the CSS &lt;code>class&lt;/code> attribute
+for this object's root element.</p><p>
+The most important use for this method is to add a special kind of
+secondary style name called a <i>dependent style name</i>. To add a
+dependent style name, use {@link #addStyleDependentName(String)}, which
+will prefix the 'style' argument with the result of
+{@link #k()} (followed by a '-'). For example, suppose
+the primary style name is <code>gwt-TextBox</code>. If the following method
+is called as <code>obj.setReadOnly(true)</code>:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+<p>  // Create a dependent style name.
+  String readOnlyStyle = "readonly";</p>
+<p>  if (readOnly) {</p>
+<pre><code>addStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  } else {</p>
+<pre><code>removeStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  }
+}&lt;/pre></p><p>
+then both of the CSS style rules below will be applied:
+</p><pre class="code">
+<p>// This rule is based on the primary style name and is always active.
+.gwt-TextBox {
+  font-size: 12pt;
+}</p>
+<p>// This rule is based on a dependent style name that is only active
+// when the widget has called addStyleName(getStylePrimaryName() +
+// "-readonly").
+.gwt-TextBox-readonly {
+  background-color: lightgrey;
+  border: none;
+}&lt;/pre></p><p>
+The code can also be simplified with
+{@link #setStyleDependentName(String, boolean)}:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+  setStyleDependentName("readonly", readOnly);
+}</pre><p>
+Dependent style names are powerful because they are automatically updated
+whenever the primary style name changes. Continuing with the example above,
+if the primary style name changed due to the following call:
+</p><pre class="code">setStylePrimaryName("my-TextThingy");</pre><p>
+then the object would be re-associated with following style rules, removing
+those that were shown above.
+</p><pre class="code">
+.my-TextThingy {
+  font-size: 20pt;
+}
+<p>.my-TextThingy-readonly {
+  background-color: red;
+  border: 2px solid yellow;
+}&lt;/pre></p><p>
+Secondary style names that are not dependent style names are not
+automatically updated when the primary style name changes.
+</p>
+<p>@param style the secondary style name to be added
+@see UIObject
+@see #removeStyleName(String)</p>
+<pre class="source">
+void addStyleName(String style) {
+ setStyleName(style, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchCancelHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchCancelHandler</strong>(<a href="../dart_web_toolkit_event/TouchCancelHandler.html">TouchCancelHandler</a> handler) <a class="anchor-link" href="#addTouchCancelHandler"
+              title="Permalink to InlineHtml.addTouchCancelHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchCancelEvent} handler.</p>
+<p>@param handler the touch cancel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchCancelHandlers.html">HasTouchCancelHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+ return addDomHandler(handler, TouchCancelEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchEndHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchEndHandler</strong>(<a href="../dart_web_toolkit_event/TouchEndHandler.html">TouchEndHandler</a> handler) <a class="anchor-link" href="#addTouchEndHandler"
+              title="Permalink to InlineHtml.addTouchEndHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchEndEvent} handler.</p>
+<p>@param handler the touch end handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchEndHandlers.html">HasTouchEndHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+ return addDomHandler(handler, TouchEndEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchMoveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchMoveHandler</strong>(<a href="../dart_web_toolkit_event/TouchMoveHandler.html">TouchMoveHandler</a> handler) <a class="anchor-link" href="#addTouchMoveHandler"
+              title="Permalink to InlineHtml.addTouchMoveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchMoveEvent} handler.</p>
+<p>@param handler the touch move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchMoveHandlers.html">HasTouchMoveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+ return addDomHandler(handler, TouchMoveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTouchStartHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addTouchStartHandler</strong>(<a href="../dart_web_toolkit_event/TouchStartHandler.html">TouchStartHandler</a> handler) <a class="anchor-link" href="#addTouchStartHandler"
+              title="Permalink to InlineHtml.addTouchStartHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Adds a {@link TouchStartEvent} handler.</p>
+<p>@param handler the touch start handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasTouchStartHandlers.html">HasTouchStartHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+ return addDomHandler(handler, TouchStartEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asEditor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_editor/LeafValueEditor.html">LeafValueEditor</a>&lt;String&gt; <strong>asEditor</strong>() <a class="anchor-link" href="#asEditor"
+              title="Permalink to InlineHtml.asEditor">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<pre class="source">
+LeafValueEditor&lt;String&gt; asEditor() {
+ if (_editor == null) {
+   _editor = new HasTextEditor.of(this);
+ }
+ return _editor;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>asWidget</strong>() <a class="anchor-link" href="#asWidget"
+              title="Permalink to InlineHtml.asWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_ui/Widget.html">Widget</a> aspect of the receiver.</p>
+<pre class="source">
+Widget asWidget() {
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="clearAndSetStyleName">
+<button class="show-code">Code</button>
+void <strong>clearAndSetStyleName</strong>(String style) <a class="anchor-link" href="#clearAndSetStyleName"
+              title="Permalink to InlineHtml.clearAndSetStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Clears all of the object's style names and sets it to the given style. You
+should normally use {@link #setStylePrimaryName(String)} unless you wish to
+explicitly remove all existing styles.</p>
+<p>@param style the new style name
+@see #setStylePrimaryName(String)</p>
+<pre class="source">
+void clearAndSetStyleName(String style) {
+ setElementStyleName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="createEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>createEventBus</strong>() <a class="anchor-link" href="#createEventBus"
+              title="Permalink to InlineHtml.createEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Creates the <code>SimpleEventBus</code> used by this Widget. You can override
+this method to create a custom <code>EventBus</code>.</p>
+<p>@return the <code>EventBus</code> you want to use.</p>
+<pre class="source">
+EventBus createEventBus() {
+ return new SimpleEventBus();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="delegateEvent">
+<button class="show-code">Code</button>
+void <strong>delegateEvent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> target, <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#delegateEvent"
+              title="Permalink to InlineHtml.delegateEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires an event on a child widget. Used to delegate the handling of an event
+from one widget to another.</p>
+<p>@param event the event
+@param target fire the event on the given target</p>
+<pre class="source">
+void delegateEvent(Widget target, DwtEvent event) {
+ target.fireEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doAttachChildren">
+<button class="show-code">Code</button>
+void <strong>doAttachChildren</strong>() <a class="anchor-link" href="#doAttachChildren"
+              title="Permalink to InlineHtml.doAttachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onAttach()} for each of its
+child widgets.</p>
+<p>@see #onAttach()</p>
+<pre class="source">
+void doAttachChildren() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doDetachChildren">
+<button class="show-code">Code</button>
+void <strong>doDetachChildren</strong>() <a class="anchor-link" href="#doDetachChildren"
+              title="Permalink to InlineHtml.doDetachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onDetach()} for each of its
+child widgets.</p>
+<p>@see #onDetach()</p>
+<pre class="source">
+void doDetachChildren() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="enableDefaultDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>enableDefaultDirectionEstimator</strong>(bool enabled) <a class="anchor-link" href="#enableDefaultDirectionEstimator"
+              title="Permalink to InlineHtml.enableDefaultDirectionEstimator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<p>Toggles on / off direction estimation.</p>
+<p>@param enabled Whether to enable direction estimation. If {@code true},</p>
+<pre><code>     sets the {@link DirectionEstimator} object to a default
+     {@code DirectionEstimator}.
+</code></pre>
+<pre class="source">
+void enableDefaultDirectionEstimator(bool enabled) {
+ directionalTextHelper.enableDefaultDirectionEstimator(enabled);
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="ensureHandlers">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>ensureHandlers</strong>() <a class="anchor-link" href="#ensureHandlers"
+              title="Permalink to InlineHtml.ensureHandlers">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Ensures the existence of the event bus.</p>
+<p>@return the <code>EventBus</code>.</p>
+<pre class="source">
+EventBus ensureHandlers() {
+ return _eventBus == null ? _eventBus = createEventBus() : _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="extractLengthValue">
+<button class="show-code">Code</button>
+double <strong>extractLengthValue</strong>(String s) <a class="anchor-link" href="#extractLengthValue"
+              title="Permalink to InlineHtml.extractLengthValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Intended to be used to pull the value out of a CSS length. If the
+value is "auto" or "inherit", 0 will be returned.</p>
+<p>@param s The CSS length string to extract
+@return The leading numeric portion of &lt;code>s&lt;/code>, or 0 if "auto" or</p>
+<pre><code>    "inherit" are passed in.
+</code></pre>
+<pre class="source">
+double extractLengthValue(String s) {
+ if (s == "auto" || s == "inherit" || s == "") {
+   return 0.0;
+ } else {
+   // numberRegex divides the string into a leading numeric portion
+   // followed by an arbitrary portion.
+   if(numberRegex.hasMatch(s)) {
+     // Extract the leading numeric portion of string
+     s = numberRegex.firstMatch(s)[0];
+   }
+   return double.parse(s);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to InlineHtml.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<code>UmbrellaException</code> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+<pre class="source">
+void fireEvent(DwtEvent event) {
+//    if (_eventBus != null) {
+//      _eventBus.fireEvent(event);
+//    }
+ if (_eventBus != null) {
+   // If it not live we should revive it.
+   if (!event.isLive()) {
+     event.revive();
+   }
+   Object oldSource = event.getSource();
+   event.overrideSource(getElement());
+   try {
+
+     // May throw an UmbrellaException.
+     _eventBus.fireEventFromSource(event, getElement());
+   } on UmbrellaException catch (e) {
+     throw new UmbrellaException(e.causes);
+   } finally {
+     if (oldSource == null) {
+       // This was my event, so I should kill it now that I'm done.
+       event.kill();
+     } else {
+       // Restoring the source for the next handler to use.
+       event.overrideSource(oldSource);
+     }
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>() <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to InlineHtml.getAbsoluteLeft">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute left position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute left position</p>
+<pre class="source">
+int getAbsoluteLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>() <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to InlineHtml.getAbsoluteTop">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute top position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute top position</p>
+<pre class="source">
+int getAbsoluteTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAutoHorizontalAlignment">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/AutoHorizontalAlignmentConstant.html">AutoHorizontalAlignmentConstant</a> <strong>getAutoHorizontalAlignment</strong>() <a class="anchor-link" href="#getAutoHorizontalAlignment"
+              title="Permalink to InlineHtml.getAutoHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets the horizontal auto-alignment setting. This may be one of the
+auto-alignment values above that depend on content direction (e.g.
+{@link HasAutoHorizontalAlignment#ALIGN<em>CONTENT</em>START}), or one of the
+"static" {@link HasHorizontalAlignment.HorizontalAlignmentConstant}
+alignment values (e.g. {@link HasHorizontalAlignment#ALIGN<em>LOCALE</em>START}).
+It may be set by either {@code setAutoHorizontalAlignment} or {@code
+HasHorizontalAlignment#setHorizontalAlignment}. The default is null,
+indicating that no specific horizontal alignment has been set, allowing it
+to be determined by the usual HTML and CSS mechanisms.</p>
+<p>@return the current automatic horizontal alignment policy.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/HasAutoHorizontalAlignment.html">HasAutoHorizontalAlignment</a> </div></div>
+<pre class="source">
+AutoHorizontalAlignmentConstant getAutoHorizontalAlignment() {
+ return _autoHorizontalAlignment;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getDirectionEstimator">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> <strong>getDirectionEstimator</strong>() <a class="anchor-link" href="#getDirectionEstimator"
+              title="Permalink to InlineHtml.getDirectionEstimator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<p>Returns the {@code DirectionEstimator} object.</p>
+<pre class="source">
+DirectionEstimator getDirectionEstimator() {
+ return directionalTextHelper.getDirectionEstimator();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>() <a class="anchor-link" href="#getElement"
+              title="Permalink to InlineHtml.getElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets this object's browser element.</p>
+<pre class="source">
+dart_html.Element getElement() {
+ assert (_element != null); // : MISSING_ELEMENT_ERROR;
+ return _element;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>getEventBus</strong>() <a class="anchor-link" href="#getEventBus"
+              title="Permalink to InlineHtml.getEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Return EventBus.</p>
+<pre class="source">
+EventBus getEventBus() {
+ return _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getHorizontalAlignment">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> <strong>getHorizontalAlignment</strong>() <a class="anchor-link" href="#getHorizontalAlignment"
+              title="Permalink to InlineHtml.getHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets the horizontal alignment.</p>
+<p>@return the current horizontal alignment (</p>
+<pre><code>    {@link HasHorizontalAlignment#ALIGN_LEFT},
+    {@link HasHorizontalAlignment#ALIGN_CENTER},
+    {@link HasHorizontalAlignment#ALIGN_RIGHT},
+    {@link HasHorizontalAlignment#ALIGN_JUSTIFY}, or
+    null).
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a> </div></div>
+<pre class="source">
+HorizontalAlignmentConstant getHorizontalAlignment() {
+ return _horzAlign;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getLayoutData">
+<button class="show-code">Code</button>
+Object <strong>getLayoutData</strong>() <a class="anchor-link" href="#getLayoutData"
+              title="Permalink to InlineHtml.getLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets the panel-defined layout data associated with this widget.</p>
+<p>@return the widget's layout data
+@see #setLayoutData</p>
+<pre class="source">
+Object getLayoutData() {
+ return _layoutData;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetHeight">
+<button class="show-code">Code</button>
+int <strong>getOffsetHeight</strong>() <a class="anchor-link" href="#getOffsetHeight"
+              title="Permalink to InlineHtml.getOffsetHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset height in pixels. This is the total height of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset height</p>
+<pre class="source">
+int getOffsetHeight() {
+ return getElement().offset.height; // Dom.getElementPropertyInt(getElement(), "offsetHeight");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getOffsetWidth">
+<button class="show-code">Code</button>
+int <strong>getOffsetWidth</strong>() <a class="anchor-link" href="#getOffsetWidth"
+              title="Permalink to InlineHtml.getOffsetWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's offset width in pixels. This is the total width of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset width</p>
+<pre class="source">
+int getOffsetWidth() {
+ return getElement().offset.width; // Dom.getElementPropertyInt(getElement(), "offsetWidth");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getParent">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getParent</strong>() <a class="anchor-link" href="#getParent"
+              title="Permalink to InlineHtml.getParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets this widget's parent panel.</p>
+<p>@return the widget's parent panel</p>
+<pre class="source">
+Widget getParent() {
+ return _parent;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>() <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to InlineHtml.getStyleElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Template method that returns the element to which style names will be
+applied. By default it returns the root element, but this method may be
+overridden to apply styles to a child element.</p>
+<p>@return the element to which style names will be applied</p>
+<pre class="source">
+dart_html.Element getStyleElement() {
+ return getElement();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>() <a class="anchor-link" href="#getStyleName"
+              title="Permalink to InlineHtml.getStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets all of the object's style names, as a space-separated list. If you
+wish to retrieve only the primary style name, call
+{@link #getStylePrimaryName()}.</p>
+<p>@return the objects's space-separated style names
+@see #getStylePrimaryName()</p>
+<pre class="source">
+String getStyleName() {
+ return getElementStyleName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>() <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to InlineHtml.getStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the primary style name associated with the object.</p>
+<p>@return the object's primary style name
+@see #setStyleName(String)
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+String getStylePrimaryName() {
+ return getElementStylePrimaryName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getTextDirection">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>getTextDirection</strong>() <a class="anchor-link" href="#getTextDirection"
+              title="Permalink to InlineHtml.getTextDirection">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets the direction of this object's text.</p>
+<p>@return the direction of this object's text</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/HasDirectionalText.html">HasDirectionalText</a> </div></div>
+<pre class="source">
+Direction getTextDirection() {
+ return directionalTextHelper.getTextDirection();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getTextOrHtml">
+<button class="show-code">Code</button>
+String <strong>getTextOrHtml</strong>(bool isHtml) <a class="anchor-link" href="#getTextOrHtml"
+              title="Permalink to InlineHtml.getTextOrHtml">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Html.html">Html</a> </div><div class="doc">
+<pre class="source">
+String getTextOrHtml(bool isHtml) {
+ return directionalTextHelper.getTextOrHtml(isHtml);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isAttached">
+<button class="show-code">Code</button>
+bool <strong>isAttached</strong>() <a class="anchor-link" href="#isAttached"
+              title="Permalink to InlineHtml.isAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns whether or not the receiver is attached to the
+{@link com.google.gwt.dom.client.Document Document}'s
+{@link com.google.gwt.dom.client.BodyElement BodyElement}.</p>
+<p>@return true if attached, false otherwise</p>
+<pre class="source">
+bool isAttached() {
+ return _attached;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isOrWasAttached">
+<button class="show-code">Code</button>
+bool <strong>isOrWasAttached</strong>() <a class="anchor-link" href="#isOrWasAttached"
+              title="Permalink to InlineHtml.isOrWasAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Has this widget ever been attached?</p>
+<p>@return true if this widget ever been attached to the DOM, false otherwise</p>
+<pre class="source">
+bool isOrWasAttached() {
+ return eventsToSink == -1;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to InlineHtml.onAttach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is attached to the browser's document.
+To receive notification after a Widget has been added to the document,
+override the {@link #onLoad} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onLoad()} or
+{@link #doAttachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onAttach()</code> to ensure that the Widget has been attached
+to its underlying Element.
+</p>
+<p>@throws IllegalStateException if this widget is already attached
+@see #onLoad()
+@see #doAttachChildren()</p>
+<pre class="source">
+void onAttach() {
+ if (isAttached()) {
+   throw new Exception("Should only call onAttach when the widget is detached from the browser's document");
+ }
+
+ _attached = true;
+
+ // Event hookup code
+ Dom.setEventListener(getElement(), this);
+ int bitsToAdd = eventsToSink;
+ eventsToSink = -1;
+ if (bitsToAdd &gt; 0) {
+   sinkEvents(bitsToAdd);
+ }
+ doAttachChildren();
+
+ // onLoad() gets called only *after* all of the children are attached and
+ // the attached flag is set. This allows widgets to be notified when they
+ // are fully attached, and panels when all of their children are attached.
+ onLoad();
+ AttachEvent.fire(this, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onBrowserEvent">
+<button class="show-code">Code</button>
+void <strong>onBrowserEvent</strong>(Event event) <a class="anchor-link" href="#onBrowserEvent"
+              title="Permalink to InlineHtml.onBrowserEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fired whenever a browser event is received.</p>
+<p>@param event the event received</p>
+<p>TODO</p>
+<pre class="source">
+void onBrowserEvent(dart_html.Event event) {
+ switch (Dom.eventGetType(event)) {
+   case IEvent.ONMOUSEOVER:
+     // Only fire the mouse over event if it's coming from outside this
+     // widget.
+   case IEvent.ONMOUSEOUT:
+     // Only fire the mouse over event if it's coming from outside this widget.
+     // Only fire the mouse out event if it's leaving this widget.
+     dart_html.Element related = (event as dart_html.MouseEvent).relatedTarget as dart_html.Element;
+     if (related != null &amp;&amp; Dom.isOrHasChild(getElement(), related)) {
+       return;
+     }
+     break;
+ }
+
+ DomEvent.fireNativeEvent(event, this, this.getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to InlineHtml.onDetach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is detached from the browser's
+document. To receive notification before a Widget is removed from the
+document, override the {@link #onUnload} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onUnload()} or
+{@link #doDetachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onDetach()</code> to ensure that the Widget has been detached
+from the underlying Element. Failure to do so will result in application
+memory leaks due to circular references between DOM Elements and JavaScript
+objects.
+</p>
+<p>@throws IllegalStateException if this widget is already detached
+@see #onUnload()
+@see #doDetachChildren()</p>
+<pre class="source">
+void onDetach() {
+ if (!isAttached()) {
+   throw new Exception("Should only call onDetach when the widget is attached to the browser's document");
+ }
+
+ try {
+   // onUnload() gets called *before* everything else (the opposite of
+   // onLoad()).
+   onUnload();
+   AttachEvent.fire(this, false);
+ } finally {
+   // Put this in a finally, just in case onUnload throws an exception.
+   try {
+     doDetachChildren();
+   } finally {
+     // Put this in a finally, in case doDetachChildren throws an exception.
+     Dom.setEventListener(getElement(), null);
+     _attached = false;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onLoad">
+<button class="show-code">Code</button>
+void <strong>onLoad</strong>() <a class="anchor-link" href="#onLoad"
+              title="Permalink to InlineHtml.onLoad">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately after a widget becomes attached to the
+browser's document.</p>
+<pre class="source">
+void onLoad() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onUnload">
+<button class="show-code">Code</button>
+void <strong>onUnload</strong>() <a class="anchor-link" href="#onUnload"
+              title="Permalink to InlineHtml.onUnload">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately before a widget will be detached from the
+browser's document.</p>
+<pre class="source">
+void onUnload() {
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeFromParent">
+<button class="show-code">Code</button>
+void <strong>removeFromParent</strong>() <a class="anchor-link" href="#removeFromParent"
+              title="Permalink to InlineHtml.removeFromParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Removes this widget from its parent widget, if one exists.</p><p>
+If it has no parent, this method does nothing. If it is a "root" widget
+(meaning it's been added to the detach list via
+{@link RootPanel#detachOnWindowClose(Widget)}), it will be removed from the
+detached immediately. This makes it possible for Composites and Panels to
+adopt root widgets.
+</p>
+<p>@throws IllegalStateException if this widget's parent does not support</p>
+<pre><code>      removal (e.g. {@link Composite})
+</code></pre>
+<pre class="source">
+void removeFromParent() {
+ if (_parent == null) {
+   // If the widget had no parent, check to see if it was in the detach list
+   // and remove it if necessary.
+   if (RootPanel.isInDetachList(this)) {
+     RootPanel.detachNow(this);
+   }
+ } else if (_parent is HasWidgets) {
+   (_parent as HasWidgets).remove(this);
+ } else if (_parent != null) {
+   throw new Exception("This widget's parent does not implement HasWidgets");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>removeStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#removeStyleDependentName"
+              title="Permalink to InlineHtml.removeStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a dependent style name by specifying the style name's suffix.</p>
+<p>@param styleSuffix the suffix of the dependent style to be removed
+@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)</p>
+<pre class="source">
+void removeStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(String style) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to InlineHtml.removeStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a style name. This method is typically used to remove secondary
+style names, but it can be used to remove primary stylenames as well. That
+use is not recommended.</p>
+<p>@param style the secondary style name to be removed
+@see #addStyleName(String)
+@see #setStyleName(String, boolean)</p>
+<pre class="source">
+void removeStyleName(String style) {
+ setStyleName(style, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="replaceElement">
+<button class="show-code">Code</button>
+void <strong>replaceElement</strong>(Element elem) <a class="anchor-link" href="#replaceElement"
+              title="Permalink to InlineHtml.replaceElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Replaces this object's browser element.</p>
+<p>This method exists only to support a specific use-case in Image, and should
+not be used by other classes.</p>
+<p>@param elem the object's new element</p>
+<pre class="source">
+void replaceElement(dart_html.Element elem) {
+ if (isAttached()) {
+   // Remove old event listener to avoid leaking. onDetach will not do this
+   // for us, because it is only called when the widget itself is detached
+   // from the document.
+   Dom.setEventListener(getElement(), null);
+ }
+
+ super.replaceElement(elem);
+
+ if (isAttached()) {
+   // Hook the event listener back up on the new element. onAttach will not
+   // do this for us, because it is only called when the widget itself is
+   // attached to the document.
+   Dom.setEventListener(getElement(), this);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setAutoHorizontalAlignment">
+<button class="show-code">Code</button>
+void <strong>setAutoHorizontalAlignment</strong>(<a href="../dart_web_toolkit_i18n/AutoHorizontalAlignmentConstant.html">AutoHorizontalAlignmentConstant</a> autoAlignment) <a class="anchor-link" href="#setAutoHorizontalAlignment"
+              title="Permalink to InlineHtml.setAutoHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<div class="inherited">
+<p>Sets the horizontal alignment, allowing in addition to the "static"
+{@link HasHorizontalAlignment.HorizontalAlignmentConstant} values, the
+"automatic" {@link HasHorizontalAlignment.AutoHorizontalAlignmentConstant}
+values that depend on the content direction. Determines the values returned
+by both {@link #getAutoHorizontalAlignment} and
+{@link HasHorizontalAlignment#getHorizontalAlignment()}.
+&lt;p> For the {@code ALIGN<em>CONTENT</em>START} and {@code ALIGN<em>CONTENT</em>END}
+values, sets the horizontal alignment (including the value of {@code
+HasHorizontalAlignment#getHorizontalAlignment()}) to the start or end edge
+of the current content's direction, respectively, and continues to
+automatically update it whenever the content direction changes.
+&lt;p> For other values, operates like {@link #setHorizontalAlignment}.
+&lt;p> For {@code null}, the horizontal alignment is cleared, allowing it to
+be determined by the standard HTML mechanisms such as inheritance and CSS
+rules.
+@see HasHorizontalAlignment</p>
+<p>@param autoHorizontalAlignment the new automatic horizontal alignment</p>
+<pre><code>   policy
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/HasAutoHorizontalAlignment.html">HasAutoHorizontalAlignment</a> </div></div>
+<pre class="source">
+void setAutoHorizontalAlignment(AutoHorizontalAlignmentConstant autoAlignment) {
+ _autoHorizontalAlignment = autoAlignment;
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>setDirectionEstimator</strong>(<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> directionEstimator) <a class="anchor-link" href="#setDirectionEstimator"
+              title="Permalink to InlineHtml.setDirectionEstimator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<p>{@inheritDoc}
+&lt;p>
+Note: DirectionEstimator should be set before the widget has any content;
+it's highly recommended to set it using a constructor. Reason: if the
+widget already has non-empty content, this will update its direction
+according to the new estimator's result. This may cause flicker, and thus
+should be avoided.</p>
+<pre class="source">
+void setDirectionEstimator(DirectionEstimator directionEstimator) {
+ directionalTextHelper.setDirectionEstimator(directionEstimator);
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element elem) <a class="anchor-link" href="#setElement"
+              title="Permalink to InlineHtml.setElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets this object's browser element. UIObject subclasses must call this
+method before attempting to call any other methods, and it may only be
+called once.</p>
+<p>@param elem the object's element</p>
+<pre class="source">
+void setElement(dart_html.Element elem) {
+ assert (_element == null);
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to InlineHtml.setHeight">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's height. This height does not include decorations such as
+border, margin, and padding.</p>
+<p>@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setHeight(String height) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(height.trim().toLowerCase()) &gt;= 0); // : "CSS heights should not be negative";
+ Dom.setStyleAttribute(getElement(), "height", height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHorizontalAlignment">
+<button class="show-code">Code</button>
+void <strong>setHorizontalAlignment</strong>(<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> align) <a class="anchor-link" href="#setHorizontalAlignment"
+              title="Permalink to InlineHtml.setHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<p>{@inheritDoc}</p><p>
+Note: A subsequent call to {@link #setAutoHorizontalAlignment} may override
+the horizontal alignment set by this method.
+<p>
+Note: For {@code null}, the horizontal alignment is cleared, allowing it to
+be determined by the standard HTML mechanisms such as inheritance and CSS
+rules.
+<p>@see #setAutoHorizontalAlignment</p>
+<pre class="source">
+void setHorizontalAlignment(HorizontalAlignmentConstant align) {
+ setAutoHorizontalAlignment(align);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHtml">
+<button class="show-code">Code</button>
+void <strong>setHtml</strong>(String val, <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> dir) <a class="anchor-link" href="#setHtml"
+              title="Permalink to InlineHtml.setHtml">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Html.html">Html</a> </div><div class="doc">
+<p>Sets the label's content to the given HTML, applying the given direction.
+See
+{@link #setText(String, com.google.gwt.i18n.client.HasDirection.Direction) setText(String, Direction)}
+for details on potential effects on alignment.</p>
+<p>@param html the new widget's HTML content
+@param dir the content's direction. Note: {@code Direction.DEFAULT} means</p>
+<pre><code>     direction should be inherited from the widget's parent element.
+</code></pre>
+<pre class="source">
+void setHtml(String val, Direction dir) {
+ directionalTextHelper.setTextOrHtml(val, true, dir);
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setLayoutData">
+<button class="show-code">Code</button>
+void <strong>setLayoutData</strong>(Object value) <a class="anchor-link" href="#setLayoutData"
+              title="Permalink to InlineHtml.setLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets the panel-defined layout data associated with this widget. Only the
+panel that currently contains a widget should ever set this value. It
+serves as a place to store layout bookkeeping data associated with a
+widget.</p>
+<p>@param layoutData the widget's layout data</p>
+<pre class="source">
+void setLayoutData(Object value) {
+ this._layoutData = value;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setParent">
+<button class="show-code">Code</button>
+void <strong>setParent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> parent) <a class="anchor-link" href="#setParent"
+              title="Permalink to InlineHtml.setParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets this widget's parent. This method should only be called by
+{@link Panel} and {@link Composite}.</p>
+<p>@param parent the widget's new parent
+@throws IllegalStateException if &lt;code>parent&lt;/code> is non-null and the</p>
+<pre><code>      widget already has a parent
+</code></pre>
+<pre class="source">
+void setParent(Widget parent) {
+ Widget oldParent = this._parent;
+ if (parent == null) {
+   try {
+     if (oldParent != null &amp;&amp; oldParent.isAttached()) {
+       onDetach();
+       assert (!isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onDetach()";
+     }
+   } finally {
+     // Put this in a finally in case onDetach throws an exception.
+     this._parent = null;
+   }
+ } else {
+   if (oldParent != null) {
+     throw new Exception("Cannot set a new parent without first clearing the old parent");
+   }
+   this._parent = parent;
+   if (parent.isAttached()) {
+     onAttach();
+     assert (isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onAttach()";
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setPixelSize">
+<button class="show-code">Code</button>
+void <strong>setPixelSize</strong>(int width, int height) <a class="anchor-link" href="#setPixelSize"
+              title="Permalink to InlineHtml.setPixelSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size, in pixels, not including decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in pixels
+@param height the object's new height, in pixels</p>
+<pre class="source">
+void setPixelSize(int width, int height) {
+ if (width &gt;= 0) {
+   setWidth(width.toString() + "px");
+ }
+ if (height &gt;= 0) {
+   setHeight(height.toString() + "px");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSize">
+<button class="show-code">Code</button>
+void <strong>setSize</strong>(String width, String height) <a class="anchor-link" href="#setSize"
+              title="Permalink to InlineHtml.setSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size. This size does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")
+@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setSize(String width, String height) {
+ setWidth(width);
+ setHeight(height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>setStyleDependentName</strong>(String styleSuffix, bool add) <a class="anchor-link" href="#setStyleDependentName"
+              title="Permalink to InlineHtml.setStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a dependent style name by specifying the style name's
+suffix. The actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleName(String, boolean)
+@see #removeStyleDependentName(String)</p>
+<pre class="source">
+void setStyleDependentName(String styleSuffix, bool add) {
+ setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(String style, bool add) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to InlineHtml.setStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a style name. This method is typically used to remove
+secondary style names, but it can be used to remove primary stylenames as
+well. That use is not recommended.</p>
+<p>@param style the style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStyleName(String style, bool add) {
+ manageElementStyleName(getStyleElement(), style, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(String style) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to InlineHtml.setStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's primary style name and updates all dependent style names.</p>
+<p>@param style the new primary style name
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStylePrimaryName(String style) {
+ setElementStylePrimaryName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setText">
+<button class="show-code">Code</button>
+void <strong>setText</strong>(String text, <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> dir) <a class="anchor-link" href="#setText"
+              title="Permalink to InlineHtml.setText">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Label.html">Label</a> </div><div class="doc">
+<p>Sets the label's content to the given text, applying the given direction.
+&lt;p>
+This will have the following effect on the horizontal alignment:
+&lt;ul>
+&lt;li> If the automatic alignment setting is ALIGN<em>CONTENT</em>START or
+ALIGN<em>CONTENT</em>END, the horizontal alignment will be set to match the start
+or end edge, respectively, of the new direction (the {@code dir}
+parameter). If that is DEFAULT, the locale direction is used.
+&lt;li> Otherwise, the horizontal alignment value is not changed, but the
+effective alignment may nevertheless change according to the usual HTML
+rules, i.e. it will match the start edge of the new direction if the widget
+element is a &lt;div&gt; and has no explicit alignment value even by
+inheritance.
+&lt;/ul></p>
+<p>@param text the widget's new text
+@param dir the text's direction. Note: {@code Direction.DEFAULT} means</p>
+<pre><code>   direction should be inherited from the widget's parent element.
+</code></pre>
+<pre class="source">
+void setText(String text, Direction dir) {
+ directionalTextHelper.setTextOrHtml(text, false, dir);
+ updateHorizontalAlignment();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to InlineHtml.setWidth">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's width. This width does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setWidth(String width) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(width.trim().toLowerCase()) &gt;= 0); // : "CSS widths should not be negative";
+ Dom.setStyleAttribute(getElement(), "width", width);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to InlineHtml.sinkBitlessEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sinks a named event. Note that only {@link Widget widgets} may actually
+receive events, but can receive events from all objects contained within
+them.</p>
+<p>@param eventTypeName name of the event to sink on this element
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkBitlessEvent(String eventTypeName) {
+ Dom.sinkBitlessEvent(getElement(), eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(int eventBitsToAdd) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to InlineHtml.sinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Overridden to defer the call to super.sinkEvents until the first time this
+widget is attached to the dom, as a performance enhancement. Subclasses
+wishing to customize sinkEvents can preserve this deferred sink behavior by
+putting their implementation behind a check of
+&lt;code>isOrWasAttached()&lt;/code>:</p><pre>
+{@literal @}Override
+public void sinkEvents(int eventBitsToAdd) {
+  if (isOrWasAttached()) {
+    /{@literal *} customized sink code goes here {@literal *}/
+  } else {
+    super.sinkEvents(eventBitsToAdd);
+ }
+} </pre>
+<pre class="source">
+void sinkEvents(int eventBitsToAdd) {
+ if (isOrWasAttached()) {
+   super.sinkEvents(eventsToSink);
+ } else {
+   eventsToSink |= eventBitsToAdd;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to InlineHtml.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>This method is overridden so that any object can be viewed in the debugger
+as an HTML snippet.</p>
+<p>@return a string representation of the object</p>
+<pre class="source">
+String toString() {
+ if (_element == null) {
+   return "(null handle)";
+ }
+ return getElement().toString();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="unsinkEvents">
+<button class="show-code">Code</button>
+void <strong>unsinkEvents</strong>(int eventBitsToRemove) <a class="anchor-link" href="#unsinkEvents"
+              title="Permalink to InlineHtml.unsinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a set of events from this object's event list.</p>
+<p>@param eventBitsToRemove a bitfield representing the set of events to be</p>
+<pre><code>     removed from this element's event set
+</code></pre>
+<p>@see #sinkEvents
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void unsinkEvents(int eventBitsToRemove) {
+ Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="updateHorizontalAlignment">
+<button class="show-code">Code</button>
+void <strong>updateHorizontalAlignment</strong>() <a class="anchor-link" href="#updateHorizontalAlignment"
+              title="Permalink to InlineHtml.updateHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase</a> </div><div class="doc">
+<p>Sets the horizontal alignment of the widget according to the current
+AutoHorizontalAlignment setting. Should be invoked whenever the horizontal
+alignment may be affected, i.e. on every modification of the content or its
+direction.</p>
+<pre class="source">
+void updateHorizontalAlignment() {
+ HorizontalAlignmentConstant align;
+ if (_autoHorizontalAlignment == null) {
+   align = null;
+ } else if (_autoHorizontalAlignment is HorizontalAlignmentConstant) {
+   align = _autoHorizontalAlignment as HorizontalAlignmentConstant;
+ } else {
+   /*
+    * autoHorizontalAlignment is a truly automatic policy, i.e. either
+    * ALIGN_CONTENT_START or ALIGN_CONTENT_END
+    */
+   align = _autoHorizontalAlignment == ALIGN_CONTENT_START
+       ? HorizontalAlignmentConstant.startOf(directionalTextHelper.getTextDirection())
+       : HorizontalAlignmentConstant.endOf(directionalTextHelper.getTextDirection());
+ }
+
+ if (align != _horzAlign) {
+   _horzAlign = align;
+   getElement().style.textAlign = _horzAlign == null ? "" : _horzAlign.getTextAlignString();
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.895</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,1200 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>IEvent&lt;H&gt; abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="IEvent&amp;lt;H&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/IEvent.html">IEvent&lt;H&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>IEvent&lt;H&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Base Event object.</p>
+<p>@param &lt;H> interface implemented by handlers of this kind of event</p>
+<pre class="source">
+abstract class IEvent&lt;H&gt; {
+
+ dynamic _source;
+
+ /**
+  * Constructor.
+  */
+ IEvent();
+
+ /**
+  * Returns the [EventType] used to register this event, allowing an
+  * [EventBus] to find handlers of the appropriate class.
+  *
+  * @return the type
+  */
+ EventType&lt;H&gt; getAssociatedType();
+
+ /**
+  * Returns the source for this event. The type and meaning of the source is
+  * arbitrary, and is most useful as a secondary key for handler registration.
+  * (See [EventBus#addHandlerToSource], which allows a handler to
+  * register for events of a particular type, tied to a particular source.)
+  *
+  * Note that the source is actually set at dispatch time, e.g. via
+  * [EventBus#fireEventFromSource(Event, Object)].
+  *
+  * @return object representing the source of this event
+  */
+ dynamic getSource() {
+   return _source;
+ }
+
+ /**
+  * Set the source that triggered this event. Intended to be called by the
+  * [EventBus] during dispatch.
+  *
+  * @param source the source of this event.
+  * @see EventBus#fireEventFromSource(Event, Object)
+  * @see EventBus#setSourceOfEvent(Event, Object)
+  */
+ void setSource(dynamic source) {
+   this._source = source;
+ }
+
+ /**
+  * The toString() for abstract event is overridden to avoid accidently
+  * including class literals in the the compiled output. Use [Event]
+  * #toDebugString to get more information about the event.
+  */
+ String toString() {
+   return "An event type";
+ }
+
+ /**
+  * Implemented by subclasses to invoke their handlers in a type safe
+  * manner. Intended to be called by [EventBus#fireEvent(Event)] or
+  * [EventBus#fireEventFromSource(Event, Object)].
+  *
+  * @param handler handler
+  * @see EventBus#dispatchEvent(Event, Object)
+  */
+ void dispatch(H handler);
+
+ //*****************
+
+ /**
+  * The list of {@link NativePreviewHandler}. We use a list instead of a
+  * handler manager for efficiency and because we want to fire the handlers in
+  * reverse order. When the last handler is removed, handlers is reset to null.
+  */
+ static EventBus handlers;
+
+ /**
+  * &lt;p&gt;
+  * Adds a {@link NativePreviewHandler} that will receive all events before
+  * they are fired to their handlers. Note that the handler will receive
+  * &lt;u&gt;all&lt;/u&gt; native events, including those received due to bubbling, whereas
+  * normal event handlers only receive explicitly sunk events.
+  * &lt;/p&gt;
+  *
+  * &lt;p&gt;
+  * Unlike other event handlers, {@link NativePreviewHandler} are fired in the
+  * reverse order that they are added, such that the last
+  * {@link NativePreviewEvent} that was added is the first to be fired.
+  * &lt;/p&gt;
+  *
+  * &lt;p&gt;
+  * Please note that nondeterministic behavior will result if more than one GWT
+  * application registers preview handlers. See &lt;a href=
+  * 'http://code.google.com/p/google-web-toolkit/issues/detail?id=3892'&gt;issue
+  * 3892&lt;/a&gt; for details.
+  * &lt;/p&gt;
+  *
+  * @param handler the {@link NativePreviewHandler}
+  * @return {@link HandlerRegistration} used to remove this handler
+  */
+ static HandlerRegistration addNativePreviewHandler(NativePreviewHandler handler) {
+   assert (handler != null); // : "Cannot add a null handler";
+   Dom.maybeInitializeEventSystem();
+
+   // Initialize the type
+   //NativePreviewEvent.getType();
+   if (handlers == null) {
+     handlers = new SimpleEventBus(); // new HandlerManager(null, true);
+     NativePreviewEvent.singleton = new NativePreviewEvent();
+   }
+   return handlers.addHandler(NativePreviewEvent.TYPE, handler);
+ }
+
+ /**
+  * Fire a {@link NativePreviewEvent} for the native event.
+  *
+  * @param nativeEvent the native event
+  * @return true to fire the event normally, false to cancel the event
+  */
+ static bool fireNativePreviewEvent(dart_html.Event nativeEvent) {
+   return NativePreviewEvent.fire(handlers, nativeEvent);
+ }
+
+ //**************
+ //**************
+ //**************
+
+ /**
+  * Fired when an element loses keyboard focus.
+  */
+ static const int ONBLUR = 0x01000;
+
+ /**
+  * Fired when the value of an input element changes.
+  */
+ static const int ONCHANGE = 0x00400;
+
+ /**
+  * Fired when the user clicks on an element.
+  */
+ static const int ONCLICK = 0x00001;
+
+ /**
+  * Fired when the user double-clicks on an element.
+  */
+ static const int ONDBLCLICK = 0x00002;
+
+ /**
+  * Fired when an image encounters an error.
+  */
+ static const int ONERROR = 0x10000;
+
+ /**
+  * Fired when an element receives keyboard focus.
+  */
+ static const int ONFOCUS = 0x00800;
+
+ /**
+  * Fired when the user gesture changes.
+  */
+ static const int ONGESTURECHANGE = 0x2000000;
+
+ /**
+  * Fired when the user gesture ends.
+  */
+ static const int ONGESTUREEND = 0x4000000;
+
+ /**
+  * Fired when the user gesture starts.
+  */
+ static const int ONGESTURESTART = 0x1000000;
+
+ /**
+  * Fired when the user depresses a key.
+  */
+ static const int ONKEYDOWN = 0x00080;
+
+ /**
+  * Fired when the a character is generated from a keypress (either directly or
+  * through auto-repeat).
+  */
+ static const int ONKEYPRESS = 0x00100;
+
+ /**
+  * Fired when the user releases a key.
+  */
+ static const int ONKEYUP = 0x00200;
+
+ /**
+  * Fired when an element (normally an IMG) finishes loading.
+  */
+ static const int ONLOAD = 0x08000;
+
+ /**
+  * Fired when an element that has mouse capture loses it.
+  */
+ static const int ONLOSECAPTURE = 0x02000;
+
+ /**
+  * Fired when the user depresses a mouse button over an element.
+  */
+ static const int ONMOUSEDOWN = 0x00004;
+
+ /**
+  * Fired when the mouse is moved within an element's area.
+  */
+ static const int ONMOUSEMOVE = 0x00040;
+
+ /**
+  * Fired when the mouse is moved out of an element's area.
+  */
+ static const int ONMOUSEOUT = 0x00020;
+
+ /**
+  * Fired when the mouse is moved into an element's area.
+  */
+ static const int ONMOUSEOVER = 0x00010;
+
+ /**
+  * Fired when the user releases a mouse button over an element.
+  */
+ static const int ONMOUSEUP = 0x00008;
+
+ /**
+  * Fired when the user scrolls the mouse wheel over an element.
+  */
+ static const int ONMOUSEWHEEL = 0x20000;
+
+ /**
+  * Fired when the user pastes text into an input element.
+  *
+  * &lt;p&gt;
+  * Note: This event is &lt;em&gt;not&lt;/em&gt; supported on Firefox 2 and earlier, or
+  * Opera 10 and earlier. Be aware that it will not fire on these browser
+  * versions.
+  * &lt;/p&gt;
+  */
+ static const int ONPASTE = 0x80000;
+
+ /**
+  * Fired when a scrollable element's scroll offset changes.
+  */
+ static const int ONSCROLL = 0x04000;
+
+ /**
+  * Fired when the user cancels touching an element.
+  */
+ static const int ONTOUCHCANCEL = 0x800000;
+
+ /**
+  * Fired when the user ends touching an element.
+  */
+ static const int ONTOUCHEND = 0x400000;
+
+ /**
+  * Fired when the user moves while touching an element.
+  */
+ static const int ONTOUCHMOVE = 0x200000;
+
+ /**
+  * Fired when the user starts touching an element.
+  */
+ static const int ONTOUCHSTART = 0x100000;
+ /**
+  * Fired when the user requests an element's context menu (usually by
+  * right-clicking).
+  *
+  * Note that not all browsers will fire this event (notably Opera, as of 9.5).
+  */
+ static const int ONCONTEXTMENU = 0x40000;
+
+ /**
+  * A bit-mask covering both focus events (focus and blur).
+  */
+ static const int FOCUSEVENTS = ONFOCUS | ONBLUR;
+
+ /**
+  * A bit-mask covering all keyboard events (down, up, and press).
+  */
+ static const int KEYEVENTS = ONKEYDOWN | ONKEYPRESS | ONKEYUP;
+
+ /**
+  * A bit-mask covering all mouse events (down, up, move, over, and out), but
+  * not click, dblclick, or wheel events.
+  */
+ static const int MOUSEEVENTS = ONMOUSEDOWN | ONMOUSEUP | ONMOUSEMOVE
+     | ONMOUSEOVER | ONMOUSEOUT;
+
+ /**
+  * A bit-mask covering all touch events (start, move, end, cancel).
+  */
+ static const int TOUCHEVENTS = ONTOUCHSTART | ONTOUCHMOVE | ONTOUCHEND | ONTOUCHCANCEL;
+
+ /**
+  * A bit-mask covering all gesture events (start, change, end).
+  */
+ static const int GESTUREEVENTS = ONGESTURESTART | ONGESTURECHANGE | ONGESTUREEND;
+
+ /**
+  * The left mouse button.
+  */
+ static const int BUTTON_LEFT = 0;
+
+ /**
+  * The middle mouse button.
+  */
+ static const int BUTTON_MIDDLE = 1;
+
+ /**
+  * The right mouse button.
+  */
+ static const int BUTTON_RIGHT = 2;
+
+ /**
+  * Gets the enumerated type of this event given a valid event type name.
+  *
+  * @param typeName the typeName to be tested
+  * @return the event's enumerated type, or -1 if not defined
+  */
+ static int getTypeInt(String typeName) {
+   return Dom.impl.eventGetTypeInt(typeName);
+ }
+
+ /**
+  * Sets the {@link EventListener} to receive events for the given element.
+  * Only one such listener may exist for a single element.
+  *
+  * @param elem the element whose listener is to be set
+  * @param listener the listener to receive {@link Event events}
+  */
+ static void setEventListener(dart_html.Element elem, EventListener listener) {
+   // This cast is always valid because both Element types are JSOs and have
+   // no new fields are added in the subclass.
+   Dom.setEventListener(elem, listener);
+ }
+
+ /**
+  * Sets the current set of events sunk by a given element. These events will
+  * be fired to the nearest {@link EventListener} specified on any of the
+  * element's parents.
+  *
+  * @param elem the element whose events are to be retrieved
+  * @param eventBits a bitfield describing the events sunk on this element (its
+  *          possible values are described in {@link Event})
+  */
+ static void sinkEvents(dart_html.Element elem, int eventBits) {
+   // This cast is always valid because both Element types are JSOs and have
+   // no new fields are added in the subclass.
+   Dom.sinkEvents(elem, eventBits);
+ }
+
+ /**
+  * Gets the current set of events sunk by a given element.
+  *
+  * @param elem the element whose events are to be retrieved
+  * @return a bitfield describing the events sunk on this element (its possible
+  *         values are described in {@link Event})
+  */
+ static int getEventsSunk(dart_html.Element elem) {
+   // This cast is always valid because both Element types are JSOs and have
+   // no new fields are added in the subclass.
+   return Dom.getEventsSunk(elem);
+ }
+
+ /**
+  * Gets the {@link EventListener} that will receive events for the given
+  * element. Only one such listener may exist for a single element.
+  *
+  * @param elem the element whose listener is to be set
+  * @return the element's event listener
+  */
+ static EventListener getEventListener(dart_html.Element elem) {
+   return Dom.getEventListener(elem);
+ }
+
+ /**
+  * Sets mouse-capture on the given element. This element will directly receive
+  * all mouse events until {@link #releaseCapture(Element)} is called on it.
+  *
+  * @param elem the element on which to set mouse capture
+  */
+ static void setCapture(dart_html.Element elem) {
+   Dom.setCapture(elem);
+ }
+
+ /**
+  * Releases mouse capture on the given element. Calling this method has no
+  * effect if the element does not currently have mouse capture.
+  *
+  * @param elem the element to release capture
+  * @see #setCapture(Element)
+  */
+ static void releaseCapture(dart_html.Element elem) {
+   Dom.releaseCapture(elem);
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent&lt;H&gt;</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="BUTTON_LEFT">
+<button class="show-code">Code</button>
+const int         <strong>BUTTON_LEFT</strong> <a class="anchor-link"
+            href="#BUTTON_LEFT"
+            title="Permalink to IEvent&lt;H&gt;.BUTTON_LEFT">#</a>
+        </h4>
+        <div class="doc">
+<p>The left mouse button.</p>
+<pre class="source">
+static const int BUTTON_LEFT = 0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="BUTTON_MIDDLE">
+<button class="show-code">Code</button>
+const int         <strong>BUTTON_MIDDLE</strong> <a class="anchor-link"
+            href="#BUTTON_MIDDLE"
+            title="Permalink to IEvent&lt;H&gt;.BUTTON_MIDDLE">#</a>
+        </h4>
+        <div class="doc">
+<p>The middle mouse button.</p>
+<pre class="source">
+static const int BUTTON_MIDDLE = 1
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="BUTTON_RIGHT">
+<button class="show-code">Code</button>
+const int         <strong>BUTTON_RIGHT</strong> <a class="anchor-link"
+            href="#BUTTON_RIGHT"
+            title="Permalink to IEvent&lt;H&gt;.BUTTON_RIGHT">#</a>
+        </h4>
+        <div class="doc">
+<p>The right mouse button.</p>
+<pre class="source">
+static const int BUTTON_RIGHT = 2
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="FOCUSEVENTS">
+<button class="show-code">Code</button>
+const int         <strong>FOCUSEVENTS</strong> <a class="anchor-link"
+            href="#FOCUSEVENTS"
+            title="Permalink to IEvent&lt;H&gt;.FOCUSEVENTS">#</a>
+        </h4>
+        <div class="doc">
+<p>A bit-mask covering both focus events (focus and blur).</p>
+<pre class="source">
+static const int FOCUSEVENTS = ONFOCUS | ONBLUR
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="GESTUREEVENTS">
+<button class="show-code">Code</button>
+const int         <strong>GESTUREEVENTS</strong> <a class="anchor-link"
+            href="#GESTUREEVENTS"
+            title="Permalink to IEvent&lt;H&gt;.GESTUREEVENTS">#</a>
+        </h4>
+        <div class="doc">
+<p>A bit-mask covering all gesture events (start, change, end).</p>
+<pre class="source">
+static const int GESTUREEVENTS = ONGESTURESTART | ONGESTURECHANGE | ONGESTUREEND
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="handlers">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a>         <strong>handlers</strong> <a class="anchor-link"
+            href="#handlers"
+            title="Permalink to IEvent&lt;H&gt;.handlers">#</a>
+        </h4>
+        <div class="doc">
+<p>The list of {@link NativePreviewHandler}. We use a list instead of a
+handler manager for efficiency and because we want to fire the handlers in
+reverse order. When the last handler is removed, handlers is reset to null.</p>
+<pre class="source">
+static EventBus handlers
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="KEYEVENTS">
+<button class="show-code">Code</button>
+const int         <strong>KEYEVENTS</strong> <a class="anchor-link"
+            href="#KEYEVENTS"
+            title="Permalink to IEvent&lt;H&gt;.KEYEVENTS">#</a>
+        </h4>
+        <div class="doc">
+<p>A bit-mask covering all keyboard events (down, up, and press).</p>
+<pre class="source">
+static const int KEYEVENTS = ONKEYDOWN | ONKEYPRESS | ONKEYUP
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="MOUSEEVENTS">
+<button class="show-code">Code</button>
+const int         <strong>MOUSEEVENTS</strong> <a class="anchor-link"
+            href="#MOUSEEVENTS"
+            title="Permalink to IEvent&lt;H&gt;.MOUSEEVENTS">#</a>
+        </h4>
+        <div class="doc">
+<p>A bit-mask covering all mouse events (down, up, move, over, and out), but
+not click, dblclick, or wheel events.</p>
+<pre class="source">
+static const int MOUSEEVENTS = ONMOUSEDOWN | ONMOUSEUP | ONMOUSEMOVE
+   | ONMOUSEOVER | ONMOUSEOUT
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONBLUR">
+<button class="show-code">Code</button>
+const int         <strong>ONBLUR</strong> <a class="anchor-link"
+            href="#ONBLUR"
+            title="Permalink to IEvent&lt;H&gt;.ONBLUR">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when an element loses keyboard focus.</p>
+<pre class="source">
+static const int ONBLUR = 0x01000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONCHANGE">
+<button class="show-code">Code</button>
+const int         <strong>ONCHANGE</strong> <a class="anchor-link"
+            href="#ONCHANGE"
+            title="Permalink to IEvent&lt;H&gt;.ONCHANGE">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the value of an input element changes.</p>
+<pre class="source">
+static const int ONCHANGE = 0x00400
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONCLICK">
+<button class="show-code">Code</button>
+const int         <strong>ONCLICK</strong> <a class="anchor-link"
+            href="#ONCLICK"
+            title="Permalink to IEvent&lt;H&gt;.ONCLICK">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user clicks on an element.</p>
+<pre class="source">
+static const int ONCLICK = 0x00001
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONCONTEXTMENU">
+<button class="show-code">Code</button>
+const int         <strong>ONCONTEXTMENU</strong> <a class="anchor-link"
+            href="#ONCONTEXTMENU"
+            title="Permalink to IEvent&lt;H&gt;.ONCONTEXTMENU">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user requests an element's context menu (usually by
+right-clicking).</p>
+<p>Note that not all browsers will fire this event (notably Opera, as of 9.5).</p>
+<pre class="source">
+static const int ONCONTEXTMENU = 0x40000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONDBLCLICK">
+<button class="show-code">Code</button>
+const int         <strong>ONDBLCLICK</strong> <a class="anchor-link"
+            href="#ONDBLCLICK"
+            title="Permalink to IEvent&lt;H&gt;.ONDBLCLICK">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user double-clicks on an element.</p>
+<pre class="source">
+static const int ONDBLCLICK = 0x00002
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONERROR">
+<button class="show-code">Code</button>
+const int         <strong>ONERROR</strong> <a class="anchor-link"
+            href="#ONERROR"
+            title="Permalink to IEvent&lt;H&gt;.ONERROR">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when an image encounters an error.</p>
+<pre class="source">
+static const int ONERROR = 0x10000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONFOCUS">
+<button class="show-code">Code</button>
+const int         <strong>ONFOCUS</strong> <a class="anchor-link"
+            href="#ONFOCUS"
+            title="Permalink to IEvent&lt;H&gt;.ONFOCUS">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when an element receives keyboard focus.</p>
+<pre class="source">
+static const int ONFOCUS = 0x00800
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONGESTURECHANGE">
+<button class="show-code">Code</button>
+const int         <strong>ONGESTURECHANGE</strong> <a class="anchor-link"
+            href="#ONGESTURECHANGE"
+            title="Permalink to IEvent&lt;H&gt;.ONGESTURECHANGE">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user gesture changes.</p>
+<pre class="source">
+static const int ONGESTURECHANGE = 0x2000000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONGESTUREEND">
+<button class="show-code">Code</button>
+const int         <strong>ONGESTUREEND</strong> <a class="anchor-link"
+            href="#ONGESTUREEND"
+            title="Permalink to IEvent&lt;H&gt;.ONGESTUREEND">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user gesture ends.</p>
+<pre class="source">
+static const int ONGESTUREEND = 0x4000000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONGESTURESTART">
+<button class="show-code">Code</button>
+const int         <strong>ONGESTURESTART</strong> <a class="anchor-link"
+            href="#ONGESTURESTART"
+            title="Permalink to IEvent&lt;H&gt;.ONGESTURESTART">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user gesture starts.</p>
+<pre class="source">
+static const int ONGESTURESTART = 0x1000000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONKEYDOWN">
+<button class="show-code">Code</button>
+const int         <strong>ONKEYDOWN</strong> <a class="anchor-link"
+            href="#ONKEYDOWN"
+            title="Permalink to IEvent&lt;H&gt;.ONKEYDOWN">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user depresses a key.</p>
+<pre class="source">
+static const int ONKEYDOWN = 0x00080
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONKEYPRESS">
+<button class="show-code">Code</button>
+const int         <strong>ONKEYPRESS</strong> <a class="anchor-link"
+            href="#ONKEYPRESS"
+            title="Permalink to IEvent&lt;H&gt;.ONKEYPRESS">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the a character is generated from a keypress (either directly or
+through auto-repeat).</p>
+<pre class="source">
+static const int ONKEYPRESS = 0x00100
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONKEYUP">
+<button class="show-code">Code</button>
+const int         <strong>ONKEYUP</strong> <a class="anchor-link"
+            href="#ONKEYUP"
+            title="Permalink to IEvent&lt;H&gt;.ONKEYUP">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user releases a key.</p>
+<pre class="source">
+static const int ONKEYUP = 0x00200
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONLOAD">
+<button class="show-code">Code</button>
+const int         <strong>ONLOAD</strong> <a class="anchor-link"
+            href="#ONLOAD"
+            title="Permalink to IEvent&lt;H&gt;.ONLOAD">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when an element (normally an IMG) finishes loading.</p>
+<pre class="source">
+static const int ONLOAD = 0x08000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONLOSECAPTURE">
+<button class="show-code">Code</button>
+const int         <strong>ONLOSECAPTURE</strong> <a class="anchor-link"
+            href="#ONLOSECAPTURE"
+            title="Permalink to IEvent&lt;H&gt;.ONLOSECAPTURE">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when an element that has mouse capture loses it.</p>
+<pre class="source">
+static const int ONLOSECAPTURE = 0x02000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONMOUSEDOWN">
+<button class="show-code">Code</button>
+const int         <strong>ONMOUSEDOWN</strong> <a class="anchor-link"
+            href="#ONMOUSEDOWN"
+            title="Permalink to IEvent&lt;H&gt;.ONMOUSEDOWN">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user depresses a mouse button over an element.</p>
+<pre class="source">
+static const int ONMOUSEDOWN = 0x00004
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONMOUSEMOVE">
+<button class="show-code">Code</button>
+const int         <strong>ONMOUSEMOVE</strong> <a class="anchor-link"
+            href="#ONMOUSEMOVE"
+            title="Permalink to IEvent&lt;H&gt;.ONMOUSEMOVE">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the mouse is moved within an element's area.</p>
+<pre class="source">
+static const int ONMOUSEMOVE = 0x00040
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONMOUSEOUT">
+<button class="show-code">Code</button>
+const int         <strong>ONMOUSEOUT</strong> <a class="anchor-link"
+            href="#ONMOUSEOUT"
+            title="Permalink to IEvent&lt;H&gt;.ONMOUSEOUT">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the mouse is moved out of an element's area.</p>
+<pre class="source">
+static const int ONMOUSEOUT = 0x00020
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONMOUSEOVER">
+<button class="show-code">Code</button>
+const int         <strong>ONMOUSEOVER</strong> <a class="anchor-link"
+            href="#ONMOUSEOVER"
+            title="Permalink to IEvent&lt;H&gt;.ONMOUSEOVER">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the mouse is moved into an element's area.</p>
+<pre class="source">
+static const int ONMOUSEOVER = 0x00010
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONMOUSEUP">
+<button class="show-code">Code</button>
+const int         <strong>ONMOUSEUP</strong> <a class="anchor-link"
+            href="#ONMOUSEUP"
+            title="Permalink to IEvent&lt;H&gt;.ONMOUSEUP">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user releases a mouse button over an element.</p>
+<pre class="source">
+static const int ONMOUSEUP = 0x00008
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONMOUSEWHEEL">
+<button class="show-code">Code</button>
+const int         <strong>ONMOUSEWHEEL</strong> <a class="anchor-link"
+            href="#ONMOUSEWHEEL"
+            title="Permalink to IEvent&lt;H&gt;.ONMOUSEWHEEL">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user scrolls the mouse wheel over an element.</p>
+<pre class="source">
+static const int ONMOUSEWHEEL = 0x20000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONPASTE">
+<button class="show-code">Code</button>
+const int         <strong>ONPASTE</strong> <a class="anchor-link"
+            href="#ONPASTE"
+            title="Permalink to IEvent&lt;H&gt;.ONPASTE">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user pastes text into an input element.</p><p>
+Note: This event is <em>not</em> supported on Firefox 2 and earlier, or
+Opera 10 and earlier. Be aware that it will not fire on these browser
+versions.
+</p>
+<pre class="source">
+static const int ONPASTE = 0x80000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONSCROLL">
+<button class="show-code">Code</button>
+const int         <strong>ONSCROLL</strong> <a class="anchor-link"
+            href="#ONSCROLL"
+            title="Permalink to IEvent&lt;H&gt;.ONSCROLL">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when a scrollable element's scroll offset changes.</p>
+<pre class="source">
+static const int ONSCROLL = 0x04000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONTOUCHCANCEL">
+<button class="show-code">Code</button>
+const int         <strong>ONTOUCHCANCEL</strong> <a class="anchor-link"
+            href="#ONTOUCHCANCEL"
+            title="Permalink to IEvent&lt;H&gt;.ONTOUCHCANCEL">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user cancels touching an element.</p>
+<pre class="source">
+static const int ONTOUCHCANCEL = 0x800000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONTOUCHEND">
+<button class="show-code">Code</button>
+const int         <strong>ONTOUCHEND</strong> <a class="anchor-link"
+            href="#ONTOUCHEND"
+            title="Permalink to IEvent&lt;H&gt;.ONTOUCHEND">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user ends touching an element.</p>
+<pre class="source">
+static const int ONTOUCHEND = 0x400000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONTOUCHMOVE">
+<button class="show-code">Code</button>
+const int         <strong>ONTOUCHMOVE</strong> <a class="anchor-link"
+            href="#ONTOUCHMOVE"
+            title="Permalink to IEvent&lt;H&gt;.ONTOUCHMOVE">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user moves while touching an element.</p>
+<pre class="source">
+static const int ONTOUCHMOVE = 0x200000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ONTOUCHSTART">
+<button class="show-code">Code</button>
+const int         <strong>ONTOUCHSTART</strong> <a class="anchor-link"
+            href="#ONTOUCHSTART"
+            title="Permalink to IEvent&lt;H&gt;.ONTOUCHSTART">#</a>
+        </h4>
+        <div class="doc">
+<p>Fired when the user starts touching an element.</p>
+<pre class="source">
+static const int ONTOUCHSTART = 0x100000
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TOUCHEVENTS">
+<button class="show-code">Code</button>
+const int         <strong>TOUCHEVENTS</strong> <a class="anchor-link"
+            href="#TOUCHEVENTS"
+            title="Permalink to IEvent&lt;H&gt;.TOUCHEVENTS">#</a>
+        </h4>
+        <div class="doc">
+<p>A bit-mask covering all touch events (start, move, end, cancel).</p>
+<pre class="source">
+static const int TOUCHEVENTS = ONTOUCHSTART | ONTOUCHMOVE | ONTOUCHEND | ONTOUCHCANCEL
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="addNativePreviewHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addNativePreviewHandler</strong>(<a href="../dart_web_toolkit_event/NativePreviewHandler.html">NativePreviewHandler</a> handler) <a class="anchor-link" href="#addNativePreviewHandler"
+              title="Permalink to IEvent&lt;H&gt;.addNativePreviewHandler">#</a></h4>
+<div class="doc">
+<p>
+Adds a {@link NativePreviewHandler} that will receive all events before
+they are fired to their handlers. Note that the handler will receive
+<u>all</u> native events, including those received due to bubbling, whereas
+normal event handlers only receive explicitly sunk events.
+</p><p>
+Unlike other event handlers, {@link NativePreviewHandler} are fired in the
+reverse order that they are added, such that the last
+{@link NativePreviewEvent} that was added is the first to be fired.
+</p><p>
+Please note that nondeterministic behavior will result if more than one GWT
+application registers preview handlers. See <a href=
+'http://code.google.com/p/google-web-toolkit/issues/detail?id=3892'>issue
+3892</a> for details.
+</p>
+<p>@param handler the {@link NativePreviewHandler}
+@return {@link HandlerRegistration} used to remove this handler</p>
+<pre class="source">
+static HandlerRegistration addNativePreviewHandler(NativePreviewHandler handler) {
+ assert (handler != null); // : "Cannot add a null handler";
+ Dom.maybeInitializeEventSystem();
+
+ // Initialize the type
+ //NativePreviewEvent.getType();
+ if (handlers == null) {
+   handlers = new SimpleEventBus(); // new HandlerManager(null, true);
+   NativePreviewEvent.singleton = new NativePreviewEvent();
+ }
+ return handlers.addHandler(NativePreviewEvent.TYPE, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fireNativePreviewEvent">
+<button class="show-code">Code</button>
+bool <strong>fireNativePreviewEvent</strong>(Event nativeEvent) <a class="anchor-link" href="#fireNativePreviewEvent"
+              title="Permalink to IEvent&lt;H&gt;.fireNativePreviewEvent">#</a></h4>
+<div class="doc">
+<p>Fire a {@link NativePreviewEvent} for the native event.</p>
+<p>@param nativeEvent the native event
+@return true to fire the event normally, false to cancel the event</p>
+<pre class="source">
+static bool fireNativePreviewEvent(dart_html.Event nativeEvent) {
+ return NativePreviewEvent.fire(handlers, nativeEvent);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTypeInt">
+<button class="show-code">Code</button>
+int <strong>getTypeInt</strong>(String typeName) <a class="anchor-link" href="#getTypeInt"
+              title="Permalink to IEvent&lt;H&gt;.getTypeInt">#</a></h4>
+<div class="doc">
+<p>Gets the enumerated type of this event given a valid event type name.</p>
+<p>@param typeName the typeName to be tested
+@return the event's enumerated type, or -1 if not defined</p>
+<pre class="source">
+static int getTypeInt(String typeName) {
+ return Dom.impl.eventGetTypeInt(typeName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setEventListener">
+<button class="show-code">Code</button>
+void <strong>setEventListener</strong>(Element elem, <a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> listener) <a class="anchor-link" href="#setEventListener"
+              title="Permalink to IEvent&lt;H&gt;.setEventListener">#</a></h4>
+<div class="doc">
+<p>Sets the {@link EventListener} to receive events for the given element.
+Only one such listener may exist for a single element.</p>
+<p>@param elem the element whose listener is to be set
+@param listener the listener to receive {@link Event events}</p>
+<pre class="source">
+static void setEventListener(dart_html.Element elem, EventListener listener) {
+ // This cast is always valid because both Element types are JSOs and have
+ // no new fields are added in the subclass.
+ Dom.setEventListener(elem, listener);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(Element elem, int eventBits) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to IEvent&lt;H&gt;.sinkEvents">#</a></h4>
+<div class="doc">
+<p>Sets the current set of events sunk by a given element. These events will
+be fired to the nearest {@link EventListener} specified on any of the
+element's parents.</p>
+<p>@param elem the element whose events are to be retrieved
+@param eventBits a bitfield describing the events sunk on this element (its</p>
+<pre><code>     possible values are described in {@link Event})
+</code></pre>
+<pre class="source">
+static void sinkEvents(dart_html.Element elem, int eventBits) {
+ // This cast is always valid because both Element types are JSOs and have
+ // no new fields are added in the subclass.
+ Dom.sinkEvents(elem, eventBits);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getEventsSunk">
+<button class="show-code">Code</button>
+int <strong>getEventsSunk</strong>(Element elem) <a class="anchor-link" href="#getEventsSunk"
+              title="Permalink to IEvent&lt;H&gt;.getEventsSunk">#</a></h4>
+<div class="doc">
+<p>Gets the current set of events sunk by a given element.</p>
+<p>@param elem the element whose events are to be retrieved
+@return a bitfield describing the events sunk on this element (its possible</p>
+<pre><code>    values are described in {@link Event})
+</code></pre>
+<pre class="source">
+static int getEventsSunk(dart_html.Element elem) {
+ // This cast is always valid because both Element types are JSOs and have
+ // no new fields are added in the subclass.
+ return Dom.getEventsSunk(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getEventListener">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> <strong>getEventListener</strong>(Element elem) <a class="anchor-link" href="#getEventListener"
+              title="Permalink to IEvent&lt;H&gt;.getEventListener">#</a></h4>
+<div class="doc">
+<p>Gets the {@link EventListener} that will receive events for the given
+element. Only one such listener may exist for a single element.</p>
+<p>@param elem the element whose listener is to be set
+@return the element's event listener</p>
+<pre class="source">
+static EventListener getEventListener(dart_html.Element elem) {
+ return Dom.getEventListener(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setCapture">
+<button class="show-code">Code</button>
+void <strong>setCapture</strong>(Element elem) <a class="anchor-link" href="#setCapture"
+              title="Permalink to IEvent&lt;H&gt;.setCapture">#</a></h4>
+<div class="doc">
+<p>Sets mouse-capture on the given element. This element will directly receive
+all mouse events until {@link #releaseCapture(Element)} is called on it.</p>
+<p>@param elem the element on which to set mouse capture</p>
+<pre class="source">
+static void setCapture(dart_html.Element elem) {
+ Dom.setCapture(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="releaseCapture">
+<button class="show-code">Code</button>
+void <strong>releaseCapture</strong>(Element elem) <a class="anchor-link" href="#releaseCapture"
+              title="Permalink to IEvent&lt;H&gt;.releaseCapture">#</a></h4>
+<div class="doc">
+<p>Releases mouse capture on the given element. Calling this method has no
+effect if the element does not currently have mouse capture.</p>
+<p>@param elem the element to release capture
+@see #setCapture(Element)</p>
+<pre class="source">
+static void releaseCapture(dart_html.Element elem) {
+ Dom.releaseCapture(elem);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="IEvent">
+<button class="show-code">Code</button>
+new <strong>IEvent</strong>() <a class="anchor-link" href="#IEvent"
+              title="Permalink to IEvent&lt;H&gt;.IEvent">#</a></h4>
+<div class="doc">
+<p>Constructor.</p>
+<pre class="source">
+IEvent();
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="dispatch">
+abstract void <strong>dispatch</strong>(<a href="../dart_web_toolkit_event/IEvent.html">H</a> handler) <a class="anchor-link" href="#dispatch"
+              title="Permalink to IEvent&lt;H&gt;.dispatch">#</a></h4>
+<div class="doc">
+<p>Implemented by subclasses to invoke their handlers in a type safe
+manner. Intended to be called by <code>EventBus#fireEvent(Event)</code> or
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@param handler handler
+@see EventBus#dispatchEvent(Event, Object)</p>
+</div>
+</div>
+<div class="method"><h4 id="getAssociatedType">
+abstract <a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/IEvent.html">H</a>&gt; <strong>getAssociatedType</strong>() <a class="anchor-link" href="#getAssociatedType"
+              title="Permalink to IEvent&lt;H&gt;.getAssociatedType">#</a></h4>
+<div class="doc">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_event/EventType.html">EventType</a> used to register this event, allowing an
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> to find handlers of the appropriate class.</p>
+<p>@return the type</p>
+</div>
+</div>
+<div class="method"><h4 id="getSource">
+<button class="show-code">Code</button>
+dynamic <strong>getSource</strong>() <a class="anchor-link" href="#getSource"
+              title="Permalink to IEvent&lt;H&gt;.getSource">#</a></h4>
+<div class="doc">
+<p>Returns the source for this event. The type and meaning of the source is
+arbitrary, and is most useful as a secondary key for handler registration.
+(See <code>EventBus#addHandlerToSource</code>, which allows a handler to
+register for events of a particular type, tied to a particular source.)</p>
+<p>Note that the source is actually set at dispatch time, e.g. via
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@return object representing the source of this event</p>
+<pre class="source">
+dynamic getSource() {
+ return _source;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setSource">
+<button class="show-code">Code</button>
+void <strong>setSource</strong>(source) <a class="anchor-link" href="#setSource"
+              title="Permalink to IEvent&lt;H&gt;.setSource">#</a></h4>
+<div class="doc">
+<p>Set the source that triggered this event. Intended to be called by the
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> during dispatch.</p>
+<p>@param source the source of this event.
+@see EventBus#fireEventFromSource(Event, Object)
+@see EventBus#setSourceOfEvent(Event, Object)</p>
+<pre class="source">
+void setSource(dynamic source) {
+ this._source = source;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to IEvent&lt;H&gt;.toString">#</a></h4>
+<div class="doc">
+<p>The toString() for abstract event is overridden to avoid accidently
+including class literals in the the compiled output. Use <code>Event</code></p>
+<h1>toDebugString to get more information about the event.</h1>
+<pre class="source">
+String toString() {
+ return "An event type";
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.648</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

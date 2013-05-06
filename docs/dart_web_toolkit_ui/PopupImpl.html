@@ -1,0 +1,189 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PopupImpl class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="PopupImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/PopupImpl.html">PopupImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PopupImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation class used by {@link com.google.gwt.user.client.ui.PopupPanel}.</p>
+<pre class="source">
+class PopupImpl {
+
+ dart_html.Element createElement() {
+   return new dart_html.DivElement();
+ }
+
+ dart_html.Element getContainerElement(dart_html.Element popup) {
+   return popup;
+ }
+
+ dart_html.Element getStyleElement(dart_html.Element popup) {
+   return popup.parent;
+ }
+
+ /**
+  * @param popup the popup
+  */
+ void onHide(dart_html.Element popup) {
+ }
+
+ /**
+  * @param popup the popup
+  */
+ void onShow(dart_html.Element popup) {
+ }
+
+ /**
+  * @param popup the popup
+  * @param rect the clip rect
+  */
+ void setClip(dart_html.Element popup, String rect) {
+   popup.style.clip = rect;
+ }
+
+ /**
+  * @param popup the popup
+  * @param visible true if visible
+  */
+ void setVisible(dart_html.Element popup, bool visible) {
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="createElement">
+<button class="show-code">Code</button>
+Element <strong>createElement</strong>() <a class="anchor-link" href="#createElement"
+              title="Permalink to PopupImpl.createElement">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.Element createElement() {
+ return new dart_html.DivElement();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getContainerElement">
+<button class="show-code">Code</button>
+Element <strong>getContainerElement</strong>(Element popup) <a class="anchor-link" href="#getContainerElement"
+              title="Permalink to PopupImpl.getContainerElement">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.Element getContainerElement(dart_html.Element popup) {
+ return popup;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>(Element popup) <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to PopupImpl.getStyleElement">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.Element getStyleElement(dart_html.Element popup) {
+ return popup.parent;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onHide">
+<button class="show-code">Code</button>
+void <strong>onHide</strong>(Element popup) <a class="anchor-link" href="#onHide"
+              title="Permalink to PopupImpl.onHide">#</a></h4>
+<div class="doc">
+<p>@param popup the popup</p>
+<pre class="source">
+void onHide(dart_html.Element popup) {
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onShow">
+<button class="show-code">Code</button>
+void <strong>onShow</strong>(Element popup) <a class="anchor-link" href="#onShow"
+              title="Permalink to PopupImpl.onShow">#</a></h4>
+<div class="doc">
+<p>@param popup the popup</p>
+<pre class="source">
+void onShow(dart_html.Element popup) {
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setClip">
+<button class="show-code">Code</button>
+void <strong>setClip</strong>(Element popup, String rect) <a class="anchor-link" href="#setClip"
+              title="Permalink to PopupImpl.setClip">#</a></h4>
+<div class="doc">
+<p>@param popup the popup
+@param rect the clip rect</p>
+<pre class="source">
+void setClip(dart_html.Element popup, String rect) {
+ popup.style.clip = rect;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVisible">
+<button class="show-code">Code</button>
+void <strong>setVisible</strong>(Element popup, bool visible) <a class="anchor-link" href="#setVisible"
+              title="Permalink to PopupImpl.setVisible">#</a></h4>
+<div class="doc">
+<p>@param popup the popup
+@param visible true if visible</p>
+<pre class="source">
+void setVisible(dart_html.Element popup, bool visible) {
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.681</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

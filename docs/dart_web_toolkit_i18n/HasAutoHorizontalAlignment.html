@@ -1,0 +1,228 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasAutoHorizontalAlignment abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="HasAutoHorizontalAlignment">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/HasAutoHorizontalAlignment.html">HasAutoHorizontalAlignment</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasAutoHorizontalAlignment</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A widget that implements this interface can be configured to be aligned
+according to its contents' direction, in addition to the static alignment
+options offered by {@link HasHorizontalAlignment}.</p>
+<pre class="source">
+abstract class HasAutoHorizontalAlignment extends HasHorizontalAlignment {
+ /**
+  * Specifies that the widget's contents should be aligned left for LTR
+  * content, right for RTL content, and if the content's direction is DEFAULT,
+  * like {@link #ALIGN_LOCALE_START}.
+  */
+ static AutoHorizontalAlignmentConstant ALIGN_CONTENT_START = new AutoHorizontalAlignmentConstant.internal();
+
+ /**
+  * Specifies that the widget's contents should be aligned right for LTR
+  * content, left for RTL content, and if the content's direction is DEFAULT,
+  * like {@link #ALIGN_LOCALE_END}.
+  */
+ static AutoHorizontalAlignmentConstant ALIGN_CONTENT_END = new AutoHorizontalAlignmentConstant.internal();
+
+ /**
+  * Gets the horizontal auto-alignment setting. This may be one of the
+  * auto-alignment values above that depend on content direction (e.g.
+  * {@link HasAutoHorizontalAlignment#ALIGN_CONTENT_START}), or one of the
+  * "static" {@link HasHorizontalAlignment.HorizontalAlignmentConstant}
+  * alignment values (e.g. {@link HasHorizontalAlignment#ALIGN_LOCALE_START}).
+  * It may be set by either {@code setAutoHorizontalAlignment} or {@code
+  * HasHorizontalAlignment#setHorizontalAlignment}. The default is null,
+  * indicating that no specific horizontal alignment has been set, allowing it
+  * to be determined by the usual HTML and CSS mechanisms.
+  *
+  * @return the current automatic horizontal alignment policy.
+  */
+ AutoHorizontalAlignmentConstant getAutoHorizontalAlignment();
+
+ /**
+  * Sets the horizontal alignment, allowing in addition to the "static"
+  * {@link HasHorizontalAlignment.HorizontalAlignmentConstant} values, the
+  * "automatic" {@link HasHorizontalAlignment.AutoHorizontalAlignmentConstant}
+  * values that depend on the content direction. Determines the values returned
+  * by both {@link #getAutoHorizontalAlignment} and
+  * {@link HasHorizontalAlignment#getHorizontalAlignment()}.
+  * &lt;p&gt; For the {@code ALIGN_CONTENT_START} and {@code ALIGN_CONTENT_END}
+  * values, sets the horizontal alignment (including the value of {@code
+  * HasHorizontalAlignment#getHorizontalAlignment()}) to the start or end edge
+  * of the current content's direction, respectively, and continues to
+  * automatically update it whenever the content direction changes.
+  * &lt;p&gt; For other values, operates like {@link #setHorizontalAlignment}.
+  * &lt;p&gt; For {@code null}, the horizontal alignment is cleared, allowing it to
+  * be determined by the standard HTML mechanisms such as inheritance and CSS
+  * rules.
+  * @see HasHorizontalAlignment
+  *
+  * @param autoHorizontalAlignment the new automatic horizontal alignment
+  *        policy
+  */
+ void setAutoHorizontalAlignment(AutoHorizontalAlignmentConstant autoHorizontalAlignment);
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>HasAutoHorizontalAlignment</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/LabelBase.html">LabelBase&lt;T&gt;</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="ALIGN_CONTENT_END">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/AutoHorizontalAlignmentConstant.html">AutoHorizontalAlignmentConstant</a>         <strong>ALIGN_CONTENT_END</strong> <a class="anchor-link"
+            href="#ALIGN_CONTENT_END"
+            title="Permalink to HasAutoHorizontalAlignment.ALIGN_CONTENT_END">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the widget's contents should be aligned right for LTR
+content, left for RTL content, and if the content's direction is DEFAULT,
+like {@link #ALIGN<em>LOCALE</em>END}.</p>
+<pre class="source">
+static AutoHorizontalAlignmentConstant ALIGN_CONTENT_END = new AutoHorizontalAlignmentConstant.internal()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="ALIGN_CONTENT_START">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/AutoHorizontalAlignmentConstant.html">AutoHorizontalAlignmentConstant</a>         <strong>ALIGN_CONTENT_START</strong> <a class="anchor-link"
+            href="#ALIGN_CONTENT_START"
+            title="Permalink to HasAutoHorizontalAlignment.ALIGN_CONTENT_START">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies that the widget's contents should be aligned left for LTR
+content, right for RTL content, and if the content's direction is DEFAULT,
+like {@link #ALIGN<em>LOCALE</em>START}.</p>
+<pre class="source">
+static AutoHorizontalAlignmentConstant ALIGN_CONTENT_START = new AutoHorizontalAlignmentConstant.internal()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getAutoHorizontalAlignment">
+abstract <a href="../dart_web_toolkit_i18n/AutoHorizontalAlignmentConstant.html">AutoHorizontalAlignmentConstant</a> <strong>getAutoHorizontalAlignment</strong>() <a class="anchor-link" href="#getAutoHorizontalAlignment"
+              title="Permalink to HasAutoHorizontalAlignment.getAutoHorizontalAlignment">#</a></h4>
+<div class="doc">
+<p>Gets the horizontal auto-alignment setting. This may be one of the
+auto-alignment values above that depend on content direction (e.g.
+{@link HasAutoHorizontalAlignment#ALIGN<em>CONTENT</em>START}), or one of the
+"static" {@link HasHorizontalAlignment.HorizontalAlignmentConstant}
+alignment values (e.g. {@link HasHorizontalAlignment#ALIGN<em>LOCALE</em>START}).
+It may be set by either {@code setAutoHorizontalAlignment} or {@code
+HasHorizontalAlignment#setHorizontalAlignment}. The default is null,
+indicating that no specific horizontal alignment has been set, allowing it
+to be determined by the usual HTML and CSS mechanisms.</p>
+<p>@return the current automatic horizontal alignment policy.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="getHorizontalAlignment">
+abstract <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> <strong>getHorizontalAlignment</strong>() <a class="anchor-link" href="#getHorizontalAlignment"
+              title="Permalink to HasAutoHorizontalAlignment.getHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a> </div><div class="doc">
+<p>Gets the horizontal alignment.</p>
+<p>@return the current horizontal alignment (</p>
+<pre><code>    {@link HasHorizontalAlignment#ALIGN_LEFT},
+    {@link HasHorizontalAlignment#ALIGN_CENTER},
+    {@link HasHorizontalAlignment#ALIGN_RIGHT},
+    {@link HasHorizontalAlignment#ALIGN_JUSTIFY}, or
+    null).
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="setAutoHorizontalAlignment">
+abstract void <strong>setAutoHorizontalAlignment</strong>(<a href="../dart_web_toolkit_i18n/AutoHorizontalAlignmentConstant.html">AutoHorizontalAlignmentConstant</a> autoHorizontalAlignment) <a class="anchor-link" href="#setAutoHorizontalAlignment"
+              title="Permalink to HasAutoHorizontalAlignment.setAutoHorizontalAlignment">#</a></h4>
+<div class="doc">
+<p>Sets the horizontal alignment, allowing in addition to the "static"
+{@link HasHorizontalAlignment.HorizontalAlignmentConstant} values, the
+"automatic" {@link HasHorizontalAlignment.AutoHorizontalAlignmentConstant}
+values that depend on the content direction. Determines the values returned
+by both {@link #getAutoHorizontalAlignment} and
+{@link HasHorizontalAlignment#getHorizontalAlignment()}.
+&lt;p> For the {@code ALIGN<em>CONTENT</em>START} and {@code ALIGN<em>CONTENT</em>END}
+values, sets the horizontal alignment (including the value of {@code
+HasHorizontalAlignment#getHorizontalAlignment()}) to the start or end edge
+of the current content's direction, respectively, and continues to
+automatically update it whenever the content direction changes.
+&lt;p> For other values, operates like {@link #setHorizontalAlignment}.
+&lt;p> For {@code null}, the horizontal alignment is cleared, allowing it to
+be determined by the standard HTML mechanisms such as inheritance and CSS
+rules.
+@see HasHorizontalAlignment</p>
+<p>@param autoHorizontalAlignment the new automatic horizontal alignment</p>
+<pre><code>   policy
+</code></pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setHorizontalAlignment">
+abstract void <strong>setHorizontalAlignment</strong>(<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> align) <a class="anchor-link" href="#setHorizontalAlignment"
+              title="Permalink to HasAutoHorizontalAlignment.setHorizontalAlignment">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a> </div><div class="doc">
+<p>Sets the horizontal alignment.
+&lt;p> Use {@code null} to clear horizontal alignment, allowing it to be
+determined by the standard HTML mechanisms such as inheritance and CSS
+rules.</p>
+<p>@param align the horizontal alignment (</p>
+<pre><code>    {@link HasHorizontalAlignment#ALIGN_LEFT},
+    {@link HasHorizontalAlignment#ALIGN_CENTER},
+    {@link HasHorizontalAlignment#ALIGN_RIGHT},
+    {@link HasHorizontalAlignment#ALIGN_JUSTIFY},
+    {@link HasHorizontalAlignment#ALIGN_LOCALE_START}, or
+    {@link HasHorizontalAlignment#ALIGN_LOCALE_END}).
+</code></pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.030</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

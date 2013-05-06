@@ -1,0 +1,101 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PlaceHistoryMapperWithFactory&lt;F&gt; abstract class / dart_web_toolkit_place Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_place" data-type="PlaceHistoryMapperWithFactory&amp;lt;F&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_place.html">dart_web_toolkit_place</a> &rsaquo; <a href="../dart_web_toolkit_place/PlaceHistoryMapperWithFactory.html">PlaceHistoryMapperWithFactory&lt;F&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PlaceHistoryMapperWithFactory&lt;F&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A {@link PlaceHistoryMapper} that can get its {@link PlaceTokenizer}
+instances from a factory.</p>
+<p>@param &lt;F> factory type</p>
+<pre class="source">
+abstract class PlaceHistoryMapperWithFactory&lt;F&gt; extends PlaceHistoryMapper {
+
+ /**
+  * Sets the factory to be used to generate {@link PlaceTokenizer} instances.
+  *
+  * @param factory a factory of type F
+  */
+ void setFactory(F factory);
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_place/PlaceHistoryMapper.html">PlaceHistoryMapper</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>PlaceHistoryMapperWithFactory&lt;F&gt;</strong></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="getPlace">
+abstract <a href="../dart_web_toolkit_place/Place.html">Place</a> <strong>getPlace</strong>(String token) <a class="anchor-link" href="#getPlace"
+              title="Permalink to PlaceHistoryMapperWithFactory&lt;F&gt;.getPlace">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_place/PlaceHistoryMapper.html">PlaceHistoryMapper</a> </div><div class="doc">
+<p>Returns the {@link Place} associated with the given token.</p>
+<p>@param token a String token
+@return a {@link Place} instance</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="getToken">
+abstract String <strong>getToken</strong>(<a href="../dart_web_toolkit_place/Place.html">Place</a> place) <a class="anchor-link" href="#getToken"
+              title="Permalink to PlaceHistoryMapperWithFactory&lt;F&gt;.getToken">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_place/PlaceHistoryMapper.html">PlaceHistoryMapper</a> </div><div class="doc">
+<p>Returns the String token associated with the given {@link Place}.</p>
+<p>@param place a {@link Place} instance
+@return a String token</p>
+</div>
+</div>
+<div class="method"><h4 id="setFactory">
+abstract void <strong>setFactory</strong>(<a href="../dart_web_toolkit_place/PlaceHistoryMapperWithFactory.html">F</a> factory) <a class="anchor-link" href="#setFactory"
+              title="Permalink to PlaceHistoryMapperWithFactory&lt;F&gt;.setFactory">#</a></h4>
+<div class="doc">
+<p>Sets the factory to be used to generate {@link PlaceTokenizer} instances.</p>
+<p>@param factory a factory of type F</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.449</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

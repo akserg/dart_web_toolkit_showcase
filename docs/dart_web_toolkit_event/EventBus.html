@@ -1,0 +1,247 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>EventBus&lt;H&gt; abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="EventBus&amp;lt;H&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/EventBus.html">EventBus&lt;H&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>EventBus&lt;H&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Dispatches <code>Event</code>s to interested parties. Eases decoupling by allowing
+objects to interact without having direct dependencies upon one another, and
+without requiring event sources to deal with maintaining handler lists. There
+will typically be one EventBus per application, broadcasting events that may
+be of general interest.</p>
+<p>@see SimpleEventBus
+@see ResettableEventBus
+@see com.google.web.bindery.event.shared.testing.CountingEventBus</p>
+<pre class="source">
+abstract class EventBus&lt;H&gt; {
+
+ /**
+  * Invokes [dispatch] with [handler].
+  *
+  * Protected to allow EventBus implementations in different packages to
+  * dispatch events even though the [dispatch] method is protected.
+  */
+ static void dispatchEvent(IEvent event, handler) {
+   event.dispatch(handler);
+ }
+
+ /**
+  * Sets [source] as the source of [event].
+  *
+  * Protected to allow EventBus implementations in different packages to set an
+  * event source even though the {@code event.setSource} method is protected.
+  */
+ static void setSourceOfEvent(IEvent event, source) {
+   event.setSource(source);
+ }
+
+ /**
+  * Adds an unfiltered handler to receive events of this type from all sources.
+  *
+  * It is rare to call this method directly. More typically an [Event]
+  * subclass will provide a static &lt;code&gt;register&lt;/code&gt; method, or a widget
+  * will accept handlers directly.
+  *
+  * @param &lt;H&gt; The type of handler
+  * @param type the event type associated with this handler
+  * @param handler the handler
+  * @return the handler registration, can be stored in order to remove the
+  *         handler later
+  */
+ HandlerRegistration addHandler(EventType&lt;H&gt; type, H handler);
+
+ /**
+  * Adds a handler to receive events of this type from the given source.
+  *
+  * It is rare to call this method directly. More typically a [Event]
+  * subclass will provide a static &lt;code&gt;register&lt;/code&gt; method, or a widget
+  * will accept handlers directly.
+  *
+  * @param &lt;H&gt; The type of handler
+  * @param type the event type associated with this handler
+  * @param source the source associated with this handler
+  * @param handler the handler
+  * @return the handler registration, can be stored in order to remove the
+  *         handler later
+  */
+ HandlerRegistration addHandlerToSource(EventType&lt;H&gt; type, Object source, H handler);
+
+ /**
+  * Fires the event from no source. Only unfiltered handlers will receive it.
+  *
+  * Any exceptions thrown by handlers will be bundled into a
+  * [UmbrellaException] and then re-thrown after all handlers have
+  * completed. An exception thrown by a handler will not prevent other handlers
+  * from executing.
+  *
+  * @throws UmbrellaException wrapping exceptions thrown by handlers
+  *
+  * @param event the event to fire
+  */
+ void fireEvent(IEvent event);
+
+ /**
+  * Fires the given event to the handlers listening to the event's type.
+  *
+  * Any exceptions thrown by handlers will be bundled into a
+  * [UmbrellaException] and then re-thrown after all handlers have
+  * completed. An exception thrown by a handler will not prevent other handlers
+  * from executing.
+  *
+  * @throws UmbrellaException wrapping exceptions thrown by handlers
+  *
+  * @param event the event to fire
+  */
+ void fireEventFromSource(IEvent event, Object source);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/ResettableEventBus.html">ResettableEventBus</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/SimpleEventBus.html">SimpleEventBus&lt;H&gt;</a></span></p>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="dispatchEvent">
+<button class="show-code">Code</button>
+void <strong>dispatchEvent</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event, handler) <a class="anchor-link" href="#dispatchEvent"
+              title="Permalink to EventBus&lt;H&gt;.dispatchEvent">#</a></h4>
+<div class="doc">
+<p>Invokes <code>dispatch</code> with 
+<span class="param">handler</span>.</p>
+<p>Protected to allow EventBus implementations in different packages to
+dispatch events even though the <code>dispatch</code> method is protected.</p>
+<pre class="source">
+static void dispatchEvent(IEvent event, handler) {
+ event.dispatch(handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setSourceOfEvent">
+<button class="show-code">Code</button>
+void <strong>setSourceOfEvent</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event, source) <a class="anchor-link" href="#setSourceOfEvent"
+              title="Permalink to EventBus&lt;H&gt;.setSourceOfEvent">#</a></h4>
+<div class="doc">
+<p>Sets 
+<span class="param">source</span> as the source of 
+<span class="param">event</span>.</p>
+<p>Protected to allow EventBus implementations in different packages to set an
+event source even though the {@code event.setSource} method is protected.</p>
+<pre class="source">
+static void setSourceOfEvent(IEvent event, source) {
+ event.setSource(source);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventBus.html">H</a>&gt; type, <a href="../dart_web_toolkit_event/EventBus.html">H</a> handler) <a class="anchor-link" href="#addHandler"
+              title="Permalink to EventBus&lt;H&gt;.addHandler">#</a></h4>
+<div class="doc">
+<p>Adds an unfiltered handler to receive events of this type from all sources.</p>
+<p>It is rare to call this method directly. More typically an <code>Event</code>
+subclass will provide a static &lt;code>register&lt;/code> method, or a widget
+will accept handlers directly.</p>
+<p>@param &lt;H> The type of handler
+@param type the event type associated with this handler
+@param handler the handler
+@return the handler registration, can be stored in order to remove the</p>
+<pre><code>    handler later
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="addHandlerToSource">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandlerToSource</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventBus.html">H</a>&gt; type, Object source, <a href="../dart_web_toolkit_event/EventBus.html">H</a> handler) <a class="anchor-link" href="#addHandlerToSource"
+              title="Permalink to EventBus&lt;H&gt;.addHandlerToSource">#</a></h4>
+<div class="doc">
+<p>Adds a handler to receive events of this type from the given source.</p>
+<p>It is rare to call this method directly. More typically a <code>Event</code>
+subclass will provide a static &lt;code>register&lt;/code> method, or a widget
+will accept handlers directly.</p>
+<p>@param &lt;H> The type of handler
+@param type the event type associated with this handler
+@param source the source associated with this handler
+@param handler the handler
+@return the handler registration, can be stored in order to remove the</p>
+<pre><code>    handler later
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="fireEvent">
+abstract void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to EventBus&lt;H&gt;.fireEvent">#</a></h4>
+<div class="doc">
+<p>Fires the event from no source. Only unfiltered handlers will receive it.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@throws UmbrellaException wrapping exceptions thrown by handlers</p>
+<p>@param event the event to fire</p>
+</div>
+</div>
+<div class="method"><h4 id="fireEventFromSource">
+abstract void <strong>fireEventFromSource</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event, Object source) <a class="anchor-link" href="#fireEventFromSource"
+              title="Permalink to EventBus&lt;H&gt;.fireEventFromSource">#</a></h4>
+<div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@throws UmbrellaException wrapping exceptions thrown by handlers</p>
+<p>@param event the event to fire</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.610</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

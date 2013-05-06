@@ -1,0 +1,1659 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>UiObject abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="UiObject">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>UiObject</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>The superclass for all user-interface objects. It simply wraps a DOM element,
+and cannot receive events. Most interesting user-interface classes derive
+from <a class="crossref" href="../dart_web_toolkit_ui/Widget.html">Widget</a>.</p>
+<pre class="source">
+abstract class UiObject implements HasVisibility {
+
+ static String EMPTY_STYLENAME_MSG = "Style names cannot be empty";
+ static String NULL_HANDLE_MSG = "Null widget handle. If you are creating a composite, ensure that initWidget() has been called.";
+
+ /**
+  * Stores a regular expression object to extract float values from the
+  * leading portion of an input string.
+  */
+ static RegExp numberRegex = new RegExp("^(\\s*[+-]?((\\d+\\.?\\d*)|(\\.\\d+))([eE][+-]?\\d+)?)");
+
+ dart_html.Element _element;
+
+ /**
+  * Returns whether the given element is visible in a way consistent with
+  * {@link #setVisible(Element, boolean)}.
+  *
+  * &lt;p&gt;
+  * Warning: implemented with a heuristic. The value returned takes into
+  * account only the "display" style, ignoring CSS and Aria roles, thus may not
+  * accurately reflect whether the element is actually visible in the browser.
+  * &lt;/p&gt;
+  */
+ static bool isVisible(dart_html.Element elem) {
+   return (elem.style.display != 'none');
+ }
+
+ /**
+  * Shows or hides the given element. Also updates the "aria-hidden" attribute.
+  *
+  * &lt;p&gt;
+  * Warning: implemented with a heuristic based on the "display" style:
+  * clears the "display" style to its default value if {@code visible} is true,
+  * else forces the style to "none". If the "display" style is set to "none"
+  * via CSS style sheets, the element remains invisible after a call to
+  * {@code setVisible(elem, true)}.
+  * &lt;/p&gt;
+  */
+ static void setVisible(dart_html.Element elem, bool visible) {
+   elem.style.display = visible ? '' : 'none';
+   elem.attributes['aria-hidden'] = (!visible).toString();
+ }
+
+
+ //**************
+ // HasVisibility
+ //**************
+
+ /**
+  * Determines whether or not this object is visible. Note that this does not
+  * necessarily take into account whether or not the receiver's parent is
+  * visible, or even if it is attached to the
+  * [Document]. The default implementation of this trait in [UIObject] is
+  * based on the value of a dom element's style object's display attribute.
+  *
+  * @return &lt;code&gt;true&lt;/code&gt; if the object is visible
+  */
+ bool get visible =&gt; isVisible(getElement());
+
+ /**
+  * Sets whether this object is visible.
+  *
+  * @param visible &lt;code&gt;true&lt;/code&gt; to show the object, &lt;code&gt;false&lt;/code&gt; to
+  *          hide it
+  */
+ void set visible(bool visible) {
+   setVisible(getElement(), visible);
+ }
+
+ //***********
+ // PROPERTIES
+ //***********
+
+ /**
+  * Sets this object's browser element. UIObject subclasses must call this
+  * method before attempting to call any other methods, and it may only be
+  * called once.
+  *
+  * @param elem the object's element
+  */
+ void setElement(dart_html.Element elem) {
+   assert (_element == null);
+   this._element = elem;
+ }
+
+ /**
+  * Gets this object's browser element.
+  */
+ dart_html.Element getElement() {
+   assert (_element != null); // : MISSING_ELEMENT_ERROR;
+   return _element;
+ }
+
+ /**
+  * Replaces this object's browser element.
+  *
+  * This method exists only to support a specific use-case in Image, and should
+  * not be used by other classes.
+  *
+  * @param elem the object's new element
+  */
+ void replaceElement(dart_html.Element elem) {
+   if (_element != null &amp;&amp; _element.parent != null) {
+     // replace this.element in its parent with elem.
+     _element.replaceWith(elem);
+   }
+
+   this._element = elem;
+ }
+
+ /**
+  * Sets the element's title.
+  */
+ void set title(String value) {
+   getElement().title = value;
+ }
+
+ /**
+  * Gets the title associated with this object. The title is the 'tool-tip'
+  * displayed to users when they hover over the object.
+  *
+  * @return the object's title
+  */
+ String get title =&gt; getElement().title;
+
+ /**
+  * Sets the object's height. This height does not include decorations such as
+  * border, margin, and padding.
+  *
+  * @param height the object's new height, in CSS units (e.g. "10px", "1em")
+  */
+ void setHeight(String height) {
+   // This exists to deal with an inconsistency in IE's implementation where
+   // it won't accept negative numbers in length measurements
+   assert (extractLengthValue(height.trim().toLowerCase()) &gt;= 0); // : "CSS heights should not be negative";
+   Dom.setStyleAttribute(getElement(), "height", height);
+ }
+
+ /**
+  * Sets the object's width. This width does not include decorations such as
+  * border, margin, and padding.
+  *
+  * @param width the object's new width, in CSS units (e.g. "10px", "1em")
+  */
+ void setWidth(String width) {
+   // This exists to deal with an inconsistency in IE's implementation where
+   // it won't accept negative numbers in length measurements
+   assert (extractLengthValue(width.trim().toLowerCase()) &gt;= 0); // : "CSS widths should not be negative";
+   Dom.setStyleAttribute(getElement(), "width", width);
+ }
+
+ /**
+  * Sets the object's size, in pixels, not including decorations such as
+  * border, margin, and padding.
+  *
+  * @param width the object's new width, in pixels
+  * @param height the object's new height, in pixels
+  */
+ void setPixelSize(int width, int height) {
+   if (width &gt;= 0) {
+     setWidth(width.toString() + "px");
+   }
+   if (height &gt;= 0) {
+     setHeight(height.toString() + "px");
+   }
+ }
+
+ /**
+  * Sets the object's size. This size does not include decorations such as
+  * border, margin, and padding.
+  *
+  * @param width the object's new width, in CSS units (e.g. "10px", "1em")
+  * @param height the object's new height, in CSS units (e.g. "10px", "1em")
+  */
+ void setSize(String width, String height) {
+   setWidth(width);
+   setHeight(height);
+ }
+
+ //*******
+ // Styles
+ //*******
+
+ /**
+  * Gets all of the element's style names, as a space-separated list.
+  *
+  * @param elem the element whose style is to be retrieved
+  * @return the objects's space-separated style names
+  */
+ static String getElementStyleName(dart_html.Element elem) {
+   return elem.$dom_className;
+ }
+
+ /**
+  * Clears all of the element's style names and sets it to the given style.
+  *
+  * @param elem the element whose style is to be modified
+  * @param styleName the new style name
+  */
+ static void setElementStyleName(dart_html.Element elem, String styleName) {
+   elem.$dom_className = styleName;
+ }
+
+
+ /**
+  * Gets the element's primary style name.
+  *
+  * @param elem the element whose primary style name is to be retrieved
+  * @return the element's primary style name
+  */
+ static String getElementStylePrimaryName(dart_html.Element elem) {
+   String fullClassName = getElementStyleName(elem);
+
+   // The primary style name is always the first token of the full CSS class
+   // name. There can be no leading whitespace in the class name, so it's not
+   // necessary to trim() it.
+   int spaceIdx = fullClassName.indexOf(' ');
+   if (spaceIdx &gt;= 0) {
+     return fullClassName.substring(0, spaceIdx);
+   }
+
+   return fullClassName;
+ }
+
+ /**
+  * Sets the element's primary style name and updates all dependent style
+  * names.
+  *
+  * @param elem the element whose style is to be reset
+  * @param style the new primary style name
+  * @see #setStyleName(Element, String, boolean)
+  */
+ static void setElementStylePrimaryName(dart_html.Element elem, String style) {
+   if (elem == null) {
+     throw new Exception(NULL_HANDLE_MSG);
+   }
+
+   // Style names cannot contain leading or trailing whitespace, and cannot
+   // legally be empty.
+   style = style.trim();
+   if (style.length == 0) {
+     throw new Exception(EMPTY_STYLENAME_MSG);
+   }
+
+   _updatePrimaryAndDependentStyleNames(elem, style);
+ }
+
+ /**
+  * This convenience method adds or removes a style name for a given element.
+  * This method is typically used to add and remove secondary style names, but
+  * it can be used to remove primary stylenames as well, but that is not
+  * recommended. See {@link #setStyleName(String)} for a description of how
+  * primary and secondary style names are used.
+  *
+  * @param elem the element whose style is to be modified
+  * @param style the secondary style name to be added or removed
+  * @param add &lt;code&gt;true&lt;/code&gt; to add the given style, &lt;code&gt;false&lt;/code&gt; to
+  *          remove it
+  */
+ static void manageElementStyleName(dart_html.Element elem, String style, bool add) {
+   if (elem == null) {
+     throw new Exception(NULL_HANDLE_MSG);
+   }
+
+   style = style.trim();
+   if (style.length == 0) {
+     throw new Exception(EMPTY_STYLENAME_MSG);
+   }
+
+   // Keep it only for print
+   String old = elem.$dom_className;
+
+   if (add) {
+     // Get the current style string.
+     String oldClassName = elem.$dom_className;
+     int idx = oldClassName.indexOf(style);
+
+     // Calculate matching index.
+     while (idx != -1) {
+       if (idx == 0 || oldClassName[idx - 1] == ' ') {
+         int last = idx + style.length;
+         int lastPos = oldClassName.length;
+         if ((last == lastPos)
+             || ((last &lt; lastPos) &amp;&amp; (oldClassName[last] == ' '))) {
+           break;
+         }
+       }
+       idx = oldClassName.indexOf(style, idx + 1);
+     }
+
+     // Only add the style if it's not already present.
+     if (idx == -1) {
+       if (oldClassName.length &gt; 0) {
+         oldClassName = oldClassName + " ";
+       }
+       //setClassName(oldClassName + className);
+       elem.$dom_className = oldClassName + style;
+     }
+   } else {
+     // Get the current style string.
+     String oldStyle = elem.$dom_className;
+     int idx = oldStyle.indexOf(style);
+
+     // Calculate matching index.
+     while (idx != -1) {
+       if (idx == 0 || oldStyle[idx - 1] == ' ') {
+         int last = idx + style.length;
+         int lastPos = oldStyle.length;
+         if ((last == lastPos)
+             || ((last &lt; lastPos) &amp;&amp; (oldStyle[last] == ' '))) {
+           break;
+         }
+       }
+       idx = oldStyle.indexOf(style, idx + 1);
+     }
+
+     // Don't try to remove the style if it's not there.
+     if (idx != -1) {
+       // Get the leading and trailing parts, without the removed name.
+       String begin = oldStyle.substring(0, idx).trim();
+       String end = oldStyle.substring(idx + style.length).trim();
+
+       // Some contortions to make sure we don't leave extra spaces.
+       String newClassName;
+       if (begin.length == 0) {
+         newClassName = end;
+       } else if (end.length == 0) {
+         newClassName = begin;
+       } else {
+         newClassName = begin + " " + end;
+       }
+
+       elem.$dom_className = newClassName;
+     }
+   }
+ }
+
+ /**
+  * Replaces all instances of the primary style name with newPrimaryStyleName.
+  */
+ static void _updatePrimaryAndDependentStyleNames(dart_html.Element elem,
+     String newPrimaryStyle) {
+   List&lt;String&gt; classes = elem.$dom_className.split(new RegExp("\s+"));
+   if (classes.length == 0) {
+     return;
+   }
+
+   // Go through all class names and find one starting from 'dwt'
+   // and move it to first position
+   for (int i = 0; i &lt; classes.length; i++) {
+     String className = classes[i];
+     if (className.startsWith("dwt")) {
+       String tmp = classes[0];
+       classes[0] = className;
+       classes[i] = tmp;
+       break;
+     }
+   }
+
+   var oldPrimaryStyle = classes[0];
+   var oldPrimaryStyleLen = oldPrimaryStyle.length;
+
+   classes[0] = newPrimaryStyle;
+   for (var i = 1, n = classes.length; i &lt; n; i++) {
+     var name = classes[i];
+     if (name.length &gt; oldPrimaryStyleLen
+         &amp;&amp; name[oldPrimaryStyleLen] == '-'
+         &amp;&amp; name.indexOf(oldPrimaryStyle) == 0) {
+       classes[i] = newPrimaryStyle + name.substring(oldPrimaryStyleLen);
+     }
+   }
+   elem.$dom_className = classes.join(" ");
+ }
+
+ /**
+  * Adds a dependent style name by specifying the style name's suffix. The
+  * actual form of the style name that is added is:
+  *
+  * &lt;pre class="code"&gt;
+  * getStylePrimaryName() + '-' + styleSuffix
+  * &lt;/pre&gt;
+  *
+  * @param styleSuffix the suffix of the dependent style to be added.
+  * @see #setStylePrimaryName(String)
+  * @see #removeStyleDependentName(String)
+  * @see #setStyleDependentName(String, boolean)
+  * @see #addStyleName(String)
+  */
+ void addStyleDependentName(String styleSuffix) {
+   setStyleDependentName(styleSuffix, true);
+ }
+
+ /**
+  * Adds a secondary or dependent style name to this object. A secondary style
+  * name is an additional style name that is, in HTML/CSS terms, included as a
+  * space-separated token in the value of the CSS &lt;code&gt;class&lt;/code&gt; attribute
+  * for this object's root element.
+  *
+  * &lt;p&gt;
+  * The most important use for this method is to add a special kind of
+  * secondary style name called a &lt;i&gt;dependent style name&lt;/i&gt;. To add a
+  * dependent style name, use {@link #addStyleDependentName(String)}, which
+  * will prefix the 'style' argument with the result of
+  * {@link #k()} (followed by a '-'). For example, suppose
+  * the primary style name is &lt;code&gt;gwt-TextBox&lt;/code&gt;. If the following method
+  * is called as &lt;code&gt;obj.setReadOnly(true)&lt;/code&gt;:
+  * &lt;/p&gt;
+  *
+  * &lt;pre class="code"&gt;
+  * public void setReadOnly(boolean readOnly) {
+  *   isReadOnlyMode = readOnly;
+  *
+  *   // Create a dependent style name.
+  *   String readOnlyStyle = "readonly";
+  *
+  *   if (readOnly) {
+  *     addStyleDependentName(readOnlyStyle);
+  *   } else {
+  *     removeStyleDependentName(readOnlyStyle);
+  *   }
+  * }&lt;/pre&gt;
+  *
+  * &lt;p&gt;
+  * then both of the CSS style rules below will be applied:
+  * &lt;/p&gt;
+  *
+  * &lt;pre class="code"&gt;
+  *
+  * // This rule is based on the primary style name and is always active.
+  * .gwt-TextBox {
+  *   font-size: 12pt;
+  * }
+  *
+  * // This rule is based on a dependent style name that is only active
+  * // when the widget has called addStyleName(getStylePrimaryName() +
+  * // "-readonly").
+  * .gwt-TextBox-readonly {
+  *   background-color: lightgrey;
+  *   border: none;
+  * }&lt;/pre&gt;
+  *
+  * &lt;p&gt;
+  * The code can also be simplified with
+  * {@link #setStyleDependentName(String, boolean)}:
+  * &lt;/p&gt;
+  *
+  * &lt;pre class="code"&gt;
+  * public void setReadOnly(boolean readOnly) {
+  *   isReadOnlyMode = readOnly;
+  *   setStyleDependentName("readonly", readOnly);
+  * }&lt;/pre&gt;
+  *
+  * &lt;p&gt;
+  * Dependent style names are powerful because they are automatically updated
+  * whenever the primary style name changes. Continuing with the example above,
+  * if the primary style name changed due to the following call:
+  * &lt;/p&gt;
+  *
+  * &lt;pre class="code"&gt;setStylePrimaryName("my-TextThingy");&lt;/pre&gt;
+  *
+  * &lt;p&gt;
+  * then the object would be re-associated with following style rules, removing
+  * those that were shown above.
+  * &lt;/p&gt;
+  *
+  * &lt;pre class="code"&gt;
+  * .my-TextThingy {
+  *   font-size: 20pt;
+  * }
+  *
+  * .my-TextThingy-readonly {
+  *   background-color: red;
+  *   border: 2px solid yellow;
+  * }&lt;/pre&gt;
+  *
+  * &lt;p&gt;
+  * Secondary style names that are not dependent style names are not
+  * automatically updated when the primary style name changes.
+  * &lt;/p&gt;
+  *
+  * @param style the secondary style name to be added
+  * @see UIObject
+  * @see #removeStyleName(String)
+  */
+ void addStyleName(String style) {
+   setStyleName(style, true);
+ }
+
+ /**
+  * Gets all of the object's style names, as a space-separated list. If you
+  * wish to retrieve only the primary style name, call
+  * {@link #getStylePrimaryName()}.
+  *
+  * @return the objects's space-separated style names
+  * @see #getStylePrimaryName()
+  */
+ String getStyleName() {
+   return getElementStyleName(getStyleElement());
+ }
+
+ /**
+  * Removes a dependent style name by specifying the style name's suffix.
+  *
+  * @param styleSuffix the suffix of the dependent style to be removed
+  * @see #setStylePrimaryName(Element, String)
+  * @see #addStyleDependentName(String)
+  * @see #setStyleDependentName(String, boolean)
+  */
+ void removeStyleDependentName(String styleSuffix) {
+   setStyleDependentName(styleSuffix, false);
+ }
+
+ /**
+  * Removes a style name. This method is typically used to remove secondary
+  * style names, but it can be used to remove primary stylenames as well. That
+  * use is not recommended.
+  *
+  * @param style the secondary style name to be removed
+  * @see #addStyleName(String)
+  * @see #setStyleName(String, boolean)
+  */
+ void removeStyleName(String style) {
+   setStyleName(style, false);
+ }
+
+ /**
+  * Adds or removes a dependent style name by specifying the style name's
+  * suffix. The actual form of the style name that is added is:
+  *
+  * &lt;pre class="code"&gt;
+  * getStylePrimaryName() + '-' + styleSuffix
+  * &lt;/pre&gt;
+  *
+  * @param styleSuffix the suffix of the dependent style to be added or removed
+  * @param add &lt;code&gt;true&lt;/code&gt; to add the given style, &lt;code&gt;false&lt;/code&gt; to
+  *          remove it
+  * @see #setStylePrimaryName(Element, String)
+  * @see #addStyleDependentName(String)
+  * @see #setStyleName(String, boolean)
+  * @see #removeStyleDependentName(String)
+  */
+ void setStyleDependentName(String styleSuffix, bool add) {
+   setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+ }
+
+ /**
+  * Adds or removes a style name. This method is typically used to remove
+  * secondary style names, but it can be used to remove primary stylenames as
+  * well. That use is not recommended.
+  *
+  * @param style the style name to be added or removed
+  * @param add &lt;code&gt;true&lt;/code&gt; to add the given style, &lt;code&gt;false&lt;/code&gt; to
+  *          remove it
+  * @see #addStyleName(String)
+  * @see #removeStyleName(String)
+  */
+ void setStyleName(String style, bool add) {
+   manageElementStyleName(getStyleElement(), style, add);
+ }
+
+ /**
+  * Clears all of the object's style names and sets it to the given style. You
+  * should normally use {@link #setStylePrimaryName(String)} unless you wish to
+  * explicitly remove all existing styles.
+  *
+  * @param style the new style name
+  * @see #setStylePrimaryName(String)
+  */
+ void clearAndSetStyleName(String style) {
+   setElementStyleName(getStyleElement(), style);
+ }
+
+ /**
+  * Gets the primary style name associated with the object.
+  *
+  * @return the object's primary style name
+  * @see #setStyleName(String)
+  * @see #addStyleName(String)
+  * @see #removeStyleName(String)
+  */
+ String getStylePrimaryName() {
+   return getElementStylePrimaryName(getStyleElement());
+ }
+
+ /**
+  * Sets the object's primary style name and updates all dependent style names.
+  *
+  * @param style the new primary style name
+  * @see #addStyleName(String)
+  * @see #removeStyleName(String)
+  */
+ void setStylePrimaryName(String style) {
+   setElementStylePrimaryName(getStyleElement(), style);
+ }
+
+ /**
+  * Template method that returns the element to which style names will be
+  * applied. By default it returns the root element, but this method may be
+  * overridden to apply styles to a child element.
+  *
+  * @return the element to which style names will be applied
+  */
+ dart_html.Element getStyleElement() {
+   return getElement();
+ }
+
+ /**
+  * Intended to be used to pull the value out of a CSS length. If the
+  * value is "auto" or "inherit", 0 will be returned.
+  *
+  * @param s The CSS length string to extract
+  * @return The leading numeric portion of &lt;code&gt;s&lt;/code&gt;, or 0 if "auto" or
+  *         "inherit" are passed in.
+  */
+ double extractLengthValue(String s) {
+   if (s == "auto" || s == "inherit" || s == "") {
+     return 0.0;
+   } else {
+     // numberRegex divides the string into a leading numeric portion
+     // followed by an arbitrary portion.
+     if(numberRegex.hasMatch(s)) {
+       // Extract the leading numeric portion of string
+       s = numberRegex.firstMatch(s)[0];
+     }
+     return double.parse(s);
+   }
+ }
+
+ /**
+  * Gets the object's absolute left position in pixels, as measured from the
+  * browser window's client area.
+  *
+  * @return the object's absolute left position
+  */
+ int getAbsoluteLeft() {
+   return Dom.getAbsoluteLeft(getElement());
+ }
+
+ /**
+  * Gets the object's absolute top position in pixels, as measured from the
+  * browser window's client area.
+  *
+  * @return the object's absolute top position
+  */
+ int getAbsoluteTop() {
+   return Dom.getAbsoluteTop(getElement());
+ }
+
+ /**
+  * Gets the object's offset height in pixels. This is the total height of the
+  * object, including decorations such as border and padding, but not margin.
+  *
+  * @return the object's offset height
+  */
+ int getOffsetHeight() {
+   return getElement().offset.height; // Dom.getElementPropertyInt(getElement(), "offsetHeight");
+ }
+
+ /**
+  * Gets the object's offset width in pixels. This is the total width of the
+  * object, including decorations such as border and padding, but not margin.
+  *
+  * @return the object's offset width
+  */
+ int getOffsetWidth() {
+   return getElement().offset.width; // Dom.getElementPropertyInt(getElement(), "offsetWidth");
+ }
+
+ /**
+  * This method is overridden so that any object can be viewed in the debugger
+  * as an HTML snippet.
+  *
+  * @return a string representation of the object
+  */
+ String toString() {
+   if (_element == null) {
+     return "(null handle)";
+   }
+   return getElement().toString();
+ }
+
+ //*******
+ // Events
+ //*******
+
+ /**
+  * Sinks a named event. Note that only {@link Widget widgets} may actually
+  * receive events, but can receive events from all objects contained within
+  * them.
+  *
+  * @param eventTypeName name of the event to sink on this element
+  * @see com.google.gwt.user.client.Event
+  */
+ void sinkBitlessEvent(String eventTypeName) {
+   Dom.sinkBitlessEvent(getElement(), eventTypeName);
+ }
+
+ /**
+  * Adds a set of events to be sunk by this object. Note that only
+  * {@link Widget widgets} may actually receive events, but can receive events
+  * from all objects contained within them.
+  *
+  * @param eventBitsToAdd a bitfield representing the set of events to be added
+  *          to this element's event set
+  * @see com.google.gwt.user.client.Event
+  */
+ void sinkEvents(int eventBitsToAdd) {
+   Dom.sinkEvents(getElement(), eventBitsToAdd | Dom.getEventsSunk(getElement()));
+ }
+
+ /**
+  * Removes a set of events from this object's event list.
+  *
+  * @param eventBitsToRemove a bitfield representing the set of events to be
+  *          removed from this element's event set
+  * @see #sinkEvents
+  * @see com.google.gwt.user.client.Event
+  */
+ void unsinkEvents(int eventBitsToRemove) {
+   Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/MenuItem.html">MenuItem</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/MenuItemSeparator.html">MenuItemSeparator</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasVisibility.html">HasVisibility</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="EMPTY_STYLENAME_MSG">
+<button class="show-code">Code</button>
+String         <strong>EMPTY_STYLENAME_MSG</strong> <a class="anchor-link"
+            href="#EMPTY_STYLENAME_MSG"
+            title="Permalink to UiObject.EMPTY_STYLENAME_MSG">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static String EMPTY_STYLENAME_MSG = "Style names cannot be empty"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="NULL_HANDLE_MSG">
+<button class="show-code">Code</button>
+String         <strong>NULL_HANDLE_MSG</strong> <a class="anchor-link"
+            href="#NULL_HANDLE_MSG"
+            title="Permalink to UiObject.NULL_HANDLE_MSG">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static String NULL_HANDLE_MSG = "Null widget handle. If you are creating a composite, ensure that initWidget() has been called."
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="numberRegex">
+<button class="show-code">Code</button>
+RegExp         <strong>numberRegex</strong> <a class="anchor-link"
+            href="#numberRegex"
+            title="Permalink to UiObject.numberRegex">#</a>
+        </h4>
+        <div class="doc">
+<p>Stores a regular expression object to extract float values from the
+leading portion of an input string.</p>
+<pre class="source">
+static RegExp numberRegex = new RegExp("^(\\s*[+-]?((\\d+\\.?\\d*)|(\\.\\d+))([eE][+-]?\\d+)?)")
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="isVisible">
+<button class="show-code">Code</button>
+bool <strong>isVisible</strong>(Element elem) <a class="anchor-link" href="#isVisible"
+              title="Permalink to UiObject.isVisible">#</a></h4>
+<div class="doc">
+<p>Returns whether the given element is visible in a way consistent with
+{@link #setVisible(Element, boolean)}.</p><p>
+Warning: implemented with a heuristic. The value returned takes into
+account only the "display" style, ignoring CSS and Aria roles, thus may not
+accurately reflect whether the element is actually visible in the browser.
+</p>
+<pre class="source">
+static bool isVisible(dart_html.Element elem) {
+ return (elem.style.display != 'none');
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVisible">
+<button class="show-code">Code</button>
+void <strong>setVisible</strong>(Element elem, bool visible) <a class="anchor-link" href="#setVisible"
+              title="Permalink to UiObject.setVisible">#</a></h4>
+<div class="doc">
+<p>Shows or hides the given element. Also updates the "aria-hidden" attribute.</p><p>
+Warning: implemented with a heuristic based on the "display" style:
+clears the "display" style to its default value if {@code visible} is true,
+else forces the style to "none". If the "display" style is set to "none"
+via CSS style sheets, the element remains invisible after a call to
+{@code setVisible(elem, true)}.
+</p>
+<pre class="source">
+static void setVisible(dart_html.Element elem, bool visible) {
+ elem.style.display = visible ? '' : 'none';
+ elem.attributes['aria-hidden'] = (!visible).toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElementStyleName">
+<button class="show-code">Code</button>
+String <strong>getElementStyleName</strong>(Element elem) <a class="anchor-link" href="#getElementStyleName"
+              title="Permalink to UiObject.getElementStyleName">#</a></h4>
+<div class="doc">
+<p>Gets all of the element's style names, as a space-separated list.</p>
+<p>@param elem the element whose style is to be retrieved
+@return the objects's space-separated style names</p>
+<pre class="source">
+static String getElementStyleName(dart_html.Element elem) {
+ return elem.$dom_className;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElementStyleName">
+<button class="show-code">Code</button>
+void <strong>setElementStyleName</strong>(Element elem, String styleName) <a class="anchor-link" href="#setElementStyleName"
+              title="Permalink to UiObject.setElementStyleName">#</a></h4>
+<div class="doc">
+<p>Clears all of the element's style names and sets it to the given style.</p>
+<p>@param elem the element whose style is to be modified
+@param styleName the new style name</p>
+<pre class="source">
+static void setElementStyleName(dart_html.Element elem, String styleName) {
+ elem.$dom_className = styleName;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElementStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getElementStylePrimaryName</strong>(Element elem) <a class="anchor-link" href="#getElementStylePrimaryName"
+              title="Permalink to UiObject.getElementStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Gets the element's primary style name.</p>
+<p>@param elem the element whose primary style name is to be retrieved
+@return the element's primary style name</p>
+<pre class="source">
+static String getElementStylePrimaryName(dart_html.Element elem) {
+ String fullClassName = getElementStyleName(elem);
+
+ // The primary style name is always the first token of the full CSS class
+ // name. There can be no leading whitespace in the class name, so it's not
+ // necessary to trim() it.
+ int spaceIdx = fullClassName.indexOf(' ');
+ if (spaceIdx &gt;= 0) {
+   return fullClassName.substring(0, spaceIdx);
+ }
+
+ return fullClassName;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElementStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setElementStylePrimaryName</strong>(Element elem, String style) <a class="anchor-link" href="#setElementStylePrimaryName"
+              title="Permalink to UiObject.setElementStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Sets the element's primary style name and updates all dependent style
+names.</p>
+<p>@param elem the element whose style is to be reset
+@param style the new primary style name
+@see #setStyleName(Element, String, boolean)</p>
+<pre class="source">
+static void setElementStylePrimaryName(dart_html.Element elem, String style) {
+ if (elem == null) {
+   throw new Exception(NULL_HANDLE_MSG);
+ }
+
+ // Style names cannot contain leading or trailing whitespace, and cannot
+ // legally be empty.
+ style = style.trim();
+ if (style.length == 0) {
+   throw new Exception(EMPTY_STYLENAME_MSG);
+ }
+
+ _updatePrimaryAndDependentStyleNames(elem, style);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="manageElementStyleName">
+<button class="show-code">Code</button>
+void <strong>manageElementStyleName</strong>(Element elem, String style, bool add) <a class="anchor-link" href="#manageElementStyleName"
+              title="Permalink to UiObject.manageElementStyleName">#</a></h4>
+<div class="doc">
+<p>This convenience method adds or removes a style name for a given element.
+This method is typically used to add and remove secondary style names, but
+it can be used to remove primary stylenames as well, but that is not
+recommended. See {@link #setStyleName(String)} for a description of how
+primary and secondary style names are used.</p>
+<p>@param elem the element whose style is to be modified
+@param style the secondary style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<pre class="source">
+static void manageElementStyleName(dart_html.Element elem, String style, bool add) {
+ if (elem == null) {
+   throw new Exception(NULL_HANDLE_MSG);
+ }
+
+ style = style.trim();
+ if (style.length == 0) {
+   throw new Exception(EMPTY_STYLENAME_MSG);
+ }
+
+ // Keep it only for print
+ String old = elem.$dom_className;
+
+ if (add) {
+   // Get the current style string.
+   String oldClassName = elem.$dom_className;
+   int idx = oldClassName.indexOf(style);
+
+   // Calculate matching index.
+   while (idx != -1) {
+     if (idx == 0 || oldClassName[idx - 1] == ' ') {
+       int last = idx + style.length;
+       int lastPos = oldClassName.length;
+       if ((last == lastPos)
+           || ((last &lt; lastPos) &amp;&amp; (oldClassName[last] == ' '))) {
+         break;
+       }
+     }
+     idx = oldClassName.indexOf(style, idx + 1);
+   }
+
+   // Only add the style if it's not already present.
+   if (idx == -1) {
+     if (oldClassName.length &gt; 0) {
+       oldClassName = oldClassName + " ";
+     }
+     //setClassName(oldClassName + className);
+     elem.$dom_className = oldClassName + style;
+   }
+ } else {
+   // Get the current style string.
+   String oldStyle = elem.$dom_className;
+   int idx = oldStyle.indexOf(style);
+
+   // Calculate matching index.
+   while (idx != -1) {
+     if (idx == 0 || oldStyle[idx - 1] == ' ') {
+       int last = idx + style.length;
+       int lastPos = oldStyle.length;
+       if ((last == lastPos)
+           || ((last &lt; lastPos) &amp;&amp; (oldStyle[last] == ' '))) {
+         break;
+       }
+     }
+     idx = oldStyle.indexOf(style, idx + 1);
+   }
+
+   // Don't try to remove the style if it's not there.
+   if (idx != -1) {
+     // Get the leading and trailing parts, without the removed name.
+     String begin = oldStyle.substring(0, idx).trim();
+     String end = oldStyle.substring(idx + style.length).trim();
+
+     // Some contortions to make sure we don't leave extra spaces.
+     String newClassName;
+     if (begin.length == 0) {
+       newClassName = end;
+     } else if (end.length == 0) {
+       newClassName = begin;
+     } else {
+       newClassName = begin + " " + end;
+     }
+
+     elem.$dom_className = newClassName;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="method"><h4 id="title">
+<button class="show-code">Code</button>
+String <strong>get title</strong> <a class="anchor-link" href="#title"
+              title="Permalink to UiObject.get title">#</a></h4>
+<div class="doc">
+<p>Gets the title associated with this object. The title is the 'tool-tip'
+displayed to users when they hover over the object.</p>
+<p>@return the object's title</p>
+<pre class="source">
+String get title =&gt; getElement().title;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="title=">
+<button class="show-code">Code</button>
+void <strong>set title</strong>(String value) <a class="anchor-link" href="#title="
+              title="Permalink to UiObject.set title">#</a></h4>
+<div class="doc">
+<p>Sets the element's title.</p>
+<pre class="source">
+void set title(String value) {
+ getElement().title = value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="visible">
+<button class="show-code">Code</button>
+bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to UiObject.get visible">#</a></h4>
+<div class="doc">
+<p>Determines whether or not this object is visible. Note that this does not
+necessarily take into account whether or not the receiver's parent is
+visible, or even if it is attached to the
+<code>Document</code>. The default implementation of this trait in <code>UIObject</code> is
+based on the value of a dom element's style object's display attribute.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible</p>
+<pre class="source">
+bool get visible =&gt; isVisible(getElement());
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="visible=">
+<button class="show-code">Code</button>
+void <strong>set visible</strong>(bool visible) <a class="anchor-link" href="#visible="
+              title="Permalink to UiObject.set visible">#</a></h4>
+<div class="doc">
+<p>Sets whether this object is visible.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void set visible(bool visible) {
+ setVisible(getElement(), visible);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>addStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#addStyleDependentName"
+              title="Permalink to UiObject.addStyleDependentName">#</a></h4>
+<div class="doc">
+<p>Adds a dependent style name by specifying the style name's suffix. The
+actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added.
+@see #setStylePrimaryName(String)
+@see #removeStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)
+@see #addStyleName(String)</p>
+<pre class="source">
+void addStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(String style) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to UiObject.addStyleName">#</a></h4>
+<div class="doc">
+<p>Adds a secondary or dependent style name to this object. A secondary style
+name is an additional style name that is, in HTML/CSS terms, included as a
+space-separated token in the value of the CSS &lt;code>class&lt;/code> attribute
+for this object's root element.</p><p>
+The most important use for this method is to add a special kind of
+secondary style name called a <i>dependent style name</i>. To add a
+dependent style name, use {@link #addStyleDependentName(String)}, which
+will prefix the 'style' argument with the result of
+{@link #k()} (followed by a '-'). For example, suppose
+the primary style name is <code>gwt-TextBox</code>. If the following method
+is called as <code>obj.setReadOnly(true)</code>:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+<p>  // Create a dependent style name.
+  String readOnlyStyle = "readonly";</p>
+<p>  if (readOnly) {</p>
+<pre><code>addStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  } else {</p>
+<pre><code>removeStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  }
+}&lt;/pre></p><p>
+then both of the CSS style rules below will be applied:
+</p><pre class="code">
+<p>// This rule is based on the primary style name and is always active.
+.gwt-TextBox {
+  font-size: 12pt;
+}</p>
+<p>// This rule is based on a dependent style name that is only active
+// when the widget has called addStyleName(getStylePrimaryName() +
+// "-readonly").
+.gwt-TextBox-readonly {
+  background-color: lightgrey;
+  border: none;
+}&lt;/pre></p><p>
+The code can also be simplified with
+{@link #setStyleDependentName(String, boolean)}:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+  setStyleDependentName("readonly", readOnly);
+}</pre><p>
+Dependent style names are powerful because they are automatically updated
+whenever the primary style name changes. Continuing with the example above,
+if the primary style name changed due to the following call:
+</p><pre class="code">setStylePrimaryName("my-TextThingy");</pre><p>
+then the object would be re-associated with following style rules, removing
+those that were shown above.
+</p><pre class="code">
+.my-TextThingy {
+  font-size: 20pt;
+}
+<p>.my-TextThingy-readonly {
+  background-color: red;
+  border: 2px solid yellow;
+}&lt;/pre></p><p>
+Secondary style names that are not dependent style names are not
+automatically updated when the primary style name changes.
+</p>
+<p>@param style the secondary style name to be added
+@see UIObject
+@see #removeStyleName(String)</p>
+<pre class="source">
+void addStyleName(String style) {
+ setStyleName(style, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearAndSetStyleName">
+<button class="show-code">Code</button>
+void <strong>clearAndSetStyleName</strong>(String style) <a class="anchor-link" href="#clearAndSetStyleName"
+              title="Permalink to UiObject.clearAndSetStyleName">#</a></h4>
+<div class="doc">
+<p>Clears all of the object's style names and sets it to the given style. You
+should normally use {@link #setStylePrimaryName(String)} unless you wish to
+explicitly remove all existing styles.</p>
+<p>@param style the new style name
+@see #setStylePrimaryName(String)</p>
+<pre class="source">
+void clearAndSetStyleName(String style) {
+ setElementStyleName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="extractLengthValue">
+<button class="show-code">Code</button>
+double <strong>extractLengthValue</strong>(String s) <a class="anchor-link" href="#extractLengthValue"
+              title="Permalink to UiObject.extractLengthValue">#</a></h4>
+<div class="doc">
+<p>Intended to be used to pull the value out of a CSS length. If the
+value is "auto" or "inherit", 0 will be returned.</p>
+<p>@param s The CSS length string to extract
+@return The leading numeric portion of &lt;code>s&lt;/code>, or 0 if "auto" or</p>
+<pre><code>    "inherit" are passed in.
+</code></pre>
+<pre class="source">
+double extractLengthValue(String s) {
+ if (s == "auto" || s == "inherit" || s == "") {
+   return 0.0;
+ } else {
+   // numberRegex divides the string into a leading numeric portion
+   // followed by an arbitrary portion.
+   if(numberRegex.hasMatch(s)) {
+     // Extract the leading numeric portion of string
+     s = numberRegex.firstMatch(s)[0];
+   }
+   return double.parse(s);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>() <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to UiObject.getAbsoluteLeft">#</a></h4>
+<div class="doc">
+<p>Gets the object's absolute left position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute left position</p>
+<pre class="source">
+int getAbsoluteLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>() <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to UiObject.getAbsoluteTop">#</a></h4>
+<div class="doc">
+<p>Gets the object's absolute top position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute top position</p>
+<pre class="source">
+int getAbsoluteTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>() <a class="anchor-link" href="#getElement"
+              title="Permalink to UiObject.getElement">#</a></h4>
+<div class="doc">
+<p>Gets this object's browser element.</p>
+<pre class="source">
+dart_html.Element getElement() {
+ assert (_element != null); // : MISSING_ELEMENT_ERROR;
+ return _element;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOffsetHeight">
+<button class="show-code">Code</button>
+int <strong>getOffsetHeight</strong>() <a class="anchor-link" href="#getOffsetHeight"
+              title="Permalink to UiObject.getOffsetHeight">#</a></h4>
+<div class="doc">
+<p>Gets the object's offset height in pixels. This is the total height of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset height</p>
+<pre class="source">
+int getOffsetHeight() {
+ return getElement().offset.height; // Dom.getElementPropertyInt(getElement(), "offsetHeight");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOffsetWidth">
+<button class="show-code">Code</button>
+int <strong>getOffsetWidth</strong>() <a class="anchor-link" href="#getOffsetWidth"
+              title="Permalink to UiObject.getOffsetWidth">#</a></h4>
+<div class="doc">
+<p>Gets the object's offset width in pixels. This is the total width of the
+object, including decorations such as border and padding, but not margin.</p>
+<p>@return the object's offset width</p>
+<pre class="source">
+int getOffsetWidth() {
+ return getElement().offset.width; // Dom.getElementPropertyInt(getElement(), "offsetWidth");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>() <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to UiObject.getStyleElement">#</a></h4>
+<div class="doc">
+<p>Template method that returns the element to which style names will be
+applied. By default it returns the root element, but this method may be
+overridden to apply styles to a child element.</p>
+<p>@return the element to which style names will be applied</p>
+<pre class="source">
+dart_html.Element getStyleElement() {
+ return getElement();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>() <a class="anchor-link" href="#getStyleName"
+              title="Permalink to UiObject.getStyleName">#</a></h4>
+<div class="doc">
+<p>Gets all of the object's style names, as a space-separated list. If you
+wish to retrieve only the primary style name, call
+{@link #getStylePrimaryName()}.</p>
+<p>@return the objects's space-separated style names
+@see #getStylePrimaryName()</p>
+<pre class="source">
+String getStyleName() {
+ return getElementStyleName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>() <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to UiObject.getStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Gets the primary style name associated with the object.</p>
+<p>@return the object's primary style name
+@see #setStyleName(String)
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+String getStylePrimaryName() {
+ return getElementStylePrimaryName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>removeStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#removeStyleDependentName"
+              title="Permalink to UiObject.removeStyleDependentName">#</a></h4>
+<div class="doc">
+<p>Removes a dependent style name by specifying the style name's suffix.</p>
+<p>@param styleSuffix the suffix of the dependent style to be removed
+@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)</p>
+<pre class="source">
+void removeStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(String style) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to UiObject.removeStyleName">#</a></h4>
+<div class="doc">
+<p>Removes a style name. This method is typically used to remove secondary
+style names, but it can be used to remove primary stylenames as well. That
+use is not recommended.</p>
+<p>@param style the secondary style name to be removed
+@see #addStyleName(String)
+@see #setStyleName(String, boolean)</p>
+<pre class="source">
+void removeStyleName(String style) {
+ setStyleName(style, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="replaceElement">
+<button class="show-code">Code</button>
+void <strong>replaceElement</strong>(Element elem) <a class="anchor-link" href="#replaceElement"
+              title="Permalink to UiObject.replaceElement">#</a></h4>
+<div class="doc">
+<p>Replaces this object's browser element.</p>
+<p>This method exists only to support a specific use-case in Image, and should
+not be used by other classes.</p>
+<p>@param elem the object's new element</p>
+<pre class="source">
+void replaceElement(dart_html.Element elem) {
+ if (_element != null &amp;&amp; _element.parent != null) {
+   // replace this.element in its parent with elem.
+   _element.replaceWith(elem);
+ }
+
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element elem) <a class="anchor-link" href="#setElement"
+              title="Permalink to UiObject.setElement">#</a></h4>
+<div class="doc">
+<p>Sets this object's browser element. UIObject subclasses must call this
+method before attempting to call any other methods, and it may only be
+called once.</p>
+<p>@param elem the object's element</p>
+<pre class="source">
+void setElement(dart_html.Element elem) {
+ assert (_element == null);
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to UiObject.setHeight">#</a></h4>
+<div class="doc">
+<p>Sets the object's height. This height does not include decorations such as
+border, margin, and padding.</p>
+<p>@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setHeight(String height) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(height.trim().toLowerCase()) &gt;= 0); // : "CSS heights should not be negative";
+ Dom.setStyleAttribute(getElement(), "height", height);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPixelSize">
+<button class="show-code">Code</button>
+void <strong>setPixelSize</strong>(int width, int height) <a class="anchor-link" href="#setPixelSize"
+              title="Permalink to UiObject.setPixelSize">#</a></h4>
+<div class="doc">
+<p>Sets the object's size, in pixels, not including decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in pixels
+@param height the object's new height, in pixels</p>
+<pre class="source">
+void setPixelSize(int width, int height) {
+ if (width &gt;= 0) {
+   setWidth(width.toString() + "px");
+ }
+ if (height &gt;= 0) {
+   setHeight(height.toString() + "px");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setSize">
+<button class="show-code">Code</button>
+void <strong>setSize</strong>(String width, String height) <a class="anchor-link" href="#setSize"
+              title="Permalink to UiObject.setSize">#</a></h4>
+<div class="doc">
+<p>Sets the object's size. This size does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")
+@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setSize(String width, String height) {
+ setWidth(width);
+ setHeight(height);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>setStyleDependentName</strong>(String styleSuffix, bool add) <a class="anchor-link" href="#setStyleDependentName"
+              title="Permalink to UiObject.setStyleDependentName">#</a></h4>
+<div class="doc">
+<p>Adds or removes a dependent style name by specifying the style name's
+suffix. The actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleName(String, boolean)
+@see #removeStyleDependentName(String)</p>
+<pre class="source">
+void setStyleDependentName(String styleSuffix, bool add) {
+ setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(String style, bool add) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to UiObject.setStyleName">#</a></h4>
+<div class="doc">
+<p>Adds or removes a style name. This method is typically used to remove
+secondary style names, but it can be used to remove primary stylenames as
+well. That use is not recommended.</p>
+<p>@param style the style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStyleName(String style, bool add) {
+ manageElementStyleName(getStyleElement(), style, add);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(String style) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to UiObject.setStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Sets the object's primary style name and updates all dependent style names.</p>
+<p>@param style the new primary style name
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStylePrimaryName(String style) {
+ setElementStylePrimaryName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to UiObject.setWidth">#</a></h4>
+<div class="doc">
+<p>Sets the object's width. This width does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setWidth(String width) {
+ // This exists to deal with an inconsistency in IE's implementation where
+ // it won't accept negative numbers in length measurements
+ assert (extractLengthValue(width.trim().toLowerCase()) &gt;= 0); // : "CSS widths should not be negative";
+ Dom.setStyleAttribute(getElement(), "width", width);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to UiObject.sinkBitlessEvent">#</a></h4>
+<div class="doc">
+<p>Sinks a named event. Note that only {@link Widget widgets} may actually
+receive events, but can receive events from all objects contained within
+them.</p>
+<p>@param eventTypeName name of the event to sink on this element
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkBitlessEvent(String eventTypeName) {
+ Dom.sinkBitlessEvent(getElement(), eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(int eventBitsToAdd) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to UiObject.sinkEvents">#</a></h4>
+<div class="doc">
+<p>Adds a set of events to be sunk by this object. Note that only
+{@link Widget widgets} may actually receive events, but can receive events
+from all objects contained within them.</p>
+<p>@param eventBitsToAdd a bitfield representing the set of events to be added</p>
+<pre><code>     to this element's event set
+</code></pre>
+<p>@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkEvents(int eventBitsToAdd) {
+ Dom.sinkEvents(getElement(), eventBitsToAdd | Dom.getEventsSunk(getElement()));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to UiObject.toString">#</a></h4>
+<div class="doc">
+<p>This method is overridden so that any object can be viewed in the debugger
+as an HTML snippet.</p>
+<p>@return a string representation of the object</p>
+<pre class="source">
+String toString() {
+ if (_element == null) {
+   return "(null handle)";
+ }
+ return getElement().toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="unsinkEvents">
+<button class="show-code">Code</button>
+void <strong>unsinkEvents</strong>(int eventBitsToRemove) <a class="anchor-link" href="#unsinkEvents"
+              title="Permalink to UiObject.unsinkEvents">#</a></h4>
+<div class="doc">
+<p>Removes a set of events from this object's event list.</p>
+<p>@param eventBitsToRemove a bitfield representing the set of events to be</p>
+<pre><code>     removed from this element's event set
+</code></pre>
+<p>@see #sinkEvents
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void unsinkEvents(int eventBitsToRemove) {
+ Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.677</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

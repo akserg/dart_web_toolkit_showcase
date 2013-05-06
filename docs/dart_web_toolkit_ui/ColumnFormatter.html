@@ -1,0 +1,414 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ColumnFormatter class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ColumnFormatter">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ColumnFormatter.html">ColumnFormatter</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ColumnFormatter</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This class contains methods used to format a table's columns. It is limited
+by the support cross-browser HTML support for column formatting.</p>
+<pre class="source">
+class ColumnFormatter {
+ dart_html.Element columnGroup;
+ HtmlTable _table;
+
+ /**
+  * Adds a style to the specified column.
+  *
+  * @param col the col to which the style will be added
+  * @param styleName the style name to be added
+  * @see UiObject#addStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void addStyleName(int col, String styleName) {
+   UiObject.manageElementStyleName(ensureColumn(col), styleName, true);
+ }
+
+ /**
+  * Get the col element for the column.
+  *
+  * @param column the column index
+  * @return the col element
+  */
+ dart_html.Element getElement(int column) {
+   return ensureColumn(column);
+ }
+
+ /**
+  * Gets the style of the specified column.
+  *
+  * @param column the column to be queried
+  * @return the style name
+  * @see UiObject#getStyleName()
+  * @throws IndexOutOfBoundsException
+  */
+ String getStyleName(int column) {
+   return UiObject.getElementStyleName(ensureColumn(column));
+ }
+
+ /**
+  * Gets the primary style of the specified column.
+  *
+  * @param column the column to be queried
+  * @return the style name
+  * @see UiObject#getStylePrimaryName()
+  * @throws IndexOutOfBoundsException
+  */
+ String getStylePrimaryName(int column) {
+   return UiObject.getElementStylePrimaryName(ensureColumn(column));
+ }
+
+ /**
+  * Removes a style from the specified column.
+  *
+  * @param column the column from which the style will be removed
+  * @param styleName the style name to be removed
+  * @see UiObject#removeStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void removeStyleName(int column, String styleName) {
+   UiObject.manageElementStyleName(ensureColumn(column), styleName, false);
+ }
+
+ /**
+  * Sets the style name associated with the specified column.
+  *
+  * @param column the column whose style name is to be set
+  * @param styleName the new style name
+  * @see UiObject#setStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void setStyleName(int column, String styleName) {
+   UiObject.setElementStyleName(ensureColumn(column), styleName);
+ }
+
+ /**
+  * Sets the primary style name associated with the specified column.
+  *
+  * @param column the column whose style name is to be set
+  * @param styleName the new style name
+  * @see UiObject#setStylePrimaryName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void setStylePrimaryName(int column, String styleName) {
+   UiObject.setElementStylePrimaryName(ensureColumn(column), styleName);
+ }
+
+ /**
+  * Sets the width of the specified column.
+  *
+  * @param column the column of the cell whose width is to be set
+  * @param width the cell's new width, in percentage or pixel units
+  * @throws IndexOutOfBoundsException
+  */
+ void setWidth(int column, String width) {
+   Dom.setElementProperty(ensureColumn(column), "width", width);
+ }
+
+ /**
+  * Resize the column group element.
+  *
+  * @param columns the number of columns
+  * @param growOnly true to only grow, false to shrink if needed
+  */
+ void resizeColumnGroup(int columns, bool growOnly) {
+   // The colgroup should always have at least one element.  See
+   // prepareColumnGroup() for more details.
+   columns = dart_math.max(columns, 1);
+
+   int num = columnGroup.children.length;
+   if (num &lt; columns) {
+     for (int i = num; i &lt; columns; i++) {
+       columnGroup.append(new dart_html.TableColElement());
+     }
+   } else if (!growOnly &amp;&amp; num &gt; columns) {
+     for (int i = num; i &gt; columns; i--) {
+       columnGroup.$dom_lastChild.remove();
+     }
+   }
+ }
+
+ dart_html.Element ensureColumn(int col) {
+   _table.prepareColumn(col);
+   prepareColumnGroup();
+   resizeColumnGroup(col + 1, true);
+   return columnGroup.children[col];
+ }
+
+ /**
+  * Prepare the colgroup tag for the first time, guaranteeing that it exists
+  * and has at least one col tag in it. This method corrects a Mozilla issue
+  * where the col tag will affect the wrong column if a col tag doesn't exist
+  * when the element is attached to the page.
+  */
+ void prepareColumnGroup() {
+   if (columnGroup == null) {
+     columnGroup = new dart_html.Element.tag("colgroup");
+     Dom.insertChild(_table.tableElem, columnGroup, 0);
+     columnGroup.append(new dart_html.TableColElement());
+   }
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="columnGroup">
+<button class="show-code">Code</button>
+Element         <strong>columnGroup</strong> <a class="anchor-link"
+            href="#columnGroup"
+            title="Permalink to ColumnFormatter.columnGroup">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+dart_html.Element columnGroup
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(int col, String styleName) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to ColumnFormatter.addStyleName">#</a></h4>
+<div class="doc">
+<p>Adds a style to the specified column.</p>
+<p>@param col the col to which the style will be added
+@param styleName the style name to be added
+@see UiObject#addStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void addStyleName(int col, String styleName) {
+ UiObject.manageElementStyleName(ensureColumn(col), styleName, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureColumn">
+<button class="show-code">Code</button>
+Element <strong>ensureColumn</strong>(int col) <a class="anchor-link" href="#ensureColumn"
+              title="Permalink to ColumnFormatter.ensureColumn">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.Element ensureColumn(int col) {
+ _table.prepareColumn(col);
+ prepareColumnGroup();
+ resizeColumnGroup(col + 1, true);
+ return columnGroup.children[col];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>(int column) <a class="anchor-link" href="#getElement"
+              title="Permalink to ColumnFormatter.getElement">#</a></h4>
+<div class="doc">
+<p>Get the col element for the column.</p>
+<p>@param column the column index
+@return the col element</p>
+<pre class="source">
+dart_html.Element getElement(int column) {
+ return ensureColumn(column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>(int column) <a class="anchor-link" href="#getStyleName"
+              title="Permalink to ColumnFormatter.getStyleName">#</a></h4>
+<div class="doc">
+<p>Gets the style of the specified column.</p>
+<p>@param column the column to be queried
+@return the style name
+@see UiObject#getStyleName()
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getStyleName(int column) {
+ return UiObject.getElementStyleName(ensureColumn(column));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>(int column) <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to ColumnFormatter.getStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Gets the primary style of the specified column.</p>
+<p>@param column the column to be queried
+@return the style name
+@see UiObject#getStylePrimaryName()
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getStylePrimaryName(int column) {
+ return UiObject.getElementStylePrimaryName(ensureColumn(column));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="prepareColumnGroup">
+<button class="show-code">Code</button>
+void <strong>prepareColumnGroup</strong>() <a class="anchor-link" href="#prepareColumnGroup"
+              title="Permalink to ColumnFormatter.prepareColumnGroup">#</a></h4>
+<div class="doc">
+<p>Prepare the colgroup tag for the first time, guaranteeing that it exists
+and has at least one col tag in it. This method corrects a Mozilla issue
+where the col tag will affect the wrong column if a col tag doesn't exist
+when the element is attached to the page.</p>
+<pre class="source">
+void prepareColumnGroup() {
+ if (columnGroup == null) {
+   columnGroup = new dart_html.Element.tag("colgroup");
+   Dom.insertChild(_table.tableElem, columnGroup, 0);
+   columnGroup.append(new dart_html.TableColElement());
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(int column, String styleName) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to ColumnFormatter.removeStyleName">#</a></h4>
+<div class="doc">
+<p>Removes a style from the specified column.</p>
+<p>@param column the column from which the style will be removed
+@param styleName the style name to be removed
+@see UiObject#removeStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void removeStyleName(int column, String styleName) {
+ UiObject.manageElementStyleName(ensureColumn(column), styleName, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="resizeColumnGroup">
+<button class="show-code">Code</button>
+void <strong>resizeColumnGroup</strong>(int columns, bool growOnly) <a class="anchor-link" href="#resizeColumnGroup"
+              title="Permalink to ColumnFormatter.resizeColumnGroup">#</a></h4>
+<div class="doc">
+<p>Resize the column group element.</p>
+<p>@param columns the number of columns
+@param growOnly true to only grow, false to shrink if needed</p>
+<pre class="source">
+void resizeColumnGroup(int columns, bool growOnly) {
+ // The colgroup should always have at least one element.  See
+ // prepareColumnGroup() for more details.
+ columns = dart_math.max(columns, 1);
+
+ int num = columnGroup.children.length;
+ if (num &lt; columns) {
+   for (int i = num; i &lt; columns; i++) {
+     columnGroup.append(new dart_html.TableColElement());
+   }
+ } else if (!growOnly &amp;&amp; num &gt; columns) {
+   for (int i = num; i &gt; columns; i--) {
+     columnGroup.$dom_lastChild.remove();
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(int column, String styleName) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to ColumnFormatter.setStyleName">#</a></h4>
+<div class="doc">
+<p>Sets the style name associated with the specified column.</p>
+<p>@param column the column whose style name is to be set
+@param styleName the new style name
+@see UiObject#setStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setStyleName(int column, String styleName) {
+ UiObject.setElementStyleName(ensureColumn(column), styleName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(int column, String styleName) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to ColumnFormatter.setStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Sets the primary style name associated with the specified column.</p>
+<p>@param column the column whose style name is to be set
+@param styleName the new style name
+@see UiObject#setStylePrimaryName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setStylePrimaryName(int column, String styleName) {
+ UiObject.setElementStylePrimaryName(ensureColumn(column), styleName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(int column, String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to ColumnFormatter.setWidth">#</a></h4>
+<div class="doc">
+<p>Sets the width of the specified column.</p>
+<p>@param column the column of the cell whose width is to be set
+@param width the cell's new width, in percentage or pixel units
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setWidth(int column, String width) {
+ Dom.setElementProperty(ensureColumn(column), "width", width);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:23.066</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

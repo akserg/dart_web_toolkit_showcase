@@ -1,0 +1,3824 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PopupPanel class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="PopupPanel">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/PopupPanel.html">PopupPanel</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PopupPanel</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A panel that can "pop up" over other widgets. It overlays the browser's
+client area (and any previously-created popups).</p><p>
+A PopupPanel should not generally be added to other panels; rather, it should
+be shown and hidden using the {@link #show()} and {@link #hide()} methods.
+</p>
+<p>
+The width and height of the PopupPanel cannot be explicitly set; they are
+determined by the PopupPanel's widget. Calls to {@link #setWidth(String)} and
+{@link #setHeight(String)} will call these methods on the PopupPanel's
+widget.
+</p>
+<p>
+<img class='gallery' src='doc-files/PopupPanel.png'/>
+</p><p>
+The PopupPanel can be optionally displayed with a "glass" element behind it,
+which is commonly used to gray out the widgets behind it. It can be enabled
+using {@link #setGlassEnabled(bool)}. It has a default style name of
+"gwt-PopupPanelGlass", which can be changed using
+{@link #setGlassStyleName(String)}.
+</p><p>
+<h3>Example</h3>
+{@example com.google.gwt.examples.PopupPanelExample}
+</p>
+<h3>CSS Style Rules</h3>
+<dl>
+<dt>.gwt-PopupPanel</dt>
+<dd>the outside of the popup</dd>
+<dt>.gwt-PopupPanel .popupContent</dt>
+<dd>the wrapper around the content</dd>
+<dt>.gwt-PopupPanelGlass</dt>
+<dd>the glass background behind the popup</dd>
+</dl>
+<pre class="source">
+class PopupPanel extends SimplePanel implements /*EventPreview,*/ HasAnimation, HasCloseHandlers&lt;PopupPanel&gt;  {
+
+ /**
+  * The duration of the animation.
+  */
+ static const int ANIMATION_DURATION = 200;
+
+ /**
+  * The default style name.
+  */
+ static const String DEFAULT_STYLENAME = "dwt-PopupPanel";
+
+ static PopupImpl impl = new PopupImpl();
+
+ /**
+  * Window resize handler used to keep the glass the proper size.
+  */
+ ResizeHandler glassResizer;
+
+ /**
+  * If true, animate the opening of this popup from the center. If false,
+  * animate it open from top to bottom, and do not animate closing. Use false
+  * to animate menus.
+  */
+ AnimationType animType = AnimationType.CENTER;
+
+ bool autoHide = false, previewAllNativeEvents = false, modal = false, showing = false;
+ bool autoHideOnHistoryEvents = false;
+
+ List&lt;dart_html.Element&gt; autoHidePartners;
+
+ // Used to track requested size across changing child widgets
+ String desiredHeight;
+
+ String desiredWidth;
+
+ /**
+  * The glass element.
+  */
+ dart_html.Element glass;
+
+ String glassStyleName = "dwt-PopupPanelGlass";
+
+ /**
+  * A bool indicating that a glass element should be used.
+  */
+ bool _isGlassEnabled = false;
+
+ bool _isAnimationEnabled = false;
+
+ // the left style attribute in pixels
+ int leftPosition = -1;
+
+ HandlerRegistration nativePreviewHandlerRegistration;
+ HandlerRegistration historyHandlerRegistration;
+
+ /**
+  * The {@link ResizeAnimation} used to open and close the {@link PopupPanel}s.
+  */
+ ResizeAnimation resizeAnimation;
+
+ // The top style attribute in pixels
+ int topPosition = -1;
+
+ /**
+  * Creates an empty popup panel, specifying its "auto-hide" and "modal"
+  * properties.
+  *
+  * @param autoHide &lt;code&gt;true&lt;/code&gt; if the popup should be automatically
+  *          hidden when the user clicks outside of it or the history token
+  *          changes.
+  * @param modal &lt;code&gt;true&lt;/code&gt; if keyboard or mouse events that do not
+  *          target the PopupPanel or its children should be ignored
+  */
+ PopupPanel([bool autoHide = null, bool modal = null]) : super() {
+   glassResizer = new _WindowResizeHandler(this);
+   //
+   resizeAnimation = new ResizeAnimation(this);
+   //
+
+   super.getContainerElement().append(impl.createElement());
+
+   // Default position of popup should be in the upper-left corner of the
+   // window. By setting a default position, the popup will not appear in
+   // an undefined location if it is shown before its position is set.
+   setPopupPosition(0, 0);
+   clearAndSetStyleName(DEFAULT_STYLENAME);
+   UiObject.setElementStyleName(getContainerElement(), "popupContent");
+   //
+   if (autoHide != null) {
+     this.autoHide = autoHide;
+     this.autoHideOnHistoryEvents = autoHide;
+   }
+   //
+   if (modal != null) {
+     this.modal = modal;
+   }
+ }
+
+ /**
+  * Mouse events that occur within an autoHide partner will not hide a panel
+  * set to autoHide.
+  *
+  * @param partner the auto hide partner to add
+  */
+ void addAutoHidePartner(dart_html.Element partner) {
+   assert (partner != null); // : "partner cannot be null";
+   if (autoHidePartners == null) {
+     autoHidePartners = new List&lt;dart_html.Element&gt;();
+   }
+   autoHidePartners.add(partner);
+ }
+
+ HandlerRegistration addCloseHandler(CloseHandler&lt;PopupPanel&gt; handler) {
+   return addHandler(handler, CloseEvent.TYPE);
+ }
+
+ /**
+  * Centers the popup in the browser window and shows it. If the popup was
+  * already showing, then the popup is centered.
+  */
+ void center() {
+   bool initiallyShowing = showing;
+   bool initiallyAnimated = _isAnimationEnabled;
+
+   if (!initiallyShowing) {
+     visible = false;
+     setAnimationEnabled(false);
+     show();
+   }
+
+   // If left/top are set from a previous center() call, and our content
+   // has changed, we may get a bogus getOffsetWidth because our new content
+   // is wrapping (giving a lower offset width) then it would without the
+   // previous left. Setting left/top back to 0 avoids this.
+   dart_html.Element elem = getElement();
+   elem.style.left = "0px";
+   elem.style.top = "0px";
+
+   int left = (Dom.getClientWidth() - getOffsetWidth()) &gt;&gt; 1;
+   int top = (Dom.getClientHeight() - getOffsetHeight()) &gt;&gt; 1;
+   setPopupPosition(dart_math.max(Dom.getScrollLeft() + left, 0),
+       dart_math.max(Dom.getScrollTop() + top, 0));
+
+   if (!initiallyShowing) {
+     setAnimationEnabled(initiallyAnimated);
+     // Run the animation. The popup is already visible, so we can skip the
+     // call to setState.
+     if (initiallyAnimated) {
+       impl.setClip(getElement(), "rect(0px, 0px, 0px, 0px)");
+       visible = true;
+       resizeAnimation.run(ANIMATION_DURATION);
+     } else {
+       visible = true;
+     }
+   }
+ }
+
+ /**
+  * Gets the style name to be used on the glass element. By default, this is
+  * "gwt-PopupPanelGlass".
+  *
+  * @return the glass element's style name
+  */
+ String getGlassStyleName() {
+   return glassStyleName;
+ }
+
+ /**
+  * Gets the panel's offset height in pixels. Calls to
+  * {@link #setHeight(String)} before the panel's child widget is set will not
+  * influence the offset height.
+  *
+  * @return the object's offset height
+  */
+
+ int getOffsetHeight() {
+   return super.getOffsetHeight();
+ }
+
+ /**
+  * Gets the panel's offset width in pixels. Calls to {@link #setWidth(String)}
+  * before the panel's child widget is set will not influence the offset width.
+  *
+  * @return the object's offset width
+  */
+
+ int getOffsetWidth() {
+   return super.getOffsetWidth();
+ }
+
+ /**
+  * Gets the popup's left position relative to the browser's client area.
+  *
+  * @return the popup's left position
+  */
+ int getPopupLeft() {
+   return Dom.getAbsoluteLeft(getElement());
+ }
+
+ /**
+  * Gets the popup's top position relative to the browser's client area.
+  *
+  * @return the popup's top position
+  */
+ int getPopupTop() {
+   return Dom.getAbsoluteTop(getElement());
+ }
+
+
+ String getTitle() {
+   return Dom.getElementProperty(getContainerElement(), "title");
+ }
+
+ /**
+  * Hides the popup and detaches it from the page. This has no effect if it is
+  * not currently showing.
+  *
+  * @param autoClosed the value that will be passed to
+  *          {@link CloseHandler#onClose(CloseEvent)} when the popup is closed
+  */
+ void hide([bool autoClosed = false]) {
+   if (!isShowing()) {
+     return;
+   }
+   resizeAnimation.setState(false, false);
+   CloseEvent.fire(this, this, autoClosed);
+ }
+
+ bool isAnimationEnabled() {
+   return _isAnimationEnabled;
+ }
+
+ /**
+  * Returns &lt;code&gt;true&lt;/code&gt; if the popup should be automatically hidden when
+  * the user clicks outside of it.
+  *
+  * @return true if autoHide is enabled, false if disabled
+  */
+ bool isAutoHideEnabled() {
+   return autoHide;
+ }
+
+ /**
+  * Returns &lt;code&gt;true&lt;/code&gt; if the popup should be automatically hidden when
+  * the history token changes, such as when the user presses the browser's back
+  * button.
+  *
+  * @return true if enabled, false if disabled
+  */
+ bool isAutoHideOnHistoryEventsEnabled() {
+   return autoHideOnHistoryEvents;
+ }
+
+ /**
+  * Returns &lt;code&gt;true&lt;/code&gt; if a glass element will be displayed under the
+  * {@link PopupPanel}.
+  *
+  * @return true if enabled
+  */
+ bool isGlassEnabled() {
+   return _isGlassEnabled;
+ }
+
+ /**
+  * Returns &lt;code&gt;true&lt;/code&gt; if keyboard or mouse events that do not target
+  * the PopupPanel or its children should be ignored.
+  *
+  * @return true if popup is modal, false if not
+  */
+ bool isModal() {
+   return modal;
+ }
+
+ /**
+  * Returns &lt;code&gt;true&lt;/code&gt; if the popup should preview all events,
+  * even if the event has already been consumed by another popup.
+  *
+  * @return true if previewAllNativeEvents is enabled, false if disabled
+  */
+ bool isPreviewingAllNativeEvents() {
+   return previewAllNativeEvents;
+ }
+
+ /**
+  * Determines whether or not this popup is showing.
+  *
+  * @return &lt;code&gt;true&lt;/code&gt; if the popup is showing
+  * @see #show()
+  * @see #hide()
+  */
+ bool isShowing() {
+   return showing;
+ }
+
+ /**
+  * Determines whether or not this popup is visible. Note that this just checks
+  * the &lt;code&gt;visibility&lt;/code&gt; style attribute, which is set in the
+  * {@link #setVisible(bool)} method. If you want to know if the popup is
+  * attached to the page, use {@link #isShowing()} instead.
+  *
+  * @return &lt;code&gt;true&lt;/code&gt; if the object is visible
+  * @see #setVisible(bool)
+  */
+
+ bool get visible =&gt; getElement().style.visibility != "hidden"; // !"hidden".equals(getElement().style.getProperty("visibility"));
+
+ /**
+  * @deprecated Use {@link #onPreviewNativeEvent} instead
+  */
+//  @Deprecated
+ bool onEventPreview(NativePreviewEvent event) {
+   return true;
+ }
+
+ /**
+  * Remove an autoHide partner.
+  *
+  * @param partner the auto hide partner to remove
+  */
+ void removeAutoHidePartner(dart_html.Element partner) {
+   assert (partner != null); // : "partner cannot be null";
+   if (autoHidePartners != null) {
+     //autoHidePartners.remove(partner);
+     partner.remove();
+   }
+ }
+
+//  /**
+//   * @deprecated Use the {@link HandlerRegistration#removeHandler} method on the
+//   *             object returned by {@link #addCloseHandler} instead
+//   */
+//  @Deprecated
+//  void removePopupListener(PopupListener listener) {
+//    ListenerWrapper.WrappedPopupListener.remove(this, listener);
+//  }
+
+ void setAnimationEnabled(bool enable) {
+   _isAnimationEnabled = enable;
+ }
+
+ /**
+  * Enable or disable the autoHide feature. When enabled, the popup will be
+  * automatically hidden when the user clicks outside of it.
+  *
+  * @param autoHide true to enable autoHide, false to disable
+  */
+ void setAutoHideEnabled(bool autoHide) {
+   this.autoHide = autoHide;
+ }
+
+ /**
+  * Enable or disable autoHide on history change events. When enabled, the
+  * popup will be automatically hidden when the history token changes, such as
+  * when the user presses the browser's back button. Disabled by default.
+  *
+  * @param enabled true to enable, false to disable
+  */
+ void setAutoHideOnHistoryEventsEnabled(bool enabled) {
+   this.autoHideOnHistoryEvents = enabled;
+ }
+
+ /**
+  * When enabled, the background will be blocked with a semi-transparent pane
+  * the next time it is shown. If the PopupPanel is already visible, the glass
+  * will not be displayed until it is hidden and shown again.
+  *
+  * @param enabled true to enable, false to disable
+  */
+ void setGlassEnabled(bool enabled) {
+   this._isGlassEnabled = enabled;
+   if (enabled &amp;&amp; glass == null) {
+     glass = new dart_html.DivElement();
+     glass.$dom_className = glassStyleName;
+
+     glass.style.position = Position.ABSOLUTE.value;
+     glass.style.left = "0" + Unit.PX.value;
+     glass.style.top = "0" + Unit.PX.value;
+   }
+ }
+
+ /**
+  * Sets the style name to be used on the glass element. By default, this is
+  * "gwt-PopupPanelGlass".
+  *
+  * @param glassStyleName the glass element's style name
+  */
+ void setGlassStyleName(String glassStyleName) {
+   this.glassStyleName = glassStyleName;
+   if (glass != null) {
+     glass.$dom_className = glassStyleName;
+   }
+ }
+
+ /**
+  * Sets the height of the panel's child widget. If the panel's child widget
+  * has not been set, the height passed in will be cached and used to set the
+  * height immediately after the child widget is set.
+  *
+  * &lt;p&gt;
+  * Note that subclasses may have a different behavior. A subclass may decide
+  * not to change the height of the child widget. It may instead decide to
+  * change the height of an internal panel widget, which contains the child
+  * widget.
+  * &lt;/p&gt;
+  *
+  * @param height the object's new height, in CSS units (e.g. "10px", "1em")
+  */
+
+ void setHeight(String height) {
+   desiredHeight = height;
+   maybeUpdateSize();
+   // If the user cleared the size, revert to not trying to control children.
+   if (height.length == 0) {
+     desiredHeight = null;
+   }
+ }
+
+ /**
+  * When the popup is modal, keyboard or mouse events that do not target the
+  * PopupPanel or its children will be ignored.
+  *
+  * @param modal true to make the popup modal
+  */
+ void setModal(bool modal) {
+   this.modal = modal;
+ }
+
+ /**
+  * Sets the popup's position relative to the browser's client area. The
+  * popup's position may be set before calling {@link #show()}.
+  *
+  * @param left the left position, in pixels
+  * @param top the top position, in pixels
+  */
+ void setPopupPosition(int left, int top) {
+   // Save the position of the popup
+   leftPosition = left;
+   topPosition = top;
+
+   // Account for the difference between absolute position and the
+   // body's positioning context.
+   left -= dart_html.document.body.offset.left;
+   top -= dart_html.document.body.offset.top;
+
+   // Set the popup's position manually, allowing setPopupPosition() to be
+   // called before show() is called (so a popup can be positioned without it
+   // 'jumping' on the screen).
+   dart_html.Element elem = getElement();
+   elem.style.left = left.toString() + Unit.PX.value;
+   elem.style.top = top.toString() + Unit.PX.value;
+ }
+
+ /**
+  * Sets the popup's position using a {@link PositionCallback}, and shows the
+  * popup. The callback allows positioning to be performed based on the
+  * offsetWidth and offsetHeight of the popup, which are normally not available
+  * until the popup is showing. By positioning the popup before it is shown,
+  * the the popup will not jump from its original position to the new position.
+  *
+  * @param callback the callback to set the position of the popup
+  * @see PositionCallback#setPosition(int offsetWidth, int offsetHeight)
+  */
+ void setPopupPositionAndShow(PopupPanelPositionCallback callback) {
+   visible = false;
+   show();
+   callback.setPosition(getOffsetWidth(), getOffsetHeight());
+   visible = true;
+ }
+
+ /**
+  * &lt;p&gt;
+  * When enabled, the popup will preview all events, even if another
+  * popup was opened after this one.
+  * &lt;/p&gt;
+  * &lt;p&gt;
+  * If autoHide is enabled, enabling this feature will cause the popup to
+  * autoHide even if another non-modal popup was shown after it. If this
+  * feature is disabled, the popup will only autoHide if it was the last popup
+  * opened.
+  * &lt;/p&gt;
+  *
+  * @param previewAllNativeEvents true to enable, false to disable
+  */
+ void setPreviewingAllNativeEvents(bool previewAllNativeEvents) {
+   this.previewAllNativeEvents = previewAllNativeEvents;
+ }
+
+
+ void setTitle(String title) {
+   dart_html.Element containerElement = getContainerElement();
+   if (title == null || title.length == 0) {
+     containerElement.attributes.remove("title");
+   } else {
+     containerElement.title = title;
+   }
+ }
+
+ /**
+  * Sets whether this object is visible. This method just sets the
+  * &lt;code&gt;visibility&lt;/code&gt; style attribute. You need to call {@link #show()}
+  * to actually attached/detach the {@link PopupPanel} to the page.
+  *
+  * @param visible &lt;code&gt;true&lt;/code&gt; to show the object, &lt;code&gt;false&lt;/code&gt; to
+  *          hide it
+  * @see #show()
+  * @see #hide()
+  */
+
+ void set visible(bool vis) {
+   // We use visibility here instead of UiObject's default of display
+   // Because the panel is absolutely positioned, this will not create
+   // "holes" in displayed contents and it allows normal layout passes
+   // to occur so the size of the PopupPanel can be reliably determined.
+   Dom.setStyleAttribute(getElement(), "visibility", vis ? "visible"
+       : "hidden");
+
+   // If the PopupImpl creates an iframe shim, it's also necessary to hide it
+   // as well.
+   impl.setVisible(getElement(), vis);
+   if (glass != null) {
+     impl.setVisible(glass, vis);
+     glass.style.visibility = vis ? "visible" : "hidden";
+   }
+ }
+
+
+ void setWidget(Widget w) {
+   super.setWidget(w);
+   maybeUpdateSize();
+ }
+
+ /**
+  * Sets the width of the panel's child widget. If the panel's child widget has
+  * not been set, the width passed in will be cached and used to set the width
+  * immediately after the child widget is set.
+  *
+  * &lt;p&gt;
+  * Note that subclasses may have a different behavior. A subclass may decide
+  * not to change the width of the child widget. It may instead decide to
+  * change the width of an internal panel widget, which contains the child
+  * widget.
+  * &lt;/p&gt;
+  *
+  * @param width the object's new width, in CSS units (e.g. "10px", "1em")
+  */
+
+ void setWidth(String width) {
+   desiredWidth = width;
+   maybeUpdateSize();
+   // If the user cleared the size, revert to not trying to control children.
+   if (width.length == 0) {
+     desiredWidth = null;
+   }
+ }
+
+ /**
+  * Shows the popup and attach it to the page. It must have a child widget
+  * before this method is called.
+  */
+ void show() {
+   if (showing) {
+     return;
+   } else if (isAttached()) {
+     // The popup is attached directly to another panel, so we need to remove
+     // it from its parent before showing it. This is a weird use case, but
+     // since PopupPanel is a Widget, its legal.
+     this.removeFromParent();
+   }
+   resizeAnimation.setState(true, false);
+ }
+
+ /**
+  * Normally, the popup is positioned directly below the relative target, with
+  * its left edge aligned with the left edge of the target. Depending on the
+  * width and height of the popup and the distance from the target to the
+  * bottom and right edges of the window, the popup may be displayed directly
+  * above the target, and/or its right edge may be aligned with the right edge
+  * of the target.
+  *
+  * @param target the target to show the popup below
+  */
+ void showRelativeTo(UiObject target) {
+   // Set the position of the popup right before it is shown.
+   setPopupPositionAndShow(new ShowPositionCallback(this, target));
+ }
+
+
+ dart_html.Element getContainerElement() {
+   return impl.getContainerElement(getPopupImplElement());
+ }
+
+ /**
+  * Get the glass element used by this {@link PopupPanel}. The element is not
+  * created until it is enabled via {@link #setGlassEnabled(bool)}.
+  *
+  * @return the glass element, or null if not created
+  */
+ dart_html.Element getGlassElement() {
+   return glass;
+ }
+
+
+ dart_html.Element getStyleElement() {
+   return impl.getStyleElement(getPopupImplElement());
+ }
+
+ void onPreviewNativeEvent(NativePreviewEvent event) {
+   // Cancel the event based on the deprecated onEventPreview() method
+   if (event.isFirstHandler() &amp;&amp; !onEventPreview(event)) {
+     event.cancel();
+   }
+ }
+
+
+ void onUnload() {
+   super.onUnload();
+
+   // Just to be sure, we perform cleanup when the popup is unloaded (i.e.
+   // removed from the Dom). This is normally taken care of in hide(), but it
+   // can be missed if someone removes the popup directly from the RootPanel.
+   if (isShowing()) {
+     resizeAnimation.setState(false, true);
+   }
+ }
+
+ /**
+  * We control size by setting our child widget's size. However, if we don't
+  * currently have a child, we record the size the user wanted so that when we
+  * do get a child, we can set it correctly. Until size is explicitly cleared,
+  * any child put into the popup will be given that size.
+  */
+ void maybeUpdateSize() {
+   // For subclasses of PopupPanel, we want the default behavior of setWidth
+   // and setHeight to change the dimensions of PopupPanel's child widget.
+   // We do this because PopupPanel's child widget is the first widget in
+   // the hierarchy which provides structure to the panel. DialogBox is
+   // an example of this. We want to set the dimensions on DialogBox's
+   // FlexTable, which is PopupPanel's child widget. However, it is not
+   // DialogBox's child widget. To make sure that we are actually getting
+   // PopupPanel's child widget, we have to use super.getWidget().
+   Widget w = super.getWidget();
+   if (w != null) {
+     if (desiredHeight != null) {
+       w.setHeight(desiredHeight);
+     }
+     if (desiredWidth != null) {
+       w.setWidth(desiredWidth);
+     }
+   }
+ }
+
+ /**
+  * Sets the animation used to animate this popup. Used by gwt-incubator to
+  * allow DropDownPanel to override the default popup animation. Not protected
+  * because the exact API may change in gwt 1.6.
+  *
+  * @param animation the animation to use for this popup
+  */
+ void setAnimation(ResizeAnimation animation) {
+   resizeAnimation = animation;
+ }
+
+ /**
+  * Enable or disable animation of the {@link PopupPanel}.
+  *
+  * @param type the type of animation to use
+  */
+ void setAnimationType(AnimationType type) {
+   animType = type;
+ }
+
+ /**
+  * Remove focus from an dart_html.Element.
+  *
+  * @param elt The dart_html.Element on which &lt;code&gt;blur()&lt;/code&gt; will be invoked
+  */
+ void blur(dart_html.Element elt) {
+   // Issue 2390: blurring the body causes IE to disappear to the background
+   if (elt.blur != null &amp;&amp; elt != dart_html.document.body) {
+     elt.blur();
+   }
+ }
+
+ /**
+  * Does the event target one of the partner elements?
+  *
+  * @param event the event
+  * @return true if the event targets a partner
+  */
+ bool eventTargetsPartner(dart_html.Event event) {
+   if (autoHidePartners == null) {
+     return false;
+   }
+
+   dart_html.EventTarget target = event.target;
+   if (target is dart_html.Element) {
+     for (dart_html.Element elem in autoHidePartners) {
+       if (Dom.isOrHasChild(elem, target as dart_html.Element)) {
+         return true;
+       }
+     }
+   }
+   return false;
+ }
+
+ /**
+  * Does the event target this popup?
+  *
+  * @param event the event
+  * @return true if the event targets the popup
+  */
+ bool eventTargetsPopup(dart_html.Event event) {
+   dart_html.EventTarget target = event.target;
+   if (target is dart_html.Element) {
+     return Dom.isOrHasChild(getElement(), target as dart_html.Element);
+   }
+   return false;
+ }
+
+ /**
+  * Get the element that {@link PopupImpl} uses. PopupImpl creates an element
+  * that goes inside of the outer element, so all methods in PopupImpl are
+  * relative to the first child of the outer element, not the outer element
+  * itself.
+  *
+  * @return the dart_html.Element that {@link PopupImpl} creates and expects
+  */
+ dart_html.Element getPopupImplElement() {
+   return super.getContainerElement().$dom_firstChild;
+ }
+
+ /**
+  * Positions the popup, called after the offset width and height of the popup
+  * are known.
+  *
+  * @param relativeObject the ui object to position relative to
+  * @param offsetWidth the drop down's offset width
+  * @param offsetHeight the drop down's offset height
+  */
+ void position(final UiObject relativeObject, int offsetWidth,
+     int offsetHeight) {
+   // Calculate left position for the popup. The computation for
+   // the left position is bidi-sensitive.
+
+   int textBoxOffsetWidth = relativeObject.getOffsetWidth();
+
+   // Compute the difference between the popup's width and the
+   // textbox's width
+   int offsetWidthDiff = offsetWidth - textBoxOffsetWidth;
+
+   int left;
+
+   if (LocaleInfo.getCurrentLocale().isRTL()) { // RTL case
+
+     int textBoxAbsoluteLeft = relativeObject.getAbsoluteLeft();
+
+     // Right-align the popup. Note that this computation is
+     // valid in the case where offsetWidthDiff is negative.
+     left = textBoxAbsoluteLeft - offsetWidthDiff;
+
+     // If the suggestion popup is not as wide as the text box, always
+     // align to the right edge of the text box. Otherwise, figure out whether
+     // to right-align or left-align the popup.
+     if (offsetWidthDiff &gt; 0) {
+
+       // Make sure scrolling is taken into account, since
+       // box.getAbsoluteLeft() takes scrolling into account.
+       int windowRight = Dom.getClientWidth() + Dom.getScrollLeft();
+       int windowLeft = Dom.getScrollLeft();
+
+       // Compute the left value for the right edge of the textbox
+       int textBoxLeftValForRightEdge = textBoxAbsoluteLeft
+           + textBoxOffsetWidth;
+
+       // Distance from the right edge of the text box to the right edge
+       // of the window
+       int distanceToWindowRight = windowRight - textBoxLeftValForRightEdge;
+
+       // Distance from the right edge of the text box to the left edge of the
+       // window
+       int distanceFromWindowLeft = textBoxLeftValForRightEdge - windowLeft;
+
+       // If there is not enough space for the overflow of the popup's
+       // width to the right of the text box and there IS enough space for the
+       // overflow to the right of the text box, then left-align the popup.
+       // However, if there is not enough space on either side, stick with
+       // right-alignment.
+       if (distanceFromWindowLeft &lt; offsetWidth
+           &amp;&amp; distanceToWindowRight &gt;= offsetWidthDiff) {
+         // Align with the left edge of the text box.
+         left = textBoxAbsoluteLeft;
+       }
+     }
+   } else { // LTR case
+
+     // Left-align the popup.
+     left = relativeObject.getAbsoluteLeft();
+
+     // If the suggestion popup is not as wide as the text box, always align to
+     // the left edge of the text box. Otherwise, figure out whether to
+     // left-align or right-align the popup.
+     if (offsetWidthDiff &gt; 0) {
+       // Make sure scrolling is taken into account, since
+       // box.getAbsoluteLeft() takes scrolling into account.
+       int windowRight = Dom.getClientWidth() + Dom.getScrollLeft();
+       int windowLeft = Dom.getScrollLeft();
+
+       // Distance from the left edge of the text box to the right edge
+       // of the window
+       int distanceToWindowRight = windowRight - left;
+
+       // Distance from the left edge of the text box to the left edge of the
+       // window
+       int distanceFromWindowLeft = left - windowLeft;
+
+       // If there is not enough space for the overflow of the popup's
+       // width to the right of hte text box, and there IS enough space for the
+       // overflow to the left of the text box, then right-align the popup.
+       // However, if there is not enough space on either side, then stick with
+       // left-alignment.
+       if (distanceToWindowRight &lt; offsetWidth
+           &amp;&amp; distanceFromWindowLeft &gt;= offsetWidthDiff) {
+         // Align with the right edge of the text box.
+         left -= offsetWidthDiff;
+       }
+     }
+   }
+
+   // Calculate top position for the popup
+
+   int top = relativeObject.getAbsoluteTop();
+
+   // Make sure scrolling is taken into account, since
+   // box.getAbsoluteTop() takes scrolling into account.
+   int windowTop = Dom.getScrollTop();
+   int windowBottom = Dom.getScrollTop() + Dom.getClientHeight();
+
+   // Distance from the top edge of the window to the top edge of the
+   // text box
+   int distanceFromWindowTop = top - windowTop;
+
+   // Distance from the bottom edge of the window to the bottom edge of
+   // the text box
+   int distanceToWindowBottom = windowBottom
+       - (top + relativeObject.getOffsetHeight());
+
+   // If there is not enough space for the popup's height below the text
+   // box and there IS enough space for the popup's height above the text
+   // box, then then position the popup above the text box. However, if there
+   // is not enough space on either side, then stick with displaying the
+   // popup below the text box.
+   if (distanceToWindowBottom &lt; offsetHeight
+       &amp;&amp; distanceFromWindowTop &gt;= offsetHeight) {
+     top -= offsetHeight;
+   } else {
+     // Position above the text box
+     top += relativeObject.getOffsetHeight();
+   }
+   setPopupPosition(left, top);
+ }
+
+ /**
+  * Preview the {@link dart_html.Event}.
+  *
+  * @param event the {@link dart_html.Event}
+  */
+ void previewNativeEvent(NativePreviewEvent event) {
+   // If the event has been canceled or consumed, ignore it
+   if (event.isCanceled() || (!previewAllNativeEvents &amp;&amp; event.isConsumed())) {
+     // We need to ensure that we cancel the event even if its been consumed so
+     // that popups lower on the stack do not auto hide
+     if (modal) {
+       event.cancel();
+     }
+     return;
+   }
+
+   // Fire the event hook and return if the event is canceled
+   onPreviewNativeEvent(event);
+   if (event.isCanceled()) {
+     return;
+   }
+
+   // If the event targets the popup or the partner, consume it
+   dart_html.Event nativeEvent = event.getNativeEvent();
+   bool eventTargetsPopupOrPartner = eventTargetsPopup(nativeEvent) || eventTargetsPartner(nativeEvent);
+   if (eventTargetsPopupOrPartner) {
+     event.consume();
+   }
+
+   // Cancel the event if it doesn't target the modal popup. Note that the
+   // event can be both canceled and consumed.
+   if (modal) {
+     event.cancel();
+   }
+
+   // Switch on the event type
+   int type = IEvent.getTypeInt(nativeEvent.type);
+   switch (type) {
+//      case IEvent.ONKEYDOWN:
+//        if (!onKeyDownPreview((char) nativeEvent.getKeyCode(),
+//            KeyboardListenerCollection.getKeyboardModifiers(nativeEvent))) {
+//          event.cancel();
+//        }
+//        return;
+//      case IEvent.ONKEYUP:
+//        if (!onKeyUpPreview((char) nativeEvent.getKeyCode(),
+//            KeyboardListenerCollection.getKeyboardModifiers(nativeEvent))) {
+//          event.cancel();
+//        }
+//        return;
+//      case IEvent.ONKEYPRESS:
+//        if (!onKeyPressPreview((char) nativeEvent.getKeyCode(),
+//            KeyboardListenerCollection.getKeyboardModifiers(nativeEvent))) {
+//          event.cancel();
+//        }
+//        return;
+//
+     case IEvent.ONMOUSEDOWN:
+       // Don't eat events if event capture is enabled, as this can
+       // interfere with dialog dragging, for example.
+       if (Dom.getCaptureElement() != null) {
+         event.consume();
+         return;
+       }
+
+       if (!eventTargetsPopupOrPartner &amp;&amp; autoHide) {
+         hide(true);
+         return;
+       }
+       break;
+     case IEvent.ONMOUSEUP:
+     case IEvent.ONMOUSEMOVE:
+     case IEvent.ONCLICK:
+     case IEvent.ONDBLCLICK:
+       // Don't eat events if event capture is enabled, as this can
+       // interfere with dialog dragging, for example.
+       if (Dom.getCaptureElement() != null) {
+         event.consume();
+         return;
+       }
+       break;
+
+     case IEvent.ONFOCUS:
+       dart_html.Element target = nativeEvent.target as dart_html.Element;
+       if (modal &amp;&amp; !eventTargetsPopupOrPartner &amp;&amp; (target != null)) {
+         blur(target);
+         event.cancel();
+         return;
+       }
+       break;
+   }
+ }
+
+ /**
+  * Register or unregister the handlers used by {@link PopupPanel}.
+  */
+ void updateHandlers() {
+   // Remove any existing handlers.
+   if (nativePreviewHandlerRegistration != null) {
+     nativePreviewHandlerRegistration.removeHandler();
+     nativePreviewHandlerRegistration = null;
+   }
+   if (historyHandlerRegistration != null) {
+     historyHandlerRegistration.removeHandler();
+     historyHandlerRegistration = null;
+   }
+
+   // Create handlers if showing.
+   if (showing) {
+     nativePreviewHandlerRegistration = IEvent.addNativePreviewHandler(new NativePreviewHandlerAdapter((NativePreviewEvent event) {
+       previewNativeEvent(event);
+     }));
+     historyHandlerRegistration = History.addValueChangeHandler(new HistoryValueChangeHandler(this));
+   }
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Panel.html">Panel</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>PopupPanel</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DecoratedPopupPanel.html">DecoratedPopupPanel</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasCloseHandlers.html">HasCloseHandlers&lt;PopupPanel&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAnimation.html">HasAnimation</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="ANIMATION_DURATION">
+<button class="show-code">Code</button>
+const int         <strong>ANIMATION_DURATION</strong> <a class="anchor-link"
+            href="#ANIMATION_DURATION"
+            title="Permalink to PopupPanel.ANIMATION_DURATION">#</a>
+        </h4>
+        <div class="doc">
+<p>The duration of the animation.</p>
+<pre class="source">
+static const int ANIMATION_DURATION = 200
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DEFAULT_STYLENAME">
+<button class="show-code">Code</button>
+const String         <strong>DEFAULT_STYLENAME</strong> <a class="anchor-link"
+            href="#DEFAULT_STYLENAME"
+            title="Permalink to PopupPanel.DEFAULT_STYLENAME">#</a>
+        </h4>
+        <div class="doc">
+<p>The default style name.</p>
+<pre class="source">
+static const String DEFAULT_STYLENAME = "dwt-PopupPanel"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="impl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/PopupImpl.html">PopupImpl</a>         <strong>impl</strong> <a class="anchor-link"
+            href="#impl"
+            title="Permalink to PopupPanel.impl">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static PopupImpl impl = new PopupImpl()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="PopupPanel">
+<button class="show-code">Code</button>
+new <strong>PopupPanel</strong>([bool autoHide = null, bool modal = null]) <a class="anchor-link" href="#PopupPanel"
+              title="Permalink to PopupPanel.PopupPanel">#</a></h4>
+<div class="doc">
+<p>Creates an empty popup panel, specifying its "auto-hide" and "modal"
+properties.</p>
+<p>@param autoHide &lt;code>true&lt;/code> if the popup should be automatically</p>
+<pre><code>     hidden when the user clicks outside of it or the history token
+     changes.
+</code></pre>
+<p>@param modal &lt;code>true&lt;/code> if keyboard or mouse events that do not</p>
+<pre><code>     target the PopupPanel or its children should be ignored
+</code></pre>
+<pre class="source">
+PopupPanel([bool autoHide = null, bool modal = null]) : super() {
+ glassResizer = new _WindowResizeHandler(this);
+ //
+ resizeAnimation = new ResizeAnimation(this);
+ //
+
+ super.getContainerElement().append(impl.createElement());
+
+ // Default position of popup should be in the upper-left corner of the
+ // window. By setting a default position, the popup will not appear in
+ // an undefined location if it is shown before its position is set.
+ setPopupPosition(0, 0);
+ clearAndSetStyleName(DEFAULT_STYLENAME);
+ UiObject.setElementStyleName(getContainerElement(), "popupContent");
+ //
+ if (autoHide != null) {
+   this.autoHide = autoHide;
+   this.autoHideOnHistoryEvents = autoHide;
+ }
+ //
+ if (modal != null) {
+   this.modal = modal;
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="animType">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/AnimationType.html">AnimationType</a>         <strong>animType</strong> <a class="anchor-link"
+            href="#animType"
+            title="Permalink to PopupPanel.animType">#</a>
+        </h4>
+        <div class="doc">
+<p>If true, animate the opening of this popup from the center. If false,
+animate it open from top to bottom, and do not animate closing. Use false
+to animate menus.</p>
+<pre class="source">
+AnimationType animType = AnimationType.CENTER
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="autoHide">
+<button class="show-code">Code</button>
+bool         <strong>autoHide</strong> <a class="anchor-link"
+            href="#autoHide"
+            title="Permalink to PopupPanel.autoHide">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool autoHide = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="autoHideOnHistoryEvents">
+<button class="show-code">Code</button>
+bool         <strong>autoHideOnHistoryEvents</strong> <a class="anchor-link"
+            href="#autoHideOnHistoryEvents"
+            title="Permalink to PopupPanel.autoHideOnHistoryEvents">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool autoHideOnHistoryEvents = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="autoHidePartners">
+<button class="show-code">Code</button>
+List&lt;Element&gt;         <strong>autoHidePartners</strong> <a class="anchor-link"
+            href="#autoHidePartners"
+            title="Permalink to PopupPanel.autoHidePartners">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+List&lt;dart_html.Element&gt; autoHidePartners
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="desiredHeight">
+<button class="show-code">Code</button>
+String         <strong>desiredHeight</strong> <a class="anchor-link"
+            href="#desiredHeight"
+            title="Permalink to PopupPanel.desiredHeight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String desiredHeight
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="desiredWidth">
+<button class="show-code">Code</button>
+String         <strong>desiredWidth</strong> <a class="anchor-link"
+            href="#desiredWidth"
+            title="Permalink to PopupPanel.desiredWidth">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String desiredWidth
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="eventsToSink">
+<button class="show-code">Code</button>
+int         <strong>eventsToSink</strong> <a class="anchor-link"
+            href="#eventsToSink"
+            title="Permalink to PopupPanel.eventsToSink">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>A set og events that should be sunk when the widget is attached to
+the DOM. (We delay the sinking of events to improve startup performance.)
+When the widget is attached, this is set is empty</p>
+<p>Package protected to allow Composite to see it.</p>
+<pre class="source">
+int eventsToSink = 0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="glass">
+<button class="show-code">Code</button>
+Element         <strong>glass</strong> <a class="anchor-link"
+            href="#glass"
+            title="Permalink to PopupPanel.glass">#</a>
+        </h4>
+        <div class="doc">
+<p>The glass element.</p>
+<pre class="source">
+dart_html.Element glass
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="glassResizer">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/ResizeHandler.html">ResizeHandler</a>         <strong>glassResizer</strong> <a class="anchor-link"
+            href="#glassResizer"
+            title="Permalink to PopupPanel.glassResizer">#</a>
+        </h4>
+        <div class="doc">
+<p>Window resize handler used to keep the glass the proper size.</p>
+<pre class="source">
+ResizeHandler glassResizer
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="glassStyleName">
+<button class="show-code">Code</button>
+String         <strong>glassStyleName</strong> <a class="anchor-link"
+            href="#glassStyleName"
+            title="Permalink to PopupPanel.glassStyleName">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String glassStyleName = "dwt-PopupPanelGlass"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="historyHandlerRegistration">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a>         <strong>historyHandlerRegistration</strong> <a class="anchor-link"
+            href="#historyHandlerRegistration"
+            title="Permalink to PopupPanel.historyHandlerRegistration">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+HandlerRegistration historyHandlerRegistration
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="leftPosition">
+<button class="show-code">Code</button>
+int         <strong>leftPosition</strong> <a class="anchor-link"
+            href="#leftPosition"
+            title="Permalink to PopupPanel.leftPosition">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+int leftPosition = -1
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="modal">
+<button class="show-code">Code</button>
+bool         <strong>modal</strong> <a class="anchor-link"
+            href="#modal"
+            title="Permalink to PopupPanel.modal">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool autoHide = false, previewAllNativeEvents = false, modal = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="nativePreviewHandlerRegistration">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a>         <strong>nativePreviewHandlerRegistration</strong> <a class="anchor-link"
+            href="#nativePreviewHandlerRegistration"
+            title="Permalink to PopupPanel.nativePreviewHandlerRegistration">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+HandlerRegistration nativePreviewHandlerRegistration
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="previewAllNativeEvents">
+<button class="show-code">Code</button>
+bool         <strong>previewAllNativeEvents</strong> <a class="anchor-link"
+            href="#previewAllNativeEvents"
+            title="Permalink to PopupPanel.previewAllNativeEvents">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool autoHide = false, previewAllNativeEvents = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="resizeAnimation">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ResizeAnimation.html">ResizeAnimation</a>         <strong>resizeAnimation</strong> <a class="anchor-link"
+            href="#resizeAnimation"
+            title="Permalink to PopupPanel.resizeAnimation">#</a>
+        </h4>
+        <div class="doc">
+<p>The {@link ResizeAnimation} used to open and close the {@link PopupPanel}s.</p>
+<pre class="source">
+ResizeAnimation resizeAnimation
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="showing">
+<button class="show-code">Code</button>
+bool         <strong>showing</strong> <a class="anchor-link"
+            href="#showing"
+            title="Permalink to PopupPanel.showing">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool autoHide = false, previewAllNativeEvents = false, modal = false, showing = false
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title">
+<button class="show-code">Code</button>
+String <strong>get title</strong> <a class="anchor-link" href="#title"
+              title="Permalink to PopupPanel.get title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the title associated with this object. The title is the 'tool-tip'
+displayed to users when they hover over the object.</p>
+<p>@return the object's title</p>
+<pre class="source">
+String get title =&gt; getElement().title;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="title=">
+<button class="show-code">Code</button>
+void <strong>set title</strong>(String value) <a class="anchor-link" href="#title="
+              title="Permalink to PopupPanel.set title">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the element's title.</p>
+<pre class="source">
+void set title(String value) {
+ getElement().title = value;
+}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="topPosition">
+<button class="show-code">Code</button>
+int         <strong>topPosition</strong> <a class="anchor-link"
+            href="#topPosition"
+            title="Permalink to PopupPanel.topPosition">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+int topPosition = -1
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="visible">
+<button class="show-code">Code</button>
+bool <strong>get visible</strong> <a class="anchor-link" href="#visible"
+              title="Permalink to PopupPanel.get visible">#</a></h4>
+<div class="doc">
+<p>Determines whether or not this popup is visible. Note that this just checks
+the &lt;code>visibility&lt;/code> style attribute, which is set in the
+{@link #setVisible(bool)} method. If you want to know if the popup is
+attached to the page, use {@link #isShowing()} instead.</p>
+<p>@return &lt;code>true&lt;/code> if the object is visible
+@see #setVisible(bool)</p>
+<pre class="source">
+bool get visible =&gt; getElement().style.visibility != "hidden";
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="visible=">
+<button class="show-code">Code</button>
+void <strong>set visible</strong>(bool vis) <a class="anchor-link" href="#visible="
+              title="Permalink to PopupPanel.set visible">#</a></h4>
+<div class="doc">
+<p>Sets whether this object is visible. This method just sets the
+&lt;code>visibility&lt;/code> style attribute. You need to call {@link #show()}
+to actually attached/detach the {@link PopupPanel} to the page.</p>
+<p>@param visible &lt;code>true&lt;/code> to show the object, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<p>@see #show()
+@see #hide()</p>
+<pre class="source">
+void set visible(bool vis) {
+ // We use visibility here instead of UiObject's default of display
+ // Because the panel is absolutely positioned, this will not create
+ // "holes" in displayed contents and it allows normal layout passes
+ // to occur so the size of the PopupPanel can be reliably determined.
+ Dom.setStyleAttribute(getElement(), "visibility", vis ? "visible"
+     : "hidden");
+
+ // If the PopupImpl creates an iframe shim, it's also necessary to hide it
+ // as well.
+ impl.setVisible(getElement(), vis);
+ if (glass != null) {
+   impl.setVisible(glass, vis);
+   glass.style.visibility = vis ? "visible" : "hidden";
+ }
+}
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="widget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>         <strong>widget</strong> <a class="anchor-link"
+            href="#widget"
+            title="Permalink to PopupPanel.widget">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div><div class="doc">
+<pre class="source">
+Widget widget
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="add">
+<button class="show-code">Code</button>
+void <strong>add</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#add"
+              title="Permalink to PopupPanel.add">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div><div class="doc">
+<p>Adds a widget to this panel.</p>
+<p>@param w the child widget to be added</p>
+<pre class="source">
+void add(Widget w) {
+ // Can't add() more than one widget to a SimplePanel.
+ if (getWidget() != null) {
+   throw new Exception("SimplePanel can only contain one child widget");
+ }
+ setWidget(w);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addAttachHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addAttachHandler</strong>(<a href="../dart_web_toolkit_event/AttachEventHandler.html">AttachEventHandler</a> handler) <a class="anchor-link" href="#addAttachHandler"
+              title="Permalink to PopupPanel.addAttachHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds an <code>AttachEvent</code> handler.</p>
+<p>@param handler the handler
+@return the handler registration</p>
+<pre class="source">
+HandlerRegistration addAttachHandler(AttachEventHandler handler) {
+ return addHandler(handler, AttachEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addAutoHidePartner">
+<button class="show-code">Code</button>
+void <strong>addAutoHidePartner</strong>(Element partner) <a class="anchor-link" href="#addAutoHidePartner"
+              title="Permalink to PopupPanel.addAutoHidePartner">#</a></h4>
+<div class="doc">
+<p>Mouse events that occur within an autoHide partner will not hide a panel
+set to autoHide.</p>
+<p>@param partner the auto hide partner to add</p>
+<pre class="source">
+void addAutoHidePartner(dart_html.Element partner) {
+ assert (partner != null); // : "partner cannot be null";
+ if (autoHidePartners == null) {
+   autoHidePartners = new List&lt;dart_html.Element&gt;();
+ }
+ autoHidePartners.add(partner);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addBitlessDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBitlessDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addBitlessDomHandler"
+              title="Permalink to PopupPanel.addBitlessDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>For &lt;a href=
+"http://code.google.com/p/google-web-toolkit/wiki/UnderstandingMemoryLeaks"</p>
+<blockquote>
+<p>browsers which do not leak&lt;/a>, adds a native event handler to the widget.</p></blockquote>
+<p>Note that, unlike the
+{@link #addDomHandler(EventHandler, com.google.gwt.event.dom.client.DomEvent.Type)}
+implementation, there is no need to attach the widget to the DOM in order
+to cause the event handlers to be attached.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addBitlessDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null);; // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ sinkBitlessEvent(type.eventName);
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addCloseHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addCloseHandler</strong>(<a href="../dart_web_toolkit_event/CloseHandler.html">CloseHandler</a>&lt;<a href="../dart_web_toolkit_ui/PopupPanel.html">PopupPanel</a>&gt; handler) <a class="anchor-link" href="#addCloseHandler"
+              title="Permalink to PopupPanel.addCloseHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link CloseEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasCloseHandlers.html">HasCloseHandlers</a>&lt;<a href="../dart_web_toolkit_ui/PopupPanel.html">PopupPanel</a>&gt; </div></div>
+<pre class="source">
+HandlerRegistration addCloseHandler(CloseHandler&lt;PopupPanel&gt; handler) {
+ return addHandler(handler, CloseEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addDomHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addDomHandler"
+              title="Permalink to PopupPanel.addDomHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds a native event handler to the widget and sinks the corresponding
+native event. If you do not want to sink the native event, use the generic
+addHandler method instead.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event key
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addDomHandler(EventHandler handler, DomEventType type) {
+ assert (handler != null); // : "handler must not be null";
+ assert (type != null); // : "type must not be null";
+ int typeInt = IEvent.getTypeInt(type.eventName);
+ if (typeInt == -1) {
+   sinkBitlessEvent(type.eventName);
+ } else {
+   sinkEvents(typeInt);
+ }
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a>&gt; type) <a class="anchor-link" href="#addHandler"
+              title="Permalink to PopupPanel.addHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Adds this handler to the widget.</p>
+<p>@param &lt;H> the type of handler to add
+@param type the event type
+@param handler the handler
+@return {@link HandlerRegistration} used to remove the handler</p>
+<pre class="source">
+HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&gt; type) {
+ return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addIsWidget">
+<button class="show-code">Code</button>
+void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> child) <a class="anchor-link" href="#addIsWidget"
+              title="Permalink to PopupPanel.addIsWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<pre class="source">
+void addIsWidget(IsWidget child) {
+ this.add(asWidgetOrNull(child));
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>addStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#addStyleDependentName"
+              title="Permalink to PopupPanel.addStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a dependent style name by specifying the style name's suffix. The
+actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added.
+@see #setStylePrimaryName(String)
+@see #removeStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)
+@see #addStyleName(String)</p>
+<pre class="source">
+void addStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(String style) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to PopupPanel.addStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds a secondary or dependent style name to this object. A secondary style
+name is an additional style name that is, in HTML/CSS terms, included as a
+space-separated token in the value of the CSS &lt;code>class&lt;/code> attribute
+for this object's root element.</p><p>
+The most important use for this method is to add a special kind of
+secondary style name called a <i>dependent style name</i>. To add a
+dependent style name, use {@link #addStyleDependentName(String)}, which
+will prefix the 'style' argument with the result of
+{@link #k()} (followed by a '-'). For example, suppose
+the primary style name is <code>gwt-TextBox</code>. If the following method
+is called as <code>obj.setReadOnly(true)</code>:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+<p>  // Create a dependent style name.
+  String readOnlyStyle = "readonly";</p>
+<p>  if (readOnly) {</p>
+<pre><code>addStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  } else {</p>
+<pre><code>removeStyleDependentName(readOnlyStyle);
+</code></pre>
+<p>  }
+}&lt;/pre></p><p>
+then both of the CSS style rules below will be applied:
+</p><pre class="code">
+<p>// This rule is based on the primary style name and is always active.
+.gwt-TextBox {
+  font-size: 12pt;
+}</p>
+<p>// This rule is based on a dependent style name that is only active
+// when the widget has called addStyleName(getStylePrimaryName() +
+// "-readonly").
+.gwt-TextBox-readonly {
+  background-color: lightgrey;
+  border: none;
+}&lt;/pre></p><p>
+The code can also be simplified with
+{@link #setStyleDependentName(String, boolean)}:
+</p><pre class="code">
+public void setReadOnly(boolean readOnly) {
+  isReadOnlyMode = readOnly;
+  setStyleDependentName("readonly", readOnly);
+}</pre><p>
+Dependent style names are powerful because they are automatically updated
+whenever the primary style name changes. Continuing with the example above,
+if the primary style name changed due to the following call:
+</p><pre class="code">setStylePrimaryName("my-TextThingy");</pre><p>
+then the object would be re-associated with following style rules, removing
+those that were shown above.
+</p><pre class="code">
+.my-TextThingy {
+  font-size: 20pt;
+}
+<p>.my-TextThingy-readonly {
+  background-color: red;
+  border: 2px solid yellow;
+}&lt;/pre></p><p>
+Secondary style names that are not dependent style names are not
+automatically updated when the primary style name changes.
+</p>
+<p>@param style the secondary style name to be added
+@see UIObject
+@see #removeStyleName(String)</p>
+<pre class="source">
+void addStyleName(String style) {
+ setStyleName(style, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="adopt">
+<button class="show-code">Code</button>
+void <strong>adopt</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child) <a class="anchor-link" href="#adopt"
+              title="Permalink to PopupPanel.adopt">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<p>Finalize the attachment of a Widget to this Panel. This method is the
+&lt;b>last&lt;/b> step in adding or inserting a Widget into a Panel, and should
+be called after physical attachment in the DOM is complete. This Panel
+becomes the parent of the child Widget, and the child will now fire its
+{@link Widget#onAttach()} event if this Panel is currently attached.</p>
+<p>@param child the widget to be adopted
+@see #add(Widget)</p>
+<pre class="source">
+void adopt(Widget child) {
+ assert (child.getParent() == null);
+ child.setParent(this);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="asWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>asWidget</strong>() <a class="anchor-link" href="#asWidget"
+              title="Permalink to PopupPanel.asWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_ui/Widget.html">Widget</a> aspect of the receiver.</p>
+<pre class="source">
+Widget asWidget() {
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="blur">
+<button class="show-code">Code</button>
+void <strong>blur</strong>(Element elt) <a class="anchor-link" href="#blur"
+              title="Permalink to PopupPanel.blur">#</a></h4>
+<div class="doc">
+<p>Remove focus from an dart_html.Element.</p>
+<p>@param elt The dart_html.Element on which &lt;code>blur()&lt;/code> will be invoked</p>
+<pre class="source">
+void blur(dart_html.Element elt) {
+ // Issue 2390: blurring the body causes IE to disappear to the background
+ if (elt.blur != null &amp;&amp; elt != dart_html.document.body) {
+   elt.blur();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="center">
+<button class="show-code">Code</button>
+void <strong>center</strong>() <a class="anchor-link" href="#center"
+              title="Permalink to PopupPanel.center">#</a></h4>
+<div class="doc">
+<p>Centers the popup in the browser window and shows it. If the popup was
+already showing, then the popup is centered.</p>
+<pre class="source">
+void center() {
+ bool initiallyShowing = showing;
+ bool initiallyAnimated = _isAnimationEnabled;
+
+ if (!initiallyShowing) {
+   visible = false;
+   setAnimationEnabled(false);
+   show();
+ }
+
+ // If left/top are set from a previous center() call, and our content
+ // has changed, we may get a bogus getOffsetWidth because our new content
+ // is wrapping (giving a lower offset width) then it would without the
+ // previous left. Setting left/top back to 0 avoids this.
+ dart_html.Element elem = getElement();
+ elem.style.left = "0px";
+ elem.style.top = "0px";
+
+ int left = (Dom.getClientWidth() - getOffsetWidth()) &gt;&gt; 1;
+ int top = (Dom.getClientHeight() - getOffsetHeight()) &gt;&gt; 1;
+ setPopupPosition(dart_math.max(Dom.getScrollLeft() + left, 0),
+     dart_math.max(Dom.getScrollTop() + top, 0));
+
+ if (!initiallyShowing) {
+   setAnimationEnabled(initiallyAnimated);
+   // Run the animation. The popup is already visible, so we can skip the
+   // call to setState.
+   if (initiallyAnimated) {
+     impl.setClip(getElement(), "rect(0px, 0px, 0px, 0px)");
+     visible = true;
+     resizeAnimation.run(ANIMATION_DURATION);
+   } else {
+     visible = true;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="clear">
+<button class="show-code">Code</button>
+void <strong>clear</strong>() <a class="anchor-link" href="#clear"
+              title="Permalink to PopupPanel.clear">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<p>Removes all child widgets.</p>
+<pre class="source">
+void clear() {
+ Iterator&lt;Widget&gt; it = iterator() as Iterator&lt;Widget&gt;;
+ while (it.moveNext()) {
+   (it.current as Widget).removeFromParent();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="clearAndSetStyleName">
+<button class="show-code">Code</button>
+void <strong>clearAndSetStyleName</strong>(String style) <a class="anchor-link" href="#clearAndSetStyleName"
+              title="Permalink to PopupPanel.clearAndSetStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Clears all of the object's style names and sets it to the given style. You
+should normally use {@link #setStylePrimaryName(String)} unless you wish to
+explicitly remove all existing styles.</p>
+<p>@param style the new style name
+@see #setStylePrimaryName(String)</p>
+<pre class="source">
+void clearAndSetStyleName(String style) {
+ setElementStyleName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="createEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>createEventBus</strong>() <a class="anchor-link" href="#createEventBus"
+              title="Permalink to PopupPanel.createEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Creates the <code>SimpleEventBus</code> used by this Widget. You can override
+this method to create a custom <code>EventBus</code>.</p>
+<p>@return the <code>EventBus</code> you want to use.</p>
+<pre class="source">
+EventBus createEventBus() {
+ return new SimpleEventBus();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="delegateEvent">
+<button class="show-code">Code</button>
+void <strong>delegateEvent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> target, <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#delegateEvent"
+              title="Permalink to PopupPanel.delegateEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires an event on a child widget. Used to delegate the handling of an event
+from one widget to another.</p>
+<p>@param event the event
+@param target fire the event on the given target</p>
+<pre class="source">
+void delegateEvent(Widget target, DwtEvent event) {
+ target.fireEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doAttachChildren">
+<button class="show-code">Code</button>
+void <strong>doAttachChildren</strong>() <a class="anchor-link" href="#doAttachChildren"
+              title="Permalink to PopupPanel.doAttachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<div class="inherited">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onAttach()} for each of its
+child widgets.</p>
+<p>@see #onAttach()</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void doAttachChildren() {
+ AttachDetachException.tryCommand(this.iterator(), AttachDetachException.attachCommand);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="doDetachChildren">
+<button class="show-code">Code</button>
+void <strong>doDetachChildren</strong>() <a class="anchor-link" href="#doDetachChildren"
+              title="Permalink to PopupPanel.doDetachChildren">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<div class="inherited">
+<p>If a widget contains one or more child widgets that are not in the logical
+widget hierarchy (the child is physically connected only on the DOM level),
+it must override this method and call {@link #onDetach()} for each of its
+child widgets.</p>
+<p>@see #onDetach()</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void doDetachChildren() {
+ AttachDetachException.tryCommand(this.iterator(), AttachDetachException.detachCommand);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="ensureHandlers">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>ensureHandlers</strong>() <a class="anchor-link" href="#ensureHandlers"
+              title="Permalink to PopupPanel.ensureHandlers">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Ensures the existence of the event bus.</p>
+<p>@return the <code>EventBus</code>.</p>
+<pre class="source">
+EventBus ensureHandlers() {
+ return _eventBus == null ? _eventBus = createEventBus() : _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="eventTargetsPartner">
+<button class="show-code">Code</button>
+bool <strong>eventTargetsPartner</strong>(Event event) <a class="anchor-link" href="#eventTargetsPartner"
+              title="Permalink to PopupPanel.eventTargetsPartner">#</a></h4>
+<div class="doc">
+<p>Does the event target one of the partner elements?</p>
+<p>@param event the event
+@return true if the event targets a partner</p>
+<pre class="source">
+bool eventTargetsPartner(dart_html.Event event) {
+ if (autoHidePartners == null) {
+   return false;
+ }
+
+ dart_html.EventTarget target = event.target;
+ if (target is dart_html.Element) {
+   for (dart_html.Element elem in autoHidePartners) {
+     if (Dom.isOrHasChild(elem, target as dart_html.Element)) {
+       return true;
+     }
+   }
+ }
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="eventTargetsPopup">
+<button class="show-code">Code</button>
+bool <strong>eventTargetsPopup</strong>(Event event) <a class="anchor-link" href="#eventTargetsPopup"
+              title="Permalink to PopupPanel.eventTargetsPopup">#</a></h4>
+<div class="doc">
+<p>Does the event target this popup?</p>
+<p>@param event the event
+@return true if the event targets the popup</p>
+<pre class="source">
+bool eventTargetsPopup(dart_html.Event event) {
+ dart_html.EventTarget target = event.target;
+ if (target is dart_html.Element) {
+   return Dom.isOrHasChild(getElement(), target as dart_html.Element);
+ }
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="extractLengthValue">
+<button class="show-code">Code</button>
+double <strong>extractLengthValue</strong>(String s) <a class="anchor-link" href="#extractLengthValue"
+              title="Permalink to PopupPanel.extractLengthValue">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Intended to be used to pull the value out of a CSS length. If the
+value is "auto" or "inherit", 0 will be returned.</p>
+<p>@param s The CSS length string to extract
+@return The leading numeric portion of &lt;code>s&lt;/code>, or 0 if "auto" or</p>
+<pre><code>    "inherit" are passed in.
+</code></pre>
+<pre class="source">
+double extractLengthValue(String s) {
+ if (s == "auto" || s == "inherit" || s == "") {
+   return 0.0;
+ } else {
+   // numberRegex divides the string into a leading numeric portion
+   // followed by an arbitrary portion.
+   if(numberRegex.hasMatch(s)) {
+     // Extract the leading numeric portion of string
+     s = numberRegex.firstMatch(s)[0];
+   }
+   return double.parse(s);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to PopupPanel.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<code>UmbrellaException</code> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+<pre class="source">
+void fireEvent(DwtEvent event) {
+//    if (_eventBus != null) {
+//      _eventBus.fireEvent(event);
+//    }
+ if (_eventBus != null) {
+   // If it not live we should revive it.
+   if (!event.isLive()) {
+     event.revive();
+   }
+   Object oldSource = event.getSource();
+   event.overrideSource(getElement());
+   try {
+
+     // May throw an UmbrellaException.
+     _eventBus.fireEventFromSource(event, getElement());
+   } on UmbrellaException catch (e) {
+     throw new UmbrellaException(e.causes);
+   } finally {
+     if (oldSource == null) {
+       // This was my event, so I should kill it now that I'm done.
+       event.kill();
+     } else {
+       // Restoring the source for the next handler to use.
+       event.overrideSource(oldSource);
+     }
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteLeft">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteLeft</strong>() <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to PopupPanel.getAbsoluteLeft">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute left position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute left position</p>
+<pre class="source">
+int getAbsoluteLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getAbsoluteTop">
+<button class="show-code">Code</button>
+int <strong>getAbsoluteTop</strong>() <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to PopupPanel.getAbsoluteTop">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the object's absolute top position in pixels, as measured from the
+browser window's client area.</p>
+<p>@return the object's absolute top position</p>
+<pre class="source">
+int getAbsoluteTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getContainerElement">
+<button class="show-code">Code</button>
+Element <strong>getContainerElement</strong>() <a class="anchor-link" href="#getContainerElement"
+              title="Permalink to PopupPanel.getContainerElement">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Override this method to specify that an element other than the root element
+be the container for the panel's child widget. This can be useful when you
+want to create a simple panel that decorates its contents.</p>
+<p>Note that this method continues to return the
+{@link com.google.gwt.user.client.Element} class defined in the
+&lt;code>User&lt;/code> module to maintain backwards compatibility.</p>
+<p>@return the element to be used as the panel's container</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div></div>
+<pre class="source">
+dart_html.Element getContainerElement() {
+ return impl.getContainerElement(getPopupImplElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>() <a class="anchor-link" href="#getElement"
+              title="Permalink to PopupPanel.getElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets this object's browser element.</p>
+<pre class="source">
+dart_html.Element getElement() {
+ assert (_element != null); // : MISSING_ELEMENT_ERROR;
+ return _element;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getEventBus">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>getEventBus</strong>() <a class="anchor-link" href="#getEventBus"
+              title="Permalink to PopupPanel.getEventBus">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Return EventBus.</p>
+<pre class="source">
+EventBus getEventBus() {
+ return _eventBus;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getGlassElement">
+<button class="show-code">Code</button>
+Element <strong>getGlassElement</strong>() <a class="anchor-link" href="#getGlassElement"
+              title="Permalink to PopupPanel.getGlassElement">#</a></h4>
+<div class="doc">
+<p>Get the glass element used by this {@link PopupPanel}. The element is not
+created until it is enabled via {@link #setGlassEnabled(bool)}.</p>
+<p>@return the glass element, or null if not created</p>
+<pre class="source">
+dart_html.Element getGlassElement() {
+ return glass;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getGlassStyleName">
+<button class="show-code">Code</button>
+String <strong>getGlassStyleName</strong>() <a class="anchor-link" href="#getGlassStyleName"
+              title="Permalink to PopupPanel.getGlassStyleName">#</a></h4>
+<div class="doc">
+<p>Gets the style name to be used on the glass element. By default, this is
+"gwt-PopupPanelGlass".</p>
+<p>@return the glass element's style name</p>
+<pre class="source">
+String getGlassStyleName() {
+ return glassStyleName;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getLayoutData">
+<button class="show-code">Code</button>
+Object <strong>getLayoutData</strong>() <a class="anchor-link" href="#getLayoutData"
+              title="Permalink to PopupPanel.getLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets the panel-defined layout data associated with this widget.</p>
+<p>@return the widget's layout data
+@see #setLayoutData</p>
+<pre class="source">
+Object getLayoutData() {
+ return _layoutData;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOffsetHeight">
+<button class="show-code">Code</button>
+int <strong>getOffsetHeight</strong>() <a class="anchor-link" href="#getOffsetHeight"
+              title="Permalink to PopupPanel.getOffsetHeight">#</a></h4>
+<div class="doc">
+<p>Gets the panel's offset height in pixels. Calls to
+{@link #setHeight(String)} before the panel's child widget is set will not
+influence the offset height.</p>
+<p>@return the object's offset height</p>
+<pre class="source">
+int getOffsetHeight() {
+ return super.getOffsetHeight();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOffsetWidth">
+<button class="show-code">Code</button>
+int <strong>getOffsetWidth</strong>() <a class="anchor-link" href="#getOffsetWidth"
+              title="Permalink to PopupPanel.getOffsetWidth">#</a></h4>
+<div class="doc">
+<p>Gets the panel's offset width in pixels. Calls to {@link #setWidth(String)}
+before the panel's child widget is set will not influence the offset width.</p>
+<p>@return the object's offset width</p>
+<pre class="source">
+int getOffsetWidth() {
+ return super.getOffsetWidth();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getParent">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getParent</strong>() <a class="anchor-link" href="#getParent"
+              title="Permalink to PopupPanel.getParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Gets this widget's parent panel.</p>
+<p>@return the widget's parent panel</p>
+<pre class="source">
+Widget getParent() {
+ return _parent;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPopupImplElement">
+<button class="show-code">Code</button>
+Element <strong>getPopupImplElement</strong>() <a class="anchor-link" href="#getPopupImplElement"
+              title="Permalink to PopupPanel.getPopupImplElement">#</a></h4>
+<div class="doc">
+<p>Get the element that {@link PopupImpl} uses. PopupImpl creates an element
+that goes inside of the outer element, so all methods in PopupImpl are
+relative to the first child of the outer element, not the outer element
+itself.</p>
+<p>@return the dart_html.Element that {@link PopupImpl} creates and expects</p>
+<pre class="source">
+dart_html.Element getPopupImplElement() {
+ return super.getContainerElement().$dom_firstChild;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPopupLeft">
+<button class="show-code">Code</button>
+int <strong>getPopupLeft</strong>() <a class="anchor-link" href="#getPopupLeft"
+              title="Permalink to PopupPanel.getPopupLeft">#</a></h4>
+<div class="doc">
+<p>Gets the popup's left position relative to the browser's client area.</p>
+<p>@return the popup's left position</p>
+<pre class="source">
+int getPopupLeft() {
+ return Dom.getAbsoluteLeft(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPopupTop">
+<button class="show-code">Code</button>
+int <strong>getPopupTop</strong>() <a class="anchor-link" href="#getPopupTop"
+              title="Permalink to PopupPanel.getPopupTop">#</a></h4>
+<div class="doc">
+<p>Gets the popup's top position relative to the browser's client area.</p>
+<p>@return the popup's top position</p>
+<pre class="source">
+int getPopupTop() {
+ return Dom.getAbsoluteTop(getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleElement">
+<button class="show-code">Code</button>
+Element <strong>getStyleElement</strong>() <a class="anchor-link" href="#getStyleElement"
+              title="Permalink to PopupPanel.getStyleElement">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Template method that returns the element to which style names will be
+applied. By default it returns the root element, but this method may be
+overridden to apply styles to a child element.</p>
+<p>@return the element to which style names will be applied</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div></div>
+<pre class="source">
+dart_html.Element getStyleElement() {
+ return impl.getStyleElement(getPopupImplElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>() <a class="anchor-link" href="#getStyleName"
+              title="Permalink to PopupPanel.getStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets all of the object's style names, as a space-separated list. If you
+wish to retrieve only the primary style name, call
+{@link #getStylePrimaryName()}.</p>
+<p>@return the objects's space-separated style names
+@see #getStylePrimaryName()</p>
+<pre class="source">
+String getStyleName() {
+ return getElementStyleName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>() <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to PopupPanel.getStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Gets the primary style name associated with the object.</p>
+<p>@return the object's primary style name
+@see #setStyleName(String)
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+String getStylePrimaryName() {
+ return getElementStylePrimaryName(getStyleElement());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTitle">
+<button class="show-code">Code</button>
+String <strong>getTitle</strong>() <a class="anchor-link" href="#getTitle"
+              title="Permalink to PopupPanel.getTitle">#</a></h4>
+<div class="doc">
+<pre class="source">
+String getTitle() {
+ return Dom.getElementProperty(getContainerElement(), "title");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidget</strong>() <a class="anchor-link" href="#getWidget"
+              title="Permalink to PopupPanel.getWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div><div class="doc">
+<p>Gets the panel's child widget.</p>
+<p>@return the child widget, or &lt;code>null&lt;/code> if none is present</p>
+<pre class="source">
+Widget getWidget() {
+ return widget;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="hide">
+<button class="show-code">Code</button>
+void <strong>hide</strong>([bool autoClosed = false]) <a class="anchor-link" href="#hide"
+              title="Permalink to PopupPanel.hide">#</a></h4>
+<div class="doc">
+<p>Hides the popup and detaches it from the page. This has no effect if it is
+not currently showing.</p>
+<p>@param autoClosed the value that will be passed to</p>
+<pre><code>     {@link CloseHandler#onClose(CloseEvent)} when the popup is closed
+</code></pre>
+<pre class="source">
+void hide([bool autoClosed = false]) {
+ if (!isShowing()) {
+   return;
+ }
+ resizeAnimation.setState(false, false);
+ CloseEvent.fire(this, this, autoClosed);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isAnimationEnabled">
+<button class="show-code">Code</button>
+bool <strong>isAnimationEnabled</strong>() <a class="anchor-link" href="#isAnimationEnabled"
+              title="Permalink to PopupPanel.isAnimationEnabled">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if animations are enabled, false if not.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasAnimation.html">HasAnimation</a> </div></div>
+<pre class="source">
+bool isAnimationEnabled() {
+ return _isAnimationEnabled;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isAttached">
+<button class="show-code">Code</button>
+bool <strong>isAttached</strong>() <a class="anchor-link" href="#isAttached"
+              title="Permalink to PopupPanel.isAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Returns whether or not the receiver is attached to the
+{@link com.google.gwt.dom.client.Document Document}'s
+{@link com.google.gwt.dom.client.BodyElement BodyElement}.</p>
+<p>@return true if attached, false otherwise</p>
+<pre class="source">
+bool isAttached() {
+ return _attached;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isAutoHideEnabled">
+<button class="show-code">Code</button>
+bool <strong>isAutoHideEnabled</strong>() <a class="anchor-link" href="#isAutoHideEnabled"
+              title="Permalink to PopupPanel.isAutoHideEnabled">#</a></h4>
+<div class="doc">
+<p>Returns &lt;code>true&lt;/code> if the popup should be automatically hidden when
+the user clicks outside of it.</p>
+<p>@return true if autoHide is enabled, false if disabled</p>
+<pre class="source">
+bool isAutoHideEnabled() {
+ return autoHide;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isAutoHideOnHistoryEventsEnabled">
+<button class="show-code">Code</button>
+bool <strong>isAutoHideOnHistoryEventsEnabled</strong>() <a class="anchor-link" href="#isAutoHideOnHistoryEventsEnabled"
+              title="Permalink to PopupPanel.isAutoHideOnHistoryEventsEnabled">#</a></h4>
+<div class="doc">
+<p>Returns &lt;code>true&lt;/code> if the popup should be automatically hidden when
+the history token changes, such as when the user presses the browser's back
+button.</p>
+<p>@return true if enabled, false if disabled</p>
+<pre class="source">
+bool isAutoHideOnHistoryEventsEnabled() {
+ return autoHideOnHistoryEvents;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isGlassEnabled">
+<button class="show-code">Code</button>
+bool <strong>isGlassEnabled</strong>() <a class="anchor-link" href="#isGlassEnabled"
+              title="Permalink to PopupPanel.isGlassEnabled">#</a></h4>
+<div class="doc">
+<p>Returns &lt;code>true&lt;/code> if a glass element will be displayed under the
+{@link PopupPanel}.</p>
+<p>@return true if enabled</p>
+<pre class="source">
+bool isGlassEnabled() {
+ return _isGlassEnabled;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isModal">
+<button class="show-code">Code</button>
+bool <strong>isModal</strong>() <a class="anchor-link" href="#isModal"
+              title="Permalink to PopupPanel.isModal">#</a></h4>
+<div class="doc">
+<p>Returns &lt;code>true&lt;/code> if keyboard or mouse events that do not target
+the PopupPanel or its children should be ignored.</p>
+<p>@return true if popup is modal, false if not</p>
+<pre class="source">
+bool isModal() {
+ return modal;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isOrWasAttached">
+<button class="show-code">Code</button>
+bool <strong>isOrWasAttached</strong>() <a class="anchor-link" href="#isOrWasAttached"
+              title="Permalink to PopupPanel.isOrWasAttached">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Has this widget ever been attached?</p>
+<p>@return true if this widget ever been attached to the DOM, false otherwise</p>
+<pre class="source">
+bool isOrWasAttached() {
+ return eventsToSink == -1;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isPreviewingAllNativeEvents">
+<button class="show-code">Code</button>
+bool <strong>isPreviewingAllNativeEvents</strong>() <a class="anchor-link" href="#isPreviewingAllNativeEvents"
+              title="Permalink to PopupPanel.isPreviewingAllNativeEvents">#</a></h4>
+<div class="doc">
+<p>Returns &lt;code>true&lt;/code> if the popup should preview all events,
+even if the event has already been consumed by another popup.</p>
+<p>@return true if previewAllNativeEvents is enabled, false if disabled</p>
+<pre class="source">
+bool isPreviewingAllNativeEvents() {
+ return previewAllNativeEvents;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isShowing">
+<button class="show-code">Code</button>
+bool <strong>isShowing</strong>() <a class="anchor-link" href="#isShowing"
+              title="Permalink to PopupPanel.isShowing">#</a></h4>
+<div class="doc">
+<p>Determines whether or not this popup is showing.</p>
+<p>@return &lt;code>true&lt;/code> if the popup is showing
+@see #show()
+@see #hide()</p>
+<pre class="source">
+bool isShowing() {
+ return showing;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="iterator">
+<button class="show-code">Code</button>
+Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; <strong>iterator</strong>() <a class="anchor-link" href="#iterator"
+              title="Permalink to PopupPanel.iterator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterator</code> that iterates over this <code>Iterable</code> object.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<pre class="source">
+Iterator&lt;Widget&gt; iterator() {
+ // Return a simple iterator that enumerates the 0 or 1 elements in this
+ // panel.
+ return new SimplePanelIterator(this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="maybeUpdateSize">
+<button class="show-code">Code</button>
+void <strong>maybeUpdateSize</strong>() <a class="anchor-link" href="#maybeUpdateSize"
+              title="Permalink to PopupPanel.maybeUpdateSize">#</a></h4>
+<div class="doc">
+<p>We control size by setting our child widget's size. However, if we don't
+currently have a child, we record the size the user wanted so that when we
+do get a child, we can set it correctly. Until size is explicitly cleared,
+any child put into the popup will be given that size.</p>
+<pre class="source">
+void maybeUpdateSize() {
+ // For subclasses of PopupPanel, we want the default behavior of setWidth
+ // and setHeight to change the dimensions of PopupPanel's child widget.
+ // We do this because PopupPanel's child widget is the first widget in
+ // the hierarchy which provides structure to the panel. DialogBox is
+ // an example of this. We want to set the dimensions on DialogBox's
+ // FlexTable, which is PopupPanel's child widget. However, it is not
+ // DialogBox's child widget. To make sure that we are actually getting
+ // PopupPanel's child widget, we have to use super.getWidget().
+ Widget w = super.getWidget();
+ if (w != null) {
+   if (desiredHeight != null) {
+     w.setHeight(desiredHeight);
+   }
+   if (desiredWidth != null) {
+     w.setWidth(desiredWidth);
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to PopupPanel.onAttach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is attached to the browser's document.
+To receive notification after a Widget has been added to the document,
+override the {@link #onLoad} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onLoad()} or
+{@link #doAttachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onAttach()</code> to ensure that the Widget has been attached
+to its underlying Element.
+</p>
+<p>@throws IllegalStateException if this widget is already attached
+@see #onLoad()
+@see #doAttachChildren()</p>
+<pre class="source">
+void onAttach() {
+ if (isAttached()) {
+   throw new Exception("Should only call onAttach when the widget is detached from the browser's document");
+ }
+
+ _attached = true;
+
+ // Event hookup code
+ Dom.setEventListener(getElement(), this);
+ int bitsToAdd = eventsToSink;
+ eventsToSink = -1;
+ if (bitsToAdd &gt; 0) {
+   sinkEvents(bitsToAdd);
+ }
+ doAttachChildren();
+
+ // onLoad() gets called only *after* all of the children are attached and
+ // the attached flag is set. This allows widgets to be notified when they
+ // are fully attached, and panels when all of their children are attached.
+ onLoad();
+ AttachEvent.fire(this, true);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onBrowserEvent">
+<button class="show-code">Code</button>
+void <strong>onBrowserEvent</strong>(Event event) <a class="anchor-link" href="#onBrowserEvent"
+              title="Permalink to PopupPanel.onBrowserEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Fired whenever a browser event is received.</p>
+<p>@param event the event received</p>
+<p>TODO</p>
+<pre class="source">
+void onBrowserEvent(dart_html.Event event) {
+ switch (Dom.eventGetType(event)) {
+   case IEvent.ONMOUSEOVER:
+     // Only fire the mouse over event if it's coming from outside this
+     // widget.
+   case IEvent.ONMOUSEOUT:
+     // Only fire the mouse over event if it's coming from outside this widget.
+     // Only fire the mouse out event if it's leaving this widget.
+     dart_html.Element related = (event as dart_html.MouseEvent).relatedTarget as dart_html.Element;
+     if (related != null &amp;&amp; Dom.isOrHasChild(getElement(), related)) {
+       return;
+     }
+     break;
+ }
+
+ DomEvent.fireNativeEvent(event, this, this.getElement());
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to PopupPanel.onDetach">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>
+This method is called when a widget is detached from the browser's
+document. To receive notification before a Widget is removed from the
+document, override the {@link #onUnload} method or use {@link #addAttachHandler}.
+</p>
+<p>
+It is strongly recommended that you override {@link #onUnload()} or
+{@link #doDetachChildren()} instead of this method to avoid inconsistencies
+between logical and physical attachment states.
+</p>
+<p>
+Subclasses that override this method must call
+<code>super.onDetach()</code> to ensure that the Widget has been detached
+from the underlying Element. Failure to do so will result in application
+memory leaks due to circular references between DOM Elements and JavaScript
+objects.
+</p>
+<p>@throws IllegalStateException if this widget is already detached
+@see #onUnload()
+@see #doDetachChildren()</p>
+<pre class="source">
+void onDetach() {
+ if (!isAttached()) {
+   throw new Exception("Should only call onDetach when the widget is attached to the browser's document");
+ }
+
+ try {
+   // onUnload() gets called *before* everything else (the opposite of
+   // onLoad()).
+   onUnload();
+   AttachEvent.fire(this, false);
+ } finally {
+   // Put this in a finally, just in case onUnload throws an exception.
+   try {
+     doDetachChildren();
+   } finally {
+     // Put this in a finally, in case doDetachChildren throws an exception.
+     Dom.setEventListener(getElement(), null);
+     _attached = false;
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onEventPreview">
+<button class="show-code">Code</button>
+bool <strong>onEventPreview</strong>(<a href="../dart_web_toolkit_event/NativePreviewEvent.html">NativePreviewEvent</a> event) <a class="anchor-link" href="#onEventPreview"
+              title="Permalink to PopupPanel.onEventPreview">#</a></h4>
+<div class="doc">
+<p>@deprecated Use {@link #onPreviewNativeEvent} instead</p>
+<pre class="source">
+bool onEventPreview(NativePreviewEvent event) {
+ return true;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onLoad">
+<button class="show-code">Code</button>
+void <strong>onLoad</strong>() <a class="anchor-link" href="#onLoad"
+              title="Permalink to PopupPanel.onLoad">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>This method is called immediately after a widget becomes attached to the
+browser's document.</p>
+<pre class="source">
+void onLoad() {
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onPreviewNativeEvent">
+<button class="show-code">Code</button>
+void <strong>onPreviewNativeEvent</strong>(<a href="../dart_web_toolkit_event/NativePreviewEvent.html">NativePreviewEvent</a> event) <a class="anchor-link" href="#onPreviewNativeEvent"
+              title="Permalink to PopupPanel.onPreviewNativeEvent">#</a></h4>
+<div class="doc">
+<pre class="source">
+void onPreviewNativeEvent(NativePreviewEvent event) {
+ // Cancel the event based on the deprecated onEventPreview() method
+ if (event.isFirstHandler() &amp;&amp; !onEventPreview(event)) {
+   event.cancel();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onUnload">
+<button class="show-code">Code</button>
+void <strong>onUnload</strong>() <a class="anchor-link" href="#onUnload"
+              title="Permalink to PopupPanel.onUnload">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>This method is called immediately before a widget will be detached from the
+browser's document.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div></div>
+<pre class="source">
+void onUnload() {
+ super.onUnload();
+
+ // Just to be sure, we perform cleanup when the popup is unloaded (i.e.
+ // removed from the Dom). This is normally taken care of in hide(), but it
+ // can be missed if someone removes the popup directly from the RootPanel.
+ if (isShowing()) {
+   resizeAnimation.setState(false, true);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="orphan">
+<button class="show-code">Code</button>
+void <strong>orphan</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child) <a class="anchor-link" href="#orphan"
+              title="Permalink to PopupPanel.orphan">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<p>
+This method must be called as part of the remove method of any Panel. It
+ensures that the Widget's parent is cleared. This method should be called
+after verifying that the child Widget is an existing child of the Panel,
+but before physically removing the child Widget from the DOM. The child
+will now fire its {@link Widget#onDetach()} event if this Panel is
+currently attached.
+</p>
+<p>
+Calls to {@link #orphan(Widget)} should be wrapped in a try/finally block
+to ensure that the widget is physically detached even if orphan throws an
+exception.
+</p>
+<p>@param child the widget to be disowned
+@see #add(Widget)</p>
+<pre class="source">
+void orphan(Widget child) {
+ assert (child.getParent() == this);
+ child.setParent(null);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="position">
+<button class="show-code">Code</button>
+void <strong>position</strong>(<a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> relativeObject, int offsetWidth, int offsetHeight) <a class="anchor-link" href="#position"
+              title="Permalink to PopupPanel.position">#</a></h4>
+<div class="doc">
+<p>Positions the popup, called after the offset width and height of the popup
+are known.</p>
+<p>@param relativeObject the ui object to position relative to
+@param offsetWidth the drop down's offset width
+@param offsetHeight the drop down's offset height</p>
+<pre class="source">
+void position(final UiObject relativeObject, int offsetWidth,
+   int offsetHeight) {
+ // Calculate left position for the popup. The computation for
+ // the left position is bidi-sensitive.
+
+ int textBoxOffsetWidth = relativeObject.getOffsetWidth();
+
+ // Compute the difference between the popup's width and the
+ // textbox's width
+ int offsetWidthDiff = offsetWidth - textBoxOffsetWidth;
+
+ int left;
+
+ if (LocaleInfo.getCurrentLocale().isRTL()) { // RTL case
+
+   int textBoxAbsoluteLeft = relativeObject.getAbsoluteLeft();
+
+   // Right-align the popup. Note that this computation is
+   // valid in the case where offsetWidthDiff is negative.
+   left = textBoxAbsoluteLeft - offsetWidthDiff;
+
+   // If the suggestion popup is not as wide as the text box, always
+   // align to the right edge of the text box. Otherwise, figure out whether
+   // to right-align or left-align the popup.
+   if (offsetWidthDiff &gt; 0) {
+
+     // Make sure scrolling is taken into account, since
+     // box.getAbsoluteLeft() takes scrolling into account.
+     int windowRight = Dom.getClientWidth() + Dom.getScrollLeft();
+     int windowLeft = Dom.getScrollLeft();
+
+     // Compute the left value for the right edge of the textbox
+     int textBoxLeftValForRightEdge = textBoxAbsoluteLeft
+         + textBoxOffsetWidth;
+
+     // Distance from the right edge of the text box to the right edge
+     // of the window
+     int distanceToWindowRight = windowRight - textBoxLeftValForRightEdge;
+
+     // Distance from the right edge of the text box to the left edge of the
+     // window
+     int distanceFromWindowLeft = textBoxLeftValForRightEdge - windowLeft;
+
+     // If there is not enough space for the overflow of the popup's
+     // width to the right of the text box and there IS enough space for the
+     // overflow to the right of the text box, then left-align the popup.
+     // However, if there is not enough space on either side, stick with
+     // right-alignment.
+     if (distanceFromWindowLeft &lt; offsetWidth
+         &amp;&amp; distanceToWindowRight &gt;= offsetWidthDiff) {
+       // Align with the left edge of the text box.
+       left = textBoxAbsoluteLeft;
+     }
+   }
+ } else { // LTR case
+
+   // Left-align the popup.
+   left = relativeObject.getAbsoluteLeft();
+
+   // If the suggestion popup is not as wide as the text box, always align to
+   // the left edge of the text box. Otherwise, figure out whether to
+   // left-align or right-align the popup.
+   if (offsetWidthDiff &gt; 0) {
+     // Make sure scrolling is taken into account, since
+     // box.getAbsoluteLeft() takes scrolling into account.
+     int windowRight = Dom.getClientWidth() + Dom.getScrollLeft();
+     int windowLeft = Dom.getScrollLeft();
+
+     // Distance from the left edge of the text box to the right edge
+     // of the window
+     int distanceToWindowRight = windowRight - left;
+
+     // Distance from the left edge of the text box to the left edge of the
+     // window
+     int distanceFromWindowLeft = left - windowLeft;
+
+     // If there is not enough space for the overflow of the popup's
+     // width to the right of hte text box, and there IS enough space for the
+     // overflow to the left of the text box, then right-align the popup.
+     // However, if there is not enough space on either side, then stick with
+     // left-alignment.
+     if (distanceToWindowRight &lt; offsetWidth
+         &amp;&amp; distanceFromWindowLeft &gt;= offsetWidthDiff) {
+       // Align with the right edge of the text box.
+       left -= offsetWidthDiff;
+     }
+   }
+ }
+
+ // Calculate top position for the popup
+
+ int top = relativeObject.getAbsoluteTop();
+
+ // Make sure scrolling is taken into account, since
+ // box.getAbsoluteTop() takes scrolling into account.
+ int windowTop = Dom.getScrollTop();
+ int windowBottom = Dom.getScrollTop() + Dom.getClientHeight();
+
+ // Distance from the top edge of the window to the top edge of the
+ // text box
+ int distanceFromWindowTop = top - windowTop;
+
+ // Distance from the bottom edge of the window to the bottom edge of
+ // the text box
+ int distanceToWindowBottom = windowBottom
+     - (top + relativeObject.getOffsetHeight());
+
+ // If there is not enough space for the popup's height below the text
+ // box and there IS enough space for the popup's height above the text
+ // box, then then position the popup above the text box. However, if there
+ // is not enough space on either side, then stick with displaying the
+ // popup below the text box.
+ if (distanceToWindowBottom &lt; offsetHeight
+     &amp;&amp; distanceFromWindowTop &gt;= offsetHeight) {
+   top -= offsetHeight;
+ } else {
+   // Position above the text box
+   top += relativeObject.getOffsetHeight();
+ }
+ setPopupPosition(left, top);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="previewNativeEvent">
+<button class="show-code">Code</button>
+void <strong>previewNativeEvent</strong>(<a href="../dart_web_toolkit_event/NativePreviewEvent.html">NativePreviewEvent</a> event) <a class="anchor-link" href="#previewNativeEvent"
+              title="Permalink to PopupPanel.previewNativeEvent">#</a></h4>
+<div class="doc">
+<p>Preview the {@link dart_html.Event}.</p>
+<p>@param event the {@link dart_html.Event}</p>
+<pre class="source">
+void previewNativeEvent(NativePreviewEvent event) {
+ // If the event has been canceled or consumed, ignore it
+ if (event.isCanceled() || (!previewAllNativeEvents &amp;&amp; event.isConsumed())) {
+   // We need to ensure that we cancel the event even if its been consumed so
+   // that popups lower on the stack do not auto hide
+   if (modal) {
+     event.cancel();
+   }
+   return;
+ }
+
+ // Fire the event hook and return if the event is canceled
+ onPreviewNativeEvent(event);
+ if (event.isCanceled()) {
+   return;
+ }
+
+ // If the event targets the popup or the partner, consume it
+ dart_html.Event nativeEvent = event.getNativeEvent();
+ bool eventTargetsPopupOrPartner = eventTargetsPopup(nativeEvent) || eventTargetsPartner(nativeEvent);
+ if (eventTargetsPopupOrPartner) {
+   event.consume();
+ }
+
+ // Cancel the event if it doesn't target the modal popup. Note that the
+ // event can be both canceled and consumed.
+ if (modal) {
+   event.cancel();
+ }
+
+ // Switch on the event type
+ int type = IEvent.getTypeInt(nativeEvent.type);
+ switch (type) {
+//      case IEvent.ONKEYDOWN:
+//        if (!onKeyDownPreview((char) nativeEvent.getKeyCode(),
+//            KeyboardListenerCollection.getKeyboardModifiers(nativeEvent))) {
+//          event.cancel();
+//        }
+//        return;
+//      case IEvent.ONKEYUP:
+//        if (!onKeyUpPreview((char) nativeEvent.getKeyCode(),
+//            KeyboardListenerCollection.getKeyboardModifiers(nativeEvent))) {
+//          event.cancel();
+//        }
+//        return;
+//      case IEvent.ONKEYPRESS:
+//        if (!onKeyPressPreview((char) nativeEvent.getKeyCode(),
+//            KeyboardListenerCollection.getKeyboardModifiers(nativeEvent))) {
+//          event.cancel();
+//        }
+//        return;
+//
+   case IEvent.ONMOUSEDOWN:
+     // Don't eat events if event capture is enabled, as this can
+     // interfere with dialog dragging, for example.
+     if (Dom.getCaptureElement() != null) {
+       event.consume();
+       return;
+     }
+
+     if (!eventTargetsPopupOrPartner &amp;&amp; autoHide) {
+       hide(true);
+       return;
+     }
+     break;
+   case IEvent.ONMOUSEUP:
+   case IEvent.ONMOUSEMOVE:
+   case IEvent.ONCLICK:
+   case IEvent.ONDBLCLICK:
+     // Don't eat events if event capture is enabled, as this can
+     // interfere with dialog dragging, for example.
+     if (Dom.getCaptureElement() != null) {
+       event.consume();
+       return;
+     }
+     break;
+
+   case IEvent.ONFOCUS:
+     dart_html.Element target = nativeEvent.target as dart_html.Element;
+     if (modal &amp;&amp; !eventTargetsPopupOrPartner &amp;&amp; (target != null)) {
+       blur(target);
+       event.cancel();
+       return;
+     }
+     break;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="remove">
+<button class="show-code">Code</button>
+bool <strong>remove</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#remove"
+              title="Permalink to PopupPanel.remove">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div><div class="doc">
+<div class="inherited">
+<p>Removes a child widget.</p><p>
+<b>How to Override this Method</b>
+</p>
+<p>
+There are several important things that must take place in the correct
+order to properly remove a Widget from a Panel. Not all of these steps will
+be relevant to every Panel, but all of the steps must be considered.
+<ol>
+<li><b>Validate:</b> Make sure this Panel is actually the parent of the
+child Widget; return <code>false</code> if it is not.</li>
+<li><b>Orphan:</b> Call {@link #orphan(Widget)} first while the child
+Widget is still attached.</li>
+<li><b>Physical Detach:</b> Adjust the DOM to account for the removal of
+the child Widget. The Widget's Element must be physically removed from the
+DOM.</li>
+<li><b>Logical Detach:</b> Update the Panel's state variables to reflect
+the removal of the child Widget. Example: the Widget is removed from the
+Panel's {@link WidgetCollection}.</li>
+</ol>
+</p>
+<p>@param child the widget to be removed
+@return &lt;code>true&lt;/code> if the child was present</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div></div>
+<pre class="source">
+bool remove(Widget w) {
+ // Validate.
+ if (widget != w) {
+   return false;
+ }
+
+ // Orphan.
+ try {
+   orphan(w);
+ } finally {
+   // Physical detach.
+   w.getElement().remove();
+
+   // Logical detach.
+   widget = null;
+ }
+ return true;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeAutoHidePartner">
+<button class="show-code">Code</button>
+void <strong>removeAutoHidePartner</strong>(Element partner) <a class="anchor-link" href="#removeAutoHidePartner"
+              title="Permalink to PopupPanel.removeAutoHidePartner">#</a></h4>
+<div class="doc">
+<p>Remove an autoHide partner.</p>
+<p>@param partner the auto hide partner to remove</p>
+<pre class="source">
+void removeAutoHidePartner(dart_html.Element partner) {
+ assert (partner != null); // : "partner cannot be null";
+ if (autoHidePartners != null) {
+   //autoHidePartners.remove(partner);
+   partner.remove();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeFromParent">
+<button class="show-code">Code</button>
+void <strong>removeFromParent</strong>() <a class="anchor-link" href="#removeFromParent"
+              title="Permalink to PopupPanel.removeFromParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Removes this widget from its parent widget, if one exists.</p><p>
+If it has no parent, this method does nothing. If it is a "root" widget
+(meaning it's been added to the detach list via
+{@link RootPanel#detachOnWindowClose(Widget)}), it will be removed from the
+detached immediately. This makes it possible for Composites and Panels to
+adopt root widgets.
+</p>
+<p>@throws IllegalStateException if this widget's parent does not support</p>
+<pre><code>      removal (e.g. {@link Composite})
+</code></pre>
+<pre class="source">
+void removeFromParent() {
+ if (_parent == null) {
+   // If the widget had no parent, check to see if it was in the detach list
+   // and remove it if necessary.
+   if (RootPanel.isInDetachList(this)) {
+     RootPanel.detachNow(this);
+   }
+ } else if (_parent is HasWidgets) {
+   (_parent as HasWidgets).remove(this);
+ } else if (_parent != null) {
+   throw new Exception("This widget's parent does not implement HasWidgets");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeIsWidget">
+<button class="show-code">Code</button>
+bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> child) <a class="anchor-link" href="#removeIsWidget"
+              title="Permalink to PopupPanel.removeIsWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
+<pre class="source">
+bool removeIsWidget(IsWidget child) {
+ return remove(asWidgetOrNull(child));
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>removeStyleDependentName</strong>(String styleSuffix) <a class="anchor-link" href="#removeStyleDependentName"
+              title="Permalink to PopupPanel.removeStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a dependent style name by specifying the style name's suffix.</p>
+<p>@param styleSuffix the suffix of the dependent style to be removed
+@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleDependentName(String, boolean)</p>
+<pre class="source">
+void removeStyleDependentName(String styleSuffix) {
+ setStyleDependentName(styleSuffix, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(String style) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to PopupPanel.removeStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a style name. This method is typically used to remove secondary
+style names, but it can be used to remove primary stylenames as well. That
+use is not recommended.</p>
+<p>@param style the secondary style name to be removed
+@see #addStyleName(String)
+@see #setStyleName(String, boolean)</p>
+<pre class="source">
+void removeStyleName(String style) {
+ setStyleName(style, false);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="replaceElement">
+<button class="show-code">Code</button>
+void <strong>replaceElement</strong>(Element elem) <a class="anchor-link" href="#replaceElement"
+              title="Permalink to PopupPanel.replaceElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Replaces this object's browser element.</p>
+<p>This method exists only to support a specific use-case in Image, and should
+not be used by other classes.</p>
+<p>@param elem the object's new element</p>
+<pre class="source">
+void replaceElement(dart_html.Element elem) {
+ if (isAttached()) {
+   // Remove old event listener to avoid leaking. onDetach will not do this
+   // for us, because it is only called when the widget itself is detached
+   // from the document.
+   Dom.setEventListener(getElement(), null);
+ }
+
+ super.replaceElement(elem);
+
+ if (isAttached()) {
+   // Hook the event listener back up on the new element. onAttach will not
+   // do this for us, because it is only called when the widget itself is
+   // attached to the document.
+   Dom.setEventListener(getElement(), this);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAnimation">
+<button class="show-code">Code</button>
+void <strong>setAnimation</strong>(<a href="../dart_web_toolkit_ui/ResizeAnimation.html">ResizeAnimation</a> animation) <a class="anchor-link" href="#setAnimation"
+              title="Permalink to PopupPanel.setAnimation">#</a></h4>
+<div class="doc">
+<p>Sets the animation used to animate this popup. Used by gwt-incubator to
+allow DropDownPanel to override the default popup animation. Not protected
+because the exact API may change in gwt 1.6.</p>
+<p>@param animation the animation to use for this popup</p>
+<pre class="source">
+void setAnimation(ResizeAnimation animation) {
+ resizeAnimation = animation;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAnimationEnabled">
+<button class="show-code">Code</button>
+void <strong>setAnimationEnabled</strong>(bool enable) <a class="anchor-link" href="#setAnimationEnabled"
+              title="Permalink to PopupPanel.setAnimationEnabled">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Enable or disable animations.</p>
+<p>@param enable true to enable, false to disable</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasAnimation.html">HasAnimation</a> </div></div>
+<pre class="source">
+void setAnimationEnabled(bool enable) {
+ _isAnimationEnabled = enable;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAnimationType">
+<button class="show-code">Code</button>
+void <strong>setAnimationType</strong>(<a href="../dart_web_toolkit_util/AnimationType.html">AnimationType</a> type) <a class="anchor-link" href="#setAnimationType"
+              title="Permalink to PopupPanel.setAnimationType">#</a></h4>
+<div class="doc">
+<p>Enable or disable animation of the {@link PopupPanel}.</p>
+<p>@param type the type of animation to use</p>
+<pre class="source">
+void setAnimationType(AnimationType type) {
+ animType = type;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAutoHideEnabled">
+<button class="show-code">Code</button>
+void <strong>setAutoHideEnabled</strong>(bool autoHide) <a class="anchor-link" href="#setAutoHideEnabled"
+              title="Permalink to PopupPanel.setAutoHideEnabled">#</a></h4>
+<div class="doc">
+<p>Enable or disable the autoHide feature. When enabled, the popup will be
+automatically hidden when the user clicks outside of it.</p>
+<p>@param autoHide true to enable autoHide, false to disable</p>
+<pre class="source">
+void setAutoHideEnabled(bool autoHide) {
+ this.autoHide = autoHide;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAutoHideOnHistoryEventsEnabled">
+<button class="show-code">Code</button>
+void <strong>setAutoHideOnHistoryEventsEnabled</strong>(bool enabled) <a class="anchor-link" href="#setAutoHideOnHistoryEventsEnabled"
+              title="Permalink to PopupPanel.setAutoHideOnHistoryEventsEnabled">#</a></h4>
+<div class="doc">
+<p>Enable or disable autoHide on history change events. When enabled, the
+popup will be automatically hidden when the history token changes, such as
+when the user presses the browser's back button. Disabled by default.</p>
+<p>@param enabled true to enable, false to disable</p>
+<pre class="source">
+void setAutoHideOnHistoryEventsEnabled(bool enabled) {
+ this.autoHideOnHistoryEvents = enabled;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element elem) <a class="anchor-link" href="#setElement"
+              title="Permalink to PopupPanel.setElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets this object's browser element. UIObject subclasses must call this
+method before attempting to call any other methods, and it may only be
+called once.</p>
+<p>@param elem the object's element</p>
+<pre class="source">
+void setElement(dart_html.Element elem) {
+ assert (_element == null);
+ this._element = elem;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setGlassEnabled">
+<button class="show-code">Code</button>
+void <strong>setGlassEnabled</strong>(bool enabled) <a class="anchor-link" href="#setGlassEnabled"
+              title="Permalink to PopupPanel.setGlassEnabled">#</a></h4>
+<div class="doc">
+<p>When enabled, the background will be blocked with a semi-transparent pane
+the next time it is shown. If the PopupPanel is already visible, the glass
+will not be displayed until it is hidden and shown again.</p>
+<p>@param enabled true to enable, false to disable</p>
+<pre class="source">
+void setGlassEnabled(bool enabled) {
+ this._isGlassEnabled = enabled;
+ if (enabled &amp;&amp; glass == null) {
+   glass = new dart_html.DivElement();
+   glass.$dom_className = glassStyleName;
+
+   glass.style.position = Position.ABSOLUTE.value;
+   glass.style.left = "0" + Unit.PX.value;
+   glass.style.top = "0" + Unit.PX.value;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setGlassStyleName">
+<button class="show-code">Code</button>
+void <strong>setGlassStyleName</strong>(String glassStyleName) <a class="anchor-link" href="#setGlassStyleName"
+              title="Permalink to PopupPanel.setGlassStyleName">#</a></h4>
+<div class="doc">
+<p>Sets the style name to be used on the glass element. By default, this is
+"gwt-PopupPanelGlass".</p>
+<p>@param glassStyleName the glass element's style name</p>
+<pre class="source">
+void setGlassStyleName(String glassStyleName) {
+ this.glassStyleName = glassStyleName;
+ if (glass != null) {
+   glass.$dom_className = glassStyleName;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to PopupPanel.setHeight">#</a></h4>
+<div class="doc">
+<p>Sets the height of the panel's child widget. If the panel's child widget
+has not been set, the height passed in will be cached and used to set the
+height immediately after the child widget is set.</p><p>
+Note that subclasses may have a different behavior. A subclass may decide
+not to change the height of the child widget. It may instead decide to
+change the height of an internal panel widget, which contains the child
+widget.
+</p>
+<p>@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setHeight(String height) {
+ desiredHeight = height;
+ maybeUpdateSize();
+ // If the user cleared the size, revert to not trying to control children.
+ if (height.length == 0) {
+   desiredHeight = null;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setLayoutData">
+<button class="show-code">Code</button>
+void <strong>setLayoutData</strong>(Object value) <a class="anchor-link" href="#setLayoutData"
+              title="Permalink to PopupPanel.setLayoutData">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets the panel-defined layout data associated with this widget. Only the
+panel that currently contains a widget should ever set this value. It
+serves as a place to store layout bookkeeping data associated with a
+widget.</p>
+<p>@param layoutData the widget's layout data</p>
+<pre class="source">
+void setLayoutData(Object value) {
+ this._layoutData = value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setModal">
+<button class="show-code">Code</button>
+void <strong>setModal</strong>(bool modal) <a class="anchor-link" href="#setModal"
+              title="Permalink to PopupPanel.setModal">#</a></h4>
+<div class="doc">
+<p>When the popup is modal, keyboard or mouse events that do not target the
+PopupPanel or its children will be ignored.</p>
+<p>@param modal true to make the popup modal</p>
+<pre class="source">
+void setModal(bool modal) {
+ this.modal = modal;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setParent">
+<button class="show-code">Code</button>
+void <strong>setParent</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> parent) <a class="anchor-link" href="#setParent"
+              title="Permalink to PopupPanel.setParent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Sets this widget's parent. This method should only be called by
+{@link Panel} and {@link Composite}.</p>
+<p>@param parent the widget's new parent
+@throws IllegalStateException if &lt;code>parent&lt;/code> is non-null and the</p>
+<pre><code>      widget already has a parent
+</code></pre>
+<pre class="source">
+void setParent(Widget parent) {
+ Widget oldParent = this._parent;
+ if (parent == null) {
+   try {
+     if (oldParent != null &amp;&amp; oldParent.isAttached()) {
+       onDetach();
+       assert (!isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onDetach()";
+     }
+   } finally {
+     // Put this in a finally in case onDetach throws an exception.
+     this._parent = null;
+   }
+ } else {
+   if (oldParent != null) {
+     throw new Exception("Cannot set a new parent without first clearing the old parent");
+   }
+   this._parent = parent;
+   if (parent.isAttached()) {
+     onAttach();
+     assert (isAttached()); // : "Failure of " + this.getClass().getName() + " to call super.onAttach()";
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setPixelSize">
+<button class="show-code">Code</button>
+void <strong>setPixelSize</strong>(int width, int height) <a class="anchor-link" href="#setPixelSize"
+              title="Permalink to PopupPanel.setPixelSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size, in pixels, not including decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in pixels
+@param height the object's new height, in pixels</p>
+<pre class="source">
+void setPixelSize(int width, int height) {
+ if (width &gt;= 0) {
+   setWidth(width.toString() + "px");
+ }
+ if (height &gt;= 0) {
+   setHeight(height.toString() + "px");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPopupPosition">
+<button class="show-code">Code</button>
+void <strong>setPopupPosition</strong>(int left, int top) <a class="anchor-link" href="#setPopupPosition"
+              title="Permalink to PopupPanel.setPopupPosition">#</a></h4>
+<div class="doc">
+<p>Sets the popup's position relative to the browser's client area. The
+popup's position may be set before calling {@link #show()}.</p>
+<p>@param left the left position, in pixels
+@param top the top position, in pixels</p>
+<pre class="source">
+void setPopupPosition(int left, int top) {
+ // Save the position of the popup
+ leftPosition = left;
+ topPosition = top;
+
+ // Account for the difference between absolute position and the
+ // body's positioning context.
+ left -= dart_html.document.body.offset.left;
+ top -= dart_html.document.body.offset.top;
+
+ // Set the popup's position manually, allowing setPopupPosition() to be
+ // called before show() is called (so a popup can be positioned without it
+ // 'jumping' on the screen).
+ dart_html.Element elem = getElement();
+ elem.style.left = left.toString() + Unit.PX.value;
+ elem.style.top = top.toString() + Unit.PX.value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPopupPositionAndShow">
+<button class="show-code">Code</button>
+void <strong>setPopupPositionAndShow</strong>(<a href="../dart_web_toolkit_ui/PopupPanelPositionCallback.html">PopupPanelPositionCallback</a> callback) <a class="anchor-link" href="#setPopupPositionAndShow"
+              title="Permalink to PopupPanel.setPopupPositionAndShow">#</a></h4>
+<div class="doc">
+<p>Sets the popup's position using a {@link PositionCallback}, and shows the
+popup. The callback allows positioning to be performed based on the
+offsetWidth and offsetHeight of the popup, which are normally not available
+until the popup is showing. By positioning the popup before it is shown,
+the the popup will not jump from its original position to the new position.</p>
+<p>@param callback the callback to set the position of the popup
+@see PositionCallback#setPosition(int offsetWidth, int offsetHeight)</p>
+<pre class="source">
+void setPopupPositionAndShow(PopupPanelPositionCallback callback) {
+ visible = false;
+ show();
+ callback.setPosition(getOffsetWidth(), getOffsetHeight());
+ visible = true;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPreviewingAllNativeEvents">
+<button class="show-code">Code</button>
+void <strong>setPreviewingAllNativeEvents</strong>(bool previewAllNativeEvents) <a class="anchor-link" href="#setPreviewingAllNativeEvents"
+              title="Permalink to PopupPanel.setPreviewingAllNativeEvents">#</a></h4>
+<div class="doc">
+<p>
+When enabled, the popup will preview all events, even if another
+popup was opened after this one.
+</p>
+<p>
+If autoHide is enabled, enabling this feature will cause the popup to
+autoHide even if another non-modal popup was shown after it. If this
+feature is disabled, the popup will only autoHide if it was the last popup
+opened.
+</p>
+<p>@param previewAllNativeEvents true to enable, false to disable</p>
+<pre class="source">
+void setPreviewingAllNativeEvents(bool previewAllNativeEvents) {
+ this.previewAllNativeEvents = previewAllNativeEvents;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSize">
+<button class="show-code">Code</button>
+void <strong>setSize</strong>(String width, String height) <a class="anchor-link" href="#setSize"
+              title="Permalink to PopupPanel.setSize">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's size. This size does not include decorations such as
+border, margin, and padding.</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")
+@param height the object's new height, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setSize(String width, String height) {
+ setWidth(width);
+ setHeight(height);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleDependentName">
+<button class="show-code">Code</button>
+void <strong>setStyleDependentName</strong>(String styleSuffix, bool add) <a class="anchor-link" href="#setStyleDependentName"
+              title="Permalink to PopupPanel.setStyleDependentName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a dependent style name by specifying the style name's
+suffix. The actual form of the style name that is added is:</p><pre class="code">
+getStylePrimaryName() + '-' + styleSuffix
+</pre>
+<p>@param styleSuffix the suffix of the dependent style to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #setStylePrimaryName(Element, String)
+@see #addStyleDependentName(String)
+@see #setStyleName(String, boolean)
+@see #removeStyleDependentName(String)</p>
+<pre class="source">
+void setStyleDependentName(String styleSuffix, bool add) {
+ setStyleName(getStylePrimaryName() + '-' + styleSuffix, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(String style, bool add) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to PopupPanel.setStyleName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Adds or removes a style name. This method is typically used to remove
+secondary style names, but it can be used to remove primary stylenames as
+well. That use is not recommended.</p>
+<p>@param style the style name to be added or removed
+@param add &lt;code>true&lt;/code> to add the given style, &lt;code>false&lt;/code> to</p>
+<pre><code>     remove it
+</code></pre>
+<p>@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStyleName(String style, bool add) {
+ manageElementStyleName(getStyleElement(), style, add);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(String style) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to PopupPanel.setStylePrimaryName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sets the object's primary style name and updates all dependent style names.</p>
+<p>@param style the new primary style name
+@see #addStyleName(String)
+@see #removeStyleName(String)</p>
+<pre class="source">
+void setStylePrimaryName(String style) {
+ setElementStylePrimaryName(getStyleElement(), style);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTitle">
+<button class="show-code">Code</button>
+void <strong>setTitle</strong>(String title) <a class="anchor-link" href="#setTitle"
+              title="Permalink to PopupPanel.setTitle">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setTitle(String title) {
+ dart_html.Element containerElement = getContainerElement();
+ if (title == null || title.length == 0) {
+   containerElement.attributes.remove("title");
+ } else {
+   containerElement.title = title;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWidget">
+<button class="show-code">Code</button>
+void <strong>setWidget</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#setWidget"
+              title="Permalink to PopupPanel.setWidget">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Sets this panel's widget. Any existing child widget will be removed.</p>
+<p>@param w the panel's new widget, or &lt;code>null&lt;/code> to clear the panel</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div></div>
+<pre class="source">
+void setWidget(Widget w) {
+ super.setWidget(w);
+ maybeUpdateSize();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setWidgetIsWidget">
+<button class="show-code">Code</button>
+void <strong>setWidgetIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#setWidgetIsWidget"
+              title="Permalink to PopupPanel.setWidgetIsWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a> </div><div class="doc">
+<p>Set the only widget of the receiver, replacing the previous
+widget if there was one.</p>
+<p>@param w the widget, or &lt;code>null&lt;/code> to remove the widget</p>
+<p>@see SimplePanel</p>
+<pre class="source">
+void setWidgetIsWidget(IsWidget w) {
+ setWidget(asWidgetOrNull(w));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to PopupPanel.setWidth">#</a></h4>
+<div class="doc">
+<p>Sets the width of the panel's child widget. If the panel's child widget has
+not been set, the width passed in will be cached and used to set the width
+immediately after the child widget is set.</p><p>
+Note that subclasses may have a different behavior. A subclass may decide
+not to change the width of the child widget. It may instead decide to
+change the width of an internal panel widget, which contains the child
+widget.
+</p>
+<p>@param width the object's new width, in CSS units (e.g. "10px", "1em")</p>
+<pre class="source">
+void setWidth(String width) {
+ desiredWidth = width;
+ maybeUpdateSize();
+ // If the user cleared the size, revert to not trying to control children.
+ if (width.length == 0) {
+   desiredWidth = null;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="show">
+<button class="show-code">Code</button>
+void <strong>show</strong>() <a class="anchor-link" href="#show"
+              title="Permalink to PopupPanel.show">#</a></h4>
+<div class="doc">
+<p>Shows the popup and attach it to the page. It must have a child widget
+before this method is called.</p>
+<pre class="source">
+void show() {
+ if (showing) {
+   return;
+ } else if (isAttached()) {
+   // The popup is attached directly to another panel, so we need to remove
+   // it from its parent before showing it. This is a weird use case, but
+   // since PopupPanel is a Widget, its legal.
+   this.removeFromParent();
+ }
+ resizeAnimation.setState(true, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="showRelativeTo">
+<button class="show-code">Code</button>
+void <strong>showRelativeTo</strong>(<a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> target) <a class="anchor-link" href="#showRelativeTo"
+              title="Permalink to PopupPanel.showRelativeTo">#</a></h4>
+<div class="doc">
+<p>Normally, the popup is positioned directly below the relative target, with
+its left edge aligned with the left edge of the target. Depending on the
+width and height of the popup and the distance from the target to the
+bottom and right edges of the window, the popup may be displayed directly
+above the target, and/or its right edge may be aligned with the right edge
+of the target.</p>
+<p>@param target the target to show the popup below</p>
+<pre class="source">
+void showRelativeTo(UiObject target) {
+ // Set the position of the popup right before it is shown.
+ setPopupPositionAndShow(new ShowPositionCallback(this, target));
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkBitlessEvent">
+<button class="show-code">Code</button>
+void <strong>sinkBitlessEvent</strong>(String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to PopupPanel.sinkBitlessEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Sinks a named event. Note that only {@link Widget widgets} may actually
+receive events, but can receive events from all objects contained within
+them.</p>
+<p>@param eventTypeName name of the event to sink on this element
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void sinkBitlessEvent(String eventTypeName) {
+ Dom.sinkBitlessEvent(getElement(), eventTypeName);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="sinkEvents">
+<button class="show-code">Code</button>
+void <strong>sinkEvents</strong>(int eventBitsToAdd) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to PopupPanel.sinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
+<p>Overridden to defer the call to super.sinkEvents until the first time this
+widget is attached to the dom, as a performance enhancement. Subclasses
+wishing to customize sinkEvents can preserve this deferred sink behavior by
+putting their implementation behind a check of
+&lt;code>isOrWasAttached()&lt;/code>:</p><pre>
+{@literal @}Override
+public void sinkEvents(int eventBitsToAdd) {
+  if (isOrWasAttached()) {
+    /{@literal *} customized sink code goes here {@literal *}/
+  } else {
+    super.sinkEvents(eventBitsToAdd);
+ }
+} </pre>
+<pre class="source">
+void sinkEvents(int eventBitsToAdd) {
+ if (isOrWasAttached()) {
+   super.sinkEvents(eventsToSink);
+ } else {
+   eventsToSink |= eventBitsToAdd;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to PopupPanel.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>This method is overridden so that any object can be viewed in the debugger
+as an HTML snippet.</p>
+<p>@return a string representation of the object</p>
+<pre class="source">
+String toString() {
+ if (_element == null) {
+   return "(null handle)";
+ }
+ return getElement().toString();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="unsinkEvents">
+<button class="show-code">Code</button>
+void <strong>unsinkEvents</strong>(int eventBitsToRemove) <a class="anchor-link" href="#unsinkEvents"
+              title="Permalink to PopupPanel.unsinkEvents">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> </div><div class="doc">
+<p>Removes a set of events from this object's event list.</p>
+<p>@param eventBitsToRemove a bitfield representing the set of events to be</p>
+<pre><code>     removed from this element's event set
+</code></pre>
+<p>@see #sinkEvents
+@see com.google.gwt.user.client.Event</p>
+<pre class="source">
+void unsinkEvents(int eventBitsToRemove) {
+ Dom.sinkEvents(getElement(), Dom.getEventsSunk(getElement()) &amp; (~eventBitsToRemove));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="updateHandlers">
+<button class="show-code">Code</button>
+void <strong>updateHandlers</strong>() <a class="anchor-link" href="#updateHandlers"
+              title="Permalink to PopupPanel.updateHandlers">#</a></h4>
+<div class="doc">
+<p>Register or unregister the handlers used by {@link PopupPanel}.</p>
+<pre class="source">
+void updateHandlers() {
+ // Remove any existing handlers.
+ if (nativePreviewHandlerRegistration != null) {
+   nativePreviewHandlerRegistration.removeHandler();
+   nativePreviewHandlerRegistration = null;
+ }
+ if (historyHandlerRegistration != null) {
+   historyHandlerRegistration.removeHandler();
+   historyHandlerRegistration = null;
+ }
+
+ // Create handlers if showing.
+ if (showing) {
+   nativePreviewHandlerRegistration = IEvent.addNativePreviewHandler(new NativePreviewHandlerAdapter((NativePreviewEvent event) {
+     previewNativeEvent(event);
+   }));
+   historyHandlerRegistration = History.addValueChangeHandler(new HistoryValueChangeHandler(this));
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:22.575</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

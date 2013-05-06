@@ -1,0 +1,202 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>TextBoxImpl class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="TextBoxImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/TextBoxImpl.html">TextBoxImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>TextBoxImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation class used by {@link com.google.gwt.user.client.ui.TextBox}.</p>
+<pre class="source">
+class TextBoxImpl {
+
+ factory TextBoxImpl.browserDependent() {
+   return new TextBoxImpl();
+ }
+
+ TextBoxImpl();
+
+ int getCursorPos(dart_html.InputElement elem) {
+   // Guard needed for FireFox.
+   try{
+     return elem.selectionStart;
+   } catch (e) {
+     return 0;
+   }
+ }
+
+ int getSelectionLength(dart_html.InputElement elem) {
+   // Guard needed for FireFox.
+   try{
+     return elem.selectionEnd - elem.selectionStart;
+   } catch (e) {
+     return 0;
+   }
+ }
+
+ int getTextAreaCursorPos(dart_html.InputElement elem) {
+   return getCursorPos(elem);
+ }
+
+ int getTextAreaSelectionLength(dart_html.InputElement elem) {
+   return getSelectionLength(elem);
+ }
+
+ void setSelectionRange(dart_html.InputElement elem, int pos, int length) {
+   try {
+     elem.setSelectionRange(pos, pos + length);
+   } catch (e) {
+     // Firefox throws exception if TextBox is not visible, even if attached
+   }
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="TextBoxImpl">
+<button class="show-code">Code</button>
+new <strong>TextBoxImpl</strong>() <a class="anchor-link" href="#TextBoxImpl"
+              title="Permalink to TextBoxImpl.TextBoxImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+TextBoxImpl();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="TextBoxImpl.browserDependent">
+<button class="show-code">Code</button>
+factory <strong>TextBoxImpl.browserDependent</strong>() <a class="anchor-link" href="#TextBoxImpl.browserDependent"
+              title="Permalink to TextBoxImpl.TextBoxImpl.browserDependent">#</a></h4>
+<div class="doc">
+<pre class="source">
+factory TextBoxImpl.browserDependent() {
+ return new TextBoxImpl();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getCursorPos">
+<button class="show-code">Code</button>
+int <strong>getCursorPos</strong>(InputElement elem) <a class="anchor-link" href="#getCursorPos"
+              title="Permalink to TextBoxImpl.getCursorPos">#</a></h4>
+<div class="doc">
+<pre class="source">
+int getCursorPos(dart_html.InputElement elem) {
+ // Guard needed for FireFox.
+ try{
+   return elem.selectionStart;
+ } catch (e) {
+   return 0;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSelectionLength">
+<button class="show-code">Code</button>
+int <strong>getSelectionLength</strong>(InputElement elem) <a class="anchor-link" href="#getSelectionLength"
+              title="Permalink to TextBoxImpl.getSelectionLength">#</a></h4>
+<div class="doc">
+<pre class="source">
+int getSelectionLength(dart_html.InputElement elem) {
+ // Guard needed for FireFox.
+ try{
+   return elem.selectionEnd - elem.selectionStart;
+ } catch (e) {
+   return 0;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextAreaCursorPos">
+<button class="show-code">Code</button>
+int <strong>getTextAreaCursorPos</strong>(InputElement elem) <a class="anchor-link" href="#getTextAreaCursorPos"
+              title="Permalink to TextBoxImpl.getTextAreaCursorPos">#</a></h4>
+<div class="doc">
+<pre class="source">
+int getTextAreaCursorPos(dart_html.InputElement elem) {
+ return getCursorPos(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextAreaSelectionLength">
+<button class="show-code">Code</button>
+int <strong>getTextAreaSelectionLength</strong>(InputElement elem) <a class="anchor-link" href="#getTextAreaSelectionLength"
+              title="Permalink to TextBoxImpl.getTextAreaSelectionLength">#</a></h4>
+<div class="doc">
+<pre class="source">
+int getTextAreaSelectionLength(dart_html.InputElement elem) {
+ return getSelectionLength(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setSelectionRange">
+<button class="show-code">Code</button>
+void <strong>setSelectionRange</strong>(InputElement elem, int pos, int length) <a class="anchor-link" href="#setSelectionRange"
+              title="Permalink to TextBoxImpl.setSelectionRange">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setSelectionRange(dart_html.InputElement elem, int pos, int length) {
+ try {
+   elem.setSelectionRange(pos, pos + length);
+ } catch (e) {
+   // Firefox throws exception if TextBox is not visible, even if attached
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.699</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

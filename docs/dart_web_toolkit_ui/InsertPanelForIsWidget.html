@@ -1,0 +1,149 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>InsertPanelForIsWidget abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="InsertPanelForIsWidget">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/InsertPanelForIsWidget.html">InsertPanelForIsWidget</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>InsertPanelForIsWidget</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Extends this interface with convenience methods to handle <a class="crossref" href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a>.</p>
+<pre class="source">
+abstract class InsertPanelForIsWidget implements InsertPanel, IndexedPanelForIsWidget {
+
+ void addIsWidget(IsWidget w);
+
+ void insertIsWidget(IsWidget w, int beforeIndex);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/AbsolutePanel.html">AbsolutePanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DeckLayoutPanel.html">DeckLayoutPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DeckPanel.html">DeckPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FlowPanel.html">FlowPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HorizontalPanel.html">HorizontalPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/StackPanel.html">StackPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/VerticalPanel.html">VerticalPanel</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/IndexedPanelForIsWidget.html">IndexedPanelForIsWidget</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/InsertPanel.html">InsertPanel</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="add">
+abstract void <strong>add</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#add"
+              title="Permalink to InsertPanelForIsWidget.add">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/InsertPanel.html">InsertPanel</a> </div><div class="doc">
+<p>Adds a child widget to this panel.</p>
+<p>@param w the child widget to be added</p>
+</div>
+</div>
+<div class="method"><h4 id="addIsWidget">
+abstract void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#addIsWidget"
+              title="Permalink to InsertPanelForIsWidget.addIsWidget">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method inherited"><h4 id="getWidget">
+abstract <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidget</strong>(int index) <a class="anchor-link" href="#getWidget"
+              title="Permalink to InsertPanelForIsWidget.getWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/IndexedPanel.html">IndexedPanel</a> </div><div class="doc">
+<p>Gets the child widget at the specified index.</p>
+<p>@param index the child widget's index
+@return the child widget</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="getWidgetCount">
+abstract int <strong>getWidgetCount</strong>() <a class="anchor-link" href="#getWidgetCount"
+              title="Permalink to InsertPanelForIsWidget.getWidgetCount">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/IndexedPanel.html">IndexedPanel</a> </div><div class="doc">
+<p>Gets the number of child widgets in this panel.</p>
+<p>@return the number of children</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="getWidgetIndex">
+abstract int <strong>getWidgetIndex</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> child) <a class="anchor-link" href="#getWidgetIndex"
+              title="Permalink to InsertPanelForIsWidget.getWidgetIndex">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/IndexedPanel.html">IndexedPanel</a> </div><div class="doc">
+<p>Gets the index of the specified child widget.</p>
+<p>@param child the widget to be found
+@return the widget's index, or &lt;code>-1&lt;/code> if it is not a child of this</p>
+<pre><code>    panel
+</code></pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getWidgetIndexIsWidget">
+abstract int <strong>getWidgetIndexIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> child) <a class="anchor-link" href="#getWidgetIndexIsWidget"
+              title="Permalink to InsertPanelForIsWidget.getWidgetIndexIsWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/IndexedPanelForIsWidget.html">IndexedPanelForIsWidget</a> </div><div class="doc">
+</div>
+</div>
+<div class="method inherited"><h4 id="insert">
+abstract void <strong>insert</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w, int beforeIndex) <a class="anchor-link" href="#insert"
+              title="Permalink to InsertPanelForIsWidget.insert">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/InsertPanel.html">InsertPanel</a> </div><div class="doc">
+<p>Inserts a child widget before the specified index. If the widget is already
+a child of this panel, it will be moved to the specified index.</p>
+<p>@param w the child widget to be inserted
+@param beforeIndex the index before which it will be inserted
+@throws IndexOutOfBoundsException if &lt;code>beforeIndex&lt;/code> is out of</p>
+<pre><code>      range
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="insertIsWidget">
+abstract void <strong>insertIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w, int beforeIndex) <a class="anchor-link" href="#insertIsWidget"
+              title="Permalink to InsertPanelForIsWidget.insertIsWidget">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method inherited"><h4 id="removeAt">
+abstract bool <strong>removeAt</strong>(int index) <a class="anchor-link" href="#removeAt"
+              title="Permalink to InsertPanelForIsWidget.removeAt">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/IndexedPanel.html">IndexedPanel</a> </div><div class="doc">
+<p>Removes the widget at the specified index.</p>
+<p>@param index the index of the widget to be removed
+@return &lt;code>false&lt;/code> if the widget is not present</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.250</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

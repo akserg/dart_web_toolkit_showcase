@@ -1,0 +1,187 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SafeHtmlString class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="SafeHtmlString">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/SafeHtmlString.html">SafeHtmlString</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SafeHtmlString</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A string wrapped as an object of type {@link SafeHtml}.</p><p>
+This class is package-private and intended for internal use by the
+{@link com.google.gwt.safehtml} package.<p>
+All implementors must implement .equals and .hashCode so that they operate
+just like String.equals() and String.hashCode().
+<pre class="source">
+class SafeHtmlString implements SafeHtml {
+
+ String _html;
+
+ /**
+  * Constructs a {@link SafeHtmlString} from a string. Callers are responsible
+  * for ensuring that the string passed as the argument to this constructor
+  * satisfies the constraints of the contract imposed by the {@link SafeHtml}
+  * interface.
+  *
+  * @param html the string to be wrapped as a {@link SafeHtml}
+  */
+ SafeHtmlString(String html) {
+   if (html == null) {
+     throw new Exception("html is null");
+   }
+   this._html = html;
+ }
+
+//  /**
+//   * No-arg constructor for compatibility with GWT serialization.
+//   */
+//  @SuppressWarnings("unused")
+//  private SafeHtmlString() {
+//  }
+
+ /**
+  * {@inheritDoc}
+  */
+ String asString() {
+   return _html;
+ }
+
+ /**
+  * Compares this string to the specified object.
+  */
+ bool operator ==(Object obj) {
+   if (!(obj is SafeHtml)) {
+     return false;
+   }
+   return _html == (obj as SafeHtml).asString();
+ }
+
+ /**
+  * Returns a hash code for this string.
+  */
+ int get hashCode =&gt; _html.hashCode;
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SafeHtmlString">
+<button class="show-code">Code</button>
+new <strong>SafeHtmlString</strong>(String html) <a class="anchor-link" href="#SafeHtmlString"
+              title="Permalink to SafeHtmlString.SafeHtmlString">#</a></h4>
+<div class="doc">
+<p>Constructs a {@link SafeHtmlString} from a string. Callers are responsible
+for ensuring that the string passed as the argument to this constructor
+satisfies the constraints of the contract imposed by the {@link SafeHtml}
+interface.</p>
+<p>@param html the string to be wrapped as a {@link SafeHtml}</p>
+<pre class="source">
+SafeHtmlString(String html) {
+ if (html == null) {
+   throw new Exception("html is null");
+ }
+ this._html = html;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="hashCode">
+<button class="show-code">Code</button>
+final int         <strong>hashCode</strong> <a class="anchor-link"
+            href="#hashCode"
+            title="Permalink to SafeHtmlString.hashCode">#</a>
+        </h4>
+        <div class="doc">
+<p>Returns a hash code for this string.</p>
+<pre class="source">
+int get hashCode =&gt; _html.hashCode;
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Operators</h3>
+<div class="method"><h4 id="==">
+<button class="show-code">Code</button>
+bool <strong>operator ==</strong>(Object obj) <a class="anchor-link" href="#=="
+              title="Permalink to SafeHtmlString.operator ==">#</a></h4>
+<div class="doc">
+<p>Compares this string to the specified object.</p>
+<pre class="source">
+bool operator ==(Object obj) {
+ if (!(obj is SafeHtml)) {
+   return false;
+ }
+ return _html == (obj as SafeHtml).asString();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="asString">
+<button class="show-code">Code</button>
+String <strong>asString</strong>() <a class="anchor-link" href="#asString"
+              title="Permalink to SafeHtmlString.asString">#</a></h4>
+<div class="doc">
+<p>{@inheritDoc}</p>
+<pre class="source">
+String asString() {
+ return _html;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.694</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

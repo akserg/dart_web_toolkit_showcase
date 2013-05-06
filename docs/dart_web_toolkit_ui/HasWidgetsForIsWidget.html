@@ -1,0 +1,119 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasWidgetsForIsWidget abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="HasWidgetsForIsWidget">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/HasWidgetsForIsWidget.html">HasWidgetsForIsWidget</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasWidgetsForIsWidget</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Extends this interface with convenience methods to handle <a class="crossref" href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a>.</p>
+<pre class="source">
+abstract class HasWidgetsForIsWidget implements HasWidgets {
+
+ void addIsWidget(IsWidget w);
+
+ bool removeIsWidget(IsWidget w);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/CaptionPanel.html">CaptionPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DisclosurePanel.html">DisclosurePanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Panel.html">Panel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Tree.html">Tree</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="add">
+abstract void <strong>add</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#add"
+              title="Permalink to HasWidgetsForIsWidget.add">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div><div class="doc">
+<p>Adds a child widget.</p>
+<p>@param w the widget to be added
+@throws UnsupportedOperationException if this method is not supported (most</p>
+<pre><code>      often this means that a specific overload must be called)
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="addIsWidget">
+abstract void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#addIsWidget"
+              title="Permalink to HasWidgetsForIsWidget.addIsWidget">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method inherited"><h4 id="clear">
+abstract void <strong>clear</strong>() <a class="anchor-link" href="#clear"
+              title="Permalink to HasWidgetsForIsWidget.clear">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div><div class="doc">
+<p>Removes all child widgets.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="iterator">
+abstract Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; <strong>iterator</strong>() <a class="anchor-link" href="#iterator"
+              title="Permalink to HasWidgetsForIsWidget.iterator">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div><div class="doc">
+<p>Returns an <code>Iterator</code> that iterates over this <code>Iterable</code> object.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="remove">
+abstract bool <strong>remove</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#remove"
+              title="Permalink to HasWidgetsForIsWidget.remove">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div><div class="doc">
+<p>Removes a child widget.</p>
+<p>@param w the widget to be removed
+@return &lt;code>true&lt;/code> if the widget was present</p>
+</div>
+</div>
+<div class="method"><h4 id="removeIsWidget">
+abstract bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#removeIsWidget"
+              title="Permalink to HasWidgetsForIsWidget.removeIsWidget">#</a></h4>
+<div class="doc">
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.721</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

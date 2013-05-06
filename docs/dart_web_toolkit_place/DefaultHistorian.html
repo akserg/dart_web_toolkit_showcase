@@ -1,0 +1,128 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DefaultHistorian class / dart_web_toolkit_place Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_place" data-type="DefaultHistorian">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_place.html">dart_web_toolkit_place</a> &rsaquo; <a href="../dart_web_toolkit_place/DefaultHistorian.html">DefaultHistorian</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DefaultHistorian</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Default implementation of {@link Historian}, based on {@link History}.</p>
+<pre class="source">
+class DefaultHistorian implements Historian {
+ 
+ HandlerRegistration addValueChangeHandler(ValueChangeHandler&lt;String&gt; valueChangeHandler) {
+   return History.addValueChangeHandler(valueChangeHandler);
+ }
+
+ String getToken() {
+   return History.getToken();
+ }
+
+ void newItem(String token, bool issueEvent) {
+   History.newItem(token, issueEvent);
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_place/Historian.html">Historian</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addValueChangeHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addValueChangeHandler</strong>(<a href="../dart_web_toolkit_event/ValueChangeHandler.html">ValueChangeHandler</a>&lt;String&gt; valueChangeHandler) <a class="anchor-link" href="#addValueChangeHandler"
+              title="Permalink to DefaultHistorian.addValueChangeHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link com.google.gwt.event.logical.shared.ValueChangeEvent}
+handler to be informed of changes to the browser's history stack.</p>
+<p>@param valueChangeHandler the handler
+@return the registration used to remove this value change handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_place/Historian.html">Historian</a> </div></div>
+<pre class="source">
+HandlerRegistration addValueChangeHandler(ValueChangeHandler&lt;String&gt; valueChangeHandler) {
+ return History.addValueChangeHandler(valueChangeHandler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getToken">
+<button class="show-code">Code</button>
+String <strong>getToken</strong>() <a class="anchor-link" href="#getToken"
+              title="Permalink to DefaultHistorian.getToken">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>@return the current history token.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_place/Historian.html">Historian</a> </div></div>
+<pre class="source">
+String getToken() {
+ return History.getToken();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="newItem">
+<button class="show-code">Code</button>
+void <strong>newItem</strong>(String token, bool issueEvent) <a class="anchor-link" href="#newItem"
+              title="Permalink to DefaultHistorian.newItem">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a new browser history entry. Calling this method will cause
+{@link ValueChangeHandler#onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)}
+to be called as well.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_place/Historian.html">Historian</a> </div></div>
+<pre class="source">
+void newItem(String token, bool issueEvent) {
+ History.newItem(token, issueEvent);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.457</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

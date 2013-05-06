@@ -1,0 +1,137 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasValue&lt;T&gt; abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="HasValue&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/HasValue.html">HasValue&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasValue&lt;T&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Extends {@link TakesValue} to allow the value to be pulled back out, and to
+throw {@link com.google.gwt.event.logical.shared.ValueChangeEvent
+ValueChangeEvent} events.
+&lt;p>
+An object that implements this interface should be a user input widget, where
+the user and programmer can both set and get the object's value. It is
+intended to provide a unified interface to widgets with "atomic" values, like
+Strings and Dates.</p>
+<p>@param &lt;T> the type of value</p>
+<pre class="source">
+abstract class HasValue&lt;T&gt; implements TakesValue&lt;T&gt;, HasValueChangeHandlers&lt;T&gt; {
+ /**
+  * Sets the value.
+  * Fires [ValueChangeEvent] when
+  * fireEvents is true and the new value does not equal the existing value.
+  *
+  * @param value a value object of type V
+  * @see #getValue()
+  * @param fireEvents fire events if true and value is new
+  */
+ void setValue(T val, [bool fireEvents = false]);
+
+ /**
+  * Returns the current value.
+  *
+  * @return the value as an object of type V
+  * @see #setValue
+  */
+ T getValue();
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/CheckBox.html">CheckBox</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasConstrainedValue.html">HasConstrainedValue&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ToggleButton.html">ToggleButton</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase&lt;T&gt;</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasValueChangeHandlers.html">HasValueChangeHandlers&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/TakesValue.html">TakesValue&lt;T&gt;</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="addValueChangeHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addValueChangeHandler</strong>(<a href="../dart_web_toolkit_event/ValueChangeHandler.html">ValueChangeHandler</a>&lt;<a href="../dart_web_toolkit_event/HasValue.html">T</a>&gt; handler) <a class="anchor-link" href="#addValueChangeHandler"
+              title="Permalink to HasValue&lt;T&gt;.addValueChangeHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasValueChangeHandlers.html">HasValueChangeHandlers</a> </div><div class="doc">
+<p>Adds a {@link ValueChangeEvent} handler.</p>
+<p>@param handler the handler
+@return the registration for the event</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+abstract void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to HasValue&lt;T&gt;.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasHandlers.html">HasHandlers</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+</div>
+</div>
+<div class="method"><h4 id="getValue">
+abstract <a href="../dart_web_toolkit_event/HasValue.html">T</a> <strong>getValue</strong>() <a class="anchor-link" href="#getValue"
+              title="Permalink to HasValue&lt;T&gt;.getValue">#</a></h4>
+<div class="doc">
+<p>Returns the current value.</p>
+<p>@return the value as an object of type V
+@see #setValue</p>
+</div>
+</div>
+<div class="method"><h4 id="setValue">
+abstract void <strong>setValue</strong>(<a href="../dart_web_toolkit_event/HasValue.html">T</a> val, [bool fireEvents = false]) <a class="anchor-link" href="#setValue"
+              title="Permalink to HasValue&lt;T&gt;.setValue">#</a></h4>
+<div class="doc">
+<p>Sets the value.
+Fires <a class="crossref" href="../dart_web_toolkit_event/ValueChangeEvent.html">ValueChangeEvent</a> when
+fireEvents is true and the new value does not equal the existing value.</p>
+<p>@param value a value object of type V
+@see #getValue()
+@param fireEvents fire events if true and value is new</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.288</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

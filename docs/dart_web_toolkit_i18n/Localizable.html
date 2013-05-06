@@ -1,0 +1,114 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Localizable abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="Localizable">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/Localizable.html">Localizable</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Localizable</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A tag interface that serves as the root of a family of types used in static
+internationalization. Using &lt;code>GWT.create(&lt;i>class&lt;/i>)&lt;/code> to
+instantiate a type that directly extends or implements
+&lt;code>Localizable&lt;/code> invites locale-sensitive type substitution.</p><h3>Locale-sensitive Type Substitution</h3>
+If a type <code>Type</code> directly extends or implements
+<code>Localizable</code> (as opposed to
+{@link com.google.gwt.i18n.client.Constants} or
+{@link com.google.gwt.i18n.client.Messages}) and the following code is used
+to create an object from <code>Type</code> as follows:<pre class="code">Type localized = (Type)GWT.create(Type.class);</pre>
+<p>then &lt;code>localized&lt;/code> will be assigned an instance of a localized
+subclass, selected based on the value of the &lt;code>locale&lt;/code> client
+property. The choice of subclass is determined by the following naming
+pattern:</p><table><tr>
+<th align='left'>If <code>locale</code> is...&#160;&#160;&#160;&#160;</th>
+<th align='left'>The substitute class for <code>Type</code> is...</th>
+</tr><tr>
+<td><i>unspecified</i></td>
+<td><code>Type</code> itself, or <code>Type_</code> if <code>Type</code>
+is an interface</td>
+</tr><tr>
+<td><code>x</code></td>
+<td>Class <code>Type_x</code> if it exists, otherwise treated as if
+<code>locale</code> were <i>unspecified</i></td>
+</tr><tr>
+<td><code>x_Y</code></td>
+<td>Class <code>Type_x_Y</code> if it exists, otherwise treated as if
+<code>locale</code> were <code>x</code></td>
+</tr>
+<p>&lt;/table></p>
+<p>where in the table above &lt;code>x&lt;/code> is a &lt;a
+href="http://ftp.ics.uci.edu/pub/ietf/http/related/iso639.txt">ISO language
+code&lt;/a> and &lt;code>Y&lt;/code> is a two-letter &lt;a
+href="http://userpage.chemie.fu-berlin.de/diverse/doc/ISO_3166.html">ISO
+country code&lt;/a>.</p><h3>Specifying Locale</h3>
+The locale of a module is specified using the <code>locale</code> client
+property, which can be specified using either a meta tag or as part of the
+query string in the host page's URL. If both are specified, the query string
+takes precedence.<p>
+To specify the <code>locale</code> client property using a meta tag in the
+host HTML, use <code>gwt:property</code> as follows:<pre>&lt;meta name="gwt:property" content="locale=x_Y"&gt;</pre>
+<p>For example, the following host HTML page sets the locale to "ja_JP":</p>
+<p>{@gwt.include com/google/gwt/examples/i18n/ColorNameLookupExample<em>ja</em>JP.html}
+&lt;/p></p><p>
+To specify the <code>locale</code> client property using a query string,
+specify a value for the name <code>locale</code>. For example,<pre>http://www.example.org/myapp.html?locale=fr_CA</pre>
+<p>&lt;/p></p><h3>For More Information</h3>
+See the GWT Developer Guide for an introduction to internationalization.
+<p>@see com.google.gwt.i18n.client.Constants
+@see com.google.gwt.i18n.client.ConstantsWithLookup
+@see com.google.gwt.i18n.client.Messages
+@see com.google.gwt.i18n.client.Dictionary</p>
+<pre class="source">
+abstract class Localizable {
+
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/DateTimeFormatInfoImpl.html">DateTimeFormatInfoImpl</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/LocalizableResource.html">LocalizableResource</a></span></p>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.241</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

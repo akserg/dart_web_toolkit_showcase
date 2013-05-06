@@ -1,0 +1,120 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Flusher class / dart_web_toolkit_scheduler Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_scheduler" data-type="Flusher">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_scheduler.html">dart_web_toolkit_scheduler</a> &rsaquo; <a href="../dart_web_toolkit_scheduler/Flusher.html">Flusher</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Flusher</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Calls {@link SchedulerImpl#flushPostEventPumpCommands()}.</p>
+<pre class="source">
+class Flusher implements RepeatingCommand {
+
+ SchedulerImpl _schedulerImpl;
+
+ Flusher(this._schedulerImpl);
+
+ bool execute() {
+
+   _schedulerImpl._flushRunning = true;
+   _schedulerImpl.flushPostEventPumpCommands();
+   /*
+    * No finally here, we want this to be clear only on a normal exit. An
+    * abnormal exit would indicate that an exception isn't being caught
+    * correctly or that a slow script warning canceled the timer.
+    */
+   _schedulerImpl._flushRunning = false;
+   return _schedulerImpl._shouldBeRunning = _schedulerImpl.isWorkQueued();
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Flusher">
+<button class="show-code">Code</button>
+new <strong>Flusher</strong>(<a href="../dart_web_toolkit_scheduler/SchedulerImpl.html">SchedulerImpl</a> _schedulerImpl) <a class="anchor-link" href="#Flusher"
+              title="Permalink to Flusher.Flusher">#</a></h4>
+<div class="doc">
+<pre class="source">
+Flusher(this._schedulerImpl);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="execute">
+<button class="show-code">Code</button>
+bool <strong>execute</strong>() <a class="anchor-link" href="#execute"
+              title="Permalink to Flusher.execute">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if the RepeatingCommand should be invoked again.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> </div></div>
+<pre class="source">
+bool execute() {
+
+ _schedulerImpl._flushRunning = true;
+ _schedulerImpl.flushPostEventPumpCommands();
+ /*
+  * No finally here, we want this to be clear only on a normal exit. An
+  * abnormal exit would indicate that an exception isn't being caught
+  * correctly or that a slow script warning canceled the timer.
+  */
+ _schedulerImpl._flushRunning = false;
+ return _schedulerImpl._shouldBeRunning = _schedulerImpl.isWorkQueued();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.579</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

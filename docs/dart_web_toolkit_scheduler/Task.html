@@ -1,0 +1,192 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Task class / dart_web_toolkit_scheduler Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_scheduler" data-type="Task">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_scheduler.html">dart_web_toolkit_scheduler</a> &rsaquo; <a href="../dart_web_toolkit_scheduler/Task.html">Task</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Task</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Metadata bag for command objects. It's a JSO so that a lightweight JsArray
+can be used instead of a Collections type.</p>
+<pre class="source">
+class Task {
+
+ Object _command;
+ bool _repeating = false;
+
+ factory Task.fromRepeatingCommand(RepeatingCommand cmd) {
+   return new Task._internal(cmd, true);
+ }
+
+ factory Task.fromScheduledCommand(ScheduledCommand cmd) {
+   return new Task._internal(cmd, false);
+ }
+
+ Task._internal(this._command, this._repeating);
+
+ bool executeRepeating() {
+   return getRepeating().execute();
+ }
+
+ void executeScheduled() {
+   getScheduled().execute();
+ }
+
+ /**
+  * Has implicit cast.
+  */
+ RepeatingCommand getRepeating() {
+   return _command as RepeatingCommand;
+ }
+
+ /**
+  * Has implicit cast.
+  */
+ ScheduledCommand getScheduled() {
+   return _command as ScheduledCommand;
+ }
+
+ bool isRepeating() {
+   return _repeating;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Task.fromRepeatingCommand">
+<button class="show-code">Code</button>
+factory <strong>Task.fromRepeatingCommand</strong>(<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> cmd) <a class="anchor-link" href="#Task.fromRepeatingCommand"
+              title="Permalink to Task.Task.fromRepeatingCommand">#</a></h4>
+<div class="doc">
+<pre class="source">
+factory Task.fromRepeatingCommand(RepeatingCommand cmd) {
+ return new Task._internal(cmd, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="Task.fromScheduledCommand">
+<button class="show-code">Code</button>
+factory <strong>Task.fromScheduledCommand</strong>(<a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a> cmd) <a class="anchor-link" href="#Task.fromScheduledCommand"
+              title="Permalink to Task.Task.fromScheduledCommand">#</a></h4>
+<div class="doc">
+<pre class="source">
+factory Task.fromScheduledCommand(ScheduledCommand cmd) {
+ return new Task._internal(cmd, false);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="executeRepeating">
+<button class="show-code">Code</button>
+bool <strong>executeRepeating</strong>() <a class="anchor-link" href="#executeRepeating"
+              title="Permalink to Task.executeRepeating">#</a></h4>
+<div class="doc">
+<pre class="source">
+bool executeRepeating() {
+ return getRepeating().execute();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="executeScheduled">
+<button class="show-code">Code</button>
+void <strong>executeScheduled</strong>() <a class="anchor-link" href="#executeScheduled"
+              title="Permalink to Task.executeScheduled">#</a></h4>
+<div class="doc">
+<pre class="source">
+void executeScheduled() {
+ getScheduled().execute();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRepeating">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_scheduler/RepeatingCommand.html">RepeatingCommand</a> <strong>getRepeating</strong>() <a class="anchor-link" href="#getRepeating"
+              title="Permalink to Task.getRepeating">#</a></h4>
+<div class="doc">
+<p>Has implicit cast.</p>
+<pre class="source">
+RepeatingCommand getRepeating() {
+ return _command as RepeatingCommand;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getScheduled">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_scheduler/ScheduledCommand.html">ScheduledCommand</a> <strong>getScheduled</strong>() <a class="anchor-link" href="#getScheduled"
+              title="Permalink to Task.getScheduled">#</a></h4>
+<div class="doc">
+<p>Has implicit cast.</p>
+<pre class="source">
+ScheduledCommand getScheduled() {
+ return _command as ScheduledCommand;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isRepeating">
+<button class="show-code">Code</button>
+bool <strong>isRepeating</strong>() <a class="anchor-link" href="#isRepeating"
+              title="Permalink to Task.isRepeating">#</a></h4>
+<div class="doc">
+<pre class="source">
+bool isRepeating() {
+ return _repeating;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.582</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

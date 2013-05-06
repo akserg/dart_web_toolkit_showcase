@@ -1,0 +1,424 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DomImpl abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="DomImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/DomImpl.html">DomImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DomImpl</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+abstract class DomImpl {
+
+ /**
+  * Create instance of [DomImpl] depends on broswer.
+  */
+ factory DomImpl.browserDependent() {
+   return new DomImplStandard();
+ }
+
+ DomImpl();
+
+ static bool eventSystemIsInitialized = false;
+
+ /**
+  * The attribute that is set when an image fires a native load or error event
+  * before it is attached.
+  */
+ static final String UNHANDLED_EVENT_ATTR = "dwtLastUnhandledEvent";
+
+ //*************************
+ // Parent - child relations
+ //*************************
+
+ bool isOrHasChild(dart_html.Node parent, dart_html.Node child);
+
+ void insertChild(dart_html.Element parent, dart_html.Element child, int index);
+
+ dart_html.Element getChild(dart_html.Element elem, int index);
+
+ int getChildCount(dart_html.Element elem);
+
+ //********************
+ // Position of Element
+ //********************
+
+ int getAbsoluteLeft(dart_html.Element elem);
+
+ int getAbsoluteTop(dart_html.Element elem);
+
+ //*********
+ // Capturte
+ //*********
+
+ void releaseCapture(dart_html.Element elem);
+
+ void setCapture(dart_html.Element elem);
+
+ //*******
+ // Events
+ //*******
+
+ void maybeInitializeEventSystem() {
+   if (!eventSystemIsInitialized) {
+     initEventSystem();
+     eventSystemIsInitialized = true;
+   }
+ }
+
+ /**
+  * Initializes the event dispatch system.
+  */
+ void initEventSystem();
+
+ void setEventListener(dart_html.Element elem, EventListener listener);
+
+ void sinkBitlessEvent(dart_html.Element elem, String eventTypeName);
+
+ void sinkEvents(dart_html.Element elem, int eventBits);
+
+ int getEventsSunk(dart_html.Element elem) {
+   return _getEventBits(elem);
+ }
+
+ int _getEventBits(dart_html.Element elem) {
+   assert(elem != null);
+   String eventBits = elem.dataset["eventBits"];
+   if (eventBits != null) {
+     try {
+       return int.parse(eventBits);
+     } on Exception catch(e) {}
+   }
+   return 0;
+ }
+
+ void _setEventBits(dart_html.Element elem, int bits) {
+   assert(elem != null);
+   assert(bits != null);
+   elem.dataset["eventBits"] = bits.toRadixString(16);
+ }
+
+ dart_html.Element eventGetToElement(dart_html.Event evt);
+
+ int getEventTypeInt(dart_html.Event evt) {
+   return eventGetTypeInt(evt.type);
+ }
+
+ int eventGetTypeInt(String eventType) {
+   switch (eventType) {
+     case "blur": return 0x01000;
+     case "change": return 0x00400;
+     case "click": return 0x00001;
+     case "dblclick": return 0x00002;
+     case "focus": return 0x00800;
+     case "keydown": return 0x00080;
+     case "keypress": return 0x00100;
+     case "keyup": return 0x00200;
+     case "load": return 0x08000;
+     case "losecapture": return 0x02000;
+     case "mousedown": return 0x00004;
+     case "mousemove": return 0x00040;
+     case "mouseout": return 0x00020;
+     case "mouseover": return 0x00010;
+     case "mouseup": return 0x00008;
+     case "scroll": return 0x04000;
+     case "error": return 0x10000;
+     case "mousewheel": return 0x20000;
+     case "DOMMouseScroll": return 0x20000;
+     case "contextmenu": return 0x40000;
+     case "paste": return 0x80000;
+     case "touchstart": return 0x100000;
+     case "touchmove": return 0x200000;
+     case "touchend": return 0x400000;
+     case "touchcancel": return 0x800000;
+//      case "gesturestart": return 0x1000000;
+//      case "gesturechange": return 0x2000000;
+//      case "gestureend": return 0x4000000;
+     default: return -1;
+   }
+ }
+
+ dart_html.Event createHtmlEvent(String type, bool canBubble, bool cancelable);
+
+ EventListener getEventListener(dart_html.Element elem);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DomImplStandard.html">DomImplStandard</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="eventSystemIsInitialized">
+<button class="show-code">Code</button>
+bool         <strong>eventSystemIsInitialized</strong> <a class="anchor-link"
+            href="#eventSystemIsInitialized"
+            title="Permalink to DomImpl.eventSystemIsInitialized">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static bool eventSystemIsInitialized = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="UNHANDLED_EVENT_ATTR">
+<button class="show-code">Code</button>
+final String         <strong>UNHANDLED_EVENT_ATTR</strong> <a class="anchor-link"
+            href="#UNHANDLED_EVENT_ATTR"
+            title="Permalink to DomImpl.UNHANDLED_EVENT_ATTR">#</a>
+        </h4>
+        <div class="doc">
+<p>The attribute that is set when an image fires a native load or error event
+before it is attached.</p>
+<pre class="source">
+static final String UNHANDLED_EVENT_ATTR = "dwtLastUnhandledEvent"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="DomImpl">
+<button class="show-code">Code</button>
+new <strong>DomImpl</strong>() <a class="anchor-link" href="#DomImpl"
+              title="Permalink to DomImpl.DomImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+DomImpl();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="DomImpl.browserDependent">
+<button class="show-code">Code</button>
+factory <strong>DomImpl.browserDependent</strong>() <a class="anchor-link" href="#DomImpl.browserDependent"
+              title="Permalink to DomImpl.DomImpl.browserDependent">#</a></h4>
+<div class="doc">
+<p>Create instance of <a class="crossref" href="../dart_web_toolkit_event/DomImpl.html#DomImpl">DomImpl</a> depends on broswer.</p>
+<pre class="source">
+factory DomImpl.browserDependent() {
+ return new DomImplStandard();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="createHtmlEvent">
+abstract Event <strong>createHtmlEvent</strong>(String type, bool canBubble, bool cancelable) <a class="anchor-link" href="#createHtmlEvent"
+              title="Permalink to DomImpl.createHtmlEvent">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="eventGetToElement">
+abstract Element <strong>eventGetToElement</strong>(Event evt) <a class="anchor-link" href="#eventGetToElement"
+              title="Permalink to DomImpl.eventGetToElement">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="eventGetTypeInt">
+<button class="show-code">Code</button>
+int <strong>eventGetTypeInt</strong>(String eventType) <a class="anchor-link" href="#eventGetTypeInt"
+              title="Permalink to DomImpl.eventGetTypeInt">#</a></h4>
+<div class="doc">
+<pre class="source">
+int eventGetTypeInt(String eventType) {
+ switch (eventType) {
+   case "blur": return 0x01000;
+   case "change": return 0x00400;
+   case "click": return 0x00001;
+   case "dblclick": return 0x00002;
+   case "focus": return 0x00800;
+   case "keydown": return 0x00080;
+   case "keypress": return 0x00100;
+   case "keyup": return 0x00200;
+   case "load": return 0x08000;
+   case "losecapture": return 0x02000;
+   case "mousedown": return 0x00004;
+   case "mousemove": return 0x00040;
+   case "mouseout": return 0x00020;
+   case "mouseover": return 0x00010;
+   case "mouseup": return 0x00008;
+   case "scroll": return 0x04000;
+   case "error": return 0x10000;
+   case "mousewheel": return 0x20000;
+   case "DOMMouseScroll": return 0x20000;
+   case "contextmenu": return 0x40000;
+   case "paste": return 0x80000;
+   case "touchstart": return 0x100000;
+   case "touchmove": return 0x200000;
+   case "touchend": return 0x400000;
+   case "touchcancel": return 0x800000;
+//      case "gesturestart": return 0x1000000;
+//      case "gesturechange": return 0x2000000;
+//      case "gestureend": return 0x4000000;
+   default: return -1;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAbsoluteLeft">
+abstract int <strong>getAbsoluteLeft</strong>(Element elem) <a class="anchor-link" href="#getAbsoluteLeft"
+              title="Permalink to DomImpl.getAbsoluteLeft">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="getAbsoluteTop">
+abstract int <strong>getAbsoluteTop</strong>(Element elem) <a class="anchor-link" href="#getAbsoluteTop"
+              title="Permalink to DomImpl.getAbsoluteTop">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="getChild">
+abstract Element <strong>getChild</strong>(Element elem, int index) <a class="anchor-link" href="#getChild"
+              title="Permalink to DomImpl.getChild">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="getChildCount">
+abstract int <strong>getChildCount</strong>(Element elem) <a class="anchor-link" href="#getChildCount"
+              title="Permalink to DomImpl.getChildCount">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="getEventListener">
+abstract <a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> <strong>getEventListener</strong>(Element elem) <a class="anchor-link" href="#getEventListener"
+              title="Permalink to DomImpl.getEventListener">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="getEventsSunk">
+<button class="show-code">Code</button>
+int <strong>getEventsSunk</strong>(Element elem) <a class="anchor-link" href="#getEventsSunk"
+              title="Permalink to DomImpl.getEventsSunk">#</a></h4>
+<div class="doc">
+<pre class="source">
+int getEventsSunk(dart_html.Element elem) {
+ return _getEventBits(elem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getEventTypeInt">
+<button class="show-code">Code</button>
+int <strong>getEventTypeInt</strong>(Event evt) <a class="anchor-link" href="#getEventTypeInt"
+              title="Permalink to DomImpl.getEventTypeInt">#</a></h4>
+<div class="doc">
+<pre class="source">
+int getEventTypeInt(dart_html.Event evt) {
+ return eventGetTypeInt(evt.type);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="initEventSystem">
+abstract void <strong>initEventSystem</strong>() <a class="anchor-link" href="#initEventSystem"
+              title="Permalink to DomImpl.initEventSystem">#</a></h4>
+<div class="doc">
+<p>Initializes the event dispatch system.</p>
+</div>
+</div>
+<div class="method"><h4 id="insertChild">
+abstract void <strong>insertChild</strong>(Element parent, Element child, int index) <a class="anchor-link" href="#insertChild"
+              title="Permalink to DomImpl.insertChild">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="isOrHasChild">
+abstract bool <strong>isOrHasChild</strong>(Node parent, Node child) <a class="anchor-link" href="#isOrHasChild"
+              title="Permalink to DomImpl.isOrHasChild">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="maybeInitializeEventSystem">
+<button class="show-code">Code</button>
+void <strong>maybeInitializeEventSystem</strong>() <a class="anchor-link" href="#maybeInitializeEventSystem"
+              title="Permalink to DomImpl.maybeInitializeEventSystem">#</a></h4>
+<div class="doc">
+<pre class="source">
+void maybeInitializeEventSystem() {
+ if (!eventSystemIsInitialized) {
+   initEventSystem();
+   eventSystemIsInitialized = true;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="releaseCapture">
+abstract void <strong>releaseCapture</strong>(Element elem) <a class="anchor-link" href="#releaseCapture"
+              title="Permalink to DomImpl.releaseCapture">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="setCapture">
+abstract void <strong>setCapture</strong>(Element elem) <a class="anchor-link" href="#setCapture"
+              title="Permalink to DomImpl.setCapture">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="setEventListener">
+abstract void <strong>setEventListener</strong>(Element elem, <a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> listener) <a class="anchor-link" href="#setEventListener"
+              title="Permalink to DomImpl.setEventListener">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="sinkBitlessEvent">
+abstract void <strong>sinkBitlessEvent</strong>(Element elem, String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
+              title="Permalink to DomImpl.sinkBitlessEvent">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="sinkEvents">
+abstract void <strong>sinkEvents</strong>(Element elem, int eventBits) <a class="anchor-link" href="#sinkEvents"
+              title="Permalink to DomImpl.sinkEvents">#</a></h4>
+<div class="doc">
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.537</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

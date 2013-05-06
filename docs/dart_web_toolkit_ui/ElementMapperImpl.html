@@ -1,0 +1,346 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ElementMapperImpl&lt;T&gt; class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ElementMapperImpl&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ElementMapperImpl.html">ElementMapperImpl&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ElementMapperImpl&lt;T&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Creates a mapping from elements to their associated ui objects.</p>
+<p>@param &lt;T> the type that the element is mapped to</p>
+<pre class="source">
+class ElementMapperImpl&lt;T&gt; {
+
+ static const String UI_OBJECT_ID = "uiObjectID";
+
+ static void clearIndex(dart_html.Element elem) {
+   assert(elem != null);
+   elem.dataset.remove(UI_OBJECT_ID);
+ }
+
+ static int getIndex(dart_html.Element elem) {
+   assert(elem != null);
+   if (elem.dataset.containsKey(UI_OBJECT_ID)) { 
+     return int.parse(elem.dataset[UI_OBJECT_ID]);
+   } else {
+     return -1;
+   }
+ }
+
+ static void setIndex(dart_html.Element elem, int index) {
+   assert(elem != null);
+   assert(index != null);
+   assert(index &gt;= 0);
+   elem.dataset[UI_OBJECT_ID] = index.toString();
+ }
+
+ FreeNode freeList = null;
+
+ final List&lt;T&gt; uiObjectList = new List&lt;T&gt;();
+
+ /**
+  * Returns the uiObject associated with the given element.
+  *
+  * @param elem uiObject's element
+  * @return the uiObject
+  */
+ T get(dart_html.Element elem) {
+   int index = getIndex(elem);
+   if (index &lt; 0) {
+     return null;
+   }
+   return uiObjectList[index];
+ }
+
+ /**
+  * Gets the list of ui objects contained in this element mapper.
+  *
+  * @return the list of ui objects
+  */
+ List&lt;T&gt; getObjectList() {
+   return uiObjectList;
+ }
+
+ /**
+  * Creates an iterator from the ui objects stored within.
+  *
+  * @return an iterator of the ui objects indexed by this element mapper.
+  */
+ Iterator&lt;T&gt; iterator() {
+   return uiObjectList.iterator;
+ }
+
+ /**
+  * Adds the MappedType.
+  *
+  * @param uiObject uiObject to add
+  */
+ void put(T uiObject) {
+   int index;
+   if (freeList == null) {
+     index = uiObjectList.length;
+     uiObjectList.add(uiObject);
+   } else {
+     index = freeList.index;
+     uiObjectList[index] = uiObject;
+     freeList = freeList.next;
+   }
+   setIndex((uiObject as UiObject).getElement(), index);
+ }
+
+ /**
+  * Remove the uiObject associated with the given element.
+  *
+  * @param elem the uiObject's element
+  */
+ void removeByElement(dart_html.Element elem) {
+   int index = getIndex(elem);
+   removeImpl(elem, index);
+ }
+
+ void removeImpl(dart_html.Element elem, int index) {
+   clearIndex(elem);
+   uiObjectList[index] = null;
+   freeList = new FreeNode(index, freeList);
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="UI_OBJECT_ID">
+<button class="show-code">Code</button>
+const String         <strong>UI_OBJECT_ID</strong> <a class="anchor-link"
+            href="#UI_OBJECT_ID"
+            title="Permalink to ElementMapperImpl&lt;T&gt;.UI_OBJECT_ID">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const String UI_OBJECT_ID = "uiObjectID"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="clearIndex">
+<button class="show-code">Code</button>
+void <strong>clearIndex</strong>(Element elem) <a class="anchor-link" href="#clearIndex"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.clearIndex">#</a></h4>
+<div class="doc">
+<pre class="source">
+static void clearIndex(dart_html.Element elem) {
+ assert(elem != null);
+ elem.dataset.remove(UI_OBJECT_ID);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getIndex">
+<button class="show-code">Code</button>
+int <strong>getIndex</strong>(Element elem) <a class="anchor-link" href="#getIndex"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.getIndex">#</a></h4>
+<div class="doc">
+<pre class="source">
+static int getIndex(dart_html.Element elem) {
+ assert(elem != null);
+ if (elem.dataset.containsKey(UI_OBJECT_ID)) { 
+   return int.parse(elem.dataset[UI_OBJECT_ID]);
+ } else {
+   return -1;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setIndex">
+<button class="show-code">Code</button>
+void <strong>setIndex</strong>(Element elem, int index) <a class="anchor-link" href="#setIndex"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.setIndex">#</a></h4>
+<div class="doc">
+<pre class="source">
+static void setIndex(dart_html.Element elem, int index) {
+ assert(elem != null);
+ assert(index != null);
+ assert(index &gt;= 0);
+ elem.dataset[UI_OBJECT_ID] = index.toString();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="freeList">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/FreeNode.html">FreeNode</a>         <strong>freeList</strong> <a class="anchor-link"
+            href="#freeList"
+            title="Permalink to ElementMapperImpl&lt;T&gt;.freeList">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+FreeNode freeList = null
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="uiObjectList">
+<button class="show-code">Code</button>
+final List&lt;<a href="../dart_web_toolkit_ui/ElementMapperImpl.html">T</a>&gt;         <strong>uiObjectList</strong> <a class="anchor-link"
+            href="#uiObjectList"
+            title="Permalink to ElementMapperImpl&lt;T&gt;.uiObjectList">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final List&lt;T&gt; uiObjectList = new List&lt;T&gt;()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ElementMapperImpl.html">T</a> <strong>get</strong>(Element elem) <a class="anchor-link" href="#get"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.get">#</a></h4>
+<div class="doc">
+<p>Returns the uiObject associated with the given element.</p>
+<p>@param elem uiObject's element
+@return the uiObject</p>
+<pre class="source">
+T get(dart_html.Element elem) {
+ int index = getIndex(elem);
+ if (index &lt; 0) {
+   return null;
+ }
+ return uiObjectList[index];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getObjectList">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_ui/ElementMapperImpl.html">T</a>&gt; <strong>getObjectList</strong>() <a class="anchor-link" href="#getObjectList"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.getObjectList">#</a></h4>
+<div class="doc">
+<p>Gets the list of ui objects contained in this element mapper.</p>
+<p>@return the list of ui objects</p>
+<pre class="source">
+List&lt;T&gt; getObjectList() {
+ return uiObjectList;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="iterator">
+<button class="show-code">Code</button>
+Iterator&lt;<a href="../dart_web_toolkit_ui/ElementMapperImpl.html">T</a>&gt; <strong>iterator</strong>() <a class="anchor-link" href="#iterator"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.iterator">#</a></h4>
+<div class="doc">
+<p>Creates an iterator from the ui objects stored within.</p>
+<p>@return an iterator of the ui objects indexed by this element mapper.</p>
+<pre class="source">
+Iterator&lt;T&gt; iterator() {
+ return uiObjectList.iterator;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="put">
+<button class="show-code">Code</button>
+void <strong>put</strong>(<a href="../dart_web_toolkit_ui/ElementMapperImpl.html">T</a> uiObject) <a class="anchor-link" href="#put"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.put">#</a></h4>
+<div class="doc">
+<p>Adds the MappedType.</p>
+<p>@param uiObject uiObject to add</p>
+<pre class="source">
+void put(T uiObject) {
+ int index;
+ if (freeList == null) {
+   index = uiObjectList.length;
+   uiObjectList.add(uiObject);
+ } else {
+   index = freeList.index;
+   uiObjectList[index] = uiObject;
+   freeList = freeList.next;
+ }
+ setIndex((uiObject as UiObject).getElement(), index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeByElement">
+<button class="show-code">Code</button>
+void <strong>removeByElement</strong>(Element elem) <a class="anchor-link" href="#removeByElement"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.removeByElement">#</a></h4>
+<div class="doc">
+<p>Remove the uiObject associated with the given element.</p>
+<p>@param elem the uiObject's element</p>
+<pre class="source">
+void removeByElement(dart_html.Element elem) {
+ int index = getIndex(elem);
+ removeImpl(elem, index);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeImpl">
+<button class="show-code">Code</button>
+void <strong>removeImpl</strong>(Element elem, int index) <a class="anchor-link" href="#removeImpl"
+              title="Permalink to ElementMapperImpl&lt;T&gt;.removeImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+void removeImpl(dart_html.Element elem, int index) {
+ clearIndex(elem);
+ uiObjectList[index] = null;
+ freeList = new FreeNode(index, freeList);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.693</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

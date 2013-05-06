@@ -1,0 +1,510 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>LayoutAnimation class / dart_web_toolkit_layout Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_layout" data-type="LayoutAnimation">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_layout.html">dart_web_toolkit_layout</a> &rsaquo; <a href="../dart_web_toolkit_layout/LayoutAnimation.html">LayoutAnimation</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>LayoutAnimation</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class LayoutAnimation extends Animation {
+
+ Layout _layout;
+ LayoutAnimationCallback _callback;
+
+ LayoutAnimation(this._layout, this._callback);
+
+ void onCancel() {
+   onComplete();
+ }
+
+ void onComplete() {
+   _layout.animation = null;
+   _layout.layout();
+   if (callback != null) {
+     _callback.onAnimationComplete();
+   }
+ }
+
+ void onUpdate(double progress) {
+   for (Layer l in _layout.layers) {
+     if (l.setTargetLeft) {
+       l.left = l.sourceLeft + (l.targetLeft - l.sourceLeft) * progress;
+     }
+     if (l.setTargetRight) {
+       l.right = l.sourceRight + (l.targetRight - l.sourceRight)
+           * progress;
+     }
+     if (l.setTargetTop) {
+       l.top = l.sourceTop + (l.targetTop - l.sourceTop) * progress;
+     }
+     if (l.setTargetBottom) {
+       l.bottom = l.sourceBottom + (l.targetBottom - l.sourceBottom)
+           * progress;
+     }
+     if (l.setTargetWidth) {
+       l.width = l.sourceWidth + (l.targetWidth - l.sourceWidth)
+           * progress;
+     }
+     if (l.setTargetHeight) {
+       l.height = l.sourceHeight + (l.targetHeight - l.sourceHeight)
+           * progress;
+     }
+
+     _layout.impl.layout(l);
+     if (_callback != null) {
+       _callback.onLayout(l, progress);
+     }
+   }
+   _layout.impl.finalizeLayout(_layout.parentElem);
+ }
+
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/Animation.html">Animation</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>LayoutAnimation</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="LayoutAnimation">
+<button class="show-code">Code</button>
+new <strong>LayoutAnimation</strong>(<a href="../dart_web_toolkit_layout/Layout.html">Layout</a> _layout, <a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a> _callback) <a class="anchor-link" href="#LayoutAnimation"
+              title="Permalink to LayoutAnimation.LayoutAnimation">#</a></h4>
+<div class="doc">
+<pre class="source">
+LayoutAnimation(this._layout, this._callback);
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="callback">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a>         <strong>callback</strong> <a class="anchor-link"
+            href="#callback"
+            title="Permalink to LayoutAnimation.callback">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<pre class="source">
+AnimationCallback callback
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="duration">
+<button class="show-code">Code</button>
+int         <strong>duration</strong> <a class="anchor-link"
+            href="#duration"
+            title="Permalink to LayoutAnimation.duration">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>The duration of the {@link Animation} in milliseconds.</p>
+<pre class="source">
+int duration = -1
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="element">
+<button class="show-code">Code</button>
+Element         <strong>element</strong> <a class="anchor-link"
+            href="#element"
+            title="Permalink to LayoutAnimation.element">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>The element being animated.</p>
+<pre class="source">
+dart_html.Element element
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="isStarted">
+<button class="show-code">Code</button>
+bool         <strong>isStarted</strong> <a class="anchor-link"
+            href="#isStarted"
+            title="Permalink to LayoutAnimation.isStarted">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Has the {@link Animation} actually started.</p>
+<pre class="source">
+bool isStarted = false
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="requestHandle">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationHandle.html">AnimationHandle</a>         <strong>requestHandle</strong> <a class="anchor-link"
+            href="#requestHandle"
+            title="Permalink to LayoutAnimation.requestHandle">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>The ID of the pending animation request.</p>
+<pre class="source">
+AnimationHandle requestHandle
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="runId">
+<button class="show-code">Code</button>
+int         <strong>runId</strong> <a class="anchor-link"
+            href="#runId"
+            title="Permalink to LayoutAnimation.runId">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>The unique ID of the current run. Used to handle cases where an animation
+is restarted within an execution block.</p>
+<pre class="source">
+int runId = -1
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="running">
+<button class="show-code">Code</button>
+bool         <strong>running</strong> <a class="anchor-link"
+            href="#running"
+            title="Permalink to LayoutAnimation.running">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Is the animation running, even if it hasn't started yet.</p>
+<pre class="source">
+bool running = false
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="scheduler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationScheduler.html">AnimationScheduler</a>         <strong>scheduler</strong> <a class="anchor-link"
+            href="#scheduler"
+            title="Permalink to LayoutAnimation.scheduler">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<pre class="source">
+AnimationScheduler scheduler
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="startTime">
+<button class="show-code">Code</button>
+int         <strong>startTime</strong> <a class="anchor-link"
+            href="#startTime"
+            title="Permalink to LayoutAnimation.startTime">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>The start time of the {@link Animation}.</p>
+<pre class="source">
+int startTime = -1
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="wasStarted">
+<button class="show-code">Code</button>
+bool         <strong>wasStarted</strong> <a class="anchor-link"
+            href="#wasStarted"
+            title="Permalink to LayoutAnimation.wasStarted">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Did the animation start before {@link #cancel()} was called.</p>
+<pre class="source">
+bool wasStarted = false
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="cancel">
+<button class="show-code">Code</button>
+void <strong>cancel</strong>() <a class="anchor-link" href="#cancel"
+              title="Permalink to LayoutAnimation.cancel">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Immediately cancel this animation. If the animation is running or is
+scheduled to run, {@link #onCancel()} will be called.</p>
+<pre class="source">
+void cancel() {
+ // Ignore if the animation is not currently running.
+ if (!running) {
+   return;
+ }
+
+ // Reset the state.
+ wasStarted = isStarted; // Used by onCancel.
+ element = null;
+ running = false;
+ isStarted = false;
+
+ // Cancel the animation request.
+ if (requestHandle != null) {
+   requestHandle.cancel();
+   requestHandle = null;
+ }
+
+ onCancel();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="interpolate">
+<button class="show-code">Code</button>
+double <strong>interpolate</strong>(double progress) <a class="anchor-link" href="#interpolate"
+              title="Permalink to LayoutAnimation.interpolate">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Interpolate the linear progress into a more natural easing function.</p>
+<p>Depending on the {@link Animation}, the return value of this method can be
+less than 0.0 or greater than 1.0.</p>
+<p>@param progress the linear progress, between 0.0 and 1.0
+@return the interpolated progress</p>
+<pre class="source">
+double interpolate(double progress) {
+ return (1 + dart_math.cos(dart_math.PI + progress * dart_math.PI)) / 2;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isRunning">
+<button class="show-code">Code</button>
+bool <strong>isRunning</strong>(int curRunId) <a class="anchor-link" href="#isRunning"
+              title="Permalink to LayoutAnimation.isRunning">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Check if the specified run ID is still being run.</p>
+<p>@param curRunId the current run ID to check
+@return true if running, false if canceled or restarted</p>
+<pre class="source">
+bool isRunning(int curRunId) {
+ return running &amp;&amp; (runId == curRunId);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onCancel">
+<button class="show-code">Code</button>
+void <strong>onCancel</strong>() <a class="anchor-link" href="#onCancel"
+              title="Permalink to LayoutAnimation.onCancel">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called immediately after the animation is canceled. The default
+implementation of this method calls {@link #onComplete()} only if the
+animation has actually started running.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div></div>
+<pre class="source">
+void onCancel() {
+ onComplete();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onComplete">
+<button class="show-code">Code</button>
+void <strong>onComplete</strong>() <a class="anchor-link" href="#onComplete"
+              title="Permalink to LayoutAnimation.onComplete">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called immediately after the animation completes.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div></div>
+<pre class="source">
+void onComplete() {
+ _layout.animation = null;
+ _layout.layout();
+ if (callback != null) {
+   _callback.onAnimationComplete();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="onStart">
+<button class="show-code">Code</button>
+void <strong>onStart</strong>() <a class="anchor-link" href="#onStart"
+              title="Permalink to LayoutAnimation.onStart">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Called immediately before the animation starts.</p>
+<pre class="source">
+void onStart() {
+ onUpdate(interpolate(0.0));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onUpdate">
+<button class="show-code">Code</button>
+void <strong>onUpdate</strong>(double progress) <a class="anchor-link" href="#onUpdate"
+              title="Permalink to LayoutAnimation.onUpdate">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called when the animation should be updated.</p>
+<p>The value of progress is between 0.0 and 1.0 (inclusive) (unless you
+override the {@link #interpolate(double)} method to provide a wider range
+of values). You can override {@link #onStart()} and {@link #onComplete()}
+to perform setup and tear down procedures.</p>
+<p>@param progress a double, normally between 0.0 and 1.0 (inclusive)</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div></div>
+<pre class="source">
+void onUpdate(double progress) {
+ for (Layer l in _layout.layers) {
+   if (l.setTargetLeft) {
+     l.left = l.sourceLeft + (l.targetLeft - l.sourceLeft) * progress;
+   }
+   if (l.setTargetRight) {
+     l.right = l.sourceRight + (l.targetRight - l.sourceRight)
+         * progress;
+   }
+   if (l.setTargetTop) {
+     l.top = l.sourceTop + (l.targetTop - l.sourceTop) * progress;
+   }
+   if (l.setTargetBottom) {
+     l.bottom = l.sourceBottom + (l.targetBottom - l.sourceBottom)
+         * progress;
+   }
+   if (l.setTargetWidth) {
+     l.width = l.sourceWidth + (l.targetWidth - l.sourceWidth)
+         * progress;
+   }
+   if (l.setTargetHeight) {
+     l.height = l.sourceHeight + (l.targetHeight - l.sourceHeight)
+         * progress;
+   }
+
+   _layout.impl.layout(l);
+   if (_callback != null) {
+     _callback.onLayout(l, progress);
+   }
+ }
+ _layout.impl.finalizeLayout(_layout.parentElem);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="run">
+<button class="show-code">Code</button>
+void <strong>run</strong>(int duration, {int startTime: null, Element element: null}) <a class="anchor-link" href="#run"
+              title="Permalink to LayoutAnimation.run">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Run this animation at the given startTime. If the startTime has already
+passed, the animation will run synchronously as if it started at the
+specified start time. If the animation is already running, it will be
+canceled first.
+&lt;p>
+If the element is not &lt;code>null&lt;/code>, the {@link #onUpdate(double)}
+method might be called only if the element may be visible (generally left
+at the appreciation of the browser). Otherwise, it will be called
+unconditionally.</p>
+<p>@param duration the duration of the animation in milliseconds
+@param startTime the synchronized start time in milliseconds
+@param element the element that visually bounds the entire animation</p>
+<pre class="source">
+void run(int duration, {int startTime:null, dart_html.Element element:null}) {
+ // Cancel the animation if it is running
+ cancel();
+
+ if (startTime == null) {
+   startTime = (new DateTime.now()).millisecondsSinceEpoch;
+ }
+
+ // Save the duration and startTime
+ running = true;
+ isStarted = false;
+ this.duration = duration;
+ this.startTime = startTime;
+ this.element = element;
+ ++runId;
+
+ // Execute the first callback.
+ callback.execute((new DateTime.now()).millisecondsSinceEpoch);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="update">
+<button class="show-code">Code</button>
+bool <strong>update</strong>(int curTime) <a class="anchor-link" href="#update"
+              title="Permalink to LayoutAnimation.update">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/Animation.html">Animation</a> </div><div class="doc">
+<p>Update the {@link Animation}.</p>
+<p>@param curTime the current time
+@return true if the animation should run again, false if it is complete</p>
+<pre class="source">
+bool update(int curTime) {
+ /*
+  * Save the run id. If the runId is incremented during this execution block,
+  * we know that this run has been canceled.
+  */
+ int curRunId = runId;
+
+ bool finished = curTime &gt;= startTime + duration;
+ if (isStarted &amp;&amp; !finished) {
+   // Animation is in progress.
+   double progress = (curTime - startTime) / duration;
+   onUpdate(interpolate(progress));
+   return isRunning(curRunId); // Check if this run was canceled.
+ }
+ if (!isStarted &amp;&amp; curTime &gt;= startTime) {
+   /*
+    * Start the animation. We do not call onUpdate() because onStart() calls
+    * onUpdate() by default.
+    */
+   isStarted = true;
+   onStart();
+   if (!isRunning(curRunId)) {
+     // This run was canceled.
+     return false;
+   }
+   // Intentional fall through to possibly end the animation.
+ }
+ if (finished) {
+   // Animation is complete.
+   running = false;
+   isStarted = false;
+   onComplete();
+   return false;
+ }
+ return true;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.412</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

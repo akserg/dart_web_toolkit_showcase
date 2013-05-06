@@ -1,0 +1,239 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AllMouseHandlersAdapter class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="AllMouseHandlersAdapter">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/AllMouseHandlersAdapter.html">AllMouseHandlersAdapter</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AllMouseHandlersAdapter</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Handler interface for {@link MouseDownEvent} events.</p>
+<pre class="source">
+class AllMouseHandlersAdapter extends EventHandlerAdapter implements 
+   MouseDownHandler, MouseUpHandler, MouseOutHandler, MouseOverHandler, 
+   MouseMoveHandler, MouseWheelHandler {
+
+ AllMouseHandlersAdapter(EventHandlerAdapterCallback callback) : super(callback);
+
+ /**
+  * Called when MouseDown is fired.
+  *
+  * @param event the {@link MouseDownEvent} that was fired
+  */
+ void onMouseDown(MouseDownEvent event) {
+   callback(event);
+ }
+
+ /**
+  * Called when MouseMoveEvent is fired.
+  *
+  * @param event the {@link MouseMoveEvent} that was fired
+  */
+ void onMouseMove(MouseMoveEvent event) {
+   callback(event);
+ }
+ 
+ /**
+  * Called when MouseOutEvent is fired.
+  *
+  * @param event the {@link MouseOutEvent} that was fired
+  */
+ void onMouseOut(MouseOutEvent event) {
+   callback(event);
+ }
+ 
+ /**
+  * Called when MouseOverEvent is fired.
+  *
+  * @param event the {@link MouseOverEvent} that was fired
+  */
+ void onMouseOver(MouseOverEvent event) {
+   callback(event);
+ }
+ 
+ /**
+  * Called when MouseUpEvent is fired.
+  *
+  * @param event the {@link MouseUpEvent} that was fired
+  */
+ void onMouseUp(MouseUpEvent event) {
+   callback(event);
+ }
+ 
+ /**
+  * Called when MouseWheelEvent is fired.
+  *
+  * @param event the {@link MouseWheelEvent} that was fired
+  */
+ void onMouseWheel(MouseWheelEvent event) {
+   callback(event);
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/EventHandlerAdapter.html">EventHandlerAdapter</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>AllMouseHandlersAdapter</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/MouseWheelHandler.html">MouseWheelHandler</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/MouseMoveHandler.html">MouseMoveHandler</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/MouseOverHandler.html">MouseOverHandler</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/MouseOutHandler.html">MouseOutHandler</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/MouseUpHandler.html">MouseUpHandler</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/MouseDownHandler.html">MouseDownHandler</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AllMouseHandlersAdapter">
+<button class="show-code">Code</button>
+new <strong>AllMouseHandlersAdapter</strong>(<a href="../dart_web_toolkit_event/EventHandlerAdapterCallback.html">EventHandlerAdapterCallback</a> callback) <a class="anchor-link" href="#AllMouseHandlersAdapter"
+              title="Permalink to AllMouseHandlersAdapter.AllMouseHandlersAdapter">#</a></h4>
+<div class="doc">
+<pre class="source">
+AllMouseHandlersAdapter(EventHandlerAdapterCallback callback) : super(callback);
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="callback">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventHandlerAdapterCallback.html">EventHandlerAdapterCallback</a>         <strong>callback</strong> <a class="anchor-link"
+            href="#callback"
+            title="Permalink to AllMouseHandlersAdapter.callback">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/EventHandlerAdapter.html">EventHandlerAdapter</a> </div><div class="doc">
+<pre class="source">
+EventHandlerAdapterCallback callback
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="onMouseDown">
+<button class="show-code">Code</button>
+void <strong>onMouseDown</strong>(<a href="../dart_web_toolkit_event/MouseDownEvent.html">MouseDownEvent</a> event) <a class="anchor-link" href="#onMouseDown"
+              title="Permalink to AllMouseHandlersAdapter.onMouseDown">#</a></h4>
+<div class="doc">
+<p>Called when MouseDown is fired.</p>
+<p>@param event the {@link MouseDownEvent} that was fired</p>
+<pre class="source">
+void onMouseDown(MouseDownEvent event) {
+ callback(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onMouseMove">
+<button class="show-code">Code</button>
+void <strong>onMouseMove</strong>(<a href="../dart_web_toolkit_event/MouseMoveEvent.html">MouseMoveEvent</a> event) <a class="anchor-link" href="#onMouseMove"
+              title="Permalink to AllMouseHandlersAdapter.onMouseMove">#</a></h4>
+<div class="doc">
+<p>Called when MouseMoveEvent is fired.</p>
+<p>@param event the {@link MouseMoveEvent} that was fired</p>
+<pre class="source">
+void onMouseMove(MouseMoveEvent event) {
+ callback(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onMouseOut">
+<button class="show-code">Code</button>
+void <strong>onMouseOut</strong>(<a href="../dart_web_toolkit_event/MouseOutEvent.html">MouseOutEvent</a> event) <a class="anchor-link" href="#onMouseOut"
+              title="Permalink to AllMouseHandlersAdapter.onMouseOut">#</a></h4>
+<div class="doc">
+<p>Called when MouseOutEvent is fired.</p>
+<p>@param event the {@link MouseOutEvent} that was fired</p>
+<pre class="source">
+void onMouseOut(MouseOutEvent event) {
+ callback(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onMouseOver">
+<button class="show-code">Code</button>
+void <strong>onMouseOver</strong>(<a href="../dart_web_toolkit_event/MouseOverEvent.html">MouseOverEvent</a> event) <a class="anchor-link" href="#onMouseOver"
+              title="Permalink to AllMouseHandlersAdapter.onMouseOver">#</a></h4>
+<div class="doc">
+<p>Called when MouseOverEvent is fired.</p>
+<p>@param event the {@link MouseOverEvent} that was fired</p>
+<pre class="source">
+void onMouseOver(MouseOverEvent event) {
+ callback(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onMouseUp">
+<button class="show-code">Code</button>
+void <strong>onMouseUp</strong>(<a href="../dart_web_toolkit_event/MouseUpEvent.html">MouseUpEvent</a> event) <a class="anchor-link" href="#onMouseUp"
+              title="Permalink to AllMouseHandlersAdapter.onMouseUp">#</a></h4>
+<div class="doc">
+<p>Called when MouseUpEvent is fired.</p>
+<p>@param event the {@link MouseUpEvent} that was fired</p>
+<pre class="source">
+void onMouseUp(MouseUpEvent event) {
+ callback(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onMouseWheel">
+<button class="show-code">Code</button>
+void <strong>onMouseWheel</strong>(<a href="../dart_web_toolkit_event/MouseWheelEvent.html">MouseWheelEvent</a> event) <a class="anchor-link" href="#onMouseWheel"
+              title="Permalink to AllMouseHandlersAdapter.onMouseWheel">#</a></h4>
+<div class="doc">
+<p>Called when MouseWheelEvent is fired.</p>
+<p>@param event the {@link MouseWheelEvent} that was fired</p>
+<pre class="source">
+void onMouseWheel(MouseWheelEvent event) {
+ callback(event);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.117</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

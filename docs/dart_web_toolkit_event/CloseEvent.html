@@ -1,0 +1,355 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>CloseEvent&lt;T&gt; class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="CloseEvent&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/CloseEvent.html">CloseEvent&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>CloseEvent&lt;T&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Represents a close event.</p>
+<p>@param &lt;T> the type being closed</p>
+<pre class="source">
+class CloseEvent&lt;T&gt; extends DwtEvent {
+
+ /**
+  * The event type.
+  */
+ static EventType&lt;CloseHandler&gt; TYPE = new EventType&lt;CloseHandler&gt;();
+
+ final T target;
+
+ final bool autoClosed;
+
+ /**
+  * Creates a new close event.
+  *
+  * @param target the target
+  * @param autoClosed whether it is auto closed
+  */
+ CloseEvent(this.target, this.autoClosed);
+
+ EventType&lt;CloseHandler&gt; getAssociatedType() {
+   return TYPE;
+ }
+
+ /**
+  * Implemented by subclasses to to invoke their handlers in a type safe
+  * manner. Intended to be called by [EventBus#fireEvent(Event)] or
+  * [EventBus#fireEventFromSource(Event, Object)].
+  *
+  * @param handler handler
+  * @see EventBus#dispatchEvent(Event, Object)
+  */
+ void dispatch(CloseHandler&lt;T&gt; handler) {
+   handler.onClose(this);
+ }
+
+ /**
+  * Fires a close event on all registered handlers in the handler manager.
+  *
+  * @param &lt;T&gt; the target type
+  * @param source the source of the handlers
+  * @param target the target
+  * @param autoClosed was the target closed automatically
+  */
+ static void fire(HasCloseHandlers source, target, [bool autoClosed = false]) {
+   if (TYPE != null) {
+     CloseEvent event = new CloseEvent(target, autoClosed);
+     source.fireEvent(event);
+   }
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/IEvent.html">IEvent&lt;H&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>CloseEvent&lt;T&gt;</strong></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="TYPE">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/CloseHandler.html">CloseHandler</a>&gt;         <strong>TYPE</strong> <a class="anchor-link"
+            href="#TYPE"
+            title="Permalink to CloseEvent&lt;T&gt;.TYPE">#</a>
+        </h4>
+        <div class="doc">
+<p>The event type.</p>
+<pre class="source">
+static EventType&lt;CloseHandler&gt; TYPE = new EventType&lt;CloseHandler&gt;()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="fire">
+<button class="show-code">Code</button>
+void <strong>fire</strong>(<a href="../dart_web_toolkit_event/HasCloseHandlers.html">HasCloseHandlers</a> source, target, [bool autoClosed = false]) <a class="anchor-link" href="#fire"
+              title="Permalink to CloseEvent&lt;T&gt;.fire">#</a></h4>
+<div class="doc">
+<p>Fires a close event on all registered handlers in the handler manager.</p>
+<p>@param &lt;T> the target type
+@param source the source of the handlers
+@param target the target
+@param autoClosed was the target closed automatically</p>
+<pre class="source">
+static void fire(HasCloseHandlers source, target, [bool autoClosed = false]) {
+ if (TYPE != null) {
+   CloseEvent event = new CloseEvent(target, autoClosed);
+   source.fireEvent(event);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="CloseEvent">
+<button class="show-code">Code</button>
+new <strong>CloseEvent</strong>(<a href="../dart_web_toolkit_event/CloseEvent.html">T</a> target, bool autoClosed) <a class="anchor-link" href="#CloseEvent"
+              title="Permalink to CloseEvent&lt;T&gt;.CloseEvent">#</a></h4>
+<div class="doc">
+<p>Creates a new close event.</p>
+<p>@param target the target
+@param autoClosed whether it is auto closed</p>
+<pre class="source">
+CloseEvent(this.target, this.autoClosed);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="autoClosed">
+<button class="show-code">Code</button>
+final bool         <strong>autoClosed</strong> <a class="anchor-link"
+            href="#autoClosed"
+            title="Permalink to CloseEvent&lt;T&gt;.autoClosed">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final bool autoClosed
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="target">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_event/CloseEvent.html">T</a>         <strong>target</strong> <a class="anchor-link"
+            href="#target"
+            title="Permalink to CloseEvent&lt;T&gt;.target">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final T target
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="assertLive">
+<button class="show-code">Code</button>
+void <strong>assertLive</strong>() <a class="anchor-link" href="#assertLive"
+              title="Permalink to CloseEvent&lt;T&gt;.assertLive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Asserts that the event still should be accessed. All events are considered
+to be "dead" after their original handler manager finishes firing them. An
+event can be revived by calling {@link GwtEvent#revive()}.</p>
+<pre class="source">
+void assertLive() {
+ assert (!_dead) ; //: "This event has already finished being processed by its original handler manager, so you can no longer access it";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="dispatch">
+<button class="show-code">Code</button>
+void <strong>dispatch</strong>(<a href="../dart_web_toolkit_event/CloseHandler.html">CloseHandler</a>&lt;<a href="../dart_web_toolkit_event/CloseEvent.html">T</a>&gt; handler) <a class="anchor-link" href="#dispatch"
+              title="Permalink to CloseEvent&lt;T&gt;.dispatch">#</a></h4>
+<div class="doc">
+<p>Implemented by subclasses to to invoke their handlers in a type safe
+manner. Intended to be called by <code>EventBus#fireEvent(Event)</code> or
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@param handler handler
+@see EventBus#dispatchEvent(Event, Object)</p>
+<pre class="source">
+void dispatch(CloseHandler&lt;T&gt; handler) {
+ handler.onClose(this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAssociatedType">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/CloseHandler.html">CloseHandler</a>&gt; <strong>getAssociatedType</strong>() <a class="anchor-link" href="#getAssociatedType"
+              title="Permalink to CloseEvent&lt;T&gt;.getAssociatedType">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_event/EventType.html">EventType</a> used to register this event, allowing an
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> to find handlers of the appropriate class.</p>
+<p>@return the type</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/CloseEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+EventType&lt;CloseHandler&gt; getAssociatedType() {
+ return TYPE;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getSource">
+<button class="show-code">Code</button>
+Object <strong>getSource</strong>() <a class="anchor-link" href="#getSource"
+              title="Permalink to CloseEvent&lt;T&gt;.getSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns the source for this event. The type and meaning of the source is
+arbitrary, and is most useful as a secondary key for handler registration.
+(See <code>EventBus#addHandlerToSource</code>, which allows a handler to
+register for events of a particular type, tied to a particular source.)</p>
+<p>Note that the source is actually set at dispatch time, e.g. via
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@return object representing the source of this event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/CloseEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+Object getSource() {
+ assertLive();
+ return super.getSource();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isLive">
+<button class="show-code">Code</button>
+bool <strong>isLive</strong>() <a class="anchor-link" href="#isLive"
+              title="Permalink to CloseEvent&lt;T&gt;.isLive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Is the event current live?</p>
+<p>@return whether the event is live</p>
+<pre class="source">
+bool isLive() {
+ return !_dead;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="kill">
+<button class="show-code">Code</button>
+void <strong>kill</strong>() <a class="anchor-link" href="#kill"
+              title="Permalink to CloseEvent&lt;T&gt;.kill">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Kill the event. After the event has been killed, users cannot really on its
+values or functions being available.</p>
+<pre class="source">
+void kill() {
+ _dead = true;
+ setSource(null);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="overrideSource">
+<button class="show-code">Code</button>
+void <strong>overrideSource</strong>(Object source) <a class="anchor-link" href="#overrideSource"
+              title="Permalink to CloseEvent&lt;T&gt;.overrideSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<pre class="source">
+void overrideSource(Object source) {
+ super.setSource(source);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="revive">
+<button class="show-code">Code</button>
+void <strong>revive</strong>() <a class="anchor-link" href="#revive"
+              title="Permalink to CloseEvent&lt;T&gt;.revive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Revives the event. Used when recycling event instances.</p>
+<pre class="source">
+void revive() {
+ _dead = false;
+ setSource(null);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSource">
+<button class="show-code">Code</button>
+void <strong>setSource</strong>(source) <a class="anchor-link" href="#setSource"
+              title="Permalink to CloseEvent&lt;T&gt;.setSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> </div><div class="doc">
+<p>Set the source that triggered this event. Intended to be called by the
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> during dispatch.</p>
+<p>@param source the source of this event.
+@see EventBus#fireEventFromSource(Event, Object)
+@see EventBus#setSourceOfEvent(Event, Object)</p>
+<pre class="source">
+void setSource(dynamic source) {
+ this._source = source;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to CloseEvent&lt;T&gt;.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> </div><div class="doc">
+<p>The toString() for abstract event is overridden to avoid accidently
+including class literals in the the compiled output. Use <code>Event</code></p>
+<h1>toDebugString to get more information about the event.</h1>
+<pre class="source">
+String toString() {
+ return "An event type";
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.465</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

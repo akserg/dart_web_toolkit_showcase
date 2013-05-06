@@ -1,0 +1,138 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DirectionEstimator abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="DirectionEstimator">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DirectionEstimator</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Interface for direction estimators.</p>
+<pre class="source">
+abstract class DirectionEstimator {
+
+ /**
+  * Estimates the direction of a plain-text string.
+  * 
+  * @param str The string to check.
+  * @return {@code str}'s estimated direction.
+  */
+ Direction estimateDirection(String str);
+ 
+ /**
+  * Estimates the direction of a string.
+  *
+  * @param str The string to check.
+  * @param isHtml Whether {@code str} is HTML / HTML-escaped. {@code false}
+  *        means that {@code str} is plain-text.
+  * @return {@code str}'s estimated direction.
+  */
+ Direction estimateStringDirection(String str, [bool isHtml = false]) {
+   return estimateDirection(BidiUtils.get().stripHtmlIfNeeded(str, isHtml));
+ }
+
+ /**
+  * Estimates the direction of a SafeHtml.
+  *
+  * @param html The string to check.
+  * @return {@code html}'s estimated direction.
+  */
+ Direction estimateSafetmlDirection(SafeHtml html) {
+   return estimateDirection(BidiUtils.get().stripHtmlIfNeeded(html.asString(), true));
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/WordCountDirectionEstimator.html">WordCountDirectionEstimator</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="estimateDirection">
+abstract <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>estimateDirection</strong>(String str) <a class="anchor-link" href="#estimateDirection"
+              title="Permalink to DirectionEstimator.estimateDirection">#</a></h4>
+<div class="doc">
+<p>Estimates the direction of a plain-text string.</p>
+<p>@param str The string to check.
+@return {@code str}'s estimated direction.</p>
+</div>
+</div>
+<div class="method"><h4 id="estimateSafetmlDirection">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>estimateSafetmlDirection</strong>(<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> html) <a class="anchor-link" href="#estimateSafetmlDirection"
+              title="Permalink to DirectionEstimator.estimateSafetmlDirection">#</a></h4>
+<div class="doc">
+<p>Estimates the direction of a SafeHtml.</p>
+<p>@param html The string to check.
+@return {@code html}'s estimated direction.</p>
+<pre class="source">
+Direction estimateSafetmlDirection(SafeHtml html) {
+ return estimateDirection(BidiUtils.get().stripHtmlIfNeeded(html.asString(), true));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="estimateStringDirection">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>estimateStringDirection</strong>(String str, [bool isHtml = false]) <a class="anchor-link" href="#estimateStringDirection"
+              title="Permalink to DirectionEstimator.estimateStringDirection">#</a></h4>
+<div class="doc">
+<p>Estimates the direction of a string.</p>
+<p>@param str The string to check.
+@param isHtml Whether {@code str} is HTML / HTML-escaped. {@code false}</p>
+<pre><code>   means that {@code str} is plain-text.
+</code></pre>
+<p>@return {@code str}'s estimated direction.</p>
+<pre class="source">
+Direction estimateStringDirection(String str, [bool isHtml = false]) {
+ return estimateDirection(BidiUtils.get().stripHtmlIfNeeded(str, isHtml));
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.073</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

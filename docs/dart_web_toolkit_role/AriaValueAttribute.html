@@ -1,0 +1,207 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AriaValueAttribute&lt;T&gt; class / dart_web_toolkit_role Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_role" data-type="AriaValueAttribute&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_role.html">dart_web_toolkit_role</a> &rsaquo; <a href="../dart_web_toolkit_role/AriaValueAttribute.html">AriaValueAttribute&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AriaValueAttribute&lt;T&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p> ARIA specific type attribute.</p>
+<pre class="source">
+class AriaValueAttribute&lt;T&gt; extends Attribute&lt;T&gt; {
+
+ AriaValueAttribute(String name, [String defaultValue = null]) : super(name, defaultValue);
+
+ String getSingleValue(T value) {
+   return (value as AriaAttributeType).getAriaValue();
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/Attribute.html">Attribute&lt;T&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>AriaValueAttribute&lt;T&gt;</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AriaValueAttribute">
+<button class="show-code">Code</button>
+new <strong>AriaValueAttribute</strong>(String name, [String defaultValue = null]) <a class="anchor-link" href="#AriaValueAttribute"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.AriaValueAttribute">#</a></h4>
+<div class="doc">
+<pre class="source">
+AriaValueAttribute(String name, [String defaultValue = null]) : super(name, defaultValue);
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="defaultValue">
+<button class="show-code">Code</button>
+String         <strong>defaultValue</strong> <a class="anchor-link"
+            href="#defaultValue"
+            title="Permalink to AriaValueAttribute&lt;T&gt;.defaultValue">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<pre class="source">
+String defaultValue
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="name">
+<button class="show-code">Code</button>
+final String         <strong>name</strong> <a class="anchor-link"
+            href="#name"
+            title="Permalink to AriaValueAttribute&lt;T&gt;.name">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<pre class="source">
+final String name
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="get">
+<button class="show-code">Code</button>
+String <strong>get</strong>(Element element) <a class="anchor-link" href="#get"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.get">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<p>Gets the HTML attribute value for the attribute with name {@code name} for element
+{@code element}</p>
+<p>@param element HTM element
+@return The attribute value for {@code element}</p>
+<pre class="source">
+String get(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ return element.attributes["name"];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getName">
+<button class="show-code">Code</button>
+String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.getName">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<p>Gets the property/state name</p>
+<p>@return The attribute name</p>
+<pre class="source">
+String getName() {
+ return name;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSingleValue">
+<button class="show-code">Code</button>
+String <strong>getSingleValue</strong>(<a href="../dart_web_toolkit_role/AriaValueAttribute.html">T</a> value) <a class="anchor-link" href="#getSingleValue"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.getSingleValue">#</a></h4>
+<div class="doc">
+<pre class="source">
+String getSingleValue(T value) {
+ return (value as AriaAttributeType).getAriaValue();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="remove">
+<button class="show-code">Code</button>
+void <strong>remove</strong>(Element element) <a class="anchor-link" href="#remove"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.remove">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<p>Removes the state/property attribute for element {@code element}.</p>
+<p>@param element HTM element</p>
+<pre class="source">
+void remove(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ element.attributes.remove(name);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="set">
+<button class="show-code">Code</button>
+void <strong>set</strong>(Element element, <a href="../dart_web_toolkit_role/AriaValueAttribute.html">T</a> values) <a class="anchor-link" href="#set"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.set">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<p>Sets the state/property {@code value} for the HTML element {@code element}.</p>
+<p>@param element HTML element
+@param values Attribute value</p>
+<pre class="source">
+void set(dart_html.Element element, T values) {
+ assert (element != null); // : "Element cannot be null.";
+ //assert (values.length &gt; 0);
+ element.attributes[name] = _getAriaValue(values);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setDefault">
+<button class="show-code">Code</button>
+void <strong>setDefault</strong>(Element element) <a class="anchor-link" href="#setDefault"
+              title="Permalink to AriaValueAttribute&lt;T&gt;.setDefault">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_role/Attribute.html">Attribute</a> </div><div class="doc">
+<p>Sets the state/property value to the defaultValue if not null. If a list of default values is
+set, every default value is converted to string and the string values are concatenated in a
+string token list. There is an assertion checking whether the default is null. Note that the
+asserts are enabled during development and testing but they will be stripped in production
+mode.</p>
+<p>@param element HTML element</p>
+<pre class="source">
+void setDefault(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ assert (defaultValue != null &amp;&amp; !defaultValue.isEmpty); // : "Default value cannot be null.";
+ element.attributes[name] = defaultValue;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.550</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

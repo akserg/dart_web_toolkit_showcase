@@ -1,0 +1,148 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>LayoutCommandAnimationCallback class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="LayoutCommandAnimationCallback">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/LayoutCommandAnimationCallback.html">LayoutCommandAnimationCallback</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>LayoutCommandAnimationCallback</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class LayoutCommandAnimationCallback implements LayoutAnimationCallback {
+
+ LayoutCommand _command;
+
+ LayoutCommandAnimationCallback(this._command);
+
+ void onAnimationComplete() {
+   // Chain to the passed callback.
+   if (_command.callback != null) {
+     _command.callback.onAnimationComplete();
+   }
+ }
+
+ void onLayout(Layer layer, double progress) {
+   // Inform the child associated with this layer that its size may
+   // have changed.
+   Widget child = layer.userObject as Widget;
+   if (child is RequiresResize) {
+     (child as RequiresResize).onResize();
+   }
+
+   // Chain to the passed callback.
+   if (_command.callback != null) {
+     _command.callback.onLayout(layer, progress);
+   }
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="LayoutCommandAnimationCallback">
+<button class="show-code">Code</button>
+new <strong>LayoutCommandAnimationCallback</strong>(<a href="../dart_web_toolkit_ui/LayoutCommand.html">LayoutCommand</a> _command) <a class="anchor-link" href="#LayoutCommandAnimationCallback"
+              title="Permalink to LayoutCommandAnimationCallback.LayoutCommandAnimationCallback">#</a></h4>
+<div class="doc">
+<pre class="source">
+LayoutCommandAnimationCallback(this._command);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="onAnimationComplete">
+<button class="show-code">Code</button>
+void <strong>onAnimationComplete</strong>() <a class="anchor-link" href="#onAnimationComplete"
+              title="Permalink to LayoutCommandAnimationCallback.onAnimationComplete">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called immediately after the animation is complete, and the entire layout
+is in its final state.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a> </div></div>
+<pre class="source">
+void onAnimationComplete() {
+ // Chain to the passed callback.
+ if (_command.callback != null) {
+   _command.callback.onAnimationComplete();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onLayout">
+<button class="show-code">Code</button>
+void <strong>onLayout</strong>(<a href="../dart_web_toolkit_layout/Layer.html">Layer</a> layer, double progress) <a class="anchor-link" href="#onLayout"
+              title="Permalink to LayoutCommandAnimationCallback.onLayout">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called at each step of the animation, for each layer being laid out.</p>
+<p>@param layer the layer being laid out</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a> </div></div>
+<pre class="source">
+void onLayout(Layer layer, double progress) {
+ // Inform the child associated with this layer that its size may
+ // have changed.
+ Widget child = layer.userObject as Widget;
+ if (child is RequiresResize) {
+   (child as RequiresResize).onResize();
+ }
+
+ // Chain to the passed callback.
+ if (_command.callback != null) {
+   _command.callback.onLayout(layer, progress);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:25.833</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

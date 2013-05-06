@@ -1,0 +1,251 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ValueBoxEditor&lt;T&gt; class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ValueBoxEditor&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ValueBoxEditor.html">ValueBoxEditor&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ValueBoxEditor&lt;T&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Adapts the {@link ValueBoxBase} interface to the Editor framework. This
+adapter uses {@link ValueBoxBase#getValueOrThrow()} to report parse errors to
+the Editor framework.</p>
+<p>@param &lt;T> the type of value to be edited</p>
+<pre class="source">
+class ValueBoxEditor&lt;T&gt; extends TakesValueEditor&lt;T&gt; implements HasEditorDelegate&lt;T&gt; {
+ /**
+  * Returns a new TakesValueEditor that adapts a {@link ValueBoxBase}
+  * instance.
+  *
+  * @param valueBox a {@link ValueBoxBase} instance to adapt
+  * @return a ValueBoxEditor instance of the same type as the
+  *   adapted {@link ValueBoxBase} instance
+  */
+ factory ValueBoxEditor.of(ValueBoxBase valueBox) {
+   return new ValueBoxEditor(valueBox);
+ }
+
+ EditorDelegate&lt;T&gt; _delegate;
+ ValueBoxBase&lt;T&gt; _peer;
+ T _value;
+
+ /**
+  * Constructs a new ValueBoxEditor that adapts a {@link ValueBoxBase} peer
+  * instance.
+  *
+  * @param peer a {@link ValueBoxBase} instance of type T
+  */
+ ValueBoxEditor(ValueBoxBase peer) : super(peer) {
+   this._peer = peer;
+ }
+
+ /**
+  * Returns the {@link EditorDelegate} for this instance.
+  *
+  * @return an {@link EditorDelegate}, or {@code null}
+  * @see #setDelegate(EditorDelegate)
+  */
+ EditorDelegate&lt;T&gt; getDelegate() {
+   return _delegate;
+ }
+
+ /**
+  * Calls {@link ValueBoxBase#getValueOrThrow()}. If a {@link ParseException}
+  * is thrown, it will be available through
+  * {@link com.google.gwt.editor.client.EditorError#getUserData()
+  * EditorError.getUserData()}.
+  *
+  * @return a value of type T
+  * @see #setValue(Object)
+  */
+ T getValue() {
+   try {
+     _value = _peer.getValueOrThrow();
+   } on Exception catch (e) {
+     // TODO i18n
+     getDelegate().recordError("Bad value (${_peer.text})", _peer.text, e);
+   }
+   return _value;
+ }
+
+ /**
+  * Sets the {@link EditorDelegate} for this instance. This method is only
+  * called by the driver.
+  *
+  * @param delegate an {@link EditorDelegate}, or {@code null}
+  * @see #getDelegate()
+  */
+ void setDelegate(EditorDelegate&lt;T&gt; delegate) {
+   this._delegate = delegate;
+ }
+
+ void setValue(T value, [bool fireEvents = false]) {
+   _peer.setValue(this._value = value);
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/TakesValueEditor.html">TakesValueEditor&lt;T&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ValueBoxEditor&lt;T&gt;</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_editor/HasEditorDelegate.html">HasEditorDelegate&lt;T&gt;</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ValueBoxEditor">
+<button class="show-code">Code</button>
+new <strong>ValueBoxEditor</strong>(<a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> peer) <a class="anchor-link" href="#ValueBoxEditor"
+              title="Permalink to ValueBoxEditor&lt;T&gt;.ValueBoxEditor">#</a></h4>
+<div class="doc">
+<p>Constructs a new ValueBoxEditor that adapts a {@link ValueBoxBase} peer
+instance.</p>
+<p>@param peer a {@link ValueBoxBase} instance of type T</p>
+<pre class="source">
+ValueBoxEditor(ValueBoxBase peer) : super(peer) {
+ this._peer = peer;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ValueBoxEditor.of">
+<button class="show-code">Code</button>
+factory <strong>ValueBoxEditor.of</strong>(<a href="../dart_web_toolkit_ui/ValueBoxBase.html">ValueBoxBase</a> valueBox) <a class="anchor-link" href="#ValueBoxEditor.of"
+              title="Permalink to ValueBoxEditor&lt;T&gt;.ValueBoxEditor.of">#</a></h4>
+<div class="doc">
+<p>Returns a new TakesValueEditor that adapts a {@link ValueBoxBase}
+instance.</p>
+<p>@param valueBox a {@link ValueBoxBase} instance to adapt
+@return a ValueBoxEditor instance of the same type as the
+  adapted {@link ValueBoxBase} instance</p>
+<pre class="source">
+factory ValueBoxEditor.of(ValueBoxBase valueBox) {
+ return new ValueBoxEditor(valueBox);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getDelegate">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_editor/EditorDelegate.html">EditorDelegate</a>&lt;<a href="../dart_web_toolkit_ui/ValueBoxEditor.html">T</a>&gt; <strong>getDelegate</strong>() <a class="anchor-link" href="#getDelegate"
+              title="Permalink to ValueBoxEditor&lt;T&gt;.getDelegate">#</a></h4>
+<div class="doc">
+<p>Returns the {@link EditorDelegate} for this instance.</p>
+<p>@return an {@link EditorDelegate}, or {@code null}
+@see #setDelegate(EditorDelegate)</p>
+<pre class="source">
+EditorDelegate&lt;T&gt; getDelegate() {
+ return _delegate;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getValue">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ValueBoxEditor.html">T</a> <strong>getValue</strong>() <a class="anchor-link" href="#getValue"
+              title="Permalink to ValueBoxEditor&lt;T&gt;.getValue">#</a></h4>
+<div class="doc">
+<p>Calls {@link ValueBoxBase#getValueOrThrow()}. If a {@link ParseException}
+is thrown, it will be available through
+{@link com.google.gwt.editor.client.EditorError#getUserData()
+EditorError.getUserData()}.</p>
+<p>@return a value of type T
+@see #setValue(Object)</p>
+<pre class="source">
+T getValue() {
+ try {
+   _value = _peer.getValueOrThrow();
+ } on Exception catch (e) {
+   // TODO i18n
+   getDelegate().recordError("Bad value (${_peer.text})", _peer.text, e);
+ }
+ return _value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDelegate">
+<button class="show-code">Code</button>
+void <strong>setDelegate</strong>(<a href="../dart_web_toolkit_editor/EditorDelegate.html">EditorDelegate</a>&lt;<a href="../dart_web_toolkit_ui/ValueBoxEditor.html">T</a>&gt; delegate) <a class="anchor-link" href="#setDelegate"
+              title="Permalink to ValueBoxEditor&lt;T&gt;.setDelegate">#</a></h4>
+<div class="doc">
+<p>Sets the {@link EditorDelegate} for this instance. This method is only
+called by the driver.</p>
+<p>@param delegate an {@link EditorDelegate}, or {@code null}
+@see #getDelegate()</p>
+<pre class="source">
+void setDelegate(EditorDelegate&lt;T&gt; delegate) {
+ this._delegate = delegate;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setValue">
+<button class="show-code">Code</button>
+void <strong>setValue</strong>(<a href="../dart_web_toolkit_ui/ValueBoxEditor.html">T</a> value, [bool fireEvents = false]) <a class="anchor-link" href="#setValue"
+              title="Permalink to ValueBoxEditor&lt;T&gt;.setValue">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Sets the value.
+Fires <code>ValueChangeEvent</code> when
+fireEvents is true and the new value does not equal the existing value.</p>
+<p>@param value a value object of type V
+@see #getValue()
+@param fireEvents fire events if true and value is new</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/TakesValueEditor.html">TakesValueEditor</a>&lt;<a href="../dart_web_toolkit_ui/ValueBoxEditor.html">T</a>&gt; </div></div>
+<pre class="source">
+void setValue(T value, [bool fireEvents = false]) {
+ _peer.setValue(this._value = value);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.778</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

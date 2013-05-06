@@ -1,0 +1,177 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>EditorDelegate&lt;T&gt; abstract class / dart_web_toolkit_editor Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_editor" data-type="EditorDelegate&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_editor.html">dart_web_toolkit_editor</a> &rsaquo; <a href="../dart_web_toolkit_editor/EditorDelegate.html">EditorDelegate&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>EditorDelegate&lt;T&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Binds an individual Editor to the backing service. Every Editor has a peer
+EditorDelegate. If an Editor implements the {@link ValueAwareEditor}
+interface, the EditorDriver will make the delegate available through the
+{@link ValueAwareEditor#setDelegate} method.</p>
+<p>@param &lt;T> the type of object the delegate can accept
+@see com.google.gwt.editor.client.testing.MockEditorDelegate</p>
+<pre class="source">
+abstract class EditorDelegate&lt;T&gt; {
+
+ /**
+  * Returns the Editor's path, relative to the root object.
+  *
+  * @return the path as a String
+  */
+ String getPath();
+
+ /**
+  * This method should be called from {@link ValueAwareEditor#flush()} or
+  * {@link LeafValueEditor#getValue()} to record an error that will be reported
+  * to the nearest super-Editor that implements the {@link HasEditorErrors}
+  * interface.
+  *
+  * @param message a textual description of the error
+  * @param value the value to be returned by {@link EditorError#getValue()} or
+  *          &lt;code&gt;null&lt;/code&gt; if the value currently associated with the
+  *          Editor should be used
+  * @param userData an arbitrary object, possibly &lt;code&gt;null&lt;/code&gt;, that can
+  *          be retrieved with {@link EditorError#getUserData()}
+  */
+ void recordError(String message, Object value, Object userData);
+
+ /**
+  * Toggle the dirty-state flag for the Editor.
+  * &lt;p&gt;
+  * The dirty state of an Editor will be automatically cleared any time the
+  * Driver's {@code edit()} or {@code flush()} methods are called.
+  * &lt;p&gt;
+  * The dirty state will be automatically calculated for
+  * {@link LeafValueEditor} instances based on an {@link Object#equals(Object)}
+  * comparison of {@link LeafValueEditor#getValue()} and the value last passed
+  * to {@link LeafValueEditor#setValue(Object)}, however a clean state can be
+  * overridden by calling {@code setDirty(true)}.
+  *
+  * @param dirty the dirty state of the Editor
+  */
+ void setDirty(bool dirty);
+
+ /**
+  * Register for notifications if object being edited is updated. Not all
+  * backends support subscriptions and will return &lt;code&gt;null&lt;/code&gt;.
+  * &lt;p&gt;
+  * The notification will occur via {@link ValueAwareEditor#onPropertyChange}
+  * if the backend supports in-place property updates, otherwise updates will
+  * be passed via {@link ValueAwareEditor#setValue}.
+  *
+  * @return a HandlerRegistration to unsubscribe from the notifications or
+  *         &lt;code&gt;null&lt;/code&gt; if the delegate does not support subscription
+  */
+ HandlerRegistration subscribe();
+}
+</pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getPath">
+abstract String <strong>getPath</strong>() <a class="anchor-link" href="#getPath"
+              title="Permalink to EditorDelegate&lt;T&gt;.getPath">#</a></h4>
+<div class="doc">
+<p>Returns the Editor's path, relative to the root object.</p>
+<p>@return the path as a String</p>
+</div>
+</div>
+<div class="method"><h4 id="recordError">
+abstract void <strong>recordError</strong>(String message, Object value, Object userData) <a class="anchor-link" href="#recordError"
+              title="Permalink to EditorDelegate&lt;T&gt;.recordError">#</a></h4>
+<div class="doc">
+<p>This method should be called from {@link ValueAwareEditor#flush()} or
+{@link LeafValueEditor#getValue()} to record an error that will be reported
+to the nearest super-Editor that implements the {@link HasEditorErrors}
+interface.</p>
+<p>@param message a textual description of the error
+@param value the value to be returned by {@link EditorError#getValue()} or</p>
+<pre><code>     &lt;code&gt;null&lt;/code&gt; if the value currently associated with the
+     Editor should be used
+</code></pre>
+<p>@param userData an arbitrary object, possibly &lt;code>null&lt;/code>, that can</p>
+<pre><code>     be retrieved with {@link EditorError#getUserData()}
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="setDirty">
+abstract void <strong>setDirty</strong>(bool dirty) <a class="anchor-link" href="#setDirty"
+              title="Permalink to EditorDelegate&lt;T&gt;.setDirty">#</a></h4>
+<div class="doc">
+<p>Toggle the dirty-state flag for the Editor.
+&lt;p>
+The dirty state of an Editor will be automatically cleared any time the
+Driver's {@code edit()} or {@code flush()} methods are called.
+&lt;p>
+The dirty state will be automatically calculated for
+{@link LeafValueEditor} instances based on an {@link Object#equals(Object)}
+comparison of {@link LeafValueEditor#getValue()} and the value last passed
+to {@link LeafValueEditor#setValue(Object)}, however a clean state can be
+overridden by calling {@code setDirty(true)}.</p>
+<p>@param dirty the dirty state of the Editor</p>
+</div>
+</div>
+<div class="method"><h4 id="subscribe">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>subscribe</strong>() <a class="anchor-link" href="#subscribe"
+              title="Permalink to EditorDelegate&lt;T&gt;.subscribe">#</a></h4>
+<div class="doc">
+<p>Register for notifications if object being edited is updated. Not all
+backends support subscriptions and will return &lt;code>null&lt;/code>.
+&lt;p>
+The notification will occur via {@link ValueAwareEditor#onPropertyChange}
+if the backend supports in-place property updates, otherwise updates will
+be passed via {@link ValueAwareEditor#setValue}.</p>
+<p>@return a HandlerRegistration to unsubscribe from the notifications or</p>
+<pre><code>    &lt;code&gt;null&lt;/code&gt; if the delegate does not support subscription
+</code></pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.062</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

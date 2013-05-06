@@ -1,0 +1,301 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Attribute&lt;T&gt; abstract class / dart_web_toolkit_role Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_role" data-type="Attribute&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_role.html">dart_web_toolkit_role</a> &rsaquo; <a href="../dart_web_toolkit_role/Attribute.html">Attribute&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Attribute&lt;T&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Class representing ARIA state/property attribute. Contains methods for setting, getting,
+removing ARIA attributes for an HTML {@link com.google.gwt.dom.client.Element}.</p><p>For more details about ARIA states and properties check the W3C ARIA documentation
+<a href="http://www.w3.org/TR/wai-aria/states_and_properties"> Supported States and Properties
+</a>.</p>
+<p>@param &lt;T> The attribute value type</p>
+<pre class="source">
+abstract class Attribute&lt;T&gt; {
+
+ final String name;
+ String defaultValue;
+
+ /**
+  * Constructs a state/property ARIA attribute with name {@code name} and {@code defaultValue}.
+  *
+  * @param name State/Property name
+  * @param defaultValue Default values
+  */
+ Attribute(this.name, [String defaultValue = null]) {
+   assert (name != null); // : "Name cannot be null";
+   this.defaultValue = defaultValue;
+ }
+
+ /**
+  * Gets the HTML attribute value for the attribute with name {@code name} for element
+  * {@code element}
+  *
+  * @param element HTM element
+  * @return The attribute value for {@code element}
+  */
+ String get(dart_html.Element element) {
+   assert (element != null); // : "Element cannot be null.";
+   return element.attributes["name"];
+ }
+
+ /**
+  * Gets the property/state name
+  *
+  * @return The attribute name
+  */
+ String getName() {
+   return name;
+ }
+
+ /**
+  * Removes the state/property attribute for element {@code element}.
+  *
+  * @param element HTM element
+  */
+ void remove(dart_html.Element element) {
+   assert (element != null); // : "Element cannot be null.";
+   element.attributes.remove(name);
+ }
+
+ /**
+  * Sets the state/property {@code value} for the HTML element {@code element}.
+  *
+  * @param element HTML element
+  * @param values Attribute value
+  */
+ void set(dart_html.Element element, T values) {
+   assert (element != null); // : "Element cannot be null.";
+   //assert (values.length &gt; 0);
+   element.attributes[name] = _getAriaValue(values);
+ }
+
+ /**
+  * Sets the state/property value to the defaultValue if not null. If a list of default values is
+  * set, every default value is converted to string and the string values are concatenated in a
+  * string token list. There is an assertion checking whether the default is null. Note that the
+  * asserts are enabled during development and testing but they will be stripped in production
+  * mode.
+  *
+  * @param element HTML element
+  */
+ void setDefault(dart_html.Element element) {
+   assert (element != null); // : "Element cannot be null.";
+   assert (defaultValue != null &amp;&amp; !defaultValue.isEmpty); // : "Default value cannot be null.";
+   element.attributes[name] = defaultValue;
+ }
+
+ String getSingleValue(T value);
+
+ String _getAriaValue(T value) {
+   if (value is Iterable) {
+     StringBuffer buf = new StringBuffer();
+     for (T item in (value as Iterable)) {
+       buf.write(getSingleValue(item));
+       buf.write(" ");
+     }
+     return buf.toString().trim();
+   } else {
+     return getSingleValue(value);
+   }
+//    if (value.length == 1) {
+//      return getSingleValue(value[0]);
+//    } else {
+//      StringBuffer buf = new StringBuffer();
+//      for (T item in value) {
+//        buf.add(getSingleValue(item)).add(" ");
+//      }
+//      return buf.toString().trim();
+//    }
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/AriaValueAttribute.html">AriaValueAttribute&lt;T&gt;</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Attribute">
+<button class="show-code">Code</button>
+new <strong>Attribute</strong>(String name, [String defaultValue = null]) <a class="anchor-link" href="#Attribute"
+              title="Permalink to Attribute&lt;T&gt;.Attribute">#</a></h4>
+<div class="doc">
+<p>Constructs a state/property ARIA attribute with name {@code name} and {@code defaultValue}.</p>
+<p>@param name State/Property name
+@param defaultValue Default values</p>
+<pre class="source">
+Attribute(this.name, [String defaultValue = null]) {
+ assert (name != null); // : "Name cannot be null";
+ this.defaultValue = defaultValue;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="defaultValue">
+<button class="show-code">Code</button>
+String         <strong>defaultValue</strong> <a class="anchor-link"
+            href="#defaultValue"
+            title="Permalink to Attribute&lt;T&gt;.defaultValue">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String defaultValue
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="name">
+<button class="show-code">Code</button>
+final String         <strong>name</strong> <a class="anchor-link"
+            href="#name"
+            title="Permalink to Attribute&lt;T&gt;.name">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final String name
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+String <strong>get</strong>(Element element) <a class="anchor-link" href="#get"
+              title="Permalink to Attribute&lt;T&gt;.get">#</a></h4>
+<div class="doc">
+<p>Gets the HTML attribute value for the attribute with name {@code name} for element
+{@code element}</p>
+<p>@param element HTM element
+@return The attribute value for {@code element}</p>
+<pre class="source">
+String get(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ return element.attributes["name"];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getName">
+<button class="show-code">Code</button>
+String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to Attribute&lt;T&gt;.getName">#</a></h4>
+<div class="doc">
+<p>Gets the property/state name</p>
+<p>@return The attribute name</p>
+<pre class="source">
+String getName() {
+ return name;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSingleValue">
+abstract String <strong>getSingleValue</strong>(<a href="../dart_web_toolkit_role/Attribute.html">T</a> value) <a class="anchor-link" href="#getSingleValue"
+              title="Permalink to Attribute&lt;T&gt;.getSingleValue">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="remove">
+<button class="show-code">Code</button>
+void <strong>remove</strong>(Element element) <a class="anchor-link" href="#remove"
+              title="Permalink to Attribute&lt;T&gt;.remove">#</a></h4>
+<div class="doc">
+<p>Removes the state/property attribute for element {@code element}.</p>
+<p>@param element HTM element</p>
+<pre class="source">
+void remove(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ element.attributes.remove(name);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set">
+<button class="show-code">Code</button>
+void <strong>set</strong>(Element element, <a href="../dart_web_toolkit_role/Attribute.html">T</a> values) <a class="anchor-link" href="#set"
+              title="Permalink to Attribute&lt;T&gt;.set">#</a></h4>
+<div class="doc">
+<p>Sets the state/property {@code value} for the HTML element {@code element}.</p>
+<p>@param element HTML element
+@param values Attribute value</p>
+<pre class="source">
+void set(dart_html.Element element, T values) {
+ assert (element != null); // : "Element cannot be null.";
+ //assert (values.length &gt; 0);
+ element.attributes[name] = _getAriaValue(values);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDefault">
+<button class="show-code">Code</button>
+void <strong>setDefault</strong>(Element element) <a class="anchor-link" href="#setDefault"
+              title="Permalink to Attribute&lt;T&gt;.setDefault">#</a></h4>
+<div class="doc">
+<p>Sets the state/property value to the defaultValue if not null. If a list of default values is
+set, every default value is converted to string and the string values are concatenated in a
+string token list. There is an assertion checking whether the default is null. Note that the
+asserts are enabled during development and testing but they will be stripped in production
+mode.</p>
+<p>@param element HTML element</p>
+<pre class="source">
+void setDefault(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ assert (defaultValue != null &amp;&amp; !defaultValue.isEmpty); // : "Default value cannot be null.";
+ element.attributes[name] = defaultValue;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.557</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

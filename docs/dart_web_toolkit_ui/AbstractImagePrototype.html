@@ -1,0 +1,296 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AbstractImagePrototype abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="AbstractImagePrototype">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AbstractImagePrototype</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>An opaque representation of a particular image such that the image can be
+accessed either as an HTML fragment or as an {@link Image} object. An image
+prototype can be thought of as an abstract image factory with additional
+capabilities.</p><p>
+The {@link #applyTo(Image)} method provides an efficient way to replace the
+contents of an existing <code>Image</code>. This is useful in cases where an
+image changes its appearance based on a user's action. Instead of creating
+two <code>Image</code> objects then alternately hiding/showing them, one can
+use the {@link #applyTo(Image)} method of two
+<code>AbstractImagePrototype</code> objects to transform a single
+<code>Image</code> object between two (or more) visual representations. The
+use of <code>AbstractImagePrototypes</code> results in an cleaner and more
+efficient implementation.
+</p><p>
+This class also provide methods for working with raw elements, using
+{@link #createElement()} and {@link #applyTo(ImagePrototypeElement)}.
+</p><p>
+This class is also a useful way to encapsulate complex HTML that represents
+an image without actually instantiating <code>Image</code> objects. When
+constructing large HTML fragments, especially those that contain many images,
+{@link #getHTML()} can be much more efficient.
+</p>
+<pre class="source">
+abstract class AbstractImagePrototype {
+
+ /**
+  * Create an AbstractImagePrototype backed by a ClientBundle ImageResource.
+  * This method provides an API compatibility mapping for the new ImageResource
+  * API.
+  * 
+  * @param resource an ImageResource produced by a ClientBundle
+  * @return an AbstractImagePrototype that displays the contents of the
+  *         ImageResource
+  */
+ static AbstractImagePrototype create(ImageResource resource) {
+   return new ClippedImagePrototype(resource.url, resource.left, resource.top,
+       resource.width, resource.height);
+ }
+
+ /**
+  * Transforms an existing {@link Image} into the image represented by this
+  * prototype.
+  * 
+  * @param image the instance to be transformed to match this prototype
+  */
+ void applyTo(Image image);
+
+ /**
+  * Transforms an existing {@link ImagePrototypeElement} into the image
+  * represented by this prototype.
+  * 
+  * @param imageElement an &lt;code&gt;ImagePrototypeElement&lt;/code&gt; created by
+  *          {@link #createElement()}
+  */
+ void applyToImageElement(dart_html.ImageElement imageElement) {
+   // Because this is a new method on an existing base class, we need to throw
+   // UnsupportedOperationException to avoid static errors.
+   throw new Exception("UnsupportedOperation");
+ }
+
+ /**
+  * Creates a new {@link Element} based on the image represented by this
+  * prototype. The DOM structure may not necessarily a simple
+  * &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; element. It may be a more complex structure that
+  * should be treated opaquely.
+  * 
+  * @return the &lt;code&gt;ImagePrototypeElement&lt;/code&gt; corresponding to the image
+  *         represented by this prototype
+  */
+ dart_html.ImageElement createElement() {
+   // Because this is a new method on an existing base class, we need to throw
+   // UnsupportedOperationException to avoid static errors.
+   throw new Exception("UnsupportedOperation");
+ }
+
+ /**
+  * Creates a new {@link Image} instance based on the image represented by this
+  * prototype.
+  * 
+  * @return a new {@link Image} based on this prototype
+  */
+ Image createImage();
+
+ /**
+  * Gets an HTML fragment that displays the image represented by this
+  * prototype. The HTML returned is not necessarily a simple
+  * &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; element. It may be a more complex structure that
+  * should be treated opaquely.
+  * &lt;p&gt;
+  * The default implementation calls {@link #getSafeHtml()}.
+  * 
+  * @return the HTML representation of this prototype
+  */
+ String getHtml() {
+   return getSafeHtml().asString();
+ }
+
+ /**
+  * Gets an HTML fragment that displays the image represented by this
+  * prototype. The HTML returned is not necessarily a simple
+  * &lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt; element. It may be a more complex structure that
+  * should be treated opaquely.
+  * &lt;p&gt;
+  * The default implementation throws an {@link UnsupportedOperationException}.
+  * 
+  * @return the HTML representation of this prototype
+  */
+ SafeHtml getSafeHtml() {
+   // Because this is a new method on an existing base class, we need to throw
+   // UnsupportedOperationException to avoid static errors.
+   throw new Exception("UnsupportedOperation");
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ClippedImagePrototype.html">ClippedImagePrototype</a></span></p>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="create">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/AbstractImagePrototype.html">AbstractImagePrototype</a> <strong>create</strong>(<a href="../dart_web_toolkit_resource/ImageResource.html">ImageResource</a> resource) <a class="anchor-link" href="#create"
+              title="Permalink to AbstractImagePrototype.create">#</a></h4>
+<div class="doc">
+<p>Create an AbstractImagePrototype backed by a ClientBundle ImageResource.
+This method provides an API compatibility mapping for the new ImageResource
+API.</p>
+<p>@param resource an ImageResource produced by a ClientBundle
+@return an AbstractImagePrototype that displays the contents of the</p>
+<pre><code>    ImageResource
+</code></pre>
+<pre class="source">
+static AbstractImagePrototype create(ImageResource resource) {
+ return new ClippedImagePrototype(resource.url, resource.left, resource.top,
+     resource.width, resource.height);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="applyTo">
+abstract void <strong>applyTo</strong>(<a href="../dart_web_toolkit_ui/Image.html">Image</a> image) <a class="anchor-link" href="#applyTo"
+              title="Permalink to AbstractImagePrototype.applyTo">#</a></h4>
+<div class="doc">
+<p>Transforms an existing {@link Image} into the image represented by this
+prototype.</p>
+<p>@param image the instance to be transformed to match this prototype</p>
+</div>
+</div>
+<div class="method"><h4 id="applyToImageElement">
+<button class="show-code">Code</button>
+void <strong>applyToImageElement</strong>(ImageElement imageElement) <a class="anchor-link" href="#applyToImageElement"
+              title="Permalink to AbstractImagePrototype.applyToImageElement">#</a></h4>
+<div class="doc">
+<p>Transforms an existing {@link ImagePrototypeElement} into the image
+represented by this prototype.</p>
+<p>@param imageElement an &lt;code>ImagePrototypeElement&lt;/code> created by</p>
+<pre><code>     {@link #createElement()}
+</code></pre>
+<pre class="source">
+void applyToImageElement(dart_html.ImageElement imageElement) {
+ // Because this is a new method on an existing base class, we need to throw
+ // UnsupportedOperationException to avoid static errors.
+ throw new Exception("UnsupportedOperation");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createElement">
+<button class="show-code">Code</button>
+ImageElement <strong>createElement</strong>() <a class="anchor-link" href="#createElement"
+              title="Permalink to AbstractImagePrototype.createElement">#</a></h4>
+<div class="doc">
+<p>Creates a new {@link Element} based on the image represented by this
+prototype. The DOM structure may not necessarily a simple
+&lt;code>&lt;img&gt;&lt;/code> element. It may be a more complex structure that
+should be treated opaquely.</p>
+<p>@return the &lt;code>ImagePrototypeElement&lt;/code> corresponding to the image</p>
+<pre><code>    represented by this prototype
+</code></pre>
+<pre class="source">
+dart_html.ImageElement createElement() {
+ // Because this is a new method on an existing base class, we need to throw
+ // UnsupportedOperationException to avoid static errors.
+ throw new Exception("UnsupportedOperation");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createImage">
+abstract <a href="../dart_web_toolkit_ui/Image.html">Image</a> <strong>createImage</strong>() <a class="anchor-link" href="#createImage"
+              title="Permalink to AbstractImagePrototype.createImage">#</a></h4>
+<div class="doc">
+<p>Creates a new {@link Image} instance based on the image represented by this
+prototype.</p>
+<p>@return a new {@link Image} based on this prototype</p>
+</div>
+</div>
+<div class="method"><h4 id="getHtml">
+<button class="show-code">Code</button>
+String <strong>getHtml</strong>() <a class="anchor-link" href="#getHtml"
+              title="Permalink to AbstractImagePrototype.getHtml">#</a></h4>
+<div class="doc">
+<p>Gets an HTML fragment that displays the image represented by this
+prototype. The HTML returned is not necessarily a simple
+&lt;code>&lt;img&gt;&lt;/code> element. It may be a more complex structure that
+should be treated opaquely.
+&lt;p>
+The default implementation calls {@link #getSafeHtml()}.</p>
+<p>@return the HTML representation of this prototype</p>
+<pre class="source">
+String getHtml() {
+ return getSafeHtml().asString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSafeHtml">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> <strong>getSafeHtml</strong>() <a class="anchor-link" href="#getSafeHtml"
+              title="Permalink to AbstractImagePrototype.getSafeHtml">#</a></h4>
+<div class="doc">
+<p>Gets an HTML fragment that displays the image represented by this
+prototype. The HTML returned is not necessarily a simple
+&lt;code>&lt;img&gt;&lt;/code> element. It may be a more complex structure that
+should be treated opaquely.
+&lt;p>
+The default implementation throws an {@link UnsupportedOperationException}.</p>
+<p>@return the HTML representation of this prototype</p>
+<pre class="source">
+SafeHtml getSafeHtml() {
+ // Because this is a new method on an existing base class, we need to throw
+ // UnsupportedOperationException to avoid static errors.
+ throw new Exception("UnsupportedOperation");
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:21.350</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

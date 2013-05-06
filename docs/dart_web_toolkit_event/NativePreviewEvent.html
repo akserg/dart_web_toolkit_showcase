@@ -1,0 +1,575 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>NativePreviewEvent class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="NativePreviewEvent">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/NativePreviewEvent.html">NativePreviewEvent</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>NativePreviewEvent</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Represents a preview of a native {@link Event}.</p>
+<pre class="source">
+class NativePreviewEvent extends DwtEvent implements HasNativeEvent {
+
+ /**
+  * Handler type.
+  */
+ static EventType&lt;NativePreviewHandler&gt; TYPE = new EventType&lt;NativePreviewHandler&gt;();
+
+ /**
+  * The singleton instance of {@link NativePreviewEvent}.
+  */
+ static NativePreviewEvent singleton;
+
+ /**
+  * Fire a {@link NativePreviewEvent} for the native event.
+  * 
+  * @param handlers the {@link HandlerManager}
+  * @param nativeEvent the native event
+  * @return true to fire the event normally, false to cancel the event
+  */
+ static bool fire(EventBus handlers, dart_html.Event nativeEvent) {
+   if (TYPE != null &amp;&amp; handlers != null) { // &amp;&amp; handlers.isEventHandled(TYPE)) {
+     // Cache the current values in the singleton in case we are in the
+     // middle of handling another event.
+     bool lastIsCanceled = singleton._isCanceled;
+     bool lastIsConsumed = singleton._isConsumed;
+     bool lastIsFirstHandler = singleton._isFirstHandler;
+     dart_html.Event lastNativeEvent = singleton._nativeEvent;
+
+     // Revive the event
+     singleton.revive();
+     singleton.setNativeEvent(nativeEvent);
+
+     // Fire the event
+     handlers.fireEvent(singleton);
+     bool ret = !(singleton.isCanceled() &amp;&amp; !singleton.isConsumed());
+
+     // Restore the state of the singleton.
+     singleton._isCanceled = lastIsCanceled;
+     singleton._isConsumed = lastIsConsumed;
+     singleton._isFirstHandler = lastIsFirstHandler;
+     singleton._nativeEvent = lastNativeEvent;
+     return ret;
+   }
+   return true;
+ }
+
+ /**
+  * A bool indicating that the native event should be canceled.
+  */
+ bool _isCanceled = false;
+
+ /**
+  * A bool indicating whether or not canceling the native event should be
+  * prevented. This supercedes {@link #isCanceled}.
+  */
+ bool _isConsumed = false;
+
+ /**
+  * A bool indicating that the current handler is at the top of the event
+  * preview stack.
+  */
+ bool _isFirstHandler = false;
+
+ /**
+  * The event being previewed.
+  */
+ dart_html.Event _nativeEvent;
+
+ /**
+  * Cancel the native event and prevent it from firing. Note that the event
+  * can still fire if another handler calls {@link #consume()}.
+  * 
+  * Classes overriding this method should still call super.cancel().
+  */
+ void cancel() {
+   _isCanceled = true;
+ }
+
+ /**
+  * Consume the native event and prevent it from being canceled, even if it
+  * has already been canceled by another handler.
+  * {@link NativePreviewHandler} that fire first have priority over later
+  * handlers, so all handlers should check if the event has already been
+  * canceled before calling this method.
+  */
+ void consume() {
+   _isConsumed = true;
+ }
+
+ 
+ EventType&lt;NativePreviewHandler&gt; getAssociatedType() {
+   return TYPE;
+ }
+
+ dart_html.Event getNativeEvent() {
+   return _nativeEvent;
+ }
+
+//  /**
+//   * Gets the type int corresponding to the native event that triggered this
+//   * preview.
+//   * 
+//   * @return the type int associated with this native event
+//   */
+//  int getTypeInt() {
+//    return Event.as(getNativeEvent()).getTypeInt();
+//  }
+
+ /**
+  * Has the event already been canceled? Note that {@link #isConsumed()} will
+  * still return true if the native event has also been consumed.
+  * 
+  * @return true if the event has been canceled
+  * @see #cancel()
+  */
+ bool isCanceled() {
+   return _isCanceled;
+ }
+
+ /**
+  * Has the native event been consumed? Note that {@link #isCanceled()} will
+  * still return true if the native event has also been canceled.
+  * 
+  * @return true if the event has been consumed
+  * @see #consume()
+  */
+ bool isConsumed() {
+   return _isConsumed;
+ }
+
+ /**
+  * Is the current handler the first to preview this event?
+  * 
+  * @return true if the current handler is the first to preview the event
+  */
+ bool isFirstHandler() {
+   return _isFirstHandler;
+ }
+
+ 
+ void dispatch(NativePreviewHandler handler) {
+   handler.onPreviewNativeEvent(this);
+   singleton._isFirstHandler = false;
+ }
+
+ 
+ void revive() {
+   super.revive();
+   _isCanceled = false;
+   _isConsumed = false;
+   _isFirstHandler = true;
+   _nativeEvent = null;
+ }
+
+ /**
+  * Set the native event.
+  * 
+  * @param nativeEvent the native {@link Event} being previewed.
+  */
+ void setNativeEvent(dart_html.Event nativeEvent) {
+   this._nativeEvent = nativeEvent;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/IEvent.html">IEvent&lt;H&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>NativePreviewEvent</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasNativeEvent.html">HasNativeEvent</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="singleton">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/NativePreviewEvent.html">NativePreviewEvent</a>         <strong>singleton</strong> <a class="anchor-link"
+            href="#singleton"
+            title="Permalink to NativePreviewEvent.singleton">#</a>
+        </h4>
+        <div class="doc">
+<p>The singleton instance of {@link NativePreviewEvent}.</p>
+<pre class="source">
+static NativePreviewEvent singleton
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="TYPE">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/NativePreviewHandler.html">NativePreviewHandler</a>&gt;         <strong>TYPE</strong> <a class="anchor-link"
+            href="#TYPE"
+            title="Permalink to NativePreviewEvent.TYPE">#</a>
+        </h4>
+        <div class="doc">
+<p>Handler type.</p>
+<pre class="source">
+static EventType&lt;NativePreviewHandler&gt; TYPE = new EventType&lt;NativePreviewHandler&gt;()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="fire">
+<button class="show-code">Code</button>
+bool <strong>fire</strong>(<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> handlers, Event nativeEvent) <a class="anchor-link" href="#fire"
+              title="Permalink to NativePreviewEvent.fire">#</a></h4>
+<div class="doc">
+<p>Fire a {@link NativePreviewEvent} for the native event.</p>
+<p>@param handlers the {@link HandlerManager}
+@param nativeEvent the native event
+@return true to fire the event normally, false to cancel the event</p>
+<pre class="source">
+static bool fire(EventBus handlers, dart_html.Event nativeEvent) {
+ if (TYPE != null &amp;&amp; handlers != null) { // &amp;&amp; handlers.isEventHandled(TYPE)) {
+   // Cache the current values in the singleton in case we are in the
+   // middle of handling another event.
+   bool lastIsCanceled = singleton._isCanceled;
+   bool lastIsConsumed = singleton._isConsumed;
+   bool lastIsFirstHandler = singleton._isFirstHandler;
+   dart_html.Event lastNativeEvent = singleton._nativeEvent;
+
+   // Revive the event
+   singleton.revive();
+   singleton.setNativeEvent(nativeEvent);
+
+   // Fire the event
+   handlers.fireEvent(singleton);
+   bool ret = !(singleton.isCanceled() &amp;&amp; !singleton.isConsumed());
+
+   // Restore the state of the singleton.
+   singleton._isCanceled = lastIsCanceled;
+   singleton._isConsumed = lastIsConsumed;
+   singleton._isFirstHandler = lastIsFirstHandler;
+   singleton._nativeEvent = lastNativeEvent;
+   return ret;
+ }
+ return true;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="assertLive">
+<button class="show-code">Code</button>
+void <strong>assertLive</strong>() <a class="anchor-link" href="#assertLive"
+              title="Permalink to NativePreviewEvent.assertLive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Asserts that the event still should be accessed. All events are considered
+to be "dead" after their original handler manager finishes firing them. An
+event can be revived by calling {@link GwtEvent#revive()}.</p>
+<pre class="source">
+void assertLive() {
+ assert (!_dead) ; //: "This event has already finished being processed by its original handler manager, so you can no longer access it";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="cancel">
+<button class="show-code">Code</button>
+void <strong>cancel</strong>() <a class="anchor-link" href="#cancel"
+              title="Permalink to NativePreviewEvent.cancel">#</a></h4>
+<div class="doc">
+<p>Cancel the native event and prevent it from firing. Note that the event
+can still fire if another handler calls {@link #consume()}.</p>
+<p>Classes overriding this method should still call super.cancel().</p>
+<pre class="source">
+void cancel() {
+ _isCanceled = true;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="consume">
+<button class="show-code">Code</button>
+void <strong>consume</strong>() <a class="anchor-link" href="#consume"
+              title="Permalink to NativePreviewEvent.consume">#</a></h4>
+<div class="doc">
+<p>Consume the native event and prevent it from being canceled, even if it
+has already been canceled by another handler.
+{@link NativePreviewHandler} that fire first have priority over later
+handlers, so all handlers should check if the event has already been
+canceled before calling this method.</p>
+<pre class="source">
+void consume() {
+ _isConsumed = true;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="dispatch">
+<button class="show-code">Code</button>
+void <strong>dispatch</strong>(<a href="../dart_web_toolkit_event/NativePreviewHandler.html">NativePreviewHandler</a> handler) <a class="anchor-link" href="#dispatch"
+              title="Permalink to NativePreviewEvent.dispatch">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Implemented by subclasses to invoke their handlers in a type safe
+manner. Intended to be called by <code>EventBus#fireEvent(Event)</code> or
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@param handler handler
+@see EventBus#dispatchEvent(Event, Object)</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/NativePreviewEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+void dispatch(NativePreviewHandler handler) {
+ handler.onPreviewNativeEvent(this);
+ singleton._isFirstHandler = false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAssociatedType">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/EventType.html">EventType</a>&lt;<a href="../dart_web_toolkit_event/NativePreviewHandler.html">NativePreviewHandler</a>&gt; <strong>getAssociatedType</strong>() <a class="anchor-link" href="#getAssociatedType"
+              title="Permalink to NativePreviewEvent.getAssociatedType">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_event/EventType.html">EventType</a> used to register this event, allowing an
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> to find handlers of the appropriate class.</p>
+<p>@return the type</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/NativePreviewEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+EventType&lt;NativePreviewHandler&gt; getAssociatedType() {
+ return TYPE;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getNativeEvent">
+<button class="show-code">Code</button>
+Event <strong>getNativeEvent</strong>() <a class="anchor-link" href="#getNativeEvent"
+              title="Permalink to NativePreviewEvent.getNativeEvent">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Gets the underlying native event.</p>
+<p>@return the native event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasNativeEvent.html">HasNativeEvent</a> </div></div>
+<pre class="source">
+dart_html.Event getNativeEvent() {
+ return _nativeEvent;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getSource">
+<button class="show-code">Code</button>
+Object <strong>getSource</strong>() <a class="anchor-link" href="#getSource"
+              title="Permalink to NativePreviewEvent.getSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns the source for this event. The type and meaning of the source is
+arbitrary, and is most useful as a secondary key for handler registration.
+(See <code>EventBus#addHandlerToSource</code>, which allows a handler to
+register for events of a particular type, tied to a particular source.)</p>
+<p>Note that the source is actually set at dispatch time, e.g. via
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@return object representing the source of this event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/NativePreviewEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+Object getSource() {
+ assertLive();
+ return super.getSource();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isCanceled">
+<button class="show-code">Code</button>
+bool <strong>isCanceled</strong>() <a class="anchor-link" href="#isCanceled"
+              title="Permalink to NativePreviewEvent.isCanceled">#</a></h4>
+<div class="doc">
+<p>Has the event already been canceled? Note that {@link #isConsumed()} will
+still return true if the native event has also been consumed.</p>
+<p>@return true if the event has been canceled
+@see #cancel()</p>
+<pre class="source">
+bool isCanceled() {
+ return _isCanceled;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isConsumed">
+<button class="show-code">Code</button>
+bool <strong>isConsumed</strong>() <a class="anchor-link" href="#isConsumed"
+              title="Permalink to NativePreviewEvent.isConsumed">#</a></h4>
+<div class="doc">
+<p>Has the native event been consumed? Note that {@link #isCanceled()} will
+still return true if the native event has also been canceled.</p>
+<p>@return true if the event has been consumed
+@see #consume()</p>
+<pre class="source">
+bool isConsumed() {
+ return _isConsumed;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isFirstHandler">
+<button class="show-code">Code</button>
+bool <strong>isFirstHandler</strong>() <a class="anchor-link" href="#isFirstHandler"
+              title="Permalink to NativePreviewEvent.isFirstHandler">#</a></h4>
+<div class="doc">
+<p>Is the current handler the first to preview this event?</p>
+<p>@return true if the current handler is the first to preview the event</p>
+<pre class="source">
+bool isFirstHandler() {
+ return _isFirstHandler;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isLive">
+<button class="show-code">Code</button>
+bool <strong>isLive</strong>() <a class="anchor-link" href="#isLive"
+              title="Permalink to NativePreviewEvent.isLive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Is the event current live?</p>
+<p>@return whether the event is live</p>
+<pre class="source">
+bool isLive() {
+ return !_dead;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="kill">
+<button class="show-code">Code</button>
+void <strong>kill</strong>() <a class="anchor-link" href="#kill"
+              title="Permalink to NativePreviewEvent.kill">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Kill the event. After the event has been killed, users cannot really on its
+values or functions being available.</p>
+<pre class="source">
+void kill() {
+ _dead = true;
+ setSource(null);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="overrideSource">
+<button class="show-code">Code</button>
+void <strong>overrideSource</strong>(Object source) <a class="anchor-link" href="#overrideSource"
+              title="Permalink to NativePreviewEvent.overrideSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<pre class="source">
+void overrideSource(Object source) {
+ super.setSource(source);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="revive">
+<button class="show-code">Code</button>
+void <strong>revive</strong>() <a class="anchor-link" href="#revive"
+              title="Permalink to NativePreviewEvent.revive">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Revives the event. Used when recycling event instances.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div></div>
+<pre class="source">
+void revive() {
+ super.revive();
+ _isCanceled = false;
+ _isConsumed = false;
+ _isFirstHandler = true;
+ _nativeEvent = null;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setNativeEvent">
+<button class="show-code">Code</button>
+void <strong>setNativeEvent</strong>(Event nativeEvent) <a class="anchor-link" href="#setNativeEvent"
+              title="Permalink to NativePreviewEvent.setNativeEvent">#</a></h4>
+<div class="doc">
+<p>Set the native event.</p>
+<p>@param nativeEvent the native {@link Event} being previewed.</p>
+<pre class="source">
+void setNativeEvent(dart_html.Event nativeEvent) {
+ this._nativeEvent = nativeEvent;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSource">
+<button class="show-code">Code</button>
+void <strong>setSource</strong>(source) <a class="anchor-link" href="#setSource"
+              title="Permalink to NativePreviewEvent.setSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> </div><div class="doc">
+<p>Set the source that triggered this event. Intended to be called by the
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> during dispatch.</p>
+<p>@param source the source of this event.
+@see EventBus#fireEventFromSource(Event, Object)
+@see EventBus#setSourceOfEvent(Event, Object)</p>
+<pre class="source">
+void setSource(dynamic source) {
+ this._source = source;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to NativePreviewEvent.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> </div><div class="doc">
+<p>The toString() for abstract event is overridden to avoid accidently
+including class literals in the the compiled output. Use <code>Event</code></p>
+<h1>toDebugString to get more information about the event.</h1>
+<pre class="source">
+String toString() {
+ return "An event type";
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.367</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

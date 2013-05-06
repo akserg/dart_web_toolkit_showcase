@@ -1,0 +1,134 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AnimationHandleImplTimer class / dart_web_toolkit_animation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_animation" data-type="AnimationHandleImplTimer">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_animation.html">dart_web_toolkit_animation</a> &rsaquo; <a href="../dart_web_toolkit_animation/AnimationHandleImplTimer.html">AnimationHandleImplTimer</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AnimationHandleImplTimer</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Timer based implementation of {@link AnimationScheduler.AnimationHandle}.</p>
+<pre class="source">
+class AnimationHandleImplTimer extends AnimationHandle {
+ AnimationCallback callback;
+ AnimationSchedulerImplTimer _impl;
+
+ AnimationHandleImplTimer(this.callback, this._impl);
+
+ void cancel() {
+   _impl.cancelAnimationFrame(this);
+ }
+
+ AnimationCallback getCallback() {
+   return callback;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationHandle.html">AnimationHandle</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>AnimationHandleImplTimer</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AnimationHandleImplTimer">
+<button class="show-code">Code</button>
+new <strong>AnimationHandleImplTimer</strong>(<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a> callback, <a href="../dart_web_toolkit_animation/AnimationSchedulerImplTimer.html">AnimationSchedulerImplTimer</a> _impl) <a class="anchor-link" href="#AnimationHandleImplTimer"
+              title="Permalink to AnimationHandleImplTimer.AnimationHandleImplTimer">#</a></h4>
+<div class="doc">
+<pre class="source">
+AnimationHandleImplTimer(this.callback, this._impl);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="callback">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a>         <strong>callback</strong> <a class="anchor-link"
+            href="#callback"
+            title="Permalink to AnimationHandleImplTimer.callback">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+AnimationCallback callback
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="cancel">
+<button class="show-code">Code</button>
+void <strong>cancel</strong>() <a class="anchor-link" href="#cancel"
+              title="Permalink to AnimationHandleImplTimer.cancel">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Cancel the requested animation frame. If the animation frame is already
+canceled, do nothing.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/AnimationHandle.html">AnimationHandle</a> </div></div>
+<pre class="source">
+void cancel() {
+ _impl.cancelAnimationFrame(this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getCallback">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a> <strong>getCallback</strong>() <a class="anchor-link" href="#getCallback"
+              title="Permalink to AnimationHandleImplTimer.getCallback">#</a></h4>
+<div class="doc">
+<pre class="source">
+AnimationCallback getCallback() {
+ return callback;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:17.957</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

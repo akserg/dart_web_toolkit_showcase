@@ -1,0 +1,146 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>TimeZoneInfo class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="TimeZoneInfo">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/TimeZoneInfo.html">TimeZoneInfo</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>TimeZoneInfo</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A JavaScript Overlay type on top of the JSON data describing everything we
+need to know about a particular timezone. The relevant strings of JSON can
+be found in TimeZoneConstants, or versions localized for non-en locales can
+be downloaded elsewhere.</p>
+<pre class="source">
+class TimeZoneInfo {
+
+ /**
+  * Construct a TimeZoneData javascript overlay object given some json text.
+  * This method directly evaluates the String that you pass in; no error or
+  * safety checking is performed, so be very careful about the source of
+  * your data.
+  *
+  * @param json JSON text describing a time zone, like what comes from
+  * {@link  com.google.gwt.i18n.client.constants.TimeZoneConstants}.
+  * @return a TimeZoneInfo object made from the supplied JSON.
+  */
+ static TimeZoneInfo buildTimeZoneData(String json) {
+   return eval(json) as TimeZoneInfo;
+ }
+
+ static Object eval(String json) {
+   return eval("($json)");
+ }
+
+ TimeZoneInfo() { }
+
+//  String getID() {
+//    return this.id;
+//  }
+//
+//  List&lt;String&gt; getNames() {
+//    return this.names;
+//  }
+//
+//  int getStandardOffset() {
+//    return this.std_offset;
+//  }
+//
+//  List&lt;int&gt; getTransitions() {
+//    return this.transitions;
+//  }
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="buildTimeZoneData">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/TimeZoneInfo.html">TimeZoneInfo</a> <strong>buildTimeZoneData</strong>(String json) <a class="anchor-link" href="#buildTimeZoneData"
+              title="Permalink to TimeZoneInfo.buildTimeZoneData">#</a></h4>
+<div class="doc">
+<p>Construct a TimeZoneData javascript overlay object given some json text.
+This method directly evaluates the String that you pass in; no error or
+safety checking is performed, so be very careful about the source of
+your data.</p>
+<p>@param json JSON text describing a time zone, like what comes from
+{@link  com.google.gwt.i18n.client.constants.TimeZoneConstants}.
+@return a TimeZoneInfo object made from the supplied JSON.</p>
+<pre class="source">
+static TimeZoneInfo buildTimeZoneData(String json) {
+ return eval(json) as TimeZoneInfo;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="eval">
+<button class="show-code">Code</button>
+Object <strong>eval</strong>(String json) <a class="anchor-link" href="#eval"
+              title="Permalink to TimeZoneInfo.eval">#</a></h4>
+<div class="doc">
+<pre class="source">
+static Object eval(String json) {
+ return eval("($json)");
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="TimeZoneInfo">
+<button class="show-code">Code</button>
+new <strong>TimeZoneInfo</strong>() <a class="anchor-link" href="#TimeZoneInfo"
+              title="Permalink to TimeZoneInfo.TimeZoneInfo">#</a></h4>
+<div class="doc">
+<pre class="source">
+TimeZoneInfo() { }
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.227</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

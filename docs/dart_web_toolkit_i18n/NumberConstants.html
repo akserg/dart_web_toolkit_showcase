@@ -1,0 +1,206 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>NumberConstants abstract class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="NumberConstants">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/NumberConstants.html">NumberConstants</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>NumberConstants</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>NumberConstants class encapsulate a collection of Number formatting
+symbols for use with Number format and parse services. This class extends
+GWT's Constants class. The actual symbol collections are defined in a set
+of property files named like "NumberConstants_xx.properties". GWT will
+will perform late binding to the property file that specific to user's
+locale.</p>
+<p>If you previously were using GWT.create on this interface, you should
+use LocaleInfo.getCurrentLocale().getNumberConstants() instead.</p>
+<pre class="source">
+abstract class NumberConstants {
+ String notANumber();
+ String currencyPattern();
+ String decimalPattern();
+ String decimalSeparator();
+ String defCurrencyCode();
+ String exponentialSymbol();
+ String globalCurrencyPattern();
+ String groupingSeparator();
+ String infinity();
+ String minusSign();
+ String monetaryGroupingSeparator();
+ String monetarySeparator();
+ String percent();
+ String percentPattern();
+ String perMill();
+ String plusSign();
+ String scientificPattern();
+ String simpleCurrencyPattern();
+ String zeroDigit();
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/NumberConstantsImpl.html">NumberConstantsImpl</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="currencyPattern">
+abstract String <strong>currencyPattern</strong>() <a class="anchor-link" href="#currencyPattern"
+              title="Permalink to NumberConstants.currencyPattern">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="decimalPattern">
+abstract String <strong>decimalPattern</strong>() <a class="anchor-link" href="#decimalPattern"
+              title="Permalink to NumberConstants.decimalPattern">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="decimalSeparator">
+abstract String <strong>decimalSeparator</strong>() <a class="anchor-link" href="#decimalSeparator"
+              title="Permalink to NumberConstants.decimalSeparator">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="defCurrencyCode">
+abstract String <strong>defCurrencyCode</strong>() <a class="anchor-link" href="#defCurrencyCode"
+              title="Permalink to NumberConstants.defCurrencyCode">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="exponentialSymbol">
+abstract String <strong>exponentialSymbol</strong>() <a class="anchor-link" href="#exponentialSymbol"
+              title="Permalink to NumberConstants.exponentialSymbol">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="globalCurrencyPattern">
+abstract String <strong>globalCurrencyPattern</strong>() <a class="anchor-link" href="#globalCurrencyPattern"
+              title="Permalink to NumberConstants.globalCurrencyPattern">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="groupingSeparator">
+abstract String <strong>groupingSeparator</strong>() <a class="anchor-link" href="#groupingSeparator"
+              title="Permalink to NumberConstants.groupingSeparator">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="infinity">
+abstract String <strong>infinity</strong>() <a class="anchor-link" href="#infinity"
+              title="Permalink to NumberConstants.infinity">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="minusSign">
+abstract String <strong>minusSign</strong>() <a class="anchor-link" href="#minusSign"
+              title="Permalink to NumberConstants.minusSign">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="monetaryGroupingSeparator">
+abstract String <strong>monetaryGroupingSeparator</strong>() <a class="anchor-link" href="#monetaryGroupingSeparator"
+              title="Permalink to NumberConstants.monetaryGroupingSeparator">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="monetarySeparator">
+abstract String <strong>monetarySeparator</strong>() <a class="anchor-link" href="#monetarySeparator"
+              title="Permalink to NumberConstants.monetarySeparator">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="notANumber">
+abstract String <strong>notANumber</strong>() <a class="anchor-link" href="#notANumber"
+              title="Permalink to NumberConstants.notANumber">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="percent">
+abstract String <strong>percent</strong>() <a class="anchor-link" href="#percent"
+              title="Permalink to NumberConstants.percent">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="percentPattern">
+abstract String <strong>percentPattern</strong>() <a class="anchor-link" href="#percentPattern"
+              title="Permalink to NumberConstants.percentPattern">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="perMill">
+abstract String <strong>perMill</strong>() <a class="anchor-link" href="#perMill"
+              title="Permalink to NumberConstants.perMill">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="plusSign">
+abstract String <strong>plusSign</strong>() <a class="anchor-link" href="#plusSign"
+              title="Permalink to NumberConstants.plusSign">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="scientificPattern">
+abstract String <strong>scientificPattern</strong>() <a class="anchor-link" href="#scientificPattern"
+              title="Permalink to NumberConstants.scientificPattern">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="simpleCurrencyPattern">
+abstract String <strong>simpleCurrencyPattern</strong>() <a class="anchor-link" href="#simpleCurrencyPattern"
+              title="Permalink to NumberConstants.simpleCurrencyPattern">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method"><h4 id="zeroDigit">
+abstract String <strong>zeroDigit</strong>() <a class="anchor-link" href="#zeroDigit"
+              title="Permalink to NumberConstants.zeroDigit">#</a></h4>
+<div class="doc">
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.971</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

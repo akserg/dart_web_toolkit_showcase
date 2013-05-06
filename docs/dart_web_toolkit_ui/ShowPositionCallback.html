@@ -1,0 +1,117 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ShowPositionCallback class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ShowPositionCallback">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ShowPositionCallback.html">ShowPositionCallback</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ShowPositionCallback</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Set the position of the popup right before it is shown.</p>
+<pre class="source">
+class ShowPositionCallback implements PopupPanelPositionCallback {
+
+ PopupPanel _panel;
+ UiObject _target;
+
+ ShowPositionCallback(_panel, this._target);
+
+   /**
+    * Provides the opportunity to set the position of the PopupPanel right
+    * before the PopupPanel is shown. The offsetWidth and offsetHeight values
+    * of the PopupPanel are made available to allow for positioning based on
+    * its size.
+   *
+    * @param offsetWidth the offsetWidth of the PopupPanel
+    * @param offsetHeight the offsetHeight of the PopupPanel
+    * @see PopupPanel#setPopupPositionAndShow(PositionCallback)
+    */
+ void setPosition(int offsetWidth, int offsetHeight) {
+   _panel.position(_target, offsetWidth, offsetHeight);
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/PopupPanelPositionCallback.html">PopupPanelPositionCallback</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ShowPositionCallback">
+<button class="show-code">Code</button>
+new <strong>ShowPositionCallback</strong>(_panel, <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a> _target) <a class="anchor-link" href="#ShowPositionCallback"
+              title="Permalink to ShowPositionCallback.ShowPositionCallback">#</a></h4>
+<div class="doc">
+<pre class="source">
+ShowPositionCallback(_panel, this._target);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="setPosition">
+<button class="show-code">Code</button>
+void <strong>setPosition</strong>(int offsetWidth, int offsetHeight) <a class="anchor-link" href="#setPosition"
+              title="Permalink to ShowPositionCallback.setPosition">#</a></h4>
+<div class="doc">
+<p>Provides the opportunity to set the position of the PopupPanel right
+before the PopupPanel is shown. The offsetWidth and offsetHeight values
+of the PopupPanel are made available to allow for positioning based on
+its size.</p>
+<p>@param offsetWidth the offsetWidth of the PopupPanel
+@param offsetHeight the offsetHeight of the PopupPanel
+@see PopupPanel#setPopupPositionAndShow(PositionCallback)</p>
+<pre class="source">
+void setPosition(int offsetWidth, int offsetHeight) {
+ _panel.position(_target, offsetWidth, offsetHeight);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:22.434</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

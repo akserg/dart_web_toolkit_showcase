@@ -1,0 +1,194 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AnimationSchedulerImplWebkit class / dart_web_toolkit_animation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_animation" data-type="AnimationSchedulerImplWebkit">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_animation.html">dart_web_toolkit_animation</a> &rsaquo; <a href="../dart_web_toolkit_animation/AnimationSchedulerImplWebkit.html">AnimationSchedulerImplWebkit</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AnimationSchedulerImplWebkit</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation using &lt;code>webkitRequestAnimationFrame&lt;/code> and
+&lt;code>webkitCancelRequestAnimationFrame&lt;/code>.</p>
+<p>@see &lt;a</p>
+<pre><code> href="http://www.chromium.org/developers/web-platform-status#TOC-requestAnimationFrame"&gt;
+ Chromium Web Platform Status&lt;/a&gt;
+</code></pre>
+<p>@see &lt;a href="http://webstuff.nfshost.com/anim-timing/Overview.html"> webkit</p>
+<pre><code> draft spec&lt;/a&gt;
+</code></pre>
+<pre class="source">
+class AnimationSchedulerImplWebkit extends AnimationSchedulerImpl {
+
+ AnimationSchedulerImplWebkit();
+
+ /**
+  * Schedule an animation, letting the browser decide when to trigger the next
+  * step in the animation.
+  *
+  * &lt;p&gt;
+  * Using this method instead of a timeout is preferred because the browser is
+  * in the best position to decide how frequently to trigger the callback for
+  * an animation of the specified element. The browser can balance multiple
+  * animations and trigger callbacks at the optimal rate for smooth
+  * performance.
+  * &lt;/p&gt;
+  *
+  * @param callback the callback to fire
+  * @return a handle to the requested animation frame
+  * @param element the element being animated
+  */
+ AnimationHandle requestAnimationFrame(AnimationCallback callback, [dart_html.Element element = null]) {
+   int requestId = requestAnimationFrameImpl(callback, element);
+   return new AnimationHandleImplWebkit(requestId, this);
+ }
+
+ bool isNativelySupported() {
+   return (dart_html.window.requestAnimationFrame != null &amp;&amp;
+       dart_html.window.cancelAnimationFrame != null);
+ }
+
+ void cancelAnimationFrameImpl(int requestId) {
+   dart_html.window.cancelAnimationFrame(requestId);
+ }
+
+ int requestAnimationFrameImpl(AnimationCallback callback, dart_html.Element element) {
+   Function wrapper = (num highResTime) {
+     callback.execute(new DateTime.now().millisecondsSinceEpoch);
+   };
+   return dart_html.window.requestAnimationFrame(wrapper);
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationScheduler.html">AnimationScheduler</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationSchedulerImpl.html">AnimationSchedulerImpl</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>AnimationSchedulerImplWebkit</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AnimationSchedulerImplWebkit">
+<button class="show-code">Code</button>
+new <strong>AnimationSchedulerImplWebkit</strong>() <a class="anchor-link" href="#AnimationSchedulerImplWebkit"
+              title="Permalink to AnimationSchedulerImplWebkit.AnimationSchedulerImplWebkit">#</a></h4>
+<div class="doc">
+<pre class="source">
+AnimationSchedulerImplWebkit();
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="cancelAnimationFrameImpl">
+<button class="show-code">Code</button>
+void <strong>cancelAnimationFrameImpl</strong>(int requestId) <a class="anchor-link" href="#cancelAnimationFrameImpl"
+              title="Permalink to AnimationSchedulerImplWebkit.cancelAnimationFrameImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+void cancelAnimationFrameImpl(int requestId) {
+ dart_html.window.cancelAnimationFrame(requestId);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isNativelySupported">
+<button class="show-code">Code</button>
+bool <strong>isNativelySupported</strong>() <a class="anchor-link" href="#isNativelySupported"
+              title="Permalink to AnimationSchedulerImplWebkit.isNativelySupported">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Check if the implementation is natively supported.</p>
+<p>@return true if natively supported, false if not</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_animation/AnimationSchedulerImpl.html">AnimationSchedulerImpl</a> </div></div>
+<pre class="source">
+bool isNativelySupported() {
+ return (dart_html.window.requestAnimationFrame != null &amp;&amp;
+     dart_html.window.cancelAnimationFrame != null);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="requestAnimationFrame">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationHandle.html">AnimationHandle</a> <strong>requestAnimationFrame</strong>(<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a> callback, [Element element = null]) <a class="anchor-link" href="#requestAnimationFrame"
+              title="Permalink to AnimationSchedulerImplWebkit.requestAnimationFrame">#</a></h4>
+<div class="doc">
+<p>Schedule an animation, letting the browser decide when to trigger the next
+step in the animation.</p><p>
+Using this method instead of a timeout is preferred because the browser is
+in the best position to decide how frequently to trigger the callback for
+an animation of the specified element. The browser can balance multiple
+animations and trigger callbacks at the optimal rate for smooth
+performance.
+</p>
+<p>@param callback the callback to fire
+@return a handle to the requested animation frame
+@param element the element being animated</p>
+<pre class="source">
+AnimationHandle requestAnimationFrame(AnimationCallback callback, [dart_html.Element element = null]) {
+ int requestId = requestAnimationFrameImpl(callback, element);
+ return new AnimationHandleImplWebkit(requestId, this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="requestAnimationFrameImpl">
+<button class="show-code">Code</button>
+int <strong>requestAnimationFrameImpl</strong>(<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a> callback, Element element) <a class="anchor-link" href="#requestAnimationFrameImpl"
+              title="Permalink to AnimationSchedulerImplWebkit.requestAnimationFrameImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+int requestAnimationFrameImpl(AnimationCallback callback, dart_html.Element element) {
+ Function wrapper = (num highResTime) {
+   callback.execute(new DateTime.now().millisecondsSinceEpoch);
+ };
+ return dart_html.window.requestAnimationFrame(wrapper);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:17.978</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

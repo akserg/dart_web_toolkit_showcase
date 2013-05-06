@@ -1,0 +1,234 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PlaceHistoryHandler class / dart_web_toolkit_place Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_place" data-type="PlaceHistoryHandler">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_place.html">dart_web_toolkit_place</a> &rsaquo; <a href="../dart_web_toolkit_place/PlaceHistoryHandler.html">PlaceHistoryHandler</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PlaceHistoryHandler</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Monitors {@link PlaceChangeEvent}s and
+{@link com.google.gwt.user.client.History} events and keep them in sync.</p>
+<pre class="source">
+class PlaceHistoryHandler {
+//  private static final Logger log = Logger.getLogger(PlaceHistoryHandler.class.getName());
+
+ Historian _historian;
+
+ PlaceHistoryMapper _mapper;
+
+ PlaceController _placeController;
+
+ Place _defaultPlace = Place.NOWHERE;
+
+ /**
+  * Create a new PlaceHistoryHandler.
+  * 
+  * @param mapper a {@link PlaceHistoryMapper} instance
+  * @param historian a {@link Historian} instance
+  */
+ PlaceHistoryHandler(this._mapper, [Historian historian = null]) {
+   if (historian == null) {
+     _historian = new DefaultHistorian();
+   } else {
+     _historian = historian;
+   }
+ }
+
+ /**
+  * Handle the current history token. Typically called at application start, to
+  * ensure bookmark launches work.
+  */
+ void handleCurrentHistory() {
+   _handleHistoryToken(_historian.getToken());
+ }
+
+//  /**
+//   * Legacy method tied to the old location for {@link EventBus}.
+//   * 
+//   * @deprecated use {@link #register(PlaceController, EventBus, Place)}
+//   */
+//  @Deprecated
+//  com.google.gwt.event.shared.HandlerRegistration register(PlaceController placeController,
+//      com.google.gwt.event.shared.EventBus eventBus, Place defaultPlace) {
+//    return new LegacyHandlerWrapper(register(placeController, (EventBus) eventBus, defaultPlace));
+//  }
+
+ /**
+  * Initialize this place history handler.
+  * 
+  * @return a registration object to de-register the handler
+  */
+ HandlerRegistration register(PlaceController placeController, EventBus eventBus,
+     Place defaultPlace) {
+   this._placeController = placeController;
+   this._defaultPlace = defaultPlace;
+
+   
+   HandlerRegistration placeReg =
+       eventBus.addHandler(PlaceChangeEvent.TYPE, new _PlaceChangeEventHandlerAdapter(this)); 
+
+   HandlerRegistration historyReg =
+       _historian.addValueChangeHandler(new ValueChangeHandlerAdapter&lt;String&gt;((ValueChangeEvent&lt;String&gt; event) {
+         String token = event.value;
+         _handleHistoryToken(token);
+       }));
+
+   return new _PlaceHistoryHandlerRegistration(this, placeReg, historyReg);
+ }
+
+//  /**
+//   * Visible for testing.
+//   */
+//  Logger log() {
+//    return log;
+//  }
+
+ void _handleHistoryToken(String token) {
+
+   Place newPlace = null;
+
+   if ("" == token) {
+     newPlace = _defaultPlace;
+   }
+
+   if (newPlace == null) {
+     newPlace = _mapper.getPlace(token);
+   }
+
+   if (newPlace == null) {
+//      log().warning("Unrecognized history token: " + token);
+     newPlace = _defaultPlace;
+   }
+
+   _placeController.goTo(newPlace);
+ }
+
+ String _tokenForPlace(Place newPlace) {
+   if (_defaultPlace == newPlace) {
+     return "";
+   }
+
+   String token = _mapper.getToken(newPlace);
+   if (token != null) {
+     return token;
+   }
+
+//    log().warning("Place not mapped to a token: " + newPlace);
+   return "";
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="PlaceHistoryHandler">
+<button class="show-code">Code</button>
+new <strong>PlaceHistoryHandler</strong>(<a href="../dart_web_toolkit_place/PlaceHistoryMapper.html">PlaceHistoryMapper</a> _mapper, [<a href="../dart_web_toolkit_place/Historian.html">Historian</a> historian = null]) <a class="anchor-link" href="#PlaceHistoryHandler"
+              title="Permalink to PlaceHistoryHandler.PlaceHistoryHandler">#</a></h4>
+<div class="doc">
+<p>Create a new PlaceHistoryHandler.</p>
+<p>@param mapper a {@link PlaceHistoryMapper} instance
+@param historian a {@link Historian} instance</p>
+<pre class="source">
+PlaceHistoryHandler(this._mapper, [Historian historian = null]) {
+ if (historian == null) {
+   _historian = new DefaultHistorian();
+ } else {
+   _historian = historian;
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="handleCurrentHistory">
+<button class="show-code">Code</button>
+void <strong>handleCurrentHistory</strong>() <a class="anchor-link" href="#handleCurrentHistory"
+              title="Permalink to PlaceHistoryHandler.handleCurrentHistory">#</a></h4>
+<div class="doc">
+<p>Handle the current history token. Typically called at application start, to
+ensure bookmark launches work.</p>
+<pre class="source">
+void handleCurrentHistory() {
+ _handleHistoryToken(_historian.getToken());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="register">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>register</strong>(<a href="../dart_web_toolkit_place/PlaceController.html">PlaceController</a> placeController, <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> eventBus, <a href="../dart_web_toolkit_place/Place.html">Place</a> defaultPlace) <a class="anchor-link" href="#register"
+              title="Permalink to PlaceHistoryHandler.register">#</a></h4>
+<div class="doc">
+<p>Initialize this place history handler.</p>
+<p>@return a registration object to de-register the handler</p>
+<pre class="source">
+HandlerRegistration register(PlaceController placeController, EventBus eventBus,
+   Place defaultPlace) {
+ this._placeController = placeController;
+ this._defaultPlace = defaultPlace;
+
+ 
+ HandlerRegistration placeReg =
+     eventBus.addHandler(PlaceChangeEvent.TYPE, new _PlaceChangeEventHandlerAdapter(this)); 
+
+ HandlerRegistration historyReg =
+     _historian.addValueChangeHandler(new ValueChangeHandlerAdapter&lt;String&gt;((ValueChangeEvent&lt;String&gt; event) {
+       String token = event.value;
+       _handleHistoryToken(token);
+     }));
+
+ return new _PlaceHistoryHandlerRegistration(this, placeReg, historyReg);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.464</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

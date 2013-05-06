@@ -1,0 +1,789 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Layout class / dart_web_toolkit_layout Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_layout" data-type="Layout">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_layout.html">dart_web_toolkit_layout</a> &rsaquo; <a href="../dart_web_toolkit_layout/Layout.html">Layout</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Layout</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Helper class for laying out a container element and its children.</p><p>
+This class is typically used by higher-level widgets to implement layout on
+their behalf. It is intended to wrap an element (usually a &lt;div&gt;), and
+lay its children out in a predictable fashion, automatically accounting for
+changes to the parent's size, and for all elements' margins, borders, and
+padding.
+</p><p>
+To use this class, create a container element (again, usually a &lt;div&gt;)
+and pass it to {@link #Layout(Element)}. Rather than attaching child elements
+directly to the element managed by this {@link Layout}, use the
+{@link Layout#attachChild(Element)} method. This will attach the child
+element and return a {@link Layout.Layer} object which is used to manage the
+child.
+</p><p>
+A separate {@link Layout.Layer} instance is associated with each child
+element. There is a set of methods available on this class to manipulate the
+child element's position and size. In order for changes to a layer to take
+effect, you must finally call one of {@link #layout()} or
+{@link #layout(int)}. This allows many changes to different layers to be
+applied efficiently, and to be animated.
+</p><p>
+On most browsers, this is implemented using absolute positioning. It also
+contains extra logic to make IE6 work properly.
+</p><p>
+<h3>Example</h3>
+{@example com.google.gwt.examples.LayoutExample}
+</p><p>
+NOTE: This class will <em>only</em> work in standards mode, which requires
+that the HTML page in which it is run have an explicit &lt;!DOCTYPE&gt;
+declaration.
+</p><p>
+NOTE: This class is still very new, and its interface may change without
+warning. Use at your own risk.
+</p>
+<pre class="source">
+class Layout {
+
+ LayoutImpl impl = new LayoutImpl.browserDependent();
+
+ List&lt;Layer&gt; layers = new List&lt;Layer&gt;();
+ dart_html.Element parentElem;
+ Animation animation;
+
+ /**
+  * Constructs a new layout associated with the given parent element.
+  *
+  * @param parent the element to serve as the layout parent
+  */
+ Layout(dart_html.Element parent) {
+   this.parentElem = parent;
+   impl.initParent(parent);
+ }
+
+ /**
+  * Asserts that the given child element is managed by this layout.
+  *
+  * @param elem the element to be tested
+  */
+ void assertIsChild(dart_html.Element elem) {
+   assert (elem.parent.parent == this.parentElem); // : "Element is not a child of this layout";
+ }
+
+ /**
+  * Attaches a child element to this layout.
+  *
+  * &lt;p&gt;
+  * This method will attach the child to the layout, removing it from its
+  * current parent element. Use the {@link Layer} it returns to manipulate the
+  * child.
+  * &lt;/p&gt;
+  *
+  * @param child the child to be attached
+  * @param before the child element before which to insert
+  * @param userObject an arbitrary object to be associated with this layer
+  * @return the {@link Layer} associated with the element
+  */
+ Layer attachChild(dart_html.Element child, {dart_html.Element before:null, Object userObject}) {
+   dart_html.Element container = impl.attachChild(parentElem, child, before);
+   Layer layer = new Layer(container, child, userObject);
+   layers.add(layer);
+   return layer;
+ }
+
+ /**
+  * Causes the parent element to fill its own parent.
+  *
+  * &lt;p&gt;
+  * This is most useful for top-level layouts that need to follow the size of
+  * another element, such as the &amp;lt;body&amp;gt;.
+  * &lt;/p&gt;
+  */
+ void fillParent() {
+   impl.fillParent(parentElem);
+ }
+
+ /**
+  * Returns the size of one unit, in pixels, in the context of this layout.
+  *
+  * &lt;p&gt;
+  * This will work for any unit type, but be aware that certain unit types,
+  * such as {@link Unit#EM}, and {@link Unit#EX}, will return different values
+  * based upon the parent's associated font size. {@link Unit#PCT} is dependent
+  * upon the parent's actual size, and the axis to be measured.
+  * &lt;/p&gt;
+  *
+  * @param unit the unit type to be measured
+  * @param vertical whether the unit to be measured is on the vertical or
+  *          horizontal axis (this matters only for {@link Unit#PCT})
+  * @return the unit size, in pixels
+  */
+ double getUnitSize(Unit unit, bool vertical) {
+   return impl.getUnitSizeInPixels(parentElem, unit, vertical);
+ }
+
+ /**
+  * Updates the layout by animating it over time, with a callback on each frame
+  * of the animation, and upon completion.
+  *
+  * @param duration the duration of the animation
+  * @param callback the animation callback
+  */
+ void layout([int duration = 0, LayoutAnimationCallback callback = null]) {
+   // Cancel the old animation, if there is one.
+   if (animation != null) {
+     animation.cancel();
+   }
+
+   // If there's no actual animation going on, don't do any of the expensive
+   // constraint calculations or anything like that.
+   if (duration == 0) {
+     for (Layer l in layers) {
+       l.left = l.sourceLeft = l.targetLeft;
+       l.top = l.sourceTop = l.targetTop;
+       l.right = l.sourceRight = l.targetRight;
+       l.bottom = l.sourceBottom = l.targetBottom;
+       l.width = l.sourceWidth = l.targetWidth;
+       l.height = l.sourceHeight = l.targetHeight;
+
+       l.setLeft = l.setTargetLeft;
+       l.setTop = l.setTargetTop;
+       l.setRight = l.setTargetRight;
+       l.setBottom = l.setTargetBottom;
+       l.setWidth = l.setTargetWidth;
+       l.setHeight = l.setTargetHeight;
+
+       l.leftUnit = l.targetLeftUnit;
+       l.topUnit = l.targetTopUnit;
+       l.rightUnit = l.targetRightUnit;
+       l.bottomUnit = l.targetBottomUnit;
+       l.widthUnit = l.targetWidthUnit;
+       l.heightUnit = l.targetHeightUnit;
+
+       impl.layout(l);
+     }
+
+     impl.finalizeLayout(parentElem);
+     if (callback != null) {
+       callback.onAnimationComplete();
+     }
+     return;
+   }
+
+   // Deal with constraint changes (e.g. left-width =&gt; right-width, etc)
+   int parentWidth = parentElem.client.width;
+   int parentHeight = parentElem.client.height;
+   for (Layer l in layers) {
+     adjustHorizontalConstraints(parentWidth, l);
+     adjustVerticalConstraints(parentHeight, l);
+   }
+
+   animation = new LayoutAnimation(this, callback);
+
+   animation.run(duration, element:parentElem);
+ }
+
+ /**
+  * This method must be called when the parent element becomes attached to the
+  * document.
+  *
+  * @see #onDetach()
+  */
+ void onAttach() {
+   impl.onAttach(parentElem);
+ }
+
+ /**
+  * This method must be called when the parent element becomes detached from
+  * the document.
+  *
+  * @see #onAttach()
+  */
+ void onDetach() {
+   impl.onDetach(parentElem);
+ }
+
+ /**
+  * Removes a child element from this layout.
+  *
+  * @param layer the layer associated with the child to be removed
+  */
+ void removeChild(Layer layer) {
+   impl.removeChild(layer.container, layer.child);
+   //
+   int indx = layers.indexOf(layer);
+   if (indx != -1) {
+     layers.removeAt(indx);
+   }
+ }
+
+ void adjustHorizontalConstraints(int parentWidth, Layer l) {
+   double leftPx = l.left * getUnitSize(l.leftUnit, false);
+   double rightPx = l.right * getUnitSize(l.rightUnit, false);
+   double widthPx = l.width * getUnitSize(l.widthUnit, false);
+
+   if (l.setLeft &amp;&amp; !l.setTargetLeft) {
+     // -left
+     l.setLeft = false;
+
+     if (!l.setWidth) {
+       // +width
+       l.setTargetWidth = true;
+       l.sourceWidth = (parentWidth - (leftPx + rightPx))
+           / getUnitSize(l.targetWidthUnit, false);
+     } else {
+       // +right
+       l.setTargetRight = true;
+       l.sourceRight = (parentWidth - (leftPx + widthPx))
+           / getUnitSize(l.targetRightUnit, false);
+     }
+   } else if (l.setWidth &amp;&amp; !l.setTargetWidth) {
+     // -width
+     l.setWidth = false;
+
+     if (!l.setLeft) {
+       // +left
+       l.setTargetLeft = true;
+       l.sourceLeft = (parentWidth - (rightPx + widthPx))
+           / getUnitSize(l.targetLeftUnit, false);
+     } else {
+       // +right
+       l.setTargetRight = true;
+       l.sourceRight = (parentWidth - (leftPx + widthPx))
+           / getUnitSize(l.targetRightUnit, false);
+     }
+   } else if (l.setRight &amp;&amp; !l.setTargetRight) {
+     // -right
+     l.setRight = false;
+
+     if (!l.setWidth) {
+       // +width
+       l.setTargetWidth = true;
+       l.sourceWidth = (parentWidth - (leftPx + rightPx))
+           / getUnitSize(l.targetWidthUnit, false);
+     } else {
+       // +left
+       l.setTargetLeft = true;
+       l.sourceLeft = (parentWidth - (rightPx + widthPx))
+           / getUnitSize(l.targetLeftUnit, false);
+     }
+   }
+
+   l.setLeft = l.setTargetLeft;
+   l.setRight = l.setTargetRight;
+   l.setWidth = l.setTargetWidth;
+
+   l.leftUnit = l.targetLeftUnit;
+   l.rightUnit = l.targetRightUnit;
+   l.widthUnit = l.targetWidthUnit;
+ }
+
+ void adjustVerticalConstraints(int parentHeight, Layer l) {
+   double topPx = l.top * getUnitSize(l.topUnit, true);
+   double bottomPx = l.bottom * getUnitSize(l.bottomUnit, true);
+   double heightPx = l.height * getUnitSize(l.heightUnit, true);
+
+   if (l.setTop &amp;&amp; !l.setTargetTop) {
+     // -top
+     l.setTop = false;
+
+     if (!l.setHeight) {
+       // +height
+       l.setTargetHeight = true;
+       l.sourceHeight = (parentHeight - (topPx + bottomPx))
+           / getUnitSize(l.targetHeightUnit, true);
+     } else {
+       // +bottom
+       l.setTargetBottom = true;
+       l.sourceBottom = (parentHeight - (topPx + heightPx))
+           / getUnitSize(l.targetBottomUnit, true);
+     }
+   } else if (l.setHeight &amp;&amp; !l.setTargetHeight) {
+     // -height
+     l.setHeight = false;
+
+     if (!l.setTop) {
+       // +top
+       l.setTargetTop = true;
+       l.sourceTop = (parentHeight - (bottomPx + heightPx))
+           / getUnitSize(l.targetTopUnit, true);
+     } else {
+       // +bottom
+       l.setTargetBottom = true;
+       l.sourceBottom = (parentHeight - (topPx + heightPx))
+           / getUnitSize(l.targetBottomUnit, true);
+     }
+   } else if (l.setBottom &amp;&amp; !l.setTargetBottom) {
+     // -bottom
+     l.setBottom = false;
+
+     if (!l.setHeight) {
+       // +height
+       l.setTargetHeight = true;
+       l.sourceHeight = (parentHeight - (topPx + bottomPx))
+           / getUnitSize(l.targetHeightUnit, true);
+     } else {
+       // +top
+       l.setTargetTop = true;
+       l.sourceTop = (parentHeight - (bottomPx + heightPx))
+           / getUnitSize(l.targetTopUnit, true);
+     }
+   }
+
+   l.setTop = l.setTargetTop;
+   l.setBottom = l.setTargetBottom;
+   l.setHeight = l.setTargetHeight;
+
+   l.topUnit = l.targetTopUnit;
+   l.bottomUnit = l.targetBottomUnit;
+   l.heightUnit = l.targetHeightUnit;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Layout">
+<button class="show-code">Code</button>
+new <strong>Layout</strong>(Element parent) <a class="anchor-link" href="#Layout"
+              title="Permalink to Layout.Layout">#</a></h4>
+<div class="doc">
+<p>Constructs a new layout associated with the given parent element.</p>
+<p>@param parent the element to serve as the layout parent</p>
+<pre class="source">
+Layout(dart_html.Element parent) {
+ this.parentElem = parent;
+ impl.initParent(parent);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="animation">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/Animation.html">Animation</a>         <strong>animation</strong> <a class="anchor-link"
+            href="#animation"
+            title="Permalink to Layout.animation">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Animation animation
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="impl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_layout/LayoutImpl.html">LayoutImpl</a>         <strong>impl</strong> <a class="anchor-link"
+            href="#impl"
+            title="Permalink to Layout.impl">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+LayoutImpl impl = new LayoutImpl.browserDependent()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="layers">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_layout/Layer.html">Layer</a>&gt;         <strong>layers</strong> <a class="anchor-link"
+            href="#layers"
+            title="Permalink to Layout.layers">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+List&lt;Layer&gt; layers = new List&lt;Layer&gt;()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="parentElem">
+<button class="show-code">Code</button>
+Element         <strong>parentElem</strong> <a class="anchor-link"
+            href="#parentElem"
+            title="Permalink to Layout.parentElem">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+dart_html.Element parentElem
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="adjustHorizontalConstraints">
+<button class="show-code">Code</button>
+void <strong>adjustHorizontalConstraints</strong>(int parentWidth, <a href="../dart_web_toolkit_layout/Layer.html">Layer</a> l) <a class="anchor-link" href="#adjustHorizontalConstraints"
+              title="Permalink to Layout.adjustHorizontalConstraints">#</a></h4>
+<div class="doc">
+<pre class="source">
+void adjustHorizontalConstraints(int parentWidth, Layer l) {
+ double leftPx = l.left * getUnitSize(l.leftUnit, false);
+ double rightPx = l.right * getUnitSize(l.rightUnit, false);
+ double widthPx = l.width * getUnitSize(l.widthUnit, false);
+
+ if (l.setLeft &amp;&amp; !l.setTargetLeft) {
+   // -left
+   l.setLeft = false;
+
+   if (!l.setWidth) {
+     // +width
+     l.setTargetWidth = true;
+     l.sourceWidth = (parentWidth - (leftPx + rightPx))
+         / getUnitSize(l.targetWidthUnit, false);
+   } else {
+     // +right
+     l.setTargetRight = true;
+     l.sourceRight = (parentWidth - (leftPx + widthPx))
+         / getUnitSize(l.targetRightUnit, false);
+   }
+ } else if (l.setWidth &amp;&amp; !l.setTargetWidth) {
+   // -width
+   l.setWidth = false;
+
+   if (!l.setLeft) {
+     // +left
+     l.setTargetLeft = true;
+     l.sourceLeft = (parentWidth - (rightPx + widthPx))
+         / getUnitSize(l.targetLeftUnit, false);
+   } else {
+     // +right
+     l.setTargetRight = true;
+     l.sourceRight = (parentWidth - (leftPx + widthPx))
+         / getUnitSize(l.targetRightUnit, false);
+   }
+ } else if (l.setRight &amp;&amp; !l.setTargetRight) {
+   // -right
+   l.setRight = false;
+
+   if (!l.setWidth) {
+     // +width
+     l.setTargetWidth = true;
+     l.sourceWidth = (parentWidth - (leftPx + rightPx))
+         / getUnitSize(l.targetWidthUnit, false);
+   } else {
+     // +left
+     l.setTargetLeft = true;
+     l.sourceLeft = (parentWidth - (rightPx + widthPx))
+         / getUnitSize(l.targetLeftUnit, false);
+   }
+ }
+
+ l.setLeft = l.setTargetLeft;
+ l.setRight = l.setTargetRight;
+ l.setWidth = l.setTargetWidth;
+
+ l.leftUnit = l.targetLeftUnit;
+ l.rightUnit = l.targetRightUnit;
+ l.widthUnit = l.targetWidthUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="adjustVerticalConstraints">
+<button class="show-code">Code</button>
+void <strong>adjustVerticalConstraints</strong>(int parentHeight, <a href="../dart_web_toolkit_layout/Layer.html">Layer</a> l) <a class="anchor-link" href="#adjustVerticalConstraints"
+              title="Permalink to Layout.adjustVerticalConstraints">#</a></h4>
+<div class="doc">
+<pre class="source">
+void adjustVerticalConstraints(int parentHeight, Layer l) {
+ double topPx = l.top * getUnitSize(l.topUnit, true);
+ double bottomPx = l.bottom * getUnitSize(l.bottomUnit, true);
+ double heightPx = l.height * getUnitSize(l.heightUnit, true);
+
+ if (l.setTop &amp;&amp; !l.setTargetTop) {
+   // -top
+   l.setTop = false;
+
+   if (!l.setHeight) {
+     // +height
+     l.setTargetHeight = true;
+     l.sourceHeight = (parentHeight - (topPx + bottomPx))
+         / getUnitSize(l.targetHeightUnit, true);
+   } else {
+     // +bottom
+     l.setTargetBottom = true;
+     l.sourceBottom = (parentHeight - (topPx + heightPx))
+         / getUnitSize(l.targetBottomUnit, true);
+   }
+ } else if (l.setHeight &amp;&amp; !l.setTargetHeight) {
+   // -height
+   l.setHeight = false;
+
+   if (!l.setTop) {
+     // +top
+     l.setTargetTop = true;
+     l.sourceTop = (parentHeight - (bottomPx + heightPx))
+         / getUnitSize(l.targetTopUnit, true);
+   } else {
+     // +bottom
+     l.setTargetBottom = true;
+     l.sourceBottom = (parentHeight - (topPx + heightPx))
+         / getUnitSize(l.targetBottomUnit, true);
+   }
+ } else if (l.setBottom &amp;&amp; !l.setTargetBottom) {
+   // -bottom
+   l.setBottom = false;
+
+   if (!l.setHeight) {
+     // +height
+     l.setTargetHeight = true;
+     l.sourceHeight = (parentHeight - (topPx + bottomPx))
+         / getUnitSize(l.targetHeightUnit, true);
+   } else {
+     // +top
+     l.setTargetTop = true;
+     l.sourceTop = (parentHeight - (bottomPx + heightPx))
+         / getUnitSize(l.targetTopUnit, true);
+   }
+ }
+
+ l.setTop = l.setTargetTop;
+ l.setBottom = l.setTargetBottom;
+ l.setHeight = l.setTargetHeight;
+
+ l.topUnit = l.targetTopUnit;
+ l.bottomUnit = l.targetBottomUnit;
+ l.heightUnit = l.targetHeightUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="assertIsChild">
+<button class="show-code">Code</button>
+void <strong>assertIsChild</strong>(Element elem) <a class="anchor-link" href="#assertIsChild"
+              title="Permalink to Layout.assertIsChild">#</a></h4>
+<div class="doc">
+<p>Asserts that the given child element is managed by this layout.</p>
+<p>@param elem the element to be tested</p>
+<pre class="source">
+void assertIsChild(dart_html.Element elem) {
+ assert (elem.parent.parent == this.parentElem); // : "Element is not a child of this layout";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="attachChild">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_layout/Layer.html">Layer</a> <strong>attachChild</strong>(Element child, {Element before: null, Object userObject}) <a class="anchor-link" href="#attachChild"
+              title="Permalink to Layout.attachChild">#</a></h4>
+<div class="doc">
+<p>Attaches a child element to this layout.</p><p>
+This method will attach the child to the layout, removing it from its
+current parent element. Use the {@link Layer} it returns to manipulate the
+child.
+</p>
+<p>@param child the child to be attached
+@param before the child element before which to insert
+@param userObject an arbitrary object to be associated with this layer
+@return the {@link Layer} associated with the element</p>
+<pre class="source">
+Layer attachChild(dart_html.Element child, {dart_html.Element before:null, Object userObject}) {
+ dart_html.Element container = impl.attachChild(parentElem, child, before);
+ Layer layer = new Layer(container, child, userObject);
+ layers.add(layer);
+ return layer;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fillParent">
+<button class="show-code">Code</button>
+void <strong>fillParent</strong>() <a class="anchor-link" href="#fillParent"
+              title="Permalink to Layout.fillParent">#</a></h4>
+<div class="doc">
+<p>Causes the parent element to fill its own parent.</p><p>
+This is most useful for top-level layouts that need to follow the size of
+another element, such as the &lt;body&gt;.
+</p>
+<pre class="source">
+void fillParent() {
+ impl.fillParent(parentElem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getUnitSize">
+<button class="show-code">Code</button>
+double <strong>getUnitSize</strong>(<a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit, bool vertical) <a class="anchor-link" href="#getUnitSize"
+              title="Permalink to Layout.getUnitSize">#</a></h4>
+<div class="doc">
+<p>Returns the size of one unit, in pixels, in the context of this layout.</p><p>
+This will work for any unit type, but be aware that certain unit types,
+such as {@link Unit#EM}, and {@link Unit#EX}, will return different values
+based upon the parent's associated font size. {@link Unit#PCT} is dependent
+upon the parent's actual size, and the axis to be measured.
+</p>
+<p>@param unit the unit type to be measured
+@param vertical whether the unit to be measured is on the vertical or</p>
+<pre><code>     horizontal axis (this matters only for {@link Unit#PCT})
+</code></pre>
+<p>@return the unit size, in pixels</p>
+<pre class="source">
+double getUnitSize(Unit unit, bool vertical) {
+ return impl.getUnitSizeInPixels(parentElem, unit, vertical);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="layout">
+<button class="show-code">Code</button>
+void <strong>layout</strong>([int duration = 0, <a href="../dart_web_toolkit_layout/LayoutAnimationCallback.html">LayoutAnimationCallback</a> callback = null]) <a class="anchor-link" href="#layout"
+              title="Permalink to Layout.layout">#</a></h4>
+<div class="doc">
+<p>Updates the layout by animating it over time, with a callback on each frame
+of the animation, and upon completion.</p>
+<p>@param duration the duration of the animation
+@param callback the animation callback</p>
+<pre class="source">
+void layout([int duration = 0, LayoutAnimationCallback callback = null]) {
+ // Cancel the old animation, if there is one.
+ if (animation != null) {
+   animation.cancel();
+ }
+
+ // If there's no actual animation going on, don't do any of the expensive
+ // constraint calculations or anything like that.
+ if (duration == 0) {
+   for (Layer l in layers) {
+     l.left = l.sourceLeft = l.targetLeft;
+     l.top = l.sourceTop = l.targetTop;
+     l.right = l.sourceRight = l.targetRight;
+     l.bottom = l.sourceBottom = l.targetBottom;
+     l.width = l.sourceWidth = l.targetWidth;
+     l.height = l.sourceHeight = l.targetHeight;
+
+     l.setLeft = l.setTargetLeft;
+     l.setTop = l.setTargetTop;
+     l.setRight = l.setTargetRight;
+     l.setBottom = l.setTargetBottom;
+     l.setWidth = l.setTargetWidth;
+     l.setHeight = l.setTargetHeight;
+
+     l.leftUnit = l.targetLeftUnit;
+     l.topUnit = l.targetTopUnit;
+     l.rightUnit = l.targetRightUnit;
+     l.bottomUnit = l.targetBottomUnit;
+     l.widthUnit = l.targetWidthUnit;
+     l.heightUnit = l.targetHeightUnit;
+
+     impl.layout(l);
+   }
+
+   impl.finalizeLayout(parentElem);
+   if (callback != null) {
+     callback.onAnimationComplete();
+   }
+   return;
+ }
+
+ // Deal with constraint changes (e.g. left-width =&gt; right-width, etc)
+ int parentWidth = parentElem.client.width;
+ int parentHeight = parentElem.client.height;
+ for (Layer l in layers) {
+   adjustHorizontalConstraints(parentWidth, l);
+   adjustVerticalConstraints(parentHeight, l);
+ }
+
+ animation = new LayoutAnimation(this, callback);
+
+ animation.run(duration, element:parentElem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to Layout.onAttach">#</a></h4>
+<div class="doc">
+<p>This method must be called when the parent element becomes attached to the
+document.</p>
+<p>@see #onDetach()</p>
+<pre class="source">
+void onAttach() {
+ impl.onAttach(parentElem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to Layout.onDetach">#</a></h4>
+<div class="doc">
+<p>This method must be called when the parent element becomes detached from
+the document.</p>
+<p>@see #onAttach()</p>
+<pre class="source">
+void onDetach() {
+ impl.onDetach(parentElem);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeChild">
+<button class="show-code">Code</button>
+void <strong>removeChild</strong>(<a href="../dart_web_toolkit_layout/Layer.html">Layer</a> layer) <a class="anchor-link" href="#removeChild"
+              title="Permalink to Layout.removeChild">#</a></h4>
+<div class="doc">
+<p>Removes a child element from this layout.</p>
+<p>@param layer the layer associated with the child to be removed</p>
+<pre class="source">
+void removeChild(Layer layer) {
+ impl.removeChild(layer.container, layer.child);
+ //
+ int indx = layers.indexOf(layer);
+ if (indx != -1) {
+   layers.removeAt(indx);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.437</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

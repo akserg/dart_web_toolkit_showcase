@@ -1,0 +1,760 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>CellFormatter class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="CellFormatter">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/CellFormatter.html">CellFormatter</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>CellFormatter</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This class contains methods used to format a table's cells.</p>
+<pre class="source">
+class CellFormatter {
+
+ HtmlTable _table;
+
+ CellFormatter(this._table);
+
+ /**
+  * Adds a style to the specified cell.
+  *
+  * @param row the cell's row
+  * @param column the cell's column
+  * @param styleName the style name to be added
+  * @see UiObject#addStyleName(String)
+  */
+ void addStyleName(int row, int column, String styleName) {
+   _table.prepareCell(row, column);
+   dart_html.Element td = getCellElement(_table.bodyElem, row, column);
+   UiObject.manageElementStyleName(td, styleName, true);
+ }
+
+ /**
+  * Gets the TD element representing the specified cell.
+  *
+  * @param row the row of the cell to be retrieved
+  * @param column the column of the cell to be retrieved
+  * @return the column's TD element
+  * @throws IndexOutOfBoundsException
+  */
+ dart_html.Element getElement(int row, int column) {
+   _table.checkCellBounds(row, column);
+   return getCellElement(_table.bodyElem, row, column);
+ }
+
+ /**
+  * Gets the style of a specified cell.
+  *
+  * @param row the cell's row
+  * @param column the cell's column
+  * @see UiObject#getStyleName()
+  * @return returns the style name
+  * @throws IndexOutOfBoundsException
+  */
+ String getStyleName(int row, int column) {
+   return UiObject.getElementStyleName(getElement(row, column));
+ }
+
+ /**
+  * Gets the primary style of a specified cell.
+  *
+  * @param row the cell's row
+  * @param column the cell's column
+  * @see UiObject#getStylePrimaryName()
+  * @return returns the style name
+  * @throws IndexOutOfBoundsException
+  */
+ String getStylePrimaryName(int row, int column) {
+   return UiObject.getElementStylePrimaryName(getElement(row, column));
+ }
+
+ /**
+  * Determines whether or not this cell is visible.
+  *
+  * @param row the row of the cell whose visibility is to be set
+  * @param column the column of the cell whose visibility is to be set
+  * @return &lt;code&gt;true&lt;/code&gt; if the object is visible
+  */
+ bool isVisible(int row, int column) {
+   dart_html.Element e = getElement(row, column);
+   return UiObject.isVisible(e);
+ }
+
+ /**
+  * Removes a style from the specified cell.
+  *
+  * @param row the cell's row
+  * @param column the cell's column
+  * @param styleName the style name to be removed
+  * @see UiObject#removeStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void removeStyleName(int row, int column, String styleName) {
+   _table.checkCellBounds(row, column);
+   dart_html.Element td = getCellElement(_table.bodyElem, row, column);
+   UiObject.manageElementStyleName(td, styleName, false);
+ }
+
+ /**
+  * Sets the horizontal and vertical alignment of the specified cell's
+  * contents.
+  *
+  * @param row the row of the cell whose alignment is to be set
+  * @param column the column of the cell whose alignment is to be set
+  * @param hAlign the cell's new horizontal alignment as specified in
+  *          {@link HasHorizontalAlignment}
+  * @param vAlign the cell's new vertical alignment as specified in
+  *          {@link HasVerticalAlignment}
+  * @throws IndexOutOfBoundsException
+  */
+ void setAlignment(int row, int column,
+                          HorizontalAlignmentConstant hAlign, VerticalAlignmentConstant vAlign) {
+   setHorizontalAlignment(row, column, hAlign);
+   setVerticalAlignment(row, column, vAlign);
+ }
+
+ /**
+  * Sets the height of the specified cell.
+  *
+  * @param row the row of the cell whose height is to be set
+  * @param column the column of the cell whose height is to be set
+  * @param height the cell's new height, in CSS units
+  * @throws IndexOutOfBoundsException
+  */
+ void setHeight(int row, int column, String height) {
+   _table.prepareCell(row, column);
+   dart_html.Element elem = getCellElement(_table.bodyElem, row, column);
+   Dom.setElementProperty(elem, "height", height);
+ }
+
+ /**
+  * Sets the horizontal alignment of the specified cell.
+  *
+  * @param row the row of the cell whose alignment is to be set
+  * @param column the column of the cell whose alignment is to be set
+  * @param align the cell's new horizontal alignment as specified in
+  *          {@link HasHorizontalAlignment}.
+  * @throws IndexOutOfBoundsException
+  */
+ void setHorizontalAlignment(int row, int column,
+                                    HorizontalAlignmentConstant align) {
+   _table.prepareCell(row, column);
+   dart_html.Element elem = getCellElement(_table.bodyElem, row, column);
+   Dom.setElementProperty(elem, "align", align.getTextAlignString());
+ }
+
+ /**
+  * Sets the style name associated with the specified cell.
+ *
+  * @param row the row of the cell whose style name is to be set
+  * @param column the column of the cell whose style name is to be set
+  * @param styleName the new style name
+  * @see UiObject#setStyleName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void setStyleName(int row, int column, String styleName) {
+   _table.prepareCell(row, column);
+   UiObject.setElementStyleName(getCellElement(_table.bodyElem, row, column), styleName);
+ }
+
+ /**
+  * Sets the primary style name associated with the specified cell.
+  *
+  * @param row the row of the cell whose style name is to be set
+  * @param column the column of the cell whose style name is to be set
+  * @param styleName the new style name
+  * @see UiObject#setStylePrimaryName(String)
+  * @throws IndexOutOfBoundsException
+  */
+ void setStylePrimaryName(int row, int column, String styleName) {
+   UiObject.setElementStylePrimaryName(getCellElement(_table.bodyElem, row, column), styleName);
+ }
+
+ /**
+  * Sets the vertical alignment of the specified cell.
+  *
+  * @param row the row of the cell whose alignment is to be set
+  * @param column the column of the cell whose alignment is to be set
+  * @param align the cell's new vertical alignment as specified in
+  *          {@link HasVerticalAlignment}.
+  * @throws IndexOutOfBoundsException
+  */
+ void setVerticalAlignment(int row, int column,
+                                  VerticalAlignmentConstant align) {
+   _table.prepareCell(row, column);
+   Dom.setStyleAttribute(getCellElement(_table.bodyElem, row, column),
+       "verticalAlign", align.getVerticalAlignString());
+ }
+
+ /**
+  * Sets whether this cell is visible via the display style property. The
+  * other cells in the row will all shift left to fill the cell's space. So,
+  * for example a table with (0,1,2) will become (1,2) if cell 1 is hidden.
+  *
+  * @param row the row of the cell whose visibility is to be set
+  * @param column the column of the cell whose visibility is to be set
+  * @param visible &lt;code&gt;true&lt;/code&gt; to show the cell, &lt;code&gt;false&lt;/code&gt; to
+  *          hide it
+  */
+ void setVisible(int row, int column, bool visible) {
+   dart_html.Element e = ensureElement(row, column);
+   UiObject.setVisible(e, visible);
+ }
+
+ /**
+  * Sets the width of the specified cell.
+  *
+  * @param row the row of the cell whose width is to be set
+  * @param column the column of the cell whose width is to be set
+  * @param width the cell's new width, in CSS units
+  * @throws IndexOutOfBoundsException
+  */
+ void setWidth(int row, int column, String width) {
+   // Give the subclass a chance to prepare the cell.
+   _table.prepareCell(row, column);
+   Dom.setElementProperty(getCellElement(_table.bodyElem, row, column), "width",
+       width);
+ }
+
+ /**
+  * Sets whether the specified cell will allow word wrapping of its contents.
+  *
+  * @param row the row of the cell whose word-wrap is to be set
+  * @param column the column of the cell whose word-wrap is to be set
+  * @param wrap &lt;code&gt;false &lt;/code&gt; to disable word wrapping in this cell
+  * @throws IndexOutOfBoundsException
+  */
+ void setWordWrap(int row, int column, bool wrap) {
+   _table.prepareCell(row, column);
+   String wrapValue = wrap ? "" : "nowrap";
+   Dom.setStyleAttribute(getElement(row, column), "whiteSpace", wrapValue);
+ }
+
+ /**
+  * Gets the element associated with a cell. If it does not exist and the
+  * subtype allows creation of elements, creates it.
+  *
+  * @param row the cell's row
+  * @param column the cell's column
+  * @return the cell's element
+  * @throws IndexOutOfBoundsException
+  */
+ dart_html.Element ensureElement(int row, int column) {
+   _table.prepareCell(row, column);
+   return getCellElement(_table.bodyElem, row, column);
+ }
+
+ /**
+  * Convenience methods to get an attribute on a cell.
+  *
+  * @param row cell's row
+  * @param column cell's column
+  * @param attr attribute to get
+  * @return the attribute's value
+  * @throws IndexOutOfBoundsException
+  */
+ String getAttr(int row, int column, String attr) {
+   dart_html.Element elem = getElement(row, column);
+   return elem.attributes[attr];
+ }
+
+ /**
+  * Convenience methods to set an attribute on a cell.
+  *
+  * @param row cell's row
+  * @param column cell's column
+  * @param attrName attribute to set
+  * @param value value to set
+  * @throws IndexOutOfBoundsException
+  */
+ void setAttr(int row, int column, String attrName, String value) {
+   dart_html.Element elem = ensureElement(row, column);
+   Dom.setElementAttribute(elem, attrName, value);
+ }
+
+ /**
+  * Native method to get a cell's element.
+  *
+  * @param table the table element
+  * @param row the row of the cell
+  * @param col the column of the cell
+  * @return the element
+  */
+ dart_html.Element getCellElement(dart_html.Element table, int row, int col) {
+   if (table is! dart_html.TableElement) {
+     table = table.parent as dart_html.TableElement;
+   }
+   assert (table is dart_html.TableElement);
+   return (table.rows[row] as dart_html.TableRowElement).cells[col];
+ }
+
+ /**
+  * Gets the TD element representing the specified cell unsafely (meaning
+  * that it doesn't ensure that &lt;code&gt;row&lt;/code&gt; and &lt;code&gt;column&lt;/code&gt; are
+  * valid).
+  *
+  * @param row the row of the cell to be retrieved
+  * @param column the column of the cell to be retrieved
+  * @return the cell's TD element
+  */
+ dart_html.Element getRawElement(int row, int column) {
+   return getCellElement(_table.bodyElem, row, column);
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FlexCellFormatter.html">FlexCellFormatter</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="CellFormatter">
+<button class="show-code">Code</button>
+new <strong>CellFormatter</strong>(<a href="../dart_web_toolkit_ui/HtmlTable.html">HtmlTable</a> _table) <a class="anchor-link" href="#CellFormatter"
+              title="Permalink to CellFormatter.CellFormatter">#</a></h4>
+<div class="doc">
+<pre class="source">
+CellFormatter(this._table);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addStyleName">
+<button class="show-code">Code</button>
+void <strong>addStyleName</strong>(int row, int column, String styleName) <a class="anchor-link" href="#addStyleName"
+              title="Permalink to CellFormatter.addStyleName">#</a></h4>
+<div class="doc">
+<p>Adds a style to the specified cell.</p>
+<p>@param row the cell's row
+@param column the cell's column
+@param styleName the style name to be added
+@see UiObject#addStyleName(String)</p>
+<pre class="source">
+void addStyleName(int row, int column, String styleName) {
+ _table.prepareCell(row, column);
+ dart_html.Element td = getCellElement(_table.bodyElem, row, column);
+ UiObject.manageElementStyleName(td, styleName, true);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureElement">
+<button class="show-code">Code</button>
+Element <strong>ensureElement</strong>(int row, int column) <a class="anchor-link" href="#ensureElement"
+              title="Permalink to CellFormatter.ensureElement">#</a></h4>
+<div class="doc">
+<p>Gets the element associated with a cell. If it does not exist and the
+subtype allows creation of elements, creates it.</p>
+<p>@param row the cell's row
+@param column the cell's column
+@return the cell's element
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+dart_html.Element ensureElement(int row, int column) {
+ _table.prepareCell(row, column);
+ return getCellElement(_table.bodyElem, row, column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAttr">
+<button class="show-code">Code</button>
+String <strong>getAttr</strong>(int row, int column, String attr) <a class="anchor-link" href="#getAttr"
+              title="Permalink to CellFormatter.getAttr">#</a></h4>
+<div class="doc">
+<p>Convenience methods to get an attribute on a cell.</p>
+<p>@param row cell's row
+@param column cell's column
+@param attr attribute to get
+@return the attribute's value
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getAttr(int row, int column, String attr) {
+ dart_html.Element elem = getElement(row, column);
+ return elem.attributes[attr];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getCellElement">
+<button class="show-code">Code</button>
+Element <strong>getCellElement</strong>(Element table, int row, int col) <a class="anchor-link" href="#getCellElement"
+              title="Permalink to CellFormatter.getCellElement">#</a></h4>
+<div class="doc">
+<p>Native method to get a cell's element.</p>
+<p>@param table the table element
+@param row the row of the cell
+@param col the column of the cell
+@return the element</p>
+<pre class="source">
+dart_html.Element getCellElement(dart_html.Element table, int row, int col) {
+ if (table is! dart_html.TableElement) {
+   table = table.parent as dart_html.TableElement;
+ }
+ assert (table is dart_html.TableElement);
+ return (table.rows[row] as dart_html.TableRowElement).cells[col];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getElement">
+<button class="show-code">Code</button>
+Element <strong>getElement</strong>(int row, int column) <a class="anchor-link" href="#getElement"
+              title="Permalink to CellFormatter.getElement">#</a></h4>
+<div class="doc">
+<p>Gets the TD element representing the specified cell.</p>
+<p>@param row the row of the cell to be retrieved
+@param column the column of the cell to be retrieved
+@return the column's TD element
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+dart_html.Element getElement(int row, int column) {
+ _table.checkCellBounds(row, column);
+ return getCellElement(_table.bodyElem, row, column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRawElement">
+<button class="show-code">Code</button>
+Element <strong>getRawElement</strong>(int row, int column) <a class="anchor-link" href="#getRawElement"
+              title="Permalink to CellFormatter.getRawElement">#</a></h4>
+<div class="doc">
+<p>Gets the TD element representing the specified cell unsafely (meaning
+that it doesn't ensure that &lt;code>row&lt;/code> and &lt;code>column&lt;/code> are
+valid).</p>
+<p>@param row the row of the cell to be retrieved
+@param column the column of the cell to be retrieved
+@return the cell's TD element</p>
+<pre class="source">
+dart_html.Element getRawElement(int row, int column) {
+ return getCellElement(_table.bodyElem, row, column);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStyleName">
+<button class="show-code">Code</button>
+String <strong>getStyleName</strong>(int row, int column) <a class="anchor-link" href="#getStyleName"
+              title="Permalink to CellFormatter.getStyleName">#</a></h4>
+<div class="doc">
+<p>Gets the style of a specified cell.</p>
+<p>@param row the cell's row
+@param column the cell's column
+@see UiObject#getStyleName()
+@return returns the style name
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getStyleName(int row, int column) {
+ return UiObject.getElementStyleName(getElement(row, column));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getStylePrimaryName">
+<button class="show-code">Code</button>
+String <strong>getStylePrimaryName</strong>(int row, int column) <a class="anchor-link" href="#getStylePrimaryName"
+              title="Permalink to CellFormatter.getStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Gets the primary style of a specified cell.</p>
+<p>@param row the cell's row
+@param column the cell's column
+@see UiObject#getStylePrimaryName()
+@return returns the style name
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+String getStylePrimaryName(int row, int column) {
+ return UiObject.getElementStylePrimaryName(getElement(row, column));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="isVisible">
+<button class="show-code">Code</button>
+bool <strong>isVisible</strong>(int row, int column) <a class="anchor-link" href="#isVisible"
+              title="Permalink to CellFormatter.isVisible">#</a></h4>
+<div class="doc">
+<p>Determines whether or not this cell is visible.</p>
+<p>@param row the row of the cell whose visibility is to be set
+@param column the column of the cell whose visibility is to be set
+@return &lt;code>true&lt;/code> if the object is visible</p>
+<pre class="source">
+bool isVisible(int row, int column) {
+ dart_html.Element e = getElement(row, column);
+ return UiObject.isVisible(e);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeStyleName">
+<button class="show-code">Code</button>
+void <strong>removeStyleName</strong>(int row, int column, String styleName) <a class="anchor-link" href="#removeStyleName"
+              title="Permalink to CellFormatter.removeStyleName">#</a></h4>
+<div class="doc">
+<p>Removes a style from the specified cell.</p>
+<p>@param row the cell's row
+@param column the cell's column
+@param styleName the style name to be removed
+@see UiObject#removeStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void removeStyleName(int row, int column, String styleName) {
+ _table.checkCellBounds(row, column);
+ dart_html.Element td = getCellElement(_table.bodyElem, row, column);
+ UiObject.manageElementStyleName(td, styleName, false);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAlignment">
+<button class="show-code">Code</button>
+void <strong>setAlignment</strong>(int row, int column, <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> hAlign, <a href="../dart_web_toolkit_i18n/VerticalAlignmentConstant.html">VerticalAlignmentConstant</a> vAlign) <a class="anchor-link" href="#setAlignment"
+              title="Permalink to CellFormatter.setAlignment">#</a></h4>
+<div class="doc">
+<p>Sets the horizontal and vertical alignment of the specified cell's
+contents.</p>
+<p>@param row the row of the cell whose alignment is to be set
+@param column the column of the cell whose alignment is to be set
+@param hAlign the cell's new horizontal alignment as specified in</p>
+<pre><code>     {@link HasHorizontalAlignment}
+</code></pre>
+<p>@param vAlign the cell's new vertical alignment as specified in</p>
+<pre><code>     {@link HasVerticalAlignment}
+</code></pre>
+<p>@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setAlignment(int row, int column,
+                        HorizontalAlignmentConstant hAlign, VerticalAlignmentConstant vAlign) {
+ setHorizontalAlignment(row, column, hAlign);
+ setVerticalAlignment(row, column, vAlign);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setAttr">
+<button class="show-code">Code</button>
+void <strong>setAttr</strong>(int row, int column, String attrName, String value) <a class="anchor-link" href="#setAttr"
+              title="Permalink to CellFormatter.setAttr">#</a></h4>
+<div class="doc">
+<p>Convenience methods to set an attribute on a cell.</p>
+<p>@param row cell's row
+@param column cell's column
+@param attrName attribute to set
+@param value value to set
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setAttr(int row, int column, String attrName, String value) {
+ dart_html.Element elem = ensureElement(row, column);
+ Dom.setElementAttribute(elem, attrName, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(int row, int column, String height) <a class="anchor-link" href="#setHeight"
+              title="Permalink to CellFormatter.setHeight">#</a></h4>
+<div class="doc">
+<p>Sets the height of the specified cell.</p>
+<p>@param row the row of the cell whose height is to be set
+@param column the column of the cell whose height is to be set
+@param height the cell's new height, in CSS units
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setHeight(int row, int column, String height) {
+ _table.prepareCell(row, column);
+ dart_html.Element elem = getCellElement(_table.bodyElem, row, column);
+ Dom.setElementProperty(elem, "height", height);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setHorizontalAlignment">
+<button class="show-code">Code</button>
+void <strong>setHorizontalAlignment</strong>(int row, int column, <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a> align) <a class="anchor-link" href="#setHorizontalAlignment"
+              title="Permalink to CellFormatter.setHorizontalAlignment">#</a></h4>
+<div class="doc">
+<p>Sets the horizontal alignment of the specified cell.</p>
+<p>@param row the row of the cell whose alignment is to be set
+@param column the column of the cell whose alignment is to be set
+@param align the cell's new horizontal alignment as specified in</p>
+<pre><code>     {@link HasHorizontalAlignment}.
+</code></pre>
+<p>@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setHorizontalAlignment(int row, int column,
+                                  HorizontalAlignmentConstant align) {
+ _table.prepareCell(row, column);
+ dart_html.Element elem = getCellElement(_table.bodyElem, row, column);
+ Dom.setElementProperty(elem, "align", align.getTextAlignString());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStyleName">
+<button class="show-code">Code</button>
+void <strong>setStyleName</strong>(int row, int column, String styleName) <a class="anchor-link" href="#setStyleName"
+              title="Permalink to CellFormatter.setStyleName">#</a></h4>
+<div class="doc">
+<p>Sets the style name associated with the specified cell.</p>
+<p>@param row the row of the cell whose style name is to be set
+@param column the column of the cell whose style name is to be set
+@param styleName the new style name
+@see UiObject#setStyleName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setStyleName(int row, int column, String styleName) {
+ _table.prepareCell(row, column);
+ UiObject.setElementStyleName(getCellElement(_table.bodyElem, row, column), styleName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setStylePrimaryName">
+<button class="show-code">Code</button>
+void <strong>setStylePrimaryName</strong>(int row, int column, String styleName) <a class="anchor-link" href="#setStylePrimaryName"
+              title="Permalink to CellFormatter.setStylePrimaryName">#</a></h4>
+<div class="doc">
+<p>Sets the primary style name associated with the specified cell.</p>
+<p>@param row the row of the cell whose style name is to be set
+@param column the column of the cell whose style name is to be set
+@param styleName the new style name
+@see UiObject#setStylePrimaryName(String)
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setStylePrimaryName(int row, int column, String styleName) {
+ UiObject.setElementStylePrimaryName(getCellElement(_table.bodyElem, row, column), styleName);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVerticalAlignment">
+<button class="show-code">Code</button>
+void <strong>setVerticalAlignment</strong>(int row, int column, <a href="../dart_web_toolkit_i18n/VerticalAlignmentConstant.html">VerticalAlignmentConstant</a> align) <a class="anchor-link" href="#setVerticalAlignment"
+              title="Permalink to CellFormatter.setVerticalAlignment">#</a></h4>
+<div class="doc">
+<p>Sets the vertical alignment of the specified cell.</p>
+<p>@param row the row of the cell whose alignment is to be set
+@param column the column of the cell whose alignment is to be set
+@param align the cell's new vertical alignment as specified in</p>
+<pre><code>     {@link HasVerticalAlignment}.
+</code></pre>
+<p>@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setVerticalAlignment(int row, int column,
+                                VerticalAlignmentConstant align) {
+ _table.prepareCell(row, column);
+ Dom.setStyleAttribute(getCellElement(_table.bodyElem, row, column),
+     "verticalAlign", align.getVerticalAlignString());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVisible">
+<button class="show-code">Code</button>
+void <strong>setVisible</strong>(int row, int column, bool visible) <a class="anchor-link" href="#setVisible"
+              title="Permalink to CellFormatter.setVisible">#</a></h4>
+<div class="doc">
+<p>Sets whether this cell is visible via the display style property. The
+other cells in the row will all shift left to fill the cell's space. So,
+for example a table with (0,1,2) will become (1,2) if cell 1 is hidden.</p>
+<p>@param row the row of the cell whose visibility is to be set
+@param column the column of the cell whose visibility is to be set
+@param visible &lt;code>true&lt;/code> to show the cell, &lt;code>false&lt;/code> to</p>
+<pre><code>     hide it
+</code></pre>
+<pre class="source">
+void setVisible(int row, int column, bool visible) {
+ dart_html.Element e = ensureElement(row, column);
+ UiObject.setVisible(e, visible);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(int row, int column, String width) <a class="anchor-link" href="#setWidth"
+              title="Permalink to CellFormatter.setWidth">#</a></h4>
+<div class="doc">
+<p>Sets the width of the specified cell.</p>
+<p>@param row the row of the cell whose width is to be set
+@param column the column of the cell whose width is to be set
+@param width the cell's new width, in CSS units
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setWidth(int row, int column, String width) {
+ // Give the subclass a chance to prepare the cell.
+ _table.prepareCell(row, column);
+ Dom.setElementProperty(getCellElement(_table.bodyElem, row, column), "width",
+     width);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWordWrap">
+<button class="show-code">Code</button>
+void <strong>setWordWrap</strong>(int row, int column, bool wrap) <a class="anchor-link" href="#setWordWrap"
+              title="Permalink to CellFormatter.setWordWrap">#</a></h4>
+<div class="doc">
+<p>Sets whether the specified cell will allow word wrapping of its contents.</p>
+<p>@param row the row of the cell whose word-wrap is to be set
+@param column the column of the cell whose word-wrap is to be set
+@param wrap &lt;code>false &lt;/code> to disable word wrapping in this cell
+@throws IndexOutOfBoundsException</p>
+<pre class="source">
+void setWordWrap(int row, int column, bool wrap) {
+ _table.prepareCell(row, column);
+ String wrapValue = wrap ? "" : "nowrap";
+ Dom.setStyleAttribute(getElement(row, column), "whiteSpace", wrapValue);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:23.081</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

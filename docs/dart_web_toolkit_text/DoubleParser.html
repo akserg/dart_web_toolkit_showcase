@@ -1,0 +1,133 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DoubleParser class / dart_web_toolkit_text Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_text" data-type="DoubleParser">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_text.html">dart_web_toolkit_text</a> &rsaquo; <a href="../dart_web_toolkit_text/DoubleParser.html">DoubleParser</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DoubleParser</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A localized parser based on {@link NumberFormat#getDecimalFormat}.</p>
+<pre class="source">
+class DoubleParser implements Parser&lt;double&gt; {
+
+ static DoubleParser _INSTANCE;
+
+ /**
+  * Returns the instance of the no-op renderer.
+  */
+ factory DoubleParser.instance() {
+   if (_INSTANCE == null) {
+     _INSTANCE = new DoubleParser();
+   }
+   return _INSTANCE;
+ }
+
+ DoubleParser();
+
+ double parse(String object) {
+   if (object == null || object == "") {
+     return null;
+   }
+
+   return double.parse(object);
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_text/Parser.html">Parser&lt;double&gt;</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="DoubleParser">
+<button class="show-code">Code</button>
+new <strong>DoubleParser</strong>() <a class="anchor-link" href="#DoubleParser"
+              title="Permalink to DoubleParser.DoubleParser">#</a></h4>
+<div class="doc">
+<pre class="source">
+DoubleParser();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="DoubleParser.instance">
+<button class="show-code">Code</button>
+factory <strong>DoubleParser.instance</strong>() <a class="anchor-link" href="#DoubleParser.instance"
+              title="Permalink to DoubleParser.DoubleParser.instance">#</a></h4>
+<div class="doc">
+<p>Returns the instance of the no-op renderer.</p>
+<pre class="source">
+factory DoubleParser.instance() {
+ if (_INSTANCE == null) {
+   _INSTANCE = new DoubleParser();
+ }
+ return _INSTANCE;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="parse">
+<button class="show-code">Code</button>
+double <strong>parse</strong>(String object) <a class="anchor-link" href="#parse"
+              title="Permalink to DoubleParser.parse">#</a></h4>
+<div class="doc">
+<pre class="source">
+double parse(String object) {
+ if (object == null || object == "") {
+   return null;
+ }
+
+ return double.parse(object);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.636</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

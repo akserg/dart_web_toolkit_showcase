@@ -1,0 +1,197 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AnimationSchedulerImpl abstract class / dart_web_toolkit_animation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_animation" data-type="AnimationSchedulerImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_animation.html">dart_web_toolkit_animation</a> &rsaquo; <a href="../dart_web_toolkit_animation/AnimationSchedulerImpl.html">AnimationSchedulerImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AnimationSchedulerImpl</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Base class for animation implementations.</p>
+<pre class="source">
+abstract class AnimationSchedulerImpl extends AnimationScheduler {
+
+ static AnimationSchedulerImpl impl;
+
+ factory AnimationSchedulerImpl.Instance() {
+
+   impl = new AnimationSchedulerImpl.browserDependent();
+
+   /*
+    * If the implementation isn't natively supported, revert back to the timer
+    * based implementation.
+    *
+    * If impl==null (such as with GWTMockUitlities.disarm()), use null. We
+    * don't want to create a new AnimationSchedulerImplTimer in this case.
+    */
+   if (impl is AnimationSchedulerImpl) {
+     if (!(impl as AnimationSchedulerImpl).isNativelySupported()) {
+       impl = new AnimationSchedulerImplTimer();
+     }
+   }
+
+   return impl;
+ }
+
+ AnimationSchedulerImpl();
+
+ factory AnimationSchedulerImpl.browserDependent() {
+   return new AnimationSchedulerImplWebkit();
+ }
+
+ /**
+  * Check if the implementation is natively supported.
+  *
+  * @return true if natively supported, false if not
+  */
+ bool isNativelySupported();
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationScheduler.html">AnimationScheduler</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>AnimationSchedulerImpl</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationSchedulerImplTimer.html">AnimationSchedulerImplTimer</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_animation/AnimationSchedulerImplWebkit.html">AnimationSchedulerImplWebkit</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="impl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_animation/AnimationSchedulerImpl.html">AnimationSchedulerImpl</a>         <strong>impl</strong> <a class="anchor-link"
+            href="#impl"
+            title="Permalink to AnimationSchedulerImpl.impl">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static AnimationSchedulerImpl impl
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AnimationSchedulerImpl">
+<button class="show-code">Code</button>
+new <strong>AnimationSchedulerImpl</strong>() <a class="anchor-link" href="#AnimationSchedulerImpl"
+              title="Permalink to AnimationSchedulerImpl.AnimationSchedulerImpl">#</a></h4>
+<div class="doc">
+<pre class="source">
+AnimationSchedulerImpl();
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="AnimationSchedulerImpl.browserDependent">
+<button class="show-code">Code</button>
+factory <strong>AnimationSchedulerImpl.browserDependent</strong>() <a class="anchor-link" href="#AnimationSchedulerImpl.browserDependent"
+              title="Permalink to AnimationSchedulerImpl.AnimationSchedulerImpl.browserDependent">#</a></h4>
+<div class="doc">
+<pre class="source">
+factory AnimationSchedulerImpl.browserDependent() {
+ return new AnimationSchedulerImplWebkit();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="AnimationSchedulerImpl.Instance">
+<button class="show-code">Code</button>
+factory <strong>AnimationSchedulerImpl.Instance</strong>() <a class="anchor-link" href="#AnimationSchedulerImpl.Instance"
+              title="Permalink to AnimationSchedulerImpl.AnimationSchedulerImpl.Instance">#</a></h4>
+<div class="doc">
+<pre class="source">
+factory AnimationSchedulerImpl.Instance() {
+
+ impl = new AnimationSchedulerImpl.browserDependent();
+
+ /*
+  * If the implementation isn't natively supported, revert back to the timer
+  * based implementation.
+  *
+  * If impl==null (such as with GWTMockUitlities.disarm()), use null. We
+  * don't want to create a new AnimationSchedulerImplTimer in this case.
+  */
+ if (impl is AnimationSchedulerImpl) {
+   if (!(impl as AnimationSchedulerImpl).isNativelySupported()) {
+     impl = new AnimationSchedulerImplTimer();
+   }
+ }
+
+ return impl;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="isNativelySupported">
+abstract bool <strong>isNativelySupported</strong>() <a class="anchor-link" href="#isNativelySupported"
+              title="Permalink to AnimationSchedulerImpl.isNativelySupported">#</a></h4>
+<div class="doc">
+<p>Check if the implementation is natively supported.</p>
+<p>@return true if natively supported, false if not</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="requestAnimationFrame">
+abstract <a href="../dart_web_toolkit_animation/AnimationHandle.html">AnimationHandle</a> <strong>requestAnimationFrame</strong>(<a href="../dart_web_toolkit_animation/AnimationCallback.html">AnimationCallback</a> callback, [Element element = null]) <a class="anchor-link" href="#requestAnimationFrame"
+              title="Permalink to AnimationSchedulerImpl.requestAnimationFrame">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_animation/AnimationScheduler.html">AnimationScheduler</a> </div><div class="doc">
+<p>Schedule an animation, letting the browser decide when to trigger the next
+step in the animation.</p><p>
+Using this method instead of a timeout is preferred because the browser is
+in the best position to decide how frequently to trigger the callback for
+an animation of the specified element. The browser can balance multiple
+animations and trigger callbacks at the optimal rate for smooth
+performance.
+</p>
+<p>@param callback the callback to fire
+@return a handle to the requested animation frame
+@param element the element being animated</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:17.984</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,154 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ImageOptions abstract class / dart_web_toolkit_resource Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_resource" data-type="ImageOptions">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_resource.html">dart_web_toolkit_resource</a> &rsaquo; <a href="../dart_web_toolkit_resource/ImageOptions.html">ImageOptions</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ImageOptions</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Specifies additional options to control how an image is bundled.</p>
+<pre class="source">
+abstract class ImageOptions {
+ /**
+  * If &lt;code&gt;true&lt;/code&gt;, the image will be flipped about the y-axis when
+  * {@link com.google.gwt.i18n.client.LocaleInfo#isRTL()} returns
+  * &lt;code&gt;true&lt;/code&gt;. This is intended to be used by graphics that are
+  * sensitive to layout direction, such as arrows and disclosure indicators.
+  */
+ bool flipRtl(); // default false;
+
+ /**
+  * Set to a positive value to override the image's intrinsic height. The
+  * image bundling code will scale the image to the desired height. If only
+  * one of &lt;code&gt;width&lt;/code&gt; or &lt;code&gt;height&lt;/code&gt; are set, the aspect
+  * ratio of the image will be maintained.
+  */
+ int height(); // default -1;
+
+ /**
+  * Set to {@code true} to require the ImageResource to be downloaded as a
+  * separate resource at runtime. Specifically, this will disable the use of
+  * {@code data:} URLs or other bundling optimizations for the image. This
+  * can be used for infrequently-displayed images.
+  */
+ bool preventInlining(); // default false;
+
+ /**
+  * This option affects the image bundling optimization to allow the image to
+  * be used with the {@link CssResource} {@code @sprite} rule where
+  * repetition of the image is desired.
+  * 
+  * @see "CssResource documentation"
+  */
+ // http://bugs.sun.com/view_bug.do?bug_id=6512707
+ RepeatStyle repeatStyle(); // default com.google.gwt.resources.client.ImageResource.RepeatStyle.None;
+
+ /**
+  * Set to a positive value to override the image's intrinsic width. The
+  * image bundling code will scale the image to the desired width. If only
+  * one of &lt;code&gt;width&lt;/code&gt; or &lt;code&gt;height&lt;/code&gt; are set, the aspect
+  * ratio of the image will be maintained.
+  */
+ int width(); // default -1;
+}
+</pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="flipRtl">
+abstract bool <strong>flipRtl</strong>() <a class="anchor-link" href="#flipRtl"
+              title="Permalink to ImageOptions.flipRtl">#</a></h4>
+<div class="doc">
+<p>If &lt;code>true&lt;/code>, the image will be flipped about the y-axis when
+{@link com.google.gwt.i18n.client.LocaleInfo#isRTL()} returns
+&lt;code>true&lt;/code>. This is intended to be used by graphics that are
+sensitive to layout direction, such as arrows and disclosure indicators.</p>
+</div>
+</div>
+<div class="method"><h4 id="height">
+abstract int <strong>height</strong>() <a class="anchor-link" href="#height"
+              title="Permalink to ImageOptions.height">#</a></h4>
+<div class="doc">
+<p>Set to a positive value to override the image's intrinsic height. The
+image bundling code will scale the image to the desired height. If only
+one of &lt;code>width&lt;/code> or &lt;code>height&lt;/code> are set, the aspect
+ratio of the image will be maintained.</p>
+</div>
+</div>
+<div class="method"><h4 id="preventInlining">
+abstract bool <strong>preventInlining</strong>() <a class="anchor-link" href="#preventInlining"
+              title="Permalink to ImageOptions.preventInlining">#</a></h4>
+<div class="doc">
+<p>Set to {@code true} to require the ImageResource to be downloaded as a
+separate resource at runtime. Specifically, this will disable the use of
+{@code data:} URLs or other bundling optimizations for the image. This
+can be used for infrequently-displayed images.</p>
+</div>
+</div>
+<div class="method"><h4 id="repeatStyle">
+abstract <a href="../dart_web_toolkit_resource/RepeatStyle.html">RepeatStyle</a> <strong>repeatStyle</strong>() <a class="anchor-link" href="#repeatStyle"
+              title="Permalink to ImageOptions.repeatStyle">#</a></h4>
+<div class="doc">
+<p>This option affects the image bundling optimization to allow the image to
+be used with the {@link CssResource} {@code @sprite} rule where
+repetition of the image is desired.</p>
+<p>@see "CssResource documentation"</p>
+</div>
+</div>
+<div class="method"><h4 id="width">
+abstract int <strong>width</strong>() <a class="anchor-link" href="#width"
+              title="Permalink to ImageOptions.width">#</a></h4>
+<div class="doc">
+<p>Set to a positive value to override the image's intrinsic width. The
+image bundling code will scale the image to the desired width. If only
+one of &lt;code>width&lt;/code> or &lt;code>height&lt;/code> are set, the aspect
+ratio of the image will be maintained.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.521</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

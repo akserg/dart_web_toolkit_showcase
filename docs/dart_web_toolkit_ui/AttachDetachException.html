@@ -1,0 +1,323 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>AttachDetachException class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="AttachDetachException">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/AttachDetachException.html">AttachDetachException</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>AttachDetachException</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>An exception that is thrown when the panel fails to attach or detach its
+children.</p>
+<pre class="source">
+class AttachDetachException extends UmbrellaException {
+
+ /**
+  * The singleton command used to attach widgets.
+  */
+ static AttachExceptionCommand attachCommand = new AttachExceptionCommand();
+
+ /**
+  * The singleton command used to detach widgets.
+  */
+ static DetachExceptionCommand detachCommand = new DetachExceptionCommand();
+
+ /**
+  * &lt;p&gt;
+  * Iterator through all child widgets, trying to perform the specified
+  * {@link Command} for each. All widgets will be visited even if the Command
+  * throws an exception. If one or more exceptions occur, they will be combined
+  * and thrown as a single {@link AttachDetachException}.
+  * &lt;/p&gt;
+  * &lt;p&gt;
+  * Use this method when attaching or detaching a widget with children to
+  * ensure that the logical and physical state of all children match the
+  * logical and physical state of the parent.
+  * &lt;/p&gt;
+  *
+  * @param hasWidgets children to iterate
+  * @param c the {@link Command} to try on all children
+  */
+ static void tryCommand(Iterator&lt;Widget&gt; hasWidgets, AttachCommand c) {
+   Set&lt;Exception&gt; caught = null;
+   for (;hasWidgets.moveNext(); ) {
+     Widget w = hasWidgets.current;
+     try {
+       c.execute(w);
+     } on Exception catch (e) {
+       // Catch all exceptions to prevent some children from being attached
+       // while others are not.
+       if (caught == null) {
+         caught = new Set&lt;Exception&gt;();
+       }
+       caught.add(e);
+     }
+   }
+
+   // Throw the combined exceptions now that all children are attached.
+   if (caught != null) {
+     throw new AttachDetachException(caught);
+   }
+ }
+
+ /**
+  * &lt;p&gt;
+  * Iterator through all child widgets, trying to perform the specified
+  * {@link Command} for each. All widgets will be visited even if the Command
+  * throws an exception. If one or more exceptions occur, they will be combined
+  * and thrown as a single {@link AttachDetachException}.
+  * &lt;/p&gt;
+  * &lt;p&gt;
+  * Use this method when attaching or detaching a widget with children to
+  * ensure that the logical and physical state of all children match the
+  * logical and physical state of the parent.
+  * &lt;/p&gt;
+  *
+  * @param c the {@link Command} to try on all children
+  * @param widgets children to iterate, null children are ignored
+  */
+ static void tryCommand2(AttachCommand c, List&lt;IsWidget&gt; widgets) {
+   Set&lt;Exception&gt; caught = null;
+   for (IsWidget w in widgets) {
+     try {
+       if (w != null) {
+         c.execute(w.asWidget());
+       }
+     } on Exception catch (e) {
+       // Catch all exceptions to prevent some children from being attached
+       // while others are not.
+       if (caught == null) {
+         caught = new Set&lt;Exception&gt;();
+       }
+       caught.add(e);
+     }
+   }
+
+   // Throw the combined exceptions now that all children are attached.
+   if (caught != null) {
+     throw new AttachDetachException(caught);
+   }
+ }
+
+ /**
+  * Construct a new {@link AttachDetachException}.
+  *
+  * @param causes the causes of the exception
+  */
+ AttachDetachException(Set&lt;Exception&gt; causes) : super (causes);
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-exception"></span><a href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-exception"></span><strong>AttachDetachException</strong></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="attachCommand">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/AttachExceptionCommand.html">AttachExceptionCommand</a>         <strong>attachCommand</strong> <a class="anchor-link"
+            href="#attachCommand"
+            title="Permalink to AttachDetachException.attachCommand">#</a>
+        </h4>
+        <div class="doc">
+<p>The singleton command used to attach widgets.</p>
+<pre class="source">
+static AttachExceptionCommand attachCommand = new AttachExceptionCommand()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="detachCommand">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/DetachExceptionCommand.html">DetachExceptionCommand</a>         <strong>detachCommand</strong> <a class="anchor-link"
+            href="#detachCommand"
+            title="Permalink to AttachDetachException.detachCommand">#</a>
+        </h4>
+        <div class="doc">
+<p>The singleton command used to detach widgets.</p>
+<pre class="source">
+static DetachExceptionCommand detachCommand = new DetachExceptionCommand()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="tryCommand">
+<button class="show-code">Code</button>
+void <strong>tryCommand</strong>(Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; hasWidgets, <a href="../dart_web_toolkit_ui/AttachCommand.html">AttachCommand</a> c) <a class="anchor-link" href="#tryCommand"
+              title="Permalink to AttachDetachException.tryCommand">#</a></h4>
+<div class="doc">
+<p>
+Iterator through all child widgets, trying to perform the specified
+{@link Command} for each. All widgets will be visited even if the Command
+throws an exception. If one or more exceptions occur, they will be combined
+and thrown as a single {@link AttachDetachException}.
+</p>
+<p>
+Use this method when attaching or detaching a widget with children to
+ensure that the logical and physical state of all children match the
+logical and physical state of the parent.
+</p>
+<p>@param hasWidgets children to iterate
+@param c the {@link Command} to try on all children</p>
+<pre class="source">
+static void tryCommand(Iterator&lt;Widget&gt; hasWidgets, AttachCommand c) {
+ Set&lt;Exception&gt; caught = null;
+ for (;hasWidgets.moveNext(); ) {
+   Widget w = hasWidgets.current;
+   try {
+     c.execute(w);
+   } on Exception catch (e) {
+     // Catch all exceptions to prevent some children from being attached
+     // while others are not.
+     if (caught == null) {
+       caught = new Set&lt;Exception&gt;();
+     }
+     caught.add(e);
+   }
+ }
+
+ // Throw the combined exceptions now that all children are attached.
+ if (caught != null) {
+   throw new AttachDetachException(caught);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="tryCommand2">
+<button class="show-code">Code</button>
+void <strong>tryCommand2</strong>(<a href="../dart_web_toolkit_ui/AttachCommand.html">AttachCommand</a> c, List&lt;<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a>&gt; widgets) <a class="anchor-link" href="#tryCommand2"
+              title="Permalink to AttachDetachException.tryCommand2">#</a></h4>
+<div class="doc">
+<p>
+Iterator through all child widgets, trying to perform the specified
+{@link Command} for each. All widgets will be visited even if the Command
+throws an exception. If one or more exceptions occur, they will be combined
+and thrown as a single {@link AttachDetachException}.
+</p>
+<p>
+Use this method when attaching or detaching a widget with children to
+ensure that the logical and physical state of all children match the
+logical and physical state of the parent.
+</p>
+<p>@param c the {@link Command} to try on all children
+@param widgets children to iterate, null children are ignored</p>
+<pre class="source">
+static void tryCommand2(AttachCommand c, List&lt;IsWidget&gt; widgets) {
+ Set&lt;Exception&gt; caught = null;
+ for (IsWidget w in widgets) {
+   try {
+     if (w != null) {
+       c.execute(w.asWidget());
+     }
+   } on Exception catch (e) {
+     // Catch all exceptions to prevent some children from being attached
+     // while others are not.
+     if (caught == null) {
+       caught = new Set&lt;Exception&gt;();
+     }
+     caught.add(e);
+   }
+ }
+
+ // Throw the combined exceptions now that all children are attached.
+ if (caught != null) {
+   throw new AttachDetachException(caught);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="AttachDetachException">
+<button class="show-code">Code</button>
+new <strong>AttachDetachException</strong>(Set&lt;Exception&gt; causes) <a class="anchor-link" href="#AttachDetachException"
+              title="Permalink to AttachDetachException.AttachDetachException">#</a></h4>
+<div class="doc">
+<p>Construct a new {@link AttachDetachException}.</p>
+<p>@param causes the causes of the exception</p>
+<pre class="source">
+AttachDetachException(Set&lt;Exception&gt; causes) : super (causes);
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="causes">
+<button class="show-code">Code</button>
+final Set&lt;Exception&gt;         <strong>causes</strong> <a class="anchor-link"
+            href="#causes"
+            title="Permalink to AttachDetachException.causes">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> </div><div class="doc">
+<pre class="source">
+Set&lt;Exception&gt; get causes =&gt; _causes;
+</pre>
+</div>
+</div>
+</div>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to AttachDetachException.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a string representation of this object.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+String toString() =&gt; makeMessage(_causes);
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.195</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,144 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasAllMouseHandlers abstract class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="HasAllMouseHandlers">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/HasAllMouseHandlers.html">HasAllMouseHandlers</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasAllMouseHandlers</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This is a convenience interface that includes all mouse handlers defined by
+the core GWT system.
+&lt;p>
+WARNING, PLEASE READ: As this interface is intended for developers who wish
+to handle all mouse events in GWT, new mouse event handlers will be added to
+it. Therefore, updates can cause breaking API changes.
+&lt;/p></p>
+<pre class="source">
+abstract class HasAllMouseHandlers implements HasMouseDownHandlers,
+ HasMouseUpHandlers, HasMouseOutHandlers, HasMouseOverHandlers,
+ HasMouseMoveHandlers, HasMouseWheelHandlers{
+
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Caption.html">Caption</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FocusPanel.html">FocusPanel</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FocusWidget.html">FocusWidget</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Image.html">Image</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Label.html">Label</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Tree.html">Tree</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a></span></p>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="addMouseDownHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseDownHandler</strong>(<a href="../dart_web_toolkit_event/MouseDownHandler.html">MouseDownHandler</a> handler) <a class="anchor-link" href="#addMouseDownHandler"
+              title="Permalink to HasAllMouseHandlers.addMouseDownHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a> </div><div class="doc">
+<p>Adds a {@link MouseDownEvent} handler.</p>
+<p>@param handler the mouse down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseMoveHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseMoveHandler</strong>(<a href="../dart_web_toolkit_event/MouseMoveHandler.html">MouseMoveHandler</a> handler) <a class="anchor-link" href="#addMouseMoveHandler"
+              title="Permalink to HasAllMouseHandlers.addMouseMoveHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a> </div><div class="doc">
+<p>Adds a {@link MouseMoveEvent} handler.</p>
+<p>@param handler the mouse move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseOutHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOutHandler</strong>(<a href="../dart_web_toolkit_event/MouseOutHandler.html">MouseOutHandler</a> handler) <a class="anchor-link" href="#addMouseOutHandler"
+              title="Permalink to HasAllMouseHandlers.addMouseOutHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a> </div><div class="doc">
+<p>Adds a {@link MouseOutEvent} handler.</p>
+<p>@param handler the mouse out handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseOverHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOverHandler</strong>(<a href="../dart_web_toolkit_event/MouseOverHandler.html">MouseOverHandler</a> handler) <a class="anchor-link" href="#addMouseOverHandler"
+              title="Permalink to HasAllMouseHandlers.addMouseOverHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a> </div><div class="doc">
+<p>Adds a {@link MouseOverEvent} handler.</p>
+<p>@param handler the mouse over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseUpHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseUpHandler</strong>(<a href="../dart_web_toolkit_event/MouseUpHandler.html">MouseUpHandler</a> handler) <a class="anchor-link" href="#addMouseUpHandler"
+              title="Permalink to HasAllMouseHandlers.addMouseUpHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a> </div><div class="doc">
+<p>Adds a {@link MouseUpEvent} handler.</p>
+<p>@param handler the mouse up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addMouseWheelHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseWheelHandler</strong>(<a href="../dart_web_toolkit_event/MouseWheelHandler.html">MouseWheelHandler</a> handler) <a class="anchor-link" href="#addMouseWheelHandler"
+              title="Permalink to HasAllMouseHandlers.addMouseWheelHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a> </div><div class="doc">
+<p>Adds a {@link MouseWheelEvent} handler.</p>
+<p>@param handler the mouse wheel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+abstract void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to HasAllMouseHandlers.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasHandlers.html">HasHandlers</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.794</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

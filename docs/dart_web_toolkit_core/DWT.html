@@ -1,0 +1,127 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DWT class / dart_web_toolkit_core Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_core" data-type="DWT">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_core.html">dart_web_toolkit_core</a> &rsaquo; <a href="../dart_web_toolkit_core/DWT.html">DWT</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DWT</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Supports core functionality that in some cases requires direct support from
+the compiler and runtime systems such as runtime type information and
+deferred binding.</p>
+<pre class="source">
+class DWT {
+ /**
+  * Gets the URL prefix that should be prepended to URLs that
+  * are intended to be module-relative, such as RPC entry points.
+  *
+  * &lt;p&gt;If the URL points to an output file of the GWT compiler (such as
+  * a file in the public path), use {@link #getModuleBaseForStaticFiles()}
+  * instead.&lt;/p&gt;
+  *
+  * @return if non-empty, the base URL is guaranteed to end with a slash
+  */
+ static String getModuleBaseURL() {
+   return Impl.getModuleBaseURL();
+ }
+ 
+ // DWT Major version number
+ static String get majorVersion =&gt; "0.3";
+ // DWT Minor version number
+ static String get minorVersion =&gt; "7";
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="majorVersion">
+<button class="show-code">Code</button>
+final String         <strong>majorVersion</strong> <a class="anchor-link"
+            href="#majorVersion"
+            title="Permalink to DWT.majorVersion">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static String get majorVersion =&gt; "0.3";
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="minorVersion">
+<button class="show-code">Code</button>
+final String         <strong>minorVersion</strong> <a class="anchor-link"
+            href="#minorVersion"
+            title="Permalink to DWT.minorVersion">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static String get minorVersion =&gt; "7";
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="getModuleBaseURL">
+<button class="show-code">Code</button>
+String <strong>getModuleBaseURL</strong>() <a class="anchor-link" href="#getModuleBaseURL"
+              title="Permalink to DWT.getModuleBaseURL">#</a></h4>
+<div class="doc">
+<p>Gets the URL prefix that should be prepended to URLs that
+are intended to be module-relative, such as RPC entry points.</p><p>If the URL points to an output file of the GWT compiler (such as
+a file in the public path), use {@link #getModuleBaseForStaticFiles()}
+instead.</p>
+<p>@return if non-empty, the base URL is guaranteed to end with a slash</p>
+<pre class="source">
+static String getModuleBaseURL() {
+ return Impl.getModuleBaseURL();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.035</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

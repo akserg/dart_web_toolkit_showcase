@@ -1,0 +1,273 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ResettableEventBus class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="ResettableEventBus">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/ResettableEventBus.html">ResettableEventBus</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ResettableEventBus</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Wraps an EventBus to hold on to any HandlerRegistrations, so that they can
+easily all be cleared at once.</p>
+<pre class="source">
+class ResettableEventBus extends EventBus {
+ final EventBus _wrapped;
+ final Set&lt;HandlerRegistration&gt; _registrations = new Set&lt;HandlerRegistration&gt;();
+
+ ResettableEventBus(this._wrapped);
+
+ 
+ HandlerRegistration addHandler(EventType type, EventHandler handler) {
+   HandlerRegistration rtn = _wrapped.addHandler(type, handler);
+   return _doRegisterHandler(rtn);
+ }
+
+ 
+ HandlerRegistration addHandlerToSource(EventType type, Object source, EventHandler handler) {
+   HandlerRegistration rtn = _wrapped.addHandlerToSource(type, source, handler);
+   return _doRegisterHandler(rtn);
+ }
+
+ 
+ void fireEvent(IEvent event) {
+   _wrapped.fireEvent(event);
+ }
+
+ 
+ void fireEventFromSource(IEvent event, Object source) {
+   _wrapped.fireEventFromSource(event, source);
+ }
+
+ /**
+  * Remove all handlers that have been added through this wrapper.
+  */
+ void removeHandlers() {
+   
+   while (_registrations.length &gt; 0) {
+     HandlerRegistration r = _registrations.first;
+     
+     /*
+      * must remove before we call removeHandler. Might have come from nested
+      * ResettableEventBus
+      */
+     _registrations.remove(r);
+
+     r.removeHandler();
+   }
+ }
+
+ /**
+  *  Visible for testing.
+  */
+ int getRegistrationSize() {
+   return _registrations.length;
+ }
+
+ HandlerRegistration _doRegisterHandler(HandlerRegistration registration) {
+   _registrations.add(registration);
+   return new _ResettableHandlerRegistration(this, registration);
+ }
+
+ void _doUnregisterHandler(HandlerRegistration registration) {
+   if (_registrations.contains(registration)) {
+     registration.removeHandler();
+     _registrations.remove(registration);
+   }
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/EventBus.html">EventBus</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ResettableEventBus</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ResettableEventBus">
+<button class="show-code">Code</button>
+new <strong>ResettableEventBus</strong>(<a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> _wrapped) <a class="anchor-link" href="#ResettableEventBus"
+              title="Permalink to ResettableEventBus.ResettableEventBus">#</a></h4>
+<div class="doc">
+<pre class="source">
+ResettableEventBus(this._wrapped);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="addHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandler</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a> type, <a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler) <a class="anchor-link" href="#addHandler"
+              title="Permalink to ResettableEventBus.addHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds an unfiltered handler to receive events of this type from all sources.</p>
+<p>It is rare to call this method directly. More typically an <code>Event</code>
+subclass will provide a static &lt;code>register&lt;/code> method, or a widget
+will accept handlers directly.</p>
+<p>@param &lt;H> The type of handler
+@param type the event type associated with this handler
+@param handler the handler
+@return the handler registration, can be stored in order to remove the</p>
+<pre><code>    handler later
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> </div></div>
+<pre class="source">
+HandlerRegistration addHandler(EventType type, EventHandler handler) {
+ HandlerRegistration rtn = _wrapped.addHandler(type, handler);
+ return _doRegisterHandler(rtn);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addHandlerToSource">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addHandlerToSource</strong>(<a href="../dart_web_toolkit_event/EventType.html">EventType</a> type, Object source, <a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler) <a class="anchor-link" href="#addHandlerToSource"
+              title="Permalink to ResettableEventBus.addHandlerToSource">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a handler to receive events of this type from the given source.</p>
+<p>It is rare to call this method directly. More typically a <code>Event</code>
+subclass will provide a static &lt;code>register&lt;/code> method, or a widget
+will accept handlers directly.</p>
+<p>@param &lt;H> The type of handler
+@param type the event type associated with this handler
+@param source the source associated with this handler
+@param handler the handler
+@return the handler registration, can be stored in order to remove the</p>
+<pre><code>    handler later
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> </div></div>
+<pre class="source">
+HandlerRegistration addHandlerToSource(EventType type, Object source, EventHandler handler) {
+ HandlerRegistration rtn = _wrapped.addHandlerToSource(type, source, handler);
+ return _doRegisterHandler(rtn);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fireEvent">
+<button class="show-code">Code</button>
+void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to ResettableEventBus.fireEvent">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Fires the event from no source. Only unfiltered handlers will receive it.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@throws UmbrellaException wrapping exceptions thrown by handlers</p>
+<p>@param event the event to fire</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> </div></div>
+<pre class="source">
+void fireEvent(IEvent event) {
+ _wrapped.fireEvent(event);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fireEventFromSource">
+<button class="show-code">Code</button>
+void <strong>fireEventFromSource</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event, Object source) <a class="anchor-link" href="#fireEventFromSource"
+              title="Permalink to ResettableEventBus.fireEventFromSource">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@throws UmbrellaException wrapping exceptions thrown by handlers</p>
+<p>@param event the event to fire</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> </div></div>
+<pre class="source">
+void fireEventFromSource(IEvent event, Object source) {
+ _wrapped.fireEventFromSource(event, source);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRegistrationSize">
+<button class="show-code">Code</button>
+int <strong>getRegistrationSize</strong>() <a class="anchor-link" href="#getRegistrationSize"
+              title="Permalink to ResettableEventBus.getRegistrationSize">#</a></h4>
+<div class="doc">
+<p> Visible for testing.</p>
+<pre class="source">
+int getRegistrationSize() {
+ return _registrations.length;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="removeHandlers">
+<button class="show-code">Code</button>
+void <strong>removeHandlers</strong>() <a class="anchor-link" href="#removeHandlers"
+              title="Permalink to ResettableEventBus.removeHandlers">#</a></h4>
+<div class="doc">
+<p>Remove all handlers that have been added through this wrapper.</p>
+<pre class="source">
+void removeHandlers() {
+ 
+ while (_registrations.length &gt; 0) {
+   HandlerRegistration r = _registrations.first;
+   
+   /*
+    * must remove before we call removeHandler. Might have come from nested
+    * ResettableEventBus
+    */
+   _registrations.remove(r);
+
+   r.removeHandler();
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.600</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

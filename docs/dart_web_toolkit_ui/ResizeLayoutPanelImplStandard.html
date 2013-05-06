@@ -1,0 +1,408 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ResizeLayoutPanelImplStandard class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ResizeLayoutPanelImplStandard">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImplStandard.html">ResizeLayoutPanelImplStandard</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ResizeLayoutPanelImplStandard</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implementation of resize event.</p>
+<pre class="source">
+class ResizeLayoutPanelImplStandard extends ResizeLayoutPanelImpl implements EventListener {
+ /**
+  * Chrome does not fire an onresize event if the dimensions are too small to
+  * render a scrollbar.
+  */
+ static final String _MIN_SIZE = "20px";
+
+ dart_html.Element _collapsible;
+ dart_html.Element _collapsibleInner;
+ dart_html.Element _expandable;
+ dart_html.Element _expandableInner;
+ int _lastOffsetHeight = -1;
+ int _lastOffsetWidth = -1;
+ bool _resettingScrollables = false;
+
+ 
+ void init(dart_html.Element elem, ResizeDelegate delegate) {
+   super.init(elem, delegate);
+
+   /*
+    * Set the minimum dimensions to ensure that scrollbars are rendered and
+    * fire onscroll events.
+    */
+   elem.style.minWidth = _MIN_SIZE;
+   elem.style.minHeight = _MIN_SIZE;
+
+   /*
+    * Detect expansion. In order to detect an increase in the size of the
+    * widget, we create an absolutely positioned, scrollable div with
+    * height=width=100%. We then add an inner div that has fixed height and
+    * width equal to 100% (converted to pixels) and set scrollLeft/scrollTop
+    * to their maximum. When the outer div expands, scrollLeft/scrollTop
+    * automatically becomes a smaller number and trigger an onscroll event.
+    */
+   _expandable = new dart_html.DivElement();
+   _expandable.style.visibility = Visibility.HIDDEN.value;
+   _expandable.style.position = Position.ABSOLUTE.value;
+   _expandable.style.height = "100" + Unit.PCT.value;
+   _expandable.style.width = "100" + Unit.PCT.value;
+   _expandable.style.overflow = Overflow.SCROLL.value;
+   elem.append(_expandable);
+   _expandableInner = new dart_html.DivElement();
+   _expandable.append(_expandableInner);
+   Dom.sinkEvents(_expandable, IEvent.ONSCROLL);
+
+   /*
+    * Detect collapse. In order to detect a decrease in the size of the
+    * widget, we create an absolutely positioned, scrollable div with
+    * height=width=100%. We then add an inner div that has height=width=200%
+    * and max out the scrollTop/scrollLeft. When the height or width
+    * decreases, the inner div loses 2px for every 1px that the scrollable
+    * div loses, so the scrollTop/scrollLeft decrease and we get an onscroll
+    * event.
+    */
+   _collapsible = new dart_html.DivElement();
+   _collapsible.style.visibility = Visibility.HIDDEN.value;
+   _collapsible.style.position = Position.ABSOLUTE.value;
+   _collapsible.style.height = "100" + Unit.PCT.value;
+   _collapsible.style.width = "100" + Unit.PCT.value;
+   _collapsible.style.overflow = Overflow.SCROLL.value;
+   elem.append(_collapsible);
+   _collapsibleInner = new dart_html.DivElement();
+   _collapsibleInner.style.width = "200" + Unit.PCT.value;
+   _collapsibleInner.style.height = "200" + Unit.PCT.value;
+   _collapsible.append(_collapsibleInner);
+   Dom.sinkEvents(_collapsible, IEvent.ONSCROLL);
+ }
+
+ 
+ void onAttach() {
+   super.onAttach();
+   Dom.setEventListener(_expandable, this);
+   Dom.setEventListener(_collapsible, this);
+
+   /*
+    * Update the scrollables in a deferred command so the browser calculates
+    * the offsetHeight/Width correctly.
+    */
+   Scheduler.get().scheduleDeferred(new _ScheduledCommand(this));
+ }
+
+ void onBrowserEvent(dart_html.Event event) {
+   if (!_resettingScrollables &amp;&amp; IEvent.ONSCROLL == Dom.eventGetType(event)) {
+     dart_html.EventTarget eventTarget = event.target;
+     if (eventTarget is! dart_html.Element) {
+       return;
+     }
+     dart_html.Element target = eventTarget as dart_html.Element;
+     if (target == _collapsible || target == _expandable) {
+       handleResize();
+     }
+   }
+ }
+
+ 
+ void onDetach() {
+   super.onDetach();
+   Dom.setEventListener(_expandable, null);
+   Dom.setEventListener(_collapsible, null);
+   _lastOffsetHeight = -1;
+   _lastOffsetWidth = -1;
+ }
+
+ 
+ void handleResize() {
+   if (_resetScrollables()) {
+     super.handleResize();
+   }
+ }
+
+ /**
+  * Reset the positions of the scrollable elements.
+  * 
+  * @return true if the size changed, false if not
+  */
+ bool _resetScrollables() {
+   /*
+    * Older versions of safari trigger a synchronous scroll event when we
+    * update scrollTop/scrollLeft, so we set a bool to ignore that event.
+    */
+   if (_resettingScrollables) {
+     return false;
+   }
+   _resettingScrollables = true;
+
+   /*
+    * Reset expandable element. Scrollbars are not rendered if the div is too
+    * small, so we need to set the dimensions of the inner div to a value
+    * greater than the offsetWidth/Height.
+    */
+   int offsetHeight = parent.offset.height;
+   int offsetWidth = parent.offset.width;
+   int height = offsetHeight + 100;
+   int width = offsetWidth + 100;
+   _expandableInner.style.height = height.toString() + Unit.PX.value;
+   _expandableInner.style.width = width.toString() + Unit.PX.value;
+   _expandable.scrollTop = height;
+   _expandable.scrollLeft = width;
+
+   // Reset collapsible element.
+   _collapsible.scrollTop = _collapsible.scrollHeight + 100;
+   _collapsible.scrollLeft = _collapsible.scrollWidth + 100;
+
+   if (_lastOffsetHeight != offsetHeight || _lastOffsetWidth != offsetWidth) {
+     _lastOffsetHeight = offsetHeight;
+     _lastOffsetWidth = offsetWidth;
+     _resettingScrollables = false;
+     return true;
+   }
+   _resettingScrollables = false;
+   return false;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ResizeLayoutPanelImplStandard</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/EventListener.html">EventListener</a></span></p>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="delegate">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/ResizeDelegate.html">ResizeDelegate</a>         <strong>delegate</strong> <a class="anchor-link"
+            href="#delegate"
+            title="Permalink to ResizeLayoutPanelImplStandard.delegate">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div><div class="doc">
+<pre class="source">
+ResizeDelegate delegate
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="isAttached">
+<button class="show-code">Code</button>
+bool         <strong>isAttached</strong> <a class="anchor-link"
+            href="#isAttached"
+            title="Permalink to ResizeLayoutPanelImplStandard.isAttached">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div><div class="doc">
+<pre class="source">
+bool isAttached
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="parent">
+<button class="show-code">Code</button>
+Element         <strong>parent</strong> <a class="anchor-link"
+            href="#parent"
+            title="Permalink to ResizeLayoutPanelImplStandard.parent">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div><div class="doc">
+<pre class="source">
+dart_html.Element parent
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="handleResize">
+<button class="show-code">Code</button>
+void <strong>handleResize</strong>() <a class="anchor-link" href="#handleResize"
+              title="Permalink to ResizeLayoutPanelImplStandard.handleResize">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Handle a resize event.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div></div>
+<pre class="source">
+void handleResize() {
+ if (_resetScrollables()) {
+   super.handleResize();
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="init">
+<button class="show-code">Code</button>
+void <strong>init</strong>(Element elem, <a href="../dart_web_toolkit_ui/ResizeDelegate.html">ResizeDelegate</a> delegate) <a class="anchor-link" href="#init"
+              title="Permalink to ResizeLayoutPanelImplStandard.init">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Initialize the implementation.</p>
+<p>@param elem the element to listen for resize
+@param delegate the {@link Delegate} to inform when resize occurs</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div></div>
+<pre class="source">
+void init(dart_html.Element elem, ResizeDelegate delegate) {
+ super.init(elem, delegate);
+
+ /*
+  * Set the minimum dimensions to ensure that scrollbars are rendered and
+  * fire onscroll events.
+  */
+ elem.style.minWidth = _MIN_SIZE;
+ elem.style.minHeight = _MIN_SIZE;
+
+ /*
+  * Detect expansion. In order to detect an increase in the size of the
+  * widget, we create an absolutely positioned, scrollable div with
+  * height=width=100%. We then add an inner div that has fixed height and
+  * width equal to 100% (converted to pixels) and set scrollLeft/scrollTop
+  * to their maximum. When the outer div expands, scrollLeft/scrollTop
+  * automatically becomes a smaller number and trigger an onscroll event.
+  */
+ _expandable = new dart_html.DivElement();
+ _expandable.style.visibility = Visibility.HIDDEN.value;
+ _expandable.style.position = Position.ABSOLUTE.value;
+ _expandable.style.height = "100" + Unit.PCT.value;
+ _expandable.style.width = "100" + Unit.PCT.value;
+ _expandable.style.overflow = Overflow.SCROLL.value;
+ elem.append(_expandable);
+ _expandableInner = new dart_html.DivElement();
+ _expandable.append(_expandableInner);
+ Dom.sinkEvents(_expandable, IEvent.ONSCROLL);
+
+ /*
+  * Detect collapse. In order to detect a decrease in the size of the
+  * widget, we create an absolutely positioned, scrollable div with
+  * height=width=100%. We then add an inner div that has height=width=200%
+  * and max out the scrollTop/scrollLeft. When the height or width
+  * decreases, the inner div loses 2px for every 1px that the scrollable
+  * div loses, so the scrollTop/scrollLeft decrease and we get an onscroll
+  * event.
+  */
+ _collapsible = new dart_html.DivElement();
+ _collapsible.style.visibility = Visibility.HIDDEN.value;
+ _collapsible.style.position = Position.ABSOLUTE.value;
+ _collapsible.style.height = "100" + Unit.PCT.value;
+ _collapsible.style.width = "100" + Unit.PCT.value;
+ _collapsible.style.overflow = Overflow.SCROLL.value;
+ elem.append(_collapsible);
+ _collapsibleInner = new dart_html.DivElement();
+ _collapsibleInner.style.width = "200" + Unit.PCT.value;
+ _collapsibleInner.style.height = "200" + Unit.PCT.value;
+ _collapsible.append(_collapsibleInner);
+ Dom.sinkEvents(_collapsible, IEvent.ONSCROLL);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onAttach">
+<button class="show-code">Code</button>
+void <strong>onAttach</strong>() <a class="anchor-link" href="#onAttach"
+              title="Permalink to ResizeLayoutPanelImplStandard.onAttach">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called on attach.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div></div>
+<pre class="source">
+void onAttach() {
+ super.onAttach();
+ Dom.setEventListener(_expandable, this);
+ Dom.setEventListener(_collapsible, this);
+
+ /*
+  * Update the scrollables in a deferred command so the browser calculates
+  * the offsetHeight/Width correctly.
+  */
+ Scheduler.get().scheduleDeferred(new _ScheduledCommand(this));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onBrowserEvent">
+<button class="show-code">Code</button>
+void <strong>onBrowserEvent</strong>(Event event) <a class="anchor-link" href="#onBrowserEvent"
+              title="Permalink to ResizeLayoutPanelImplStandard.onBrowserEvent">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Fired whenever a browser event is received.</p>
+<p>@param event the event received</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/EventListener.html">EventListener</a> </div></div>
+<pre class="source">
+void onBrowserEvent(dart_html.Event event) {
+ if (!_resettingScrollables &amp;&amp; IEvent.ONSCROLL == Dom.eventGetType(event)) {
+   dart_html.EventTarget eventTarget = event.target;
+   if (eventTarget is! dart_html.Element) {
+     return;
+   }
+   dart_html.Element target = eventTarget as dart_html.Element;
+   if (target == _collapsible || target == _expandable) {
+     handleResize();
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="onDetach">
+<button class="show-code">Code</button>
+void <strong>onDetach</strong>() <a class="anchor-link" href="#onDetach"
+              title="Permalink to ResizeLayoutPanelImplStandard.onDetach">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Called on detach.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/ResizeLayoutPanelImpl.html">ResizeLayoutPanelImpl</a> </div></div>
+<pre class="source">
+void onDetach() {
+ super.onDetach();
+ Dom.setEventListener(_expandable, null);
+ Dom.setEventListener(_collapsible, null);
+ _lastOffsetHeight = -1;
+ _lastOffsetWidth = -1;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:26.554</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

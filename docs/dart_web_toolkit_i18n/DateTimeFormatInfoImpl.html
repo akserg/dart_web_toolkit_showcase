@@ -1,0 +1,1027 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DateTimeFormatInfoImpl class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="DateTimeFormatInfoImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/DateTimeFormatInfoImpl.html">DateTimeFormatInfoImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DateTimeFormatInfoImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>{@link com.google.gwt.i18n.shared.DateTimeFormatInfo} implementation based on
+Unicode CLDR data.</p>
+<pre class="source">
+class DateTimeFormatInfoImpl extends DefaultDateTimeFormatInfo implements Localizable {
+
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>DateTimeFormatInfoImpl</strong></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/Localizable.html">Localizable</a></span></p>
+<div class="inherited">
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="ampms">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>ampms</strong>() <a class="anchor-link" href="#ampms"
+              title="Permalink to DateTimeFormatInfoImpl.ampms">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns array of strings containing abbreviations for Ante Meridiem and
+Post Meridiem.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; ampms() {
+ return ["AM", "PM" ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateFormat">
+<button class="show-code">Code</button>
+String <strong>dateFormat</strong>() <a class="anchor-link" href="#dateFormat"
+              title="Permalink to DateTimeFormatInfoImpl.dateFormat">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a safe default date format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateFormat() {
+ return dateFormatMedium();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateFormatFull">
+<button class="show-code">Code</button>
+String <strong>dateFormatFull</strong>() <a class="anchor-link" href="#dateFormatFull"
+              title="Permalink to DateTimeFormatInfoImpl.dateFormatFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "full" date format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateFormatFull() {
+ return "EEEE, y MMMM dd";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateFormatLong">
+<button class="show-code">Code</button>
+String <strong>dateFormatLong</strong>() <a class="anchor-link" href="#dateFormatLong"
+              title="Permalink to DateTimeFormatInfoImpl.dateFormatLong">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "long" date format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateFormatLong() {
+ return "y MMMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateFormatMedium">
+<button class="show-code">Code</button>
+String <strong>dateFormatMedium</strong>() <a class="anchor-link" href="#dateFormatMedium"
+              title="Permalink to DateTimeFormatInfoImpl.dateFormatMedium">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "medium" date format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateFormatMedium() {
+ return "y MMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateFormatShort">
+<button class="show-code">Code</button>
+String <strong>dateFormatShort</strong>() <a class="anchor-link" href="#dateFormatShort"
+              title="Permalink to DateTimeFormatInfoImpl.dateFormatShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "short" date format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateFormatShort() {
+ return "yyyy-MM-dd";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateTime">
+<button class="show-code">Code</button>
+String <strong>dateTime</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTime"
+              title="Permalink to DateTimeFormatInfoImpl.dateTime">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using the locale default joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateTime(String timePattern, String datePattern) {
+ return dateTimeMedium(timePattern, datePattern);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateTimeFull">
+<button class="show-code">Code</button>
+String <strong>dateTimeFull</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeFull"
+              title="Permalink to DateTimeFormatInfoImpl.dateTimeFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateTimeFull(String timePattern, String datePattern) {
+ return datePattern + " " + timePattern;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateTimeLong">
+<button class="show-code">Code</button>
+String <strong>dateTimeLong</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeLong"
+              title="Permalink to DateTimeFormatInfoImpl.dateTimeLong">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateTimeLong(String timePattern, String datePattern) {
+ return datePattern + " " + timePattern;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateTimeMedium">
+<button class="show-code">Code</button>
+String <strong>dateTimeMedium</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeMedium"
+              title="Permalink to DateTimeFormatInfoImpl.dateTimeMedium">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateTimeMedium(String timePattern, String datePattern) {
+ return datePattern + " " + timePattern;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="dateTimeShort">
+<button class="show-code">Code</button>
+String <strong>dateTimeShort</strong>(String timePattern, String datePattern) <a class="anchor-link" href="#dateTimeShort"
+              title="Permalink to DateTimeFormatInfoImpl.dateTimeShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a date/time format from a date format pattern and a time format
+pattern, using "full" joining.</p>
+<p>@param timePattern the time pattern String
+@param datePattern the data pattern String</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String dateTimeShort(String timePattern, String datePattern) {
+ return datePattern + " " + timePattern;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="erasFull">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>erasFull</strong>() <a class="anchor-link" href="#erasFull"
+              title="Permalink to DateTimeFormatInfoImpl.erasFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the full era names.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; erasFull() {
+ return ["Before Christ", "Anno Domini"];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="erasShort">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>erasShort</strong>() <a class="anchor-link" href="#erasShort"
+              title="Permalink to DateTimeFormatInfoImpl.erasShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns abbreviations of the era names.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; erasShort() {
+ return ["BC", "AD"];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="firstDayOfTheWeek">
+<button class="show-code">Code</button>
+int <strong>firstDayOfTheWeek</strong>() <a class="anchor-link" href="#firstDayOfTheWeek"
+              title="Permalink to DateTimeFormatInfoImpl.firstDayOfTheWeek">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns the day which generally comes first in a weekly calendar view, as
+an index into the return value of {@link #weekdaysFull()}.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+int firstDayOfTheWeek() {
+ return 1;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatDay">
+<button class="show-code">Code</button>
+String <strong>formatDay</strong>() <a class="anchor-link" href="#formatDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "d" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatDay() {
+ return "d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatHour12Minute">
+<button class="show-code">Code</button>
+String <strong>formatHour12Minute</strong>() <a class="anchor-link" href="#formatHour12Minute"
+              title="Permalink to DateTimeFormatInfoImpl.formatHour12Minute">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "hm" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatHour12Minute() {
+ return "h:mm a";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatHour12MinuteSecond">
+<button class="show-code">Code</button>
+String <strong>formatHour12MinuteSecond</strong>() <a class="anchor-link" href="#formatHour12MinuteSecond"
+              title="Permalink to DateTimeFormatInfoImpl.formatHour12MinuteSecond">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "hms" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatHour12MinuteSecond() {
+ return "h:mm:ss a";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatHour24Minute">
+<button class="show-code">Code</button>
+String <strong>formatHour24Minute</strong>() <a class="anchor-link" href="#formatHour24Minute"
+              title="Permalink to DateTimeFormatInfoImpl.formatHour24Minute">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "Hm" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatHour24Minute() {
+ return "HH:mm";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatHour24MinuteSecond">
+<button class="show-code">Code</button>
+String <strong>formatHour24MinuteSecond</strong>() <a class="anchor-link" href="#formatHour24MinuteSecond"
+              title="Permalink to DateTimeFormatInfoImpl.formatHour24MinuteSecond">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "Hms" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatHour24MinuteSecond() {
+ return "HH:mm:ss";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMinuteSecond">
+<button class="show-code">Code</button>
+String <strong>formatMinuteSecond</strong>() <a class="anchor-link" href="#formatMinuteSecond"
+              title="Permalink to DateTimeFormatInfoImpl.formatMinuteSecond">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "ms" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMinuteSecond() {
+ return "mm:ss";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMonthAbbrev">
+<button class="show-code">Code</button>
+String <strong>formatMonthAbbrev</strong>() <a class="anchor-link" href="#formatMonthAbbrev"
+              title="Permalink to DateTimeFormatInfoImpl.formatMonthAbbrev">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "MMM" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMonthAbbrev() {
+ return "LLL";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMonthAbbrevDay">
+<button class="show-code">Code</button>
+String <strong>formatMonthAbbrevDay</strong>() <a class="anchor-link" href="#formatMonthAbbrevDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatMonthAbbrevDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "MMMd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMonthAbbrevDay() {
+ return "MMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMonthFull">
+<button class="show-code">Code</button>
+String <strong>formatMonthFull</strong>() <a class="anchor-link" href="#formatMonthFull"
+              title="Permalink to DateTimeFormatInfoImpl.formatMonthFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "MMMM" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMonthFull() {
+ return "LLLL";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMonthFullDay">
+<button class="show-code">Code</button>
+String <strong>formatMonthFullDay</strong>() <a class="anchor-link" href="#formatMonthFullDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatMonthFullDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "MMMMd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMonthFullDay() {
+ return "MMMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMonthFullWeekdayDay">
+<button class="show-code">Code</button>
+String <strong>formatMonthFullWeekdayDay</strong>() <a class="anchor-link" href="#formatMonthFullWeekdayDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatMonthFullWeekdayDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "MMMMEEEEd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMonthFullWeekdayDay() {
+ return "EEEE MMMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatMonthNumDay">
+<button class="show-code">Code</button>
+String <strong>formatMonthNumDay</strong>() <a class="anchor-link" href="#formatMonthNumDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatMonthNumDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "Md" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatMonthNumDay() {
+ return "M-d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYear">
+<button class="show-code">Code</button>
+String <strong>formatYear</strong>() <a class="anchor-link" href="#formatYear"
+              title="Permalink to DateTimeFormatInfoImpl.formatYear">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "y" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYear() {
+ return "y";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthAbbrev">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthAbbrev</strong>() <a class="anchor-link" href="#formatYearMonthAbbrev"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthAbbrev">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yMMM" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthAbbrev() {
+ return "y MMM";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthAbbrevDay">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthAbbrevDay</strong>() <a class="anchor-link" href="#formatYearMonthAbbrevDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthAbbrevDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yMMMd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthAbbrevDay() {
+ return "y MMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthFull">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthFull</strong>() <a class="anchor-link" href="#formatYearMonthFull"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yMMMM" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthFull() {
+ return "y MMMM";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthFullDay">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthFullDay</strong>() <a class="anchor-link" href="#formatYearMonthFullDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthFullDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yMMMMd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthFullDay() {
+ return "y MMMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthNum">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthNum</strong>() <a class="anchor-link" href="#formatYearMonthNum"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthNum">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yM" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthNum() {
+ return "y-M";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthNumDay">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthNumDay</strong>() <a class="anchor-link" href="#formatYearMonthNumDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthNumDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yMd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthNumDay() {
+ return "y-M-d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearMonthWeekdayDay">
+<button class="show-code">Code</button>
+String <strong>formatYearMonthWeekdayDay</strong>() <a class="anchor-link" href="#formatYearMonthWeekdayDay"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearMonthWeekdayDay">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yMMMEEEd" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearMonthWeekdayDay() {
+ return "EEE, y MMM d";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearQuarterFull">
+<button class="show-code">Code</button>
+String <strong>formatYearQuarterFull</strong>() <a class="anchor-link" href="#formatYearQuarterFull"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearQuarterFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yQQQQ" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearQuarterFull() {
+ return "y QQQQ";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="formatYearQuarterShort">
+<button class="show-code">Code</button>
+String <strong>formatYearQuarterShort</strong>() <a class="anchor-link" href="#formatYearQuarterShort"
+              title="Permalink to DateTimeFormatInfoImpl.formatYearQuarterShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns localized format equivalent to the "yQ" skeleton pattern.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String formatYearQuarterShort() {
+ return "y Q";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="monthsFull">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>monthsFull</strong>() <a class="anchor-link" href="#monthsFull"
+              title="Permalink to DateTimeFormatInfoImpl.monthsFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of full month names.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; monthsFull() {
+ return ["January",
+     "February",
+     "March",
+     "April",
+     "May",
+     "June",
+     "July",
+     "August",
+     "September",
+     "October",
+     "November",
+     "December"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="monthsFullStandalone">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>monthsFullStandalone</strong>() <a class="anchor-link" href="#monthsFullStandalone"
+              title="Permalink to DateTimeFormatInfoImpl.monthsFullStandalone">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of month names for use in a stand-alone context.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; monthsFullStandalone() {
+ return monthsFull();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="monthsNarrow">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>monthsNarrow</strong>() <a class="anchor-link" href="#monthsNarrow"
+              title="Permalink to DateTimeFormatInfoImpl.monthsNarrow">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the shortest abbreviations for months, typically a
+single character and not guaranteed to be unique.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; monthsNarrow() {
+ return ["J",
+     "F",
+     "M",
+     "A",
+     "M",
+     "J",
+     "J",
+     "A",
+     "S",
+     "O",
+     "N",
+     "D"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="monthsNarrowStandalone">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>monthsNarrowStandalone</strong>() <a class="anchor-link" href="#monthsNarrowStandalone"
+              title="Permalink to DateTimeFormatInfoImpl.monthsNarrowStandalone">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the shortest abbreviations for months suitable for use
+in a stand-alone context, typically a single character and not guaranteed
+to be unique.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; monthsNarrowStandalone() {
+ return monthsNarrow();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="monthsShort">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>monthsShort</strong>() <a class="anchor-link" href="#monthsShort"
+              title="Permalink to DateTimeFormatInfoImpl.monthsShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of month abbreviations.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; monthsShort() {
+ return [
+     "Jan",
+     "Feb",
+     "Mar",
+     "Apr",
+     "May",
+     "Jun",
+     "Jul",
+     "Aug",
+     "Sep",
+     "Oct",
+     "Nov",
+     "Dec"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="monthsShortStandalone">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>monthsShortStandalone</strong>() <a class="anchor-link" href="#monthsShortStandalone"
+              title="Permalink to DateTimeFormatInfoImpl.monthsShortStandalone">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of month abbreviations, suitable for use in a stand-alone
+context.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; monthsShortStandalone() {
+ return monthsShort();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="quartersFull">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>quartersFull</strong>() <a class="anchor-link" href="#quartersFull"
+              title="Permalink to DateTimeFormatInfoImpl.quartersFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of full quarter names.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; quartersFull() {
+ return [
+     "1st quarter",
+     "2nd quarter",
+     "3rd quarter",
+     "4th quarter"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="quartersShort">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>quartersShort</strong>() <a class="anchor-link" href="#quartersShort"
+              title="Permalink to DateTimeFormatInfoImpl.quartersShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of abbreviations for quarters.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; quartersShort() {
+ return [
+     "Q1",
+     "Q2",
+     "Q3",
+     "Q4"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="timeFormat">
+<button class="show-code">Code</button>
+String <strong>timeFormat</strong>() <a class="anchor-link" href="#timeFormat"
+              title="Permalink to DateTimeFormatInfoImpl.timeFormat">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a safe default time format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String timeFormat() {
+ return timeFormatMedium();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="timeFormatFull">
+<button class="show-code">Code</button>
+String <strong>timeFormatFull</strong>() <a class="anchor-link" href="#timeFormatFull"
+              title="Permalink to DateTimeFormatInfoImpl.timeFormatFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "full" time format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String timeFormatFull() {
+ return "HH:mm:ss zzzz";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="timeFormatLong">
+<button class="show-code">Code</button>
+String <strong>timeFormatLong</strong>() <a class="anchor-link" href="#timeFormatLong"
+              title="Permalink to DateTimeFormatInfoImpl.timeFormatLong">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "long" time format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String timeFormatLong() {
+ return "HH:mm:ss z";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="timeFormatMedium">
+<button class="show-code">Code</button>
+String <strong>timeFormatMedium</strong>() <a class="anchor-link" href="#timeFormatMedium"
+              title="Permalink to DateTimeFormatInfoImpl.timeFormatMedium">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "medium" time format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String timeFormatMedium() {
+ return "HH:mm:ss";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="timeFormatShort">
+<button class="show-code">Code</button>
+String <strong>timeFormatShort</strong>() <a class="anchor-link" href="#timeFormatShort"
+              title="Permalink to DateTimeFormatInfoImpl.timeFormatShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a "short" time format.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+String timeFormatShort() {
+ return "HH:mm";
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekdaysFull">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>weekdaysFull</strong>() <a class="anchor-link" href="#weekdaysFull"
+              title="Permalink to DateTimeFormatInfoImpl.weekdaysFull">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the full names of weekdays.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; weekdaysFull() {
+ return [
+     "Sunday",
+     "Monday",
+     "Tuesday",
+     "Wednesday",
+     "Thursday",
+     "Friday",
+     "Saturday"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekdaysFullStandalone">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>weekdaysFullStandalone</strong>() <a class="anchor-link" href="#weekdaysFullStandalone"
+              title="Permalink to DateTimeFormatInfoImpl.weekdaysFullStandalone">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the full names of weekdays, suitable for use in a
+stand-alone context.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; weekdaysFullStandalone() {
+ return weekdaysFull();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekdaysNarrow">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>weekdaysNarrow</strong>() <a class="anchor-link" href="#weekdaysNarrow"
+              title="Permalink to DateTimeFormatInfoImpl.weekdaysNarrow">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the shortest abbreviations for weekdays, typically a
+single character and not guaranteed to be unique.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; weekdaysNarrow() {
+ return [
+     "S",
+     "M",
+     "T",
+     "W",
+     "T",
+     "F",
+     "S"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekdaysNarrowStandalone">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>weekdaysNarrowStandalone</strong>() <a class="anchor-link" href="#weekdaysNarrowStandalone"
+              title="Permalink to DateTimeFormatInfoImpl.weekdaysNarrowStandalone">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of the shortest abbreviations for weekdays suitable for
+use in a stand-alone context, typically a single character and not
+guaranteed to be unique.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; weekdaysNarrowStandalone() {
+ return weekdaysNarrow();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekdaysShort">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>weekdaysShort</strong>() <a class="anchor-link" href="#weekdaysShort"
+              title="Permalink to DateTimeFormatInfoImpl.weekdaysShort">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of abbreviations for weekdays.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; weekdaysShort() {
+ return [
+     "Sun",
+     "Mon",
+     "Tue",
+     "Wed",
+     "Thu",
+     "Fri",
+     "Sat"
+ ];
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekdaysShortStandalone">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>weekdaysShortStandalone</strong>() <a class="anchor-link" href="#weekdaysShortStandalone"
+              title="Permalink to DateTimeFormatInfoImpl.weekdaysShortStandalone">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns an array of abbreviations for weekdays, suitable for use in a
+stand-alone context.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+List&lt;String&gt; weekdaysShortStandalone() {
+ return weekdaysShort();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekendEnd">
+<button class="show-code">Code</button>
+int <strong>weekendEnd</strong>() <a class="anchor-link" href="#weekendEnd"
+              title="Permalink to DateTimeFormatInfoImpl.weekendEnd">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns the day which ends the weekend, as an index into the return value
+of {@link #weekdaysFull()}.</p><p>Note that this value may be numerically less than
+{@link #weekendStart()} - for example, {@link #weekendStart()} of 6 and
+{@link #weekendEnd()} of 0 means Saturday and Sunday are the weekend.
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+int weekendEnd() {
+ return 0;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="weekendStart">
+<button class="show-code">Code</button>
+int <strong>weekendStart</strong>() <a class="anchor-link" href="#weekendStart"
+              title="Permalink to DateTimeFormatInfoImpl.weekendStart">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_i18n/DefaultDateTimeFormatInfo.html">DefaultDateTimeFormatInfo</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns the day which starts the weekend, as an index into the return value
+of {@link #weekdaysFull()}.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_i18n/DateTimeFormatInfo.html">DateTimeFormatInfo</a> </div></div>
+<pre class="source">
+int weekendStart() {
+ return 6;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.955</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

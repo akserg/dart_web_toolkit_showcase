@@ -1,0 +1,1078 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Layer class / dart_web_toolkit_layout Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_layout" data-type="Layer">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_layout.html">dart_web_toolkit_layout</a> &rsaquo; <a href="../dart_web_toolkit_layout/Layer.html">Layer</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Layer</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>This class is used to set the position and size of child elements.</p><p>
+Each child element has three values associated with each axis: {left,
+right, width} on the horizontal axis, and {top, bottom, height} on the
+vertical axis. Precisely two of three values may be set at a time, or the
+system will be over- or under-contrained. For this reason, the following
+methods are provided for setting these values:
+<ul>
+<li>{@link Layout.Layer#setLeftRight}</li>
+<li>{@link Layout.Layer#setLeftWidth}</li>
+<li>{@link Layout.Layer#setRightWidth}</li>
+<li>{@link Layout.Layer#setTopBottom}</li>
+<li>{@link Layout.Layer#setTopHeight}</li>
+<li>{@link Layout.Layer#setBottomHeight}</li>
+</ul>
+</p><p>
+By default, each layer is set to fill the entire parent (i.e., {left, top,
+right, bottom} = {0, 0, 0, 0}).
+</p>
+<pre class="source">
+class Layer {
+ dart_html.Element container, child;
+ Object userObject;
+
+ bool setLeft = false, setRight = false, setTop = false, setBottom = false, setWidth = false, setHeight = false;
+ bool setTargetLeft = true, setTargetRight = true, setTargetTop = true,
+     setTargetBottom = true, setTargetWidth = false, setTargetHeight = false;
+ Unit leftUnit, topUnit, rightUnit, bottomUnit, widthUnit, heightUnit;
+ Unit targetLeftUnit = Unit.PX, targetTopUnit = Unit.PX, targetRightUnit = Unit.PX,
+     targetBottomUnit = Unit.PX, targetWidthUnit, targetHeightUnit;
+ double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0, width = 0.0, height = 0.0;
+ double sourceLeft = 0.0, sourceTop = 0.0, sourceRight = 0.0, sourceBottom = 0.0, sourceWidth = 0.0,
+ sourceHeight = 0.0;
+ double targetLeft = 0.0, targetTop = 0.0, targetRight = 0.0, targetBottom = 0.0, targetWidth = 0.0,
+ targetHeight = 0.0;
+
+ Alignment hPos = Alignment.STRETCH, vPos = Alignment.STRETCH;
+ bool visible = true;
+
+ Layer(dart_html.Element container, dart_html.Element child, Object userObject) {
+   this.container = container;
+   this.child = child;
+   this.userObject = userObject;
+ }
+
+ /**
+  * Gets the container element associated with this layer.
+  *
+  * &lt;p&gt;
+  * This is the element that sits between the parent and child elements. It
+  * is normally necessary to operate on this element only when you need to
+  * modify CSS properties that are not directly modeled by the Layer class.
+  * &lt;/p&gt;
+  *
+  * @return the container element
+  */
+ dart_html.Element getContainerElement() {
+   return container;
+ }
+
+ /**
+  * Gets the user-data associated with this layer.
+  *
+  * @return the layer's user-data object
+  */
+ Object getUserObject() {
+   return this.userObject;
+ }
+
+ /**
+  * Sets the layer's bottom and height values.
+  *
+  * @param bottom
+  * @param bottomUnit
+  * @param height
+  * @param heightUnit
+  */
+ void setBottomHeight(double bottom, Unit bottomUnit, double height,
+                      Unit heightUnit) {
+   this.setTargetBottom = this.setTargetHeight = true;
+   this.setTargetTop = false;
+   this.targetBottom = bottom;
+   this.targetHeight = height;
+   this.targetBottomUnit = bottomUnit;
+   this.targetHeightUnit = heightUnit;
+ }
+
+ /**
+  * Sets the child element's horizontal position within the layer.
+  *
+  * @param position
+  */
+ void setChildHorizontalPosition(Alignment position) {
+   this.hPos = position;
+ }
+
+ /**
+  * Sets the child element's vertical position within the layer.
+  *
+  * @param position
+  */
+ void setChildVerticalPosition(Alignment position) {
+   this.vPos = position;
+ }
+
+ /**
+  * Sets the layer's left and right values.
+  *
+  * @param left
+  * @param leftUnit
+  * @param right
+  * @param rightUnit
+  */
+ void setLeftRight(double left, Unit leftUnit, double right,
+                   Unit rightUnit) {
+   this.setTargetLeft = this.setTargetRight = true;
+   this.setTargetWidth = false;
+   this.targetLeft = left;
+   this.targetRight = right;
+   this.targetLeftUnit = leftUnit;
+   this.targetRightUnit = rightUnit;
+ }
+
+ /**
+  * Sets the layer's left and width values.
+  *
+  * @param left
+  * @param leftUnit
+  * @param width
+  * @param widthUnit
+  */
+ void setLeftWidth(double left, Unit leftUnit, double width,
+                   Unit widthUnit) {
+   this.setTargetLeft = this.setTargetWidth = true;
+   this.setTargetRight = false;
+   this.targetLeft = left;
+   this.targetWidth = width;
+   this.targetLeftUnit = leftUnit;
+   this.targetWidthUnit = widthUnit;
+ }
+
+ /**
+  * Sets the layer's right and width values.
+  *
+  * @param right
+  * @param rightUnit
+  * @param width
+  * @param widthUnit
+  */
+ void setRightWidth(double right, Unit rightUnit, double width,
+                    Unit widthUnit) {
+   this.setTargetRight = this.setTargetWidth = true;
+   this.setTargetLeft = false;
+   this.targetRight = right;
+   this.targetWidth = width;
+   this.targetRightUnit = rightUnit;
+   this.targetWidthUnit = widthUnit;
+ }
+
+ /**
+  * Sets the layer's top and bottom values.
+  *
+  * @param top
+  * @param topUnit
+  * @param bottom
+  * @param bottomUnit
+  */
+ void setTopBottom(double top, Unit topUnit, double bottom,
+                   Unit bottomUnit) {
+   this.setTargetTop = this.setTargetBottom = true;
+   this.setTargetHeight = false;
+   this.targetTop = top;
+   this.targetBottom = bottom;
+   this.targetTopUnit = topUnit;
+   this.targetBottomUnit = bottomUnit;
+ }
+
+ /**
+  * Sets the layer's top and height values.
+  *
+  * @param top
+  * @param topUnit
+  * @param height
+  * @param heightUnit
+  */
+ void setTopHeight(double top, Unit topUnit, double height,
+                   Unit heightUnit) {
+   this.setTargetTop = this.setTargetHeight = true;
+   this.setTargetBottom = false;
+   this.targetTop = top;
+   this.targetHeight = height;
+   this.targetTopUnit = topUnit;
+   this.targetHeightUnit = heightUnit;
+ }
+
+ /**
+  * Sets the layer's visibility.
+  *
+  * @param visible
+  */
+ void setVisible(bool visible) {
+   this.visible = visible;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Layer">
+<button class="show-code">Code</button>
+new <strong>Layer</strong>(Element container, Element child, Object userObject) <a class="anchor-link" href="#Layer"
+              title="Permalink to Layer.Layer">#</a></h4>
+<div class="doc">
+<pre class="source">
+Layer(dart_html.Element container, dart_html.Element child, Object userObject) {
+ this.container = container;
+ this.child = child;
+ this.userObject = userObject;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="bottom">
+<button class="show-code">Code</button>
+double         <strong>bottom</strong> <a class="anchor-link"
+            href="#bottom"
+            title="Permalink to Layer.bottom">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="bottomUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>bottomUnit</strong> <a class="anchor-link"
+            href="#bottomUnit"
+            title="Permalink to Layer.bottomUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit leftUnit, topUnit, rightUnit, bottomUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="child">
+<button class="show-code">Code</button>
+Element         <strong>child</strong> <a class="anchor-link"
+            href="#child"
+            title="Permalink to Layer.child">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+dart_html.Element container, child
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="container">
+<button class="show-code">Code</button>
+Element         <strong>container</strong> <a class="anchor-link"
+            href="#container"
+            title="Permalink to Layer.container">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+dart_html.Element container
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="height">
+<button class="show-code">Code</button>
+double         <strong>height</strong> <a class="anchor-link"
+            href="#height"
+            title="Permalink to Layer.height">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0, width = 0.0, height = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="heightUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>heightUnit</strong> <a class="anchor-link"
+            href="#heightUnit"
+            title="Permalink to Layer.heightUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit leftUnit, topUnit, rightUnit, bottomUnit, widthUnit, heightUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="hPos">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_layout/Alignment.html">Alignment</a>         <strong>hPos</strong> <a class="anchor-link"
+            href="#hPos"
+            title="Permalink to Layer.hPos">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Alignment hPos = Alignment.STRETCH
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="left">
+<button class="show-code">Code</button>
+double         <strong>left</strong> <a class="anchor-link"
+            href="#left"
+            title="Permalink to Layer.left">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double left = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="leftUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>leftUnit</strong> <a class="anchor-link"
+            href="#leftUnit"
+            title="Permalink to Layer.leftUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit leftUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="right">
+<button class="show-code">Code</button>
+double         <strong>right</strong> <a class="anchor-link"
+            href="#right"
+            title="Permalink to Layer.right">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double left = 0.0, top = 0.0, right = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="rightUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>rightUnit</strong> <a class="anchor-link"
+            href="#rightUnit"
+            title="Permalink to Layer.rightUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit leftUnit, topUnit, rightUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setBottom">
+<button class="show-code">Code</button>
+bool         <strong>setBottom</strong> <a class="anchor-link"
+            href="#setBottom"
+            title="Permalink to Layer.setBottom">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setLeft = false, setRight = false, setTop = false, setBottom = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setHeight">
+<button class="show-code">Code</button>
+bool         <strong>setHeight</strong> <a class="anchor-link"
+            href="#setHeight"
+            title="Permalink to Layer.setHeight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setLeft = false, setRight = false, setTop = false, setBottom = false, setWidth = false, setHeight = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setLeft">
+<button class="show-code">Code</button>
+bool         <strong>setLeft</strong> <a class="anchor-link"
+            href="#setLeft"
+            title="Permalink to Layer.setLeft">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setLeft = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setRight">
+<button class="show-code">Code</button>
+bool         <strong>setRight</strong> <a class="anchor-link"
+            href="#setRight"
+            title="Permalink to Layer.setRight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setLeft = false, setRight = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTargetBottom">
+<button class="show-code">Code</button>
+bool         <strong>setTargetBottom</strong> <a class="anchor-link"
+            href="#setTargetBottom"
+            title="Permalink to Layer.setTargetBottom">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setTargetLeft = true, setTargetRight = true, setTargetTop = true,
+   setTargetBottom = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTargetHeight">
+<button class="show-code">Code</button>
+bool         <strong>setTargetHeight</strong> <a class="anchor-link"
+            href="#setTargetHeight"
+            title="Permalink to Layer.setTargetHeight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setTargetLeft = true, setTargetRight = true, setTargetTop = true,
+   setTargetBottom = true, setTargetWidth = false, setTargetHeight = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTargetLeft">
+<button class="show-code">Code</button>
+bool         <strong>setTargetLeft</strong> <a class="anchor-link"
+            href="#setTargetLeft"
+            title="Permalink to Layer.setTargetLeft">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setTargetLeft = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTargetRight">
+<button class="show-code">Code</button>
+bool         <strong>setTargetRight</strong> <a class="anchor-link"
+            href="#setTargetRight"
+            title="Permalink to Layer.setTargetRight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setTargetLeft = true, setTargetRight = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTargetTop">
+<button class="show-code">Code</button>
+bool         <strong>setTargetTop</strong> <a class="anchor-link"
+            href="#setTargetTop"
+            title="Permalink to Layer.setTargetTop">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setTargetLeft = true, setTargetRight = true, setTargetTop = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTargetWidth">
+<button class="show-code">Code</button>
+bool         <strong>setTargetWidth</strong> <a class="anchor-link"
+            href="#setTargetWidth"
+            title="Permalink to Layer.setTargetWidth">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setTargetLeft = true, setTargetRight = true, setTargetTop = true,
+   setTargetBottom = true, setTargetWidth = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setTop">
+<button class="show-code">Code</button>
+bool         <strong>setTop</strong> <a class="anchor-link"
+            href="#setTop"
+            title="Permalink to Layer.setTop">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setLeft = false, setRight = false, setTop = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="setWidth">
+<button class="show-code">Code</button>
+bool         <strong>setWidth</strong> <a class="anchor-link"
+            href="#setWidth"
+            title="Permalink to Layer.setWidth">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool setLeft = false, setRight = false, setTop = false, setBottom = false, setWidth = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="sourceBottom">
+<button class="show-code">Code</button>
+double         <strong>sourceBottom</strong> <a class="anchor-link"
+            href="#sourceBottom"
+            title="Permalink to Layer.sourceBottom">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double sourceLeft = 0.0, sourceTop = 0.0, sourceRight = 0.0, sourceBottom = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="sourceHeight">
+<button class="show-code">Code</button>
+double         <strong>sourceHeight</strong> <a class="anchor-link"
+            href="#sourceHeight"
+            title="Permalink to Layer.sourceHeight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double sourceLeft = 0.0, sourceTop = 0.0, sourceRight = 0.0, sourceBottom = 0.0, sourceWidth = 0.0,
+sourceHeight = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="sourceLeft">
+<button class="show-code">Code</button>
+double         <strong>sourceLeft</strong> <a class="anchor-link"
+            href="#sourceLeft"
+            title="Permalink to Layer.sourceLeft">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double sourceLeft = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="sourceRight">
+<button class="show-code">Code</button>
+double         <strong>sourceRight</strong> <a class="anchor-link"
+            href="#sourceRight"
+            title="Permalink to Layer.sourceRight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double sourceLeft = 0.0, sourceTop = 0.0, sourceRight = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="sourceTop">
+<button class="show-code">Code</button>
+double         <strong>sourceTop</strong> <a class="anchor-link"
+            href="#sourceTop"
+            title="Permalink to Layer.sourceTop">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double sourceLeft = 0.0, sourceTop = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="sourceWidth">
+<button class="show-code">Code</button>
+double         <strong>sourceWidth</strong> <a class="anchor-link"
+            href="#sourceWidth"
+            title="Permalink to Layer.sourceWidth">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double sourceLeft = 0.0, sourceTop = 0.0, sourceRight = 0.0, sourceBottom = 0.0, sourceWidth = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetBottom">
+<button class="show-code">Code</button>
+double         <strong>targetBottom</strong> <a class="anchor-link"
+            href="#targetBottom"
+            title="Permalink to Layer.targetBottom">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double targetLeft = 0.0, targetTop = 0.0, targetRight = 0.0, targetBottom = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetBottomUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>targetBottomUnit</strong> <a class="anchor-link"
+            href="#targetBottomUnit"
+            title="Permalink to Layer.targetBottomUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit targetLeftUnit = Unit.PX, targetTopUnit = Unit.PX, targetRightUnit = Unit.PX,
+   targetBottomUnit = Unit.PX
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetHeight">
+<button class="show-code">Code</button>
+double         <strong>targetHeight</strong> <a class="anchor-link"
+            href="#targetHeight"
+            title="Permalink to Layer.targetHeight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double targetLeft = 0.0, targetTop = 0.0, targetRight = 0.0, targetBottom = 0.0, targetWidth = 0.0,
+targetHeight = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetHeightUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>targetHeightUnit</strong> <a class="anchor-link"
+            href="#targetHeightUnit"
+            title="Permalink to Layer.targetHeightUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit targetLeftUnit = Unit.PX, targetTopUnit = Unit.PX, targetRightUnit = Unit.PX,
+   targetBottomUnit = Unit.PX, targetWidthUnit, targetHeightUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetLeft">
+<button class="show-code">Code</button>
+double         <strong>targetLeft</strong> <a class="anchor-link"
+            href="#targetLeft"
+            title="Permalink to Layer.targetLeft">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double targetLeft = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetLeftUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>targetLeftUnit</strong> <a class="anchor-link"
+            href="#targetLeftUnit"
+            title="Permalink to Layer.targetLeftUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit targetLeftUnit = Unit.PX
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetRight">
+<button class="show-code">Code</button>
+double         <strong>targetRight</strong> <a class="anchor-link"
+            href="#targetRight"
+            title="Permalink to Layer.targetRight">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double targetLeft = 0.0, targetTop = 0.0, targetRight = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetRightUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>targetRightUnit</strong> <a class="anchor-link"
+            href="#targetRightUnit"
+            title="Permalink to Layer.targetRightUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit targetLeftUnit = Unit.PX, targetTopUnit = Unit.PX, targetRightUnit = Unit.PX
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetTop">
+<button class="show-code">Code</button>
+double         <strong>targetTop</strong> <a class="anchor-link"
+            href="#targetTop"
+            title="Permalink to Layer.targetTop">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double targetLeft = 0.0, targetTop = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetTopUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>targetTopUnit</strong> <a class="anchor-link"
+            href="#targetTopUnit"
+            title="Permalink to Layer.targetTopUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit targetLeftUnit = Unit.PX, targetTopUnit = Unit.PX
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetWidth">
+<button class="show-code">Code</button>
+double         <strong>targetWidth</strong> <a class="anchor-link"
+            href="#targetWidth"
+            title="Permalink to Layer.targetWidth">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double targetLeft = 0.0, targetTop = 0.0, targetRight = 0.0, targetBottom = 0.0, targetWidth = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="targetWidthUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>targetWidthUnit</strong> <a class="anchor-link"
+            href="#targetWidthUnit"
+            title="Permalink to Layer.targetWidthUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit targetLeftUnit = Unit.PX, targetTopUnit = Unit.PX, targetRightUnit = Unit.PX,
+   targetBottomUnit = Unit.PX, targetWidthUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="top">
+<button class="show-code">Code</button>
+double         <strong>top</strong> <a class="anchor-link"
+            href="#top"
+            title="Permalink to Layer.top">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double left = 0.0, top = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="topUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>topUnit</strong> <a class="anchor-link"
+            href="#topUnit"
+            title="Permalink to Layer.topUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit leftUnit, topUnit
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="userObject">
+<button class="show-code">Code</button>
+Object         <strong>userObject</strong> <a class="anchor-link"
+            href="#userObject"
+            title="Permalink to Layer.userObject">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Object userObject
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="visible">
+<button class="show-code">Code</button>
+bool         <strong>visible</strong> <a class="anchor-link"
+            href="#visible"
+            title="Permalink to Layer.visible">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool visible = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="vPos">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_layout/Alignment.html">Alignment</a>         <strong>vPos</strong> <a class="anchor-link"
+            href="#vPos"
+            title="Permalink to Layer.vPos">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Alignment hPos = Alignment.STRETCH, vPos = Alignment.STRETCH
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="width">
+<button class="show-code">Code</button>
+double         <strong>width</strong> <a class="anchor-link"
+            href="#width"
+            title="Permalink to Layer.width">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+double left = 0.0, top = 0.0, right = 0.0, bottom = 0.0, width = 0.0
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="widthUnit">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Unit.html">Unit</a>         <strong>widthUnit</strong> <a class="anchor-link"
+            href="#widthUnit"
+            title="Permalink to Layer.widthUnit">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Unit leftUnit, topUnit, rightUnit, bottomUnit, widthUnit
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getContainerElement">
+<button class="show-code">Code</button>
+Element <strong>getContainerElement</strong>() <a class="anchor-link" href="#getContainerElement"
+              title="Permalink to Layer.getContainerElement">#</a></h4>
+<div class="doc">
+<p>Gets the container element associated with this layer.</p><p>
+This is the element that sits between the parent and child elements. It
+is normally necessary to operate on this element only when you need to
+modify CSS properties that are not directly modeled by the Layer class.
+</p>
+<p>@return the container element</p>
+<pre class="source">
+dart_html.Element getContainerElement() {
+ return container;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getUserObject">
+<button class="show-code">Code</button>
+Object <strong>getUserObject</strong>() <a class="anchor-link" href="#getUserObject"
+              title="Permalink to Layer.getUserObject">#</a></h4>
+<div class="doc">
+<p>Gets the user-data associated with this layer.</p>
+<p>@return the layer's user-data object</p>
+<pre class="source">
+Object getUserObject() {
+ return this.userObject;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBottomHeight">
+<button class="show-code">Code</button>
+void <strong>setBottomHeight</strong>(double bottom, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> bottomUnit, double height, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> heightUnit) <a class="anchor-link" href="#setBottomHeight"
+              title="Permalink to Layer.setBottomHeight">#</a></h4>
+<div class="doc">
+<p>Sets the layer's bottom and height values.</p>
+<p>@param bottom
+@param bottomUnit
+@param height
+@param heightUnit</p>
+<pre class="source">
+void setBottomHeight(double bottom, Unit bottomUnit, double height,
+                    Unit heightUnit) {
+ this.setTargetBottom = this.setTargetHeight = true;
+ this.setTargetTop = false;
+ this.targetBottom = bottom;
+ this.targetHeight = height;
+ this.targetBottomUnit = bottomUnit;
+ this.targetHeightUnit = heightUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setChildHorizontalPosition">
+<button class="show-code">Code</button>
+void <strong>setChildHorizontalPosition</strong>(<a href="../dart_web_toolkit_layout/Alignment.html">Alignment</a> position) <a class="anchor-link" href="#setChildHorizontalPosition"
+              title="Permalink to Layer.setChildHorizontalPosition">#</a></h4>
+<div class="doc">
+<p>Sets the child element's horizontal position within the layer.</p>
+<p>@param position</p>
+<pre class="source">
+void setChildHorizontalPosition(Alignment position) {
+ this.hPos = position;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setChildVerticalPosition">
+<button class="show-code">Code</button>
+void <strong>setChildVerticalPosition</strong>(<a href="../dart_web_toolkit_layout/Alignment.html">Alignment</a> position) <a class="anchor-link" href="#setChildVerticalPosition"
+              title="Permalink to Layer.setChildVerticalPosition">#</a></h4>
+<div class="doc">
+<p>Sets the child element's vertical position within the layer.</p>
+<p>@param position</p>
+<pre class="source">
+void setChildVerticalPosition(Alignment position) {
+ this.vPos = position;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setLeftRight">
+<button class="show-code">Code</button>
+void <strong>setLeftRight</strong>(double left, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> leftUnit, double right, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> rightUnit) <a class="anchor-link" href="#setLeftRight"
+              title="Permalink to Layer.setLeftRight">#</a></h4>
+<div class="doc">
+<p>Sets the layer's left and right values.</p>
+<p>@param left
+@param leftUnit
+@param right
+@param rightUnit</p>
+<pre class="source">
+void setLeftRight(double left, Unit leftUnit, double right,
+                 Unit rightUnit) {
+ this.setTargetLeft = this.setTargetRight = true;
+ this.setTargetWidth = false;
+ this.targetLeft = left;
+ this.targetRight = right;
+ this.targetLeftUnit = leftUnit;
+ this.targetRightUnit = rightUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setLeftWidth">
+<button class="show-code">Code</button>
+void <strong>setLeftWidth</strong>(double left, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> leftUnit, double width, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> widthUnit) <a class="anchor-link" href="#setLeftWidth"
+              title="Permalink to Layer.setLeftWidth">#</a></h4>
+<div class="doc">
+<p>Sets the layer's left and width values.</p>
+<p>@param left
+@param leftUnit
+@param width
+@param widthUnit</p>
+<pre class="source">
+void setLeftWidth(double left, Unit leftUnit, double width,
+                 Unit widthUnit) {
+ this.setTargetLeft = this.setTargetWidth = true;
+ this.setTargetRight = false;
+ this.targetLeft = left;
+ this.targetWidth = width;
+ this.targetLeftUnit = leftUnit;
+ this.targetWidthUnit = widthUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setRightWidth">
+<button class="show-code">Code</button>
+void <strong>setRightWidth</strong>(double right, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> rightUnit, double width, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> widthUnit) <a class="anchor-link" href="#setRightWidth"
+              title="Permalink to Layer.setRightWidth">#</a></h4>
+<div class="doc">
+<p>Sets the layer's right and width values.</p>
+<p>@param right
+@param rightUnit
+@param width
+@param widthUnit</p>
+<pre class="source">
+void setRightWidth(double right, Unit rightUnit, double width,
+                  Unit widthUnit) {
+ this.setTargetRight = this.setTargetWidth = true;
+ this.setTargetLeft = false;
+ this.targetRight = right;
+ this.targetWidth = width;
+ this.targetRightUnit = rightUnit;
+ this.targetWidthUnit = widthUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTopBottom">
+<button class="show-code">Code</button>
+void <strong>setTopBottom</strong>(double top, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> topUnit, double bottom, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> bottomUnit) <a class="anchor-link" href="#setTopBottom"
+              title="Permalink to Layer.setTopBottom">#</a></h4>
+<div class="doc">
+<p>Sets the layer's top and bottom values.</p>
+<p>@param top
+@param topUnit
+@param bottom
+@param bottomUnit</p>
+<pre class="source">
+void setTopBottom(double top, Unit topUnit, double bottom,
+                 Unit bottomUnit) {
+ this.setTargetTop = this.setTargetBottom = true;
+ this.setTargetHeight = false;
+ this.targetTop = top;
+ this.targetBottom = bottom;
+ this.targetTopUnit = topUnit;
+ this.targetBottomUnit = bottomUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTopHeight">
+<button class="show-code">Code</button>
+void <strong>setTopHeight</strong>(double top, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> topUnit, double height, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> heightUnit) <a class="anchor-link" href="#setTopHeight"
+              title="Permalink to Layer.setTopHeight">#</a></h4>
+<div class="doc">
+<p>Sets the layer's top and height values.</p>
+<p>@param top
+@param topUnit
+@param height
+@param heightUnit</p>
+<pre class="source">
+void setTopHeight(double top, Unit topUnit, double height,
+                 Unit heightUnit) {
+ this.setTargetTop = this.setTargetHeight = true;
+ this.setTargetBottom = false;
+ this.targetTop = top;
+ this.targetHeight = height;
+ this.targetTopUnit = topUnit;
+ this.targetHeightUnit = heightUnit;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVisible">
+<button class="show-code">Code</button>
+void <strong>setVisible</strong>(bool visible) <a class="anchor-link" href="#setVisible"
+              title="Permalink to Layer.setVisible">#</a></h4>
+<div class="doc">
+<p>Sets the layer's visibility.</p>
+<p>@param visible</p>
+<pre class="source">
+void setVisible(bool visible) {
+ this.visible = visible;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.421</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

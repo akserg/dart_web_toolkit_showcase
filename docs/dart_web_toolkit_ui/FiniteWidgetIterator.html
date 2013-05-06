@@ -1,0 +1,249 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>FiniteWidgetIterator class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="FiniteWidgetIterator">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/FiniteWidgetIterator.html">FiniteWidgetIterator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>FiniteWidgetIterator</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Iterator over a finite number of widgets, which are stored in a delegate
+class (usually a widget panel).</p><p>
+In order to use this class, assign each widget in the panel an arbitrary
+index. For example, {@link HeaderPanel} defines the header as index 0, the
+content as index 1, and the footer as index 2. Construct a new
+{@link FiniteWidgetIterator} with a {@link WidgetProvider} that provides the
+child widgets.
+<pre class="source">
+class FiniteWidgetIterator implements Iterator&lt;Widget&gt; {
+
+ int index = -1;
+ WidgetProvider provider;
+ int widgetCount;
+
+ /**
+  * Construct a new {@link FiniteWidgetIterator}.
+  *
+  * &lt;p&gt;
+  * The widget count is the number of child widgets that the panel supports,
+  * regardless of whether or not they are set.
+  *
+  * @param provider the widget provider
+  * @param widgetCount the finite number of widgets that can be provided
+  */
+ FiniteWidgetIterator(WidgetProvider provider, int widgetCount) {
+   this.provider = provider;
+   this.widgetCount = widgetCount;
+ }
+
+ bool moveNext() {
+   // Iterate over the remaining widgets until we find one.
+   for (int i = index + 1; i &lt; widgetCount; i++) {
+     IsWidget w = provider.get(i);
+     if (w != null) {
+       return true;
+     }
+   }
+   return false;
+ }
+
+ Widget get current =&gt; _getCurrent();
+ 
+ Widget _getCurrent() {
+   // Iterate over the remaining widgets until we find one.
+   for (int i = index + 1; i &lt; widgetCount; i++) {
+     index = i;
+     IsWidget w = provider.get(i);
+     if (w != null) {
+       return w.asWidget();
+     }
+   }
+   throw new Exception("No Such Element");
+ }
+
+ void remove() {
+   if (index &lt; 0 || index &gt;= widgetCount) {
+     throw new Exception("Illegal State");
+   }
+   IsWidget w = provider.get(index);
+   if (w == null) {
+     throw new Exception("Widget was already removed.");
+   }
+   w.asWidget().removeFromParent();
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_core/Iterator.html">Iterator&lt;Widget&gt;</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="FiniteWidgetIterator">
+<button class="show-code">Code</button>
+new <strong>FiniteWidgetIterator</strong>(<a href="../dart_web_toolkit_ui/WidgetProvider.html">WidgetProvider</a> provider, int widgetCount) <a class="anchor-link" href="#FiniteWidgetIterator"
+              title="Permalink to FiniteWidgetIterator.FiniteWidgetIterator">#</a></h4>
+<div class="doc">
+<p>Construct a new {@link FiniteWidgetIterator}.</p><p>
+The widget count is the number of child widgets that the panel supports,
+regardless of whether or not they are set.
+<p>@param provider the widget provider
+@param widgetCount the finite number of widgets that can be provided</p>
+<pre class="source">
+FiniteWidgetIterator(WidgetProvider provider, int widgetCount) {
+ this.provider = provider;
+ this.widgetCount = widgetCount;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="current">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_ui/Widget.html">Widget</a>         <strong>current</strong> <a class="anchor-link"
+            href="#current"
+            title="Permalink to FiniteWidgetIterator.current">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns the current element.</p>
+<p>Return <code>null</code> if the iterator has not yet been moved to the first
+element, or if the iterator has been moved after the last element of the
+<code>Iterable</code>.</p>
+<div class="docs-inherited-from">docs inherited from Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; </div></div>
+<pre class="source">
+Widget get current =&gt; _getCurrent();
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="index">
+<button class="show-code">Code</button>
+int         <strong>index</strong> <a class="anchor-link"
+            href="#index"
+            title="Permalink to FiniteWidgetIterator.index">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+int index = -1
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="provider">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/WidgetProvider.html">WidgetProvider</a>         <strong>provider</strong> <a class="anchor-link"
+            href="#provider"
+            title="Permalink to FiniteWidgetIterator.provider">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+WidgetProvider provider
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="widgetCount">
+<button class="show-code">Code</button>
+int         <strong>widgetCount</strong> <a class="anchor-link"
+            href="#widgetCount"
+            title="Permalink to FiniteWidgetIterator.widgetCount">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+int widgetCount
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="moveNext">
+<button class="show-code">Code</button>
+bool <strong>moveNext</strong>() <a class="anchor-link" href="#moveNext"
+              title="Permalink to FiniteWidgetIterator.moveNext">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Moves to the next element. Returns true if <a class="crossref" href="../dart_web_toolkit_ui/FiniteWidgetIterator.html#current">current</a> contains the next
+element. Returns false, if no element was left.</p>
+<p>It is safe to invoke <a class="crossref" href="../dart_web_toolkit_ui/FiniteWidgetIterator.html#moveNext">moveNext</a> even when the iterator is already
+positioned after the last element. In this case <a class="crossref" href="../dart_web_toolkit_ui/FiniteWidgetIterator.html#moveNext">moveNext</a> has no effect.</p>
+<div class="docs-inherited-from">docs inherited from Iterator&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; </div></div>
+<pre class="source">
+bool moveNext() {
+ // Iterate over the remaining widgets until we find one.
+ for (int i = index + 1; i &lt; widgetCount; i++) {
+   IsWidget w = provider.get(i);
+   if (w != null) {
+     return true;
+   }
+ }
+ return false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="remove">
+<button class="show-code">Code</button>
+void <strong>remove</strong>() <a class="anchor-link" href="#remove"
+              title="Permalink to FiniteWidgetIterator.remove">#</a></h4>
+<div class="doc">
+<pre class="source">
+void remove() {
+ if (index &lt; 0 || index &gt;= widgetCount) {
+   throw new Exception("Illegal State");
+ }
+ IsWidget w = provider.get(index);
+ if (w == null) {
+   throw new Exception("Widget was already removed.");
+ }
+ w.asWidget().removeFromParent();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:26.540</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,577 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>DirectionalTextHelper class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="DirectionalTextHelper">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/DirectionalTextHelper.html">DirectionalTextHelper</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>DirectionalTextHelper</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A helper class for displaying bidi (i.e. potentially opposite-direction) text
+or HTML in an element.
+Note: this class assumes that callers perform all their text/html and
+direction manipulations through it alone.</p>
+<pre class="source">
+class DirectionalTextHelper implements HasDirectionEstimator {
+
+ /**
+  * A default direction estimator instance.
+  */
+ static DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR;// = WordCountDirectionEstimator.get();
+
+ /**
+  * The DirectionEstimator object.
+  */
+ DirectionEstimator directionEstimator;
+
+ /**
+  * Whether direction was explicitly set on the last {@code setTextOrHtml}
+  * call. If so, {@link #setDirectionEstimator} will refrain from modifying the
+  * direction until {@link #setTextOrHtml} is called without specifying an
+  * explicit direction.
+  */
+ bool isDirectionExplicitlySet = false;
+
+ /**
+  * Whether the element contains a nested &amp;lt;span&amp;gt; element used to
+  * indicate the content's direction.
+  * &lt;p&gt;
+  * The element itself is used for this purpose when it is a block element
+  * (i.e. !isElementInline), but doing so on an inline element often results in
+  * garbling what follows it. Thus, when the element is inline, a nested
+  * &amp;lt;span&amp;gt; must be used to carry the content's direction, with an LRM or
+  * RLM character afterwards to prevent the garbling.
+  */
+ bool isSpanWrapped = false;
+
+ /**
+  * The target element.
+  */
+ dart_html.Element element;
+
+ /**
+  * The initial direction of the element.
+  */
+ Direction initialElementDir;
+
+ /**
+  * Whether the element is inline (e.g. a &amp;lt;span&amp;gt; element, but not a block
+  * element like &amp;lt;div&amp;gt;).
+  * This is needed because direction is handled differently for inline elements
+  * and for non-inline elements.
+  */
+ bool isElementInline = false;
+
+ /**
+  * The direction of the element's content.
+  * Note: this may not match the direction attribute of the element itself.
+  * See
+  * {@link #setTextOrHtml(String, com.google.gwt.i18n.client.HasDirection.Direction, boolean) setTextOrHtml(String, Direction, boolean)}
+  * for details.
+  */
+ Direction textDir;
+
+ /**
+  * @param element The widget's element holding text.
+  * @param isElementInline Whether the element is an inline element.
+  */
+ DirectionalTextHelper(dart_html.Element element, bool isElementInline) {
+   this.element = element;
+   this.isElementInline = isElementInline;
+   isSpanWrapped = false;
+   this.initialElementDir = BidiUtils.getDirectionOnElement(element);
+   textDir = initialElementDir;
+   // setDirectionEstimator shouldn't refresh appearance of initial empty text.
+   isDirectionExplicitlySet = true;
+ }
+
+ DirectionEstimator getDirectionEstimator() {
+   return directionEstimator;
+ }
+
+ /**
+  * See note at
+  * {@link #setDirectionEstimator(com.google.gwt.i18n.shared.DirectionEstimator)}.
+  */
+ void enableDefaultDirectionEstimator(bool enabled) {
+   setDirectionEstimator(enabled ? DEFAULT_DIRECTION_ESTIMATOR : null);
+ }
+
+ /**
+  * Note: if the element already has non-empty content, this will update
+  * its direction according to the new estimator's result. This may cause
+  * flicker, and thus should be avoided; DirectionEstimator should be set
+  * before the element has any content.
+  */
+ void setDirectionEstimator(DirectionEstimator directionEstimator) {
+   this.directionEstimator = directionEstimator;
+   /*
+    * Refresh appearance unless direction was explicitly set on last
+    * setTextOrHtml call.
+    */
+   if (!isDirectionExplicitlySet) {
+     setTextOrHtml(getTextOrHtml(true), true);
+   }
+ }
+
+ /**
+  * Get the inner text or html of the element, taking the inner span wrap into
+  * consideration, if needed.
+  *
+  * @param isHtml true to get the inner html, false to get the inner text
+  * @return the text or html
+  */
+ String getTextOrHtml(bool isHtml) {
+   dart_html.Element elem = isSpanWrapped ? element.$dom_firstElementChild : element;
+   return isHtml ? elem.innerHtml : elem.text;
+ }
+
+ /**
+  * Sets the element's content to the given value (either plain text or HTML).
+  * If direction estimation is off, the direction is verified to match the
+  * element's initial direction. Otherwise, the direction is affected as
+  * described at
+  * {@link #setTextOrHtml(String, com.google.gwt.i18n.client.HasDirection.Direction, boolean) setTextOrHtml(String, Direction, boolean)}.
+  *
+  * @param content the element's new content
+  * @param isHtml whether the content is HTML
+  */
+ void setTextOrHtml(String content, bool isHtml, [Direction dir = null]) {
+   if (directionEstimator == null) {
+     isSpanWrapped = false;
+     setInnerTextOrHtml(content, isHtml);
+
+     /*
+      * Preserves the initial direction of the element. This is different from
+      * passing the direction parameter explicitly as DEFAULT, which forces the
+      * element to inherit the direction from its parent.
+      */
+     if (textDir != initialElementDir) {
+       textDir = initialElementDir;
+       BidiUtils.setDirectionOnElement(element, initialElementDir);
+     }
+   } else {
+     setTextOrHtmlWithDirection(content, directionEstimator.estimateStringDirection(content, isHtml), isHtml);
+   }
+   isDirectionExplicitlySet = false;
+ }
+
+ /**
+  * Sets the element's content to the given value (either plain text or HTML),
+  * applying the given direction.
+  * &lt;p&gt;
+  * Implementation details:
+  * &lt;ul&gt;
+  * &lt;li&gt; If the element is a block element, sets its dir attribute according
+  * to the given direction.
+  * &lt;li&gt; Otherwise (i.e. the element is inline), the direction is set using a
+  * nested &amp;lt;span dir=...&amp;gt; element which holds the content of the element.
+  * This nested span may be followed by a zero-width Unicode direction
+  * character (LRM or RLM). This manipulation is necessary to prevent garbling
+  * in case the direction of the element is opposite to the direction of its
+  * context. See {@link com.google.gwt.i18n.shared.BidiFormatter} for more
+  * details.
+  * &lt;/ul&gt;
+  *
+  * @param content the element's new content
+  * @param dir the content's direction
+  * @param isHtml whether the content is HTML
+  */
+ void setTextOrHtmlWithDirection(String content, Direction dir, bool isHtml) {
+   textDir = dir;
+   // Set the text and the direction.
+   if (isElementInline) {
+     isSpanWrapped = true;
+     element.innerHtml = BidiFormatter.getInstanceForCurrentLocale(true /* alwaysSpan */).spanWrapWithKnownDir(dir, content, isHtml);
+   } else {
+     isSpanWrapped = false;
+     BidiUtils.setDirectionOnElement(element, dir);
+     setInnerTextOrHtml(content, isHtml);
+   }
+   isDirectionExplicitlySet = true;
+ }
+
+ Direction getTextDirection() {
+   return textDir;
+ }
+
+ void setInnerTextOrHtml(String content, bool isHtml) {
+   if (isHtml) {
+     element.innerHtml = content;
+   } else {
+     element.text = content;
+   }
+ }
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDirectionEstimator.html">HasDirectionEstimator</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="DEFAULT_DIRECTION_ESTIMATOR">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a>         <strong>DEFAULT_DIRECTION_ESTIMATOR</strong> <a class="anchor-link"
+            href="#DEFAULT_DIRECTION_ESTIMATOR"
+            title="Permalink to DirectionalTextHelper.DEFAULT_DIRECTION_ESTIMATOR">#</a>
+        </h4>
+        <div class="doc">
+<p>A default direction estimator instance.</p>
+<pre class="source">
+static DirectionEstimator DEFAULT_DIRECTION_ESTIMATOR
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="DirectionalTextHelper">
+<button class="show-code">Code</button>
+new <strong>DirectionalTextHelper</strong>(Element element, bool isElementInline) <a class="anchor-link" href="#DirectionalTextHelper"
+              title="Permalink to DirectionalTextHelper.DirectionalTextHelper">#</a></h4>
+<div class="doc">
+<p>@param element The widget's element holding text.
+@param isElementInline Whether the element is an inline element.</p>
+<pre class="source">
+DirectionalTextHelper(dart_html.Element element, bool isElementInline) {
+ this.element = element;
+ this.isElementInline = isElementInline;
+ isSpanWrapped = false;
+ this.initialElementDir = BidiUtils.getDirectionOnElement(element);
+ textDir = initialElementDir;
+ // setDirectionEstimator shouldn't refresh appearance of initial empty text.
+ isDirectionExplicitlySet = true;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="directionEstimator">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a>         <strong>directionEstimator</strong> <a class="anchor-link"
+            href="#directionEstimator"
+            title="Permalink to DirectionalTextHelper.directionEstimator">#</a>
+        </h4>
+        <div class="doc">
+<p>The DirectionEstimator object.</p>
+<pre class="source">
+DirectionEstimator directionEstimator
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="element">
+<button class="show-code">Code</button>
+Element         <strong>element</strong> <a class="anchor-link"
+            href="#element"
+            title="Permalink to DirectionalTextHelper.element">#</a>
+        </h4>
+        <div class="doc">
+<p>The target element.</p>
+<pre class="source">
+dart_html.Element element
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="initialElementDir">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a>         <strong>initialElementDir</strong> <a class="anchor-link"
+            href="#initialElementDir"
+            title="Permalink to DirectionalTextHelper.initialElementDir">#</a>
+        </h4>
+        <div class="doc">
+<p>The initial direction of the element.</p>
+<pre class="source">
+Direction initialElementDir
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="isDirectionExplicitlySet">
+<button class="show-code">Code</button>
+bool         <strong>isDirectionExplicitlySet</strong> <a class="anchor-link"
+            href="#isDirectionExplicitlySet"
+            title="Permalink to DirectionalTextHelper.isDirectionExplicitlySet">#</a>
+        </h4>
+        <div class="doc">
+<p>Whether direction was explicitly set on the last {@code setTextOrHtml}
+call. If so, {@link #setDirectionEstimator} will refrain from modifying the
+direction until {@link #setTextOrHtml} is called without specifying an
+explicit direction.</p>
+<pre class="source">
+bool isDirectionExplicitlySet = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="isElementInline">
+<button class="show-code">Code</button>
+bool         <strong>isElementInline</strong> <a class="anchor-link"
+            href="#isElementInline"
+            title="Permalink to DirectionalTextHelper.isElementInline">#</a>
+        </h4>
+        <div class="doc">
+<p>Whether the element is inline (e.g. a &lt;span&gt; element, but not a block
+element like &lt;div&gt;).
+This is needed because direction is handled differently for inline elements
+and for non-inline elements.</p>
+<pre class="source">
+bool isElementInline = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="isSpanWrapped">
+<button class="show-code">Code</button>
+bool         <strong>isSpanWrapped</strong> <a class="anchor-link"
+            href="#isSpanWrapped"
+            title="Permalink to DirectionalTextHelper.isSpanWrapped">#</a>
+        </h4>
+        <div class="doc">
+<p>Whether the element contains a nested &lt;span&gt; element used to
+indicate the content's direction.
+&lt;p>
+The element itself is used for this purpose when it is a block element
+(i.e. !isElementInline), but doing so on an inline element often results in
+garbling what follows it. Thus, when the element is inline, a nested
+&lt;span&gt; must be used to carry the content's direction, with an LRM or
+RLM character afterwards to prevent the garbling.</p>
+<pre class="source">
+bool isSpanWrapped = false
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="textDir">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a>         <strong>textDir</strong> <a class="anchor-link"
+            href="#textDir"
+            title="Permalink to DirectionalTextHelper.textDir">#</a>
+        </h4>
+        <div class="doc">
+<p>The direction of the element's content.
+Note: this may not match the direction attribute of the element itself.
+See
+{@link #setTextOrHtml(String, com.google.gwt.i18n.client.HasDirection.Direction, boolean) setTextOrHtml(String, Direction, boolean)}
+for details.</p>
+<pre class="source">
+Direction textDir
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="enableDefaultDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>enableDefaultDirectionEstimator</strong>(bool enabled) <a class="anchor-link" href="#enableDefaultDirectionEstimator"
+              title="Permalink to DirectionalTextHelper.enableDefaultDirectionEstimator">#</a></h4>
+<div class="doc">
+<p>See note at
+{@link #setDirectionEstimator(com.google.gwt.i18n.shared.DirectionEstimator)}.</p>
+<pre class="source">
+void enableDefaultDirectionEstimator(bool enabled) {
+ setDirectionEstimator(enabled ? DEFAULT_DIRECTION_ESTIMATOR : null);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDirectionEstimator">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> <strong>getDirectionEstimator</strong>() <a class="anchor-link" href="#getDirectionEstimator"
+              title="Permalink to DirectionalTextHelper.getDirectionEstimator">#</a></h4>
+<div class="doc">
+<pre class="source">
+DirectionEstimator getDirectionEstimator() {
+ return directionEstimator;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextDirection">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>getTextDirection</strong>() <a class="anchor-link" href="#getTextDirection"
+              title="Permalink to DirectionalTextHelper.getTextDirection">#</a></h4>
+<div class="doc">
+<pre class="source">
+Direction getTextDirection() {
+ return textDir;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextOrHtml">
+<button class="show-code">Code</button>
+String <strong>getTextOrHtml</strong>(bool isHtml) <a class="anchor-link" href="#getTextOrHtml"
+              title="Permalink to DirectionalTextHelper.getTextOrHtml">#</a></h4>
+<div class="doc">
+<p>Get the inner text or html of the element, taking the inner span wrap into
+consideration, if needed.</p>
+<p>@param isHtml true to get the inner html, false to get the inner text
+@return the text or html</p>
+<pre class="source">
+String getTextOrHtml(bool isHtml) {
+ dart_html.Element elem = isSpanWrapped ? element.$dom_firstElementChild : element;
+ return isHtml ? elem.innerHtml : elem.text;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDirectionEstimator">
+<button class="show-code">Code</button>
+void <strong>setDirectionEstimator</strong>(<a href="../dart_web_toolkit_i18n/DirectionEstimator.html">DirectionEstimator</a> directionEstimator) <a class="anchor-link" href="#setDirectionEstimator"
+              title="Permalink to DirectionalTextHelper.setDirectionEstimator">#</a></h4>
+<div class="doc">
+<p>Note: if the element already has non-empty content, this will update
+its direction according to the new estimator's result. This may cause
+flicker, and thus should be avoided; DirectionEstimator should be set
+before the element has any content.</p>
+<pre class="source">
+void setDirectionEstimator(DirectionEstimator directionEstimator) {
+ this.directionEstimator = directionEstimator;
+ /*
+  * Refresh appearance unless direction was explicitly set on last
+  * setTextOrHtml call.
+  */
+ if (!isDirectionExplicitlySet) {
+   setTextOrHtml(getTextOrHtml(true), true);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setInnerTextOrHtml">
+<button class="show-code">Code</button>
+void <strong>setInnerTextOrHtml</strong>(String content, bool isHtml) <a class="anchor-link" href="#setInnerTextOrHtml"
+              title="Permalink to DirectionalTextHelper.setInnerTextOrHtml">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setInnerTextOrHtml(String content, bool isHtml) {
+ if (isHtml) {
+   element.innerHtml = content;
+ } else {
+   element.text = content;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextOrHtml">
+<button class="show-code">Code</button>
+void <strong>setTextOrHtml</strong>(String content, bool isHtml, [<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> dir = null]) <a class="anchor-link" href="#setTextOrHtml"
+              title="Permalink to DirectionalTextHelper.setTextOrHtml">#</a></h4>
+<div class="doc">
+<p>Sets the element's content to the given value (either plain text or HTML).
+If direction estimation is off, the direction is verified to match the
+element's initial direction. Otherwise, the direction is affected as
+described at
+{@link #setTextOrHtml(String, com.google.gwt.i18n.client.HasDirection.Direction, boolean) setTextOrHtml(String, Direction, boolean)}.</p>
+<p>@param content the element's new content
+@param isHtml whether the content is HTML</p>
+<pre class="source">
+void setTextOrHtml(String content, bool isHtml, [Direction dir = null]) {
+ if (directionEstimator == null) {
+   isSpanWrapped = false;
+   setInnerTextOrHtml(content, isHtml);
+
+   /*
+    * Preserves the initial direction of the element. This is different from
+    * passing the direction parameter explicitly as DEFAULT, which forces the
+    * element to inherit the direction from its parent.
+    */
+   if (textDir != initialElementDir) {
+     textDir = initialElementDir;
+     BidiUtils.setDirectionOnElement(element, initialElementDir);
+   }
+ } else {
+   setTextOrHtmlWithDirection(content, directionEstimator.estimateStringDirection(content, isHtml), isHtml);
+ }
+ isDirectionExplicitlySet = false;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextOrHtmlWithDirection">
+<button class="show-code">Code</button>
+void <strong>setTextOrHtmlWithDirection</strong>(String content, <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> dir, bool isHtml) <a class="anchor-link" href="#setTextOrHtmlWithDirection"
+              title="Permalink to DirectionalTextHelper.setTextOrHtmlWithDirection">#</a></h4>
+<div class="doc">
+<p>Sets the element's content to the given value (either plain text or HTML),
+applying the given direction.
+&lt;p>
+Implementation details:
+&lt;ul>
+&lt;li> If the element is a block element, sets its dir attribute according
+to the given direction.
+&lt;li> Otherwise (i.e. the element is inline), the direction is set using a
+nested &lt;span dir=...&gt; element which holds the content of the element.
+This nested span may be followed by a zero-width Unicode direction
+character (LRM or RLM). This manipulation is necessary to prevent garbling
+in case the direction of the element is opposite to the direction of its
+context. See {@link com.google.gwt.i18n.shared.BidiFormatter} for more
+details.
+&lt;/ul></p>
+<p>@param content the element's new content
+@param dir the content's direction
+@param isHtml whether the content is HTML</p>
+<pre class="source">
+void setTextOrHtmlWithDirection(String content, Direction dir, bool isHtml) {
+ textDir = dir;
+ // Set the text and the direction.
+ if (isElementInline) {
+   isSpanWrapped = true;
+   element.innerHtml = BidiFormatter.getInstanceForCurrentLocale(true /* alwaysSpan */).spanWrapWithKnownDir(dir, content, isHtml);
+ } else {
+   isSpanWrapped = false;
+   BidiUtils.setDirectionOnElement(element, dir);
+   setInnerTextOrHtml(content, isHtml);
+ }
+ isDirectionExplicitlySet = true;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:19.990</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

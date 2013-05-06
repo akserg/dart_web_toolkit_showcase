@@ -1,0 +1,85 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Editor&lt;T&gt; abstract class / dart_web_toolkit_editor Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_editor" data-type="Editor&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_editor.html">dart_web_toolkit_editor</a> &rsaquo; <a href="../dart_web_toolkit_editor/Editor.html">Editor&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Editor&lt;T&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Describes an editor whose behavior is not altered by the value being
+displayed.
+&lt;p>
+Editors, which may be classes or interfaces, may expose their sub-editors in
+one or more of the following ways:
+&lt;ul>
+&lt;li>An instance field with at least package visibility whose name exactly is
+the property that will be edited or &lt;code>&lt;em>propertyName&lt;/em>Editor&lt;/code>.
+&lt;/li>
+&lt;li>A no-arg method with at least package visibility whose name exactly is
+the property that will be edited or &lt;code>&lt;em>propertyName&lt;/em>Editor&lt;/code>.
+&lt;/li>
+&lt;li>The {@link Path} annotation may be used on the field or accessor method
+to specify a dotted path or to bypass the implicit naming convention.&lt;/li>
+&lt;li>Sub-Editors may be null. In this case, the Editor framework will ignore
+these sub-editors.&lt;/li>
+&lt;/ul>
+Any exposed field or method whose type is Editor may also use the
+{@link IsEditor} interface to provide an Editor instance. This allows view
+objects to be written that can be attached to an Editor hierarchy without the
+view directly implementing an Editor interface.</p>
+<p>@param &lt;T> the type of object the editor displays.</p>
+<pre class="source">
+abstract class Editor&lt;T&gt; {
+
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_editor/HasEditorDelegate.html">HasEditorDelegate&lt;T&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_editor/LeafValueEditor.html">LeafValueEditor&lt;T&gt;</a></span></p>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.073</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

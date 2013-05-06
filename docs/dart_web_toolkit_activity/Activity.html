@@ -1,0 +1,147 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Activity abstract class / dart_web_toolkit_activity Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_activity" data-type="Activity">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_activity.html">dart_web_toolkit_activity</a> &rsaquo; <a href="../dart_web_toolkit_activity/Activity.html">Activity</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Activity</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Implemented by objects that control a piece of user interface, with a life
+cycle managed by an {@link ActivityManager}, in response to
+{@link com.google.gwt.place.shared.PlaceChangeEvent} events as the user
+navigates through the app.</p>
+<pre class="source">
+abstract class Activity {
+ /**
+  * Called when the user is trying to navigate away from this activity.
+  *
+  * @return A message to display to the user, e.g. to warn of unsaved work, or
+  *         null to say nothing
+  */
+ String mayStop();
+
+ /**
+  * Called when {@link #start} has not yet replied to its callback, but the
+  * user has lost interest.
+  */
+ void onCancel();
+
+ /**
+  * Called when the Activity's widget has been removed from view. All event
+  * handlers it registered will have been removed before this method is called.
+  */
+ void onStop();
+
+ /**
+  * Called when the Activity should ready its widget for the user. When the
+  * widget is ready (typically after an RPC response has been received),
+  * receiver should present it by calling
+  * {@link AcceptsOneWidget#setWidget} on the given panel.
+  * &lt;p&gt;
+  * Any handlers attached to the provided event bus will be de-registered when
+  * the activity is stopped, so activities will rarely need to hold on to the
+  * {@link com.google.gwt.event.shared.HandlerRegistration HandlerRegistration}
+  * instances returned by {@link EventBus#addHandler}.
+  *
+  * @param panel the panel to display this activity's widget when it is ready
+  * @param eventBus the event bus
+  */
+ void start(AcceptsOneWidget panel, EventBus eventBus);
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_activity/AbstractActivity.html">AbstractActivity</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="mayStop">
+abstract String <strong>mayStop</strong>() <a class="anchor-link" href="#mayStop"
+              title="Permalink to Activity.mayStop">#</a></h4>
+<div class="doc">
+<p>Called when the user is trying to navigate away from this activity.</p>
+<p>@return A message to display to the user, e.g. to warn of unsaved work, or</p>
+<pre><code>    null to say nothing
+</code></pre>
+</div>
+</div>
+<div class="method"><h4 id="onCancel">
+abstract void <strong>onCancel</strong>() <a class="anchor-link" href="#onCancel"
+              title="Permalink to Activity.onCancel">#</a></h4>
+<div class="doc">
+<p>Called when {@link #start} has not yet replied to its callback, but the
+user has lost interest.</p>
+</div>
+</div>
+<div class="method"><h4 id="onStop">
+abstract void <strong>onStop</strong>() <a class="anchor-link" href="#onStop"
+              title="Permalink to Activity.onStop">#</a></h4>
+<div class="doc">
+<p>Called when the Activity's widget has been removed from view. All event
+handlers it registered will have been removed before this method is called.</p>
+</div>
+</div>
+<div class="method"><h4 id="start">
+abstract void <strong>start</strong>(<a href="../dart_web_toolkit_ui/AcceptsOneWidget.html">AcceptsOneWidget</a> panel, <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> eventBus) <a class="anchor-link" href="#start"
+              title="Permalink to Activity.start">#</a></h4>
+<div class="doc">
+<p>Called when the Activity should ready its widget for the user. When the
+widget is ready (typically after an RPC response has been received),
+receiver should present it by calling
+{@link AcceptsOneWidget#setWidget} on the given panel.
+&lt;p>
+Any handlers attached to the provided event bus will be de-registered when
+the activity is stopped, so activities will rarely need to hold on to the
+{@link com.google.gwt.event.shared.HandlerRegistration HandlerRegistration}
+instances returned by {@link EventBus#addHandler}.</p>
+<p>@param panel the panel to display this activity's widget when it is ready
+@param eventBus the event bus</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:17.946</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

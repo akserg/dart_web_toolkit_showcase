@@ -1,0 +1,392 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Face abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="Face">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Face.html">Face</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Face</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Represents a button's face. Each face is associated with its own style
+modifier and, optionally, its own contents html, text, or image.</p>
+<pre class="source">
+abstract class Face implements HasHtml {
+
+ static String STYLENAME_HTML_FACE = "html-face";
+ Face delegateTo;
+ dart_html.Element face;
+
+ CustomButton _customButton;
+
+ /**
+  * Constructor for &lt;code&gt;Face&lt;/code&gt;. Creates a new face that delegates to
+  * the supplied face.
+ *
+  * @param delegateTo default content provider
+  */
+ Face(this._customButton, this.delegateTo);
+
+ //**************************
+ // Implementation of HasHtml
+ //**************************
+
+ /**
+  * Gets the face's contents as html.
+ *
+  * @return face's contents as html
+ *
+  */
+ String get html =&gt; getFace().innerHtml;
+
+ /**
+  * Set the face's contents as html.
+ *
+  * @param html html to set as face's contents html
+ *
+  */
+ void set html(String value) {
+   face = new dart_html.DivElement();
+   UiObject.manageElementStyleName(face, STYLENAME_HTML_FACE, true);
+   face.innerHtml = value;
+   updateButtonFace();
+ }
+
+ //**************************
+ // Implementation of HasText
+ //**************************
+
+ /**
+  * Gets the face's contents as text.
+ *
+  * @return face's contents as text
+ *
+  */
+ String get text =&gt; getFace().text;
+
+ /**
+  * Sets the face's contents as text.
+ *
+  * @param text text to set as face's contents
+  */
+ void set text(String value) {
+   face = new dart_html.DivElement();
+   UiObject.manageElementStyleName(face, STYLENAME_HTML_FACE, true);
+   face.text = value;
+   updateButtonFace();
+ }
+
+ //*******
+ // Images
+ //*******
+
+ /**
+  * Set the face's contents as an image.
+ *
+  * @param image image to set as face contents
+  */
+ void setImage(Image image) {
+   face = image.getElement();
+   updateButtonFace();
+ }
+
+ /**
+  * Gets the contents associated with this face.
+  */
+ dart_html.Element getFace() {
+   if (face == null) {
+     if (delegateTo == null) {
+       // provide a default face as none was supplied.
+       face = new dart_html.DivElement();
+       return face;
+     } else {
+       return delegateTo.getFace();
+     }
+   } else {
+     return face;
+   }
+ }
+
+ void updateButtonFace() {
+   if (_customButton._curFace != null &amp;&amp; _customButton._curFace.getFace() == this.getFace()) {
+     _customButton._setCurrentFaceElement(face);
+   }
+ }
+
+ String toString() {
+   return this.getName();
+ }
+
+ /**
+  * Gets the ID associated with this face. This will be a bitwise and of all
+  * of the attributes that comprise this face.
+  */
+ int getFaceID();
+
+ /**
+  * Get the name of the face. This property is also used as a modifier on the
+  * &lt;code&gt;CustomButton&lt;/code&gt; style. &lt;p/&gt; For instance, if the
+  * &lt;code&gt;CustomButton&lt;/code&gt; style is "gwt-PushButton" and the face name is
+  * "up", then the CSS class name will be "gwt-PushButton-up".
+ *
+  * @return the face's name
+  */
+ String getName();
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/SimpleFace.html">SimpleFace</a></span></p>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasHtml.html">HasHtml</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="STYLENAME_HTML_FACE">
+<button class="show-code">Code</button>
+String         <strong>STYLENAME_HTML_FACE</strong> <a class="anchor-link"
+            href="#STYLENAME_HTML_FACE"
+            title="Permalink to Face.STYLENAME_HTML_FACE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static String STYLENAME_HTML_FACE = "html-face"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Face">
+<button class="show-code">Code</button>
+new <strong>Face</strong>(<a href="../dart_web_toolkit_ui/CustomButton.html">CustomButton</a> _customButton, <a href="../dart_web_toolkit_ui/Face.html">Face</a> delegateTo) <a class="anchor-link" href="#Face"
+              title="Permalink to Face.Face">#</a></h4>
+<div class="doc">
+<p>Constructor for &lt;code>Face&lt;/code>. Creates a new face that delegates to
+the supplied face.</p>
+<p>@param delegateTo default content provider</p>
+<pre class="source">
+Face(this._customButton, this.delegateTo);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="delegateTo">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Face.html">Face</a>         <strong>delegateTo</strong> <a class="anchor-link"
+            href="#delegateTo"
+            title="Permalink to Face.delegateTo">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Face delegateTo
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="face">
+<button class="show-code">Code</button>
+Element         <strong>face</strong> <a class="anchor-link"
+            href="#face"
+            title="Permalink to Face.face">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+dart_html.Element face
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="html">
+<button class="show-code">Code</button>
+String <strong>get html</strong> <a class="anchor-link" href="#html"
+              title="Permalink to Face.get html">#</a></h4>
+<div class="doc">
+<p>Gets the face's contents as html.</p>
+<p>@return face's contents as html</p>
+<pre class="source">
+String get html =&gt; getFace().innerHtml;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="html=">
+<button class="show-code">Code</button>
+void <strong>set html</strong>(String value) <a class="anchor-link" href="#html="
+              title="Permalink to Face.set html">#</a></h4>
+<div class="doc">
+<p>Set the face's contents as html.</p>
+<p>@param html html to set as face's contents html</p>
+<pre class="source">
+void set html(String value) {
+ face = new dart_html.DivElement();
+ UiObject.manageElementStyleName(face, STYLENAME_HTML_FACE, true);
+ face.innerHtml = value;
+ updateButtonFace();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="text">
+<button class="show-code">Code</button>
+String <strong>get text</strong> <a class="anchor-link" href="#text"
+              title="Permalink to Face.get text">#</a></h4>
+<div class="doc">
+<p>Gets the face's contents as text.</p>
+<p>@return face's contents as text</p>
+<pre class="source">
+String get text =&gt; getFace().text;
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="text=">
+<button class="show-code">Code</button>
+void <strong>set text</strong>(String value) <a class="anchor-link" href="#text="
+              title="Permalink to Face.set text">#</a></h4>
+<div class="doc">
+<p>Sets the face's contents as text.</p>
+<p>@param text text to set as face's contents</p>
+<pre class="source">
+void set text(String value) {
+ face = new dart_html.DivElement();
+ UiObject.manageElementStyleName(face, STYLENAME_HTML_FACE, true);
+ face.text = value;
+ updateButtonFace();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="getFace">
+<button class="show-code">Code</button>
+Element <strong>getFace</strong>() <a class="anchor-link" href="#getFace"
+              title="Permalink to Face.getFace">#</a></h4>
+<div class="doc">
+<p>Gets the contents associated with this face.</p>
+<pre class="source">
+dart_html.Element getFace() {
+ if (face == null) {
+   if (delegateTo == null) {
+     // provide a default face as none was supplied.
+     face = new dart_html.DivElement();
+     return face;
+   } else {
+     return delegateTo.getFace();
+   }
+ } else {
+   return face;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFaceID">
+abstract int <strong>getFaceID</strong>() <a class="anchor-link" href="#getFaceID"
+              title="Permalink to Face.getFaceID">#</a></h4>
+<div class="doc">
+<p>Gets the ID associated with this face. This will be a bitwise and of all
+of the attributes that comprise this face.</p>
+</div>
+</div>
+<div class="method"><h4 id="getName">
+abstract String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to Face.getName">#</a></h4>
+<div class="doc">
+<p>Get the name of the face. This property is also used as a modifier on the
+&lt;code>CustomButton&lt;/code> style. &lt;p/> For instance, if the
+&lt;code>CustomButton&lt;/code> style is "gwt-PushButton" and the face name is
+"up", then the CSS class name will be "gwt-PushButton-up".</p>
+<p>@return the face's name</p>
+</div>
+</div>
+<div class="method"><h4 id="setImage">
+<button class="show-code">Code</button>
+void <strong>setImage</strong>(<a href="../dart_web_toolkit_ui/Image.html">Image</a> image) <a class="anchor-link" href="#setImage"
+              title="Permalink to Face.setImage">#</a></h4>
+<div class="doc">
+<p>Set the face's contents as an image.</p>
+<p>@param image image to set as face contents</p>
+<pre class="source">
+void setImage(Image image) {
+ face = image.getElement();
+ updateButtonFace();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to Face.toString">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns a string representation of this object.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+String toString() {
+ return this.getName();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="updateButtonFace">
+<button class="show-code">Code</button>
+void <strong>updateButtonFace</strong>() <a class="anchor-link" href="#updateButtonFace"
+              title="Permalink to Face.updateButtonFace">#</a></h4>
+<div class="doc">
+<pre class="source">
+void updateButtonFace() {
+ if (_customButton._curFace != null &amp;&amp; _customButton._curFace.getFace() == this.getFace()) {
+   _customButton._setCurrentFaceElement(face);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:25.352</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

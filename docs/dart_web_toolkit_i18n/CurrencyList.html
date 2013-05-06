@@ -1,0 +1,1073 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>CurrencyList class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="CurrencyList">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/CurrencyList.html">CurrencyList</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>CurrencyList</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Generated class containing all the CurrencyImpl instances.  This is just
+the fallback in case the I18N module is not included.</p>
+<pre class="source">
+class CurrencyList extends Iterable&lt;CurrencyData&gt; {
+
+ /**
+  * Return the singleton instance of CurrencyList.
+  */
+ static CurrencyList get() {
+   return CurrencyListInstance.instance;
+ }
+
+ /**
+  * Add all entries in {@code override} to the original map, replacing
+  * any existing entries.  This is used by subclasses that need to slightly
+  * alter the data used by the parent locale.
+  */
+ //static JavaScriptObject overrideMap(JavaScriptObject original, JavaScriptObject override) /*-{
+ static Map overrideMap(Map original, Map override) {
+   for (var key in override.keys) {
+//      if (override.hasOwnProperty(key)) {
+       original[key] = override[key];
+//      }
+   }
+   return original;
+ }
+
+ /**
+  * Add currency codes contained in the map to an ArrayList.
+  */
+ //static void loadCurrencyValuesNative(JavaScriptObject map, ArrayList&lt;CurrencyData&gt; collection) /*-{
+//  static void loadCurrencyValuesNative(Map map, List&lt;CurrencyData&gt; collection) {
+//    for (var key in map.keys) {
+////      if (map.hasOwnProperty(key)) {
+//        //collection.@java.util.ArrayList::add(Ljava/lang/Object;)(map[key]);
+//      collection.add(map[key]);
+////      }
+//    }
+//  }
+
+ /**
+  * Directly reference an entry in the currency names map JSO.
+  *
+  * @param code ISO4217 currency code
+  * @return currency name, or the currency code if not known
+  */
+ //static String lookupNameNative(JavaScriptObject namesMap, String code) {
+//  static String lookupNameNative(Map namesMap, String code) {
+//    return namesMap[code] == null ? code : namesMap[code];
+//  }
+
+ /**
+  * Directly reference an entry in the currency map JSO.
+  *
+  * @param code ISO4217 currency code
+  * @return currency data
+  */
+ //static CurrencyData lookupNative(JavaScriptObject dataMap, String code) /*-{
+//  static CurrencyData lookupNative(Map dataMap, String code) {
+//    return dataMap[code];
+//  }
+
+ /**
+  * Map of currency codes to CurrencyData.
+  */
+ Map&lt;String, CurrencyData&gt; dataMapJava;
+
+ /**
+  * JS map of currency codes to CurrencyData objects. Each currency code is
+  * assumed to be a valid JS object key.
+  */
+ //JavaScriptObject dataMapNative;
+//  Map dataMapNative;
+
+ /**
+  * Map of currency codes to localized currency names. This is kept separate
+  * from {@link #dataMapJava} above so that the names can be completely removed by
+  * the compiler if they are not used.
+  */
+ Map&lt;String, String&gt; namesMapJava;
+
+ /**
+  * JS map of currency codes to localized currency names. This is kept separate
+  * from {@link #dataMapNative} above so that the names can be completely
+  * removed by the compiler if they are not used. Each currency code is assumed
+  * to be a valid JS object key.
+  */
+ //JavaScriptObject namesMapNative;
+//  Map namesMapNative;
+
+ /**
+  * Return the default currency data for this locale.
+  *
+  * Generated implementations override this method.
+  */
+ CurrencyData getDefault() {
+//    if (GWT.isScript()) {
+//      return getDefaultNative();
+//    } else {
+     return getDefaultJava();
+//    }
+ }
+
+ /**
+  * Returns an iterator for the list of currencies, optionally including
+  * deprecated ones.
+  *
+  * @param includeDeprecated true if deprecated currencies should be included
+  */
+ Iterator&lt;CurrencyData&gt; get iterator {
+   bool includeDeprecated = false;
+   ensureCurrencyMap();
+   List&lt;CurrencyData&gt; collection = new List&lt;CurrencyData&gt;();
+//    if (GWT.isScript()) {
+//      loadCurrencyValuesNative(dataMapNative, collection);
+//    } else {
+     for (CurrencyData item in dataMapJava.values) {
+       collection.add(item);
+     }
+//    }
+   if (!includeDeprecated) {
+     List&lt;CurrencyData&gt; newCollection = new List&lt;CurrencyData&gt;();
+     for (CurrencyData value in collection) {
+       if (!value.isDeprecated()) {
+         newCollection.add(value);
+       }
+     }
+     collection = newCollection;
+   }
+   //return Collections.unmodifiableList(collection).iterator();
+   return collection.iterator;
+ }
+
+ /**
+  * Lookup a currency based on the ISO4217 currency code.
+  *
+  * @param currencyCode ISO4217 currency code
+  * @return currency data, or null if code not found
+  */
+ CurrencyData lookup(String currencyCode) {
+   ensureCurrencyMap();
+//    if (GWT.isScript()) {
+//      return lookupNative(dataMapNative, currencyCode);
+//    } else {
+     return dataMapJava[currencyCode];
+//    }
+ }
+
+ /**
+  * Lookup a currency name based on the ISO4217 currency code.
+  *
+  * @param currencyCode ISO4217 currency code
+  * @return name of the currency, or null if code not found
+  */
+ String lookupName(String currencyCode) {
+   ensureNamesMap();
+//    if (GWT.isScript()) {
+//      return lookupNameNative(namesMapNative, currencyCode);
+//    } else {
+     String result = namesMapJava[currencyCode];
+     return (result == null) ? currencyCode : result;
+//    }
+ }
+
+ /**
+  * Return the default currency data for this locale.
+  *
+  * Generated implementations override this method.
+  */
+ CurrencyData getDefaultJava() {
+   return new CurrencyDataImpl("USD", "\$", 2, "US\$", "\$");
+ }
+
+ /**
+  * Return the default currency data for this locale.
+  *
+  * Generated implementations override this method.
+  */
+//  CurrencyData getDefaultNative() {
+//    return [ "USD", "$", 2, "US$" ];
+//  }
+
+ /**
+  * Loads the currency map.
+  *
+  * Generated implementations override this method.
+  */
+ Map&lt;String, CurrencyData&gt; loadCurrencyMapJava() {
+   Map&lt;String, CurrencyData&gt; result = {
+     "USD": new CurrencyDataImpl("USD", "\$", 2, "US\$", "\$"),
+     "EUR": new CurrencyDataImpl("EUR", "в‚¬", 2, "в‚¬", "в‚¬"),
+     "GBP": new CurrencyDataImpl("GBP", "UKВЈ", 2, "UKВЈ", "ВЈ"),
+     "JPY": new CurrencyDataImpl("JPY", "ВҐ", 0, "JPВҐ", "ВҐ")
+   };
+   return result;
+ }
+
+ /**
+  * Loads the currency map from a JS object literal.
+  *
+  * Generated implementations override this method.
+  */
+ //JavaScriptObject loadCurrencyMapNative() {
+//  Map loadCurrencyMapNative() {
+//    return {
+//      "USD": [ "USD", "\$", 2 ],
+//      "EUR": [ "EUR", "в‚¬", 2 ],
+//      "GBP": [ "GBP", "UKВЈ", 2 ],
+//      "JPY": [ "JPY", "ВҐ", 0 ],
+//    };
+//  }
+
+ /**
+  * Loads the currency names map.
+  *
+  * Generated implementations override this method.
+  */
+ Map&lt;String, String&gt; loadNamesMapJava() {
+   Map&lt;String, String&gt; result = {
+     "USD": "US Dollar",
+     "EUR": "Euro",
+     "GBP": "British Pound Sterling",
+     "JPY": "Japanese Yen"};
+   return result;
+ }
+
+ /**
+  * Loads the currency names map from a JS object literal.
+  *
+  * Generated implementations override this method.
+  */
+ //JavaScriptObject loadNamesMapNative() /*-{
+//  Map loadNamesMapNative() {
+//    return {
+//      "USD": "US Dollar",
+//      "EUR": "Euro",
+//      "GBP": "British Pound Sterling",
+//      "JPY": "Japanese Yen",
+//    };
+//  }
+
+ /**
+  * Ensure that the map of currency data has been initialized.
+  */
+ void ensureCurrencyMap() {
+//    if (GWT.isScript()) {
+//      if (dataMapNative == null) {
+//        dataMapNative = loadCurrencyMapNative();
+//      }
+//    } else {
+     if (dataMapJava == null) {
+       dataMapJava = loadCurrencyMapJava();
+     }
+//    }
+ }
+
+ /**
+  * Ensure that the map of currency data has been initialized.
+  */
+ void ensureNamesMap() {
+//    if (GWT.isScript()) {
+//      if (namesMapNative == null) {
+//        namesMapNative = loadNamesMapNative();
+//      }
+//    } else {
+     if (namesMapJava == null) {
+       namesMapJava = loadNamesMapJava();
+     }
+//    }
+ }
+ 
+//**********************
+ int get length { throw new UnsupportedError("");}
+ bool contains(CurrencyData element) { throw new UnsupportedError("");}
+ bool get isEmpty { throw new UnsupportedError("");}
+ CurrencyData get first { throw new UnsupportedError("");}
+ CurrencyData get last { throw new UnsupportedError("");}
+ CurrencyData get single { throw new UnsupportedError("");}
+ Iterable map(f(CurrencyData element)) { throw new UnsupportedError("");}
+ Iterable&lt;CurrencyData&gt; where(bool f(CurrencyData element)) { throw new UnsupportedError("");}
+ Iterable expand(Iterable f(CurrencyData element)) { throw new UnsupportedError("");}
+ void forEach(void f(CurrencyData element)) { throw new UnsupportedError("");}
+ CurrencyData reduce(CurrencyData combine(CurrencyData value, CurrencyData element)) { throw new UnsupportedError("");}
+ dynamic fold(var initialValue, dynamic combine(var previousValue, CurrencyData element)) { throw new UnsupportedError("");}
+ bool every(bool f(CurrencyData element)) { throw new UnsupportedError("");}
+ bool any(bool f(CurrencyData element)) { throw new UnsupportedError("");}
+ List&lt;CurrencyData&gt; toList({ bool growable: true }) { throw new UnsupportedError("");}
+ Set&lt;CurrencyData&gt; toSet() { throw new UnsupportedError("");}
+ Iterable&lt;CurrencyData&gt; take(int n) { throw new UnsupportedError("");}
+ Iterable&lt;CurrencyData&gt; takeWhile(bool test(CurrencyData value)) { throw new UnsupportedError("");}
+ Iterable&lt;CurrencyData&gt; skip(int n) { throw new UnsupportedError("");}
+ Iterable&lt;CurrencyData&gt; skipWhile(bool test(CurrencyData value)) { throw new UnsupportedError("");}
+ CurrencyData firstWhere(bool test(CurrencyData value), { CurrencyData orElse() }) { throw new UnsupportedError("");}
+ CurrencyData lastWhere(bool test(CurrencyData value), {CurrencyData orElse()}) { throw new UnsupportedError("");}
+ CurrencyData singleWhere(bool test(CurrencyData value)) { throw new UnsupportedError("");}
+ CurrencyData elementAt(int index) { throw new UnsupportedError("");}
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_core/Iterable.html">Iterable&lt;CurrencyData&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>CurrencyList</strong></span></p>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyList.html">CurrencyList</a> <strong>get</strong>() <a class="anchor-link" href="#get"
+              title="Permalink to CurrencyList.get">#</a></h4>
+<div class="doc">
+<p>Return the singleton instance of CurrencyList.</p>
+<pre class="source">
+static CurrencyList get() {
+ return CurrencyListInstance.instance;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="overrideMap">
+<button class="show-code">Code</button>
+Map <strong>overrideMap</strong>(Map original, Map override) <a class="anchor-link" href="#overrideMap"
+              title="Permalink to CurrencyList.overrideMap">#</a></h4>
+<div class="doc">
+<p>Add all entries in {@code override} to the original map, replacing
+any existing entries.  This is used by subclasses that need to slightly
+alter the data used by the parent locale.</p>
+<pre class="source">
+static Map overrideMap(Map original, Map override) {
+ for (var key in override.keys) {
+//      if (override.hasOwnProperty(key)) {
+     original[key] = override[key];
+//      }
+ }
+ return original;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="dataMapJava">
+<button class="show-code">Code</button>
+Map&lt;String, <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt;         <strong>dataMapJava</strong> <a class="anchor-link"
+            href="#dataMapJava"
+            title="Permalink to CurrencyList.dataMapJava">#</a>
+        </h4>
+        <div class="doc">
+<p>Add currency codes contained in the map to an ArrayList.</p>
+<p>/      if (map.hasOwnProperty(key)) {
+/      }</p>
+<p>Directly reference an entry in the currency names map JSO.</p>
+<p>@param code ISO4217 currency code
+@return currency name, or the currency code if not known</p>
+<p>Directly reference an entry in the currency map JSO.</p>
+<p>@param code ISO4217 currency code
+@return currency data</p>
+<p>Map of currency codes to CurrencyData.</p>
+<pre class="source">
+Map&lt;String, CurrencyData&gt; dataMapJava
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="first">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>         <strong>first</strong> <a class="anchor-link"
+            href="#first"
+            title="Permalink to CurrencyList.first">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns the first element.</p>
+<p>If <code>this</code> is empty throws a <code>StateError</code>. Otherwise this method is
+equivalent to <code>this.elementAt(0)</code></p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData get first { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="isEmpty">
+<button class="show-code">Code</button>
+final bool         <strong>isEmpty</strong> <a class="anchor-link"
+            href="#isEmpty"
+            title="Permalink to CurrencyList.isEmpty">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns true if there is no element in this collection.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+bool get isEmpty { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="iterator">
+<button class="show-code">Code</button>
+final Iterator&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt;         <strong>iterator</strong> <a class="anchor-link"
+            href="#iterator"
+            title="Permalink to CurrencyList.iterator">#</a>
+        </h4>
+        <div class="doc">
+<p>Returns an iterator for the list of currencies, optionally including
+deprecated ones.</p>
+<p>@param includeDeprecated true if deprecated currencies should be included</p>
+<pre class="source">
+Iterator&lt;CurrencyData&gt; get iterator {
+ bool includeDeprecated = false;
+ ensureCurrencyMap();
+ List&lt;CurrencyData&gt; collection = new List&lt;CurrencyData&gt;();
+//    if (GWT.isScript()) {
+//      loadCurrencyValuesNative(dataMapNative, collection);
+//    } else {
+   for (CurrencyData item in dataMapJava.values) {
+     collection.add(item);
+   }
+//    }
+ if (!includeDeprecated) {
+   List&lt;CurrencyData&gt; newCollection = new List&lt;CurrencyData&gt;();
+   for (CurrencyData value in collection) {
+     if (!value.isDeprecated()) {
+       newCollection.add(value);
+     }
+   }
+   collection = newCollection;
+ }
+ //return Collections.unmodifiableList(collection).iterator();
+ return collection.iterator;
+}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="last">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>         <strong>last</strong> <a class="anchor-link"
+            href="#last"
+            title="Permalink to CurrencyList.last">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns the last element.</p>
+<p>If <code>this</code> is empty throws a <code>StateError</code>.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData get last { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="length">
+<button class="show-code">Code</button>
+final int         <strong>length</strong> <a class="anchor-link"
+            href="#length"
+            title="Permalink to CurrencyList.length">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns the number of elements in <code>this</code>.</p>
+<p>Counting all elements may be involve running through all elements and can
+therefore be slow.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+int get length { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="namesMapJava">
+<button class="show-code">Code</button>
+Map&lt;String, String&gt;         <strong>namesMapJava</strong> <a class="anchor-link"
+            href="#namesMapJava"
+            title="Permalink to CurrencyList.namesMapJava">#</a>
+        </h4>
+        <div class="doc">
+<p>JS map of currency codes to CurrencyData objects. Each currency code is
+assumed to be a valid JS object key.</p>
+<p>Map of currency codes to localized currency names. This is kept separate
+from {@link #dataMapJava} above so that the names can be completely removed by
+the compiler if they are not used.</p>
+<pre class="source">
+Map&lt;String, String&gt; namesMapJava
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="single">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>         <strong>single</strong> <a class="anchor-link"
+            href="#single"
+            title="Permalink to CurrencyList.single">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns the single element in <code>this</code>.</p>
+<p>If <code>this</code> is empty or has more than one element throws a <code>StateError</code>.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData get single { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="any">
+<button class="show-code">Code</button>
+bool <strong>any</strong>(bool f(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#any"
+              title="Permalink to CurrencyList.any">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if one element of this collection satisfies the
+predicate 
+<span class="param">f</span>. Returns false otherwise.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+bool any(bool f(CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="contains">
+<button class="show-code">Code</button>
+bool <strong>contains</strong>(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element) <a class="anchor-link" href="#contains"
+              title="Permalink to CurrencyList.contains">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Check whether the collection contains an element equal to 
+<span class="param">element</span>.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+bool contains(CurrencyData element) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="elementAt">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>elementAt</strong>(int index) <a class="anchor-link" href="#elementAt"
+              title="Permalink to CurrencyList.elementAt">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the 
+<span class="param">index</span>th element.</p>
+<p>If [this] [Iterable] has fewer than 
+<span class="param">index</span> elements throws a
+<code>RangeError</code>.</p>
+<p>Note: if <code>this</code> does not have a deterministic iteration order then the
+function may simply return any element without any iteration if there are
+at least 
+<span class="param">index</span> elements in <code>this</code>.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData elementAt(int index) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureCurrencyMap">
+<button class="show-code">Code</button>
+void <strong>ensureCurrencyMap</strong>() <a class="anchor-link" href="#ensureCurrencyMap"
+              title="Permalink to CurrencyList.ensureCurrencyMap">#</a></h4>
+<div class="doc">
+<p>Loads the currency names map from a JS object literal.</p>
+<p>Generated implementations override this method.</p>
+<p>Ensure that the map of currency data has been initialized.</p>
+<pre class="source">
+void ensureCurrencyMap() {
+//    if (GWT.isScript()) {
+//      if (dataMapNative == null) {
+//        dataMapNative = loadCurrencyMapNative();
+//      }
+//    } else {
+   if (dataMapJava == null) {
+     dataMapJava = loadCurrencyMapJava();
+   }
+//    }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="ensureNamesMap">
+<button class="show-code">Code</button>
+void <strong>ensureNamesMap</strong>() <a class="anchor-link" href="#ensureNamesMap"
+              title="Permalink to CurrencyList.ensureNamesMap">#</a></h4>
+<div class="doc">
+<p>Ensure that the map of currency data has been initialized.</p>
+<pre class="source">
+void ensureNamesMap() {
+//    if (GWT.isScript()) {
+//      if (namesMapNative == null) {
+//        namesMapNative = loadNamesMapNative();
+//      }
+//    } else {
+   if (namesMapJava == null) {
+     namesMapJava = loadNamesMapJava();
+   }
+//    }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="every">
+<button class="show-code">Code</button>
+bool <strong>every</strong>(bool f(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#every"
+              title="Permalink to CurrencyList.every">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns true if every elements of this collection satisify the
+predicate 
+<span class="param">f</span>. Returns false otherwise.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+bool every(bool f(CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="expand">
+<button class="show-code">Code</button>
+Iterable <strong>expand</strong>(Iterable f(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#expand"
+              title="Permalink to CurrencyList.expand">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Expand each element of this <code>Iterable</code> into zero or more elements.</p>
+<p>The resulting Iterable will run through the elements returned
+by 
+<span class="param">f</span> for each element of this, in order.</p>
+<p>The returned <code>Iterable</code> is lazy, and will call 
+<span class="param">f</span> for each element
+of this every time it's iterated.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable expand(Iterable f(CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="firstWhere">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>firstWhere</strong>(bool test(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> value), {<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> orElse()}) <a class="anchor-link" href="#firstWhere"
+              title="Permalink to CurrencyList.firstWhere">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the first element that satisfies the given predicate <code>f</code>.</p>
+<p>If none matches, the result of invoking the 
+<span class="param">orElse</span> function is
+returned. By default, when 
+<span class="param">orElse</span> is <code>null</code>, a <code>StateError</code> is
+thrown.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData firstWhere(bool test(CurrencyData value), { CurrencyData orElse() }) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fold">
+<button class="show-code">Code</button>
+dynamic <strong>fold</strong>(initialValue, combine(previousValue, <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#fold"
+              title="Permalink to CurrencyList.fold">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Reduces a collection to a single value by iteratively combining each
+element of the collection with an existing value using the provided
+function.</p>
+<p>Use 
+<span class="param">initialValue</span> as the initial value, and the function 
+<span class="param">combine</span> to
+create a new value from the previous one and an element.</p>
+<p>Example of calculating the sum of an iterable:</p>
+<pre><code>iterable.fold(0, (prev, element) =&gt; prev + element);
+</code></pre>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+dynamic fold(var initialValue, dynamic combine(var previousValue, CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forEach">
+<button class="show-code">Code</button>
+void <strong>forEach</strong>(void f(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#forEach"
+              title="Permalink to CurrencyList.forEach">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Applies the function 
+<span class="param">f</span> to each element of this collection.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+void forEach(void f(CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDefault">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>getDefault</strong>() <a class="anchor-link" href="#getDefault"
+              title="Permalink to CurrencyList.getDefault">#</a></h4>
+<div class="doc">
+<p>JS map of currency codes to localized currency names. This is kept separate
+from {@link #dataMapNative} above so that the names can be completely
+removed by the compiler if they are not used. Each currency code is assumed
+to be a valid JS object key.</p>
+<p>Return the default currency data for this locale.</p>
+<p>Generated implementations override this method.</p>
+<pre class="source">
+CurrencyData getDefault() {
+//    if (GWT.isScript()) {
+//      return getDefaultNative();
+//    } else {
+   return getDefaultJava();
+//    }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDefaultJava">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>getDefaultJava</strong>() <a class="anchor-link" href="#getDefaultJava"
+              title="Permalink to CurrencyList.getDefaultJava">#</a></h4>
+<div class="doc">
+<p>Return the default currency data for this locale.</p>
+<p>Generated implementations override this method.</p>
+<pre class="source">
+CurrencyData getDefaultJava() {
+ return new CurrencyDataImpl("USD", "\$", 2, "US\$", "\$");
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="join">
+<button class="show-code">Code</button>
+String <strong>join</strong>([String separator = ""]) <a class="anchor-link" href="#join"
+              title="Permalink to CurrencyList.join">#</a></h4>
+<div class="inherited-from">inherited from Iterable </div><div class="doc">
+<p>Converts each element to a <code>String</code> and concatenates the strings.</p>
+<p>Converts each element to a <code>String</code> by calling <code>Object.toString</code> on it.
+Then concatenates the strings, optionally separated by the 
+<span class="param">separator</span>
+string.</p>
+<pre class="source">
+String join([String separator = ""]) {
+ StringBuffer buffer = new StringBuffer();
+ buffer.writeAll(this, separator);
+ return buffer.toString();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="lastWhere">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>lastWhere</strong>(bool test(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> value), {<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> orElse()}) <a class="anchor-link" href="#lastWhere"
+              title="Permalink to CurrencyList.lastWhere">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the last element that satisfies the given predicate <code>f</code>.</p>
+<p>If none matches, the result of invoking the 
+<span class="param">orElse</span> function is
+returned. By default, when 
+<span class="param">orElse</span> is <code>null</code>, a <code>StateError</code> is
+thrown.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData lastWhere(bool test(CurrencyData value), {CurrencyData orElse()}) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="loadCurrencyMapJava">
+<button class="show-code">Code</button>
+Map&lt;String, <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>loadCurrencyMapJava</strong>() <a class="anchor-link" href="#loadCurrencyMapJava"
+              title="Permalink to CurrencyList.loadCurrencyMapJava">#</a></h4>
+<div class="doc">
+<p>Return the default currency data for this locale.</p>
+<p>Generated implementations override this method.</p>
+<p>Loads the currency map.</p>
+<p>Generated implementations override this method.</p>
+<pre class="source">
+Map&lt;String, CurrencyData&gt; loadCurrencyMapJava() {
+ Map&lt;String, CurrencyData&gt; result = {
+   "USD": new CurrencyDataImpl("USD", "\$", 2, "US\$", "\$"),
+   "EUR": new CurrencyDataImpl("EUR", "в‚¬", 2, "в‚¬", "в‚¬"),
+   "GBP": new CurrencyDataImpl("GBP", "UKВЈ", 2, "UKВЈ", "ВЈ"),
+   "JPY": new CurrencyDataImpl("JPY", "ВҐ", 0, "JPВҐ", "ВҐ")
+ };
+ return result;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="loadNamesMapJava">
+<button class="show-code">Code</button>
+Map&lt;String, String&gt; <strong>loadNamesMapJava</strong>() <a class="anchor-link" href="#loadNamesMapJava"
+              title="Permalink to CurrencyList.loadNamesMapJava">#</a></h4>
+<div class="doc">
+<p>Loads the currency map from a JS object literal.</p>
+<p>Generated implementations override this method.</p>
+<p>Loads the currency names map.</p>
+<p>Generated implementations override this method.</p>
+<pre class="source">
+Map&lt;String, String&gt; loadNamesMapJava() {
+ Map&lt;String, String&gt; result = {
+   "USD": "US Dollar",
+   "EUR": "Euro",
+   "GBP": "British Pound Sterling",
+   "JPY": "Japanese Yen"};
+ return result;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="lookup">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>lookup</strong>(String currencyCode) <a class="anchor-link" href="#lookup"
+              title="Permalink to CurrencyList.lookup">#</a></h4>
+<div class="doc">
+<p>Lookup a currency based on the ISO4217 currency code.</p>
+<p>@param currencyCode ISO4217 currency code
+@return currency data, or null if code not found</p>
+<pre class="source">
+CurrencyData lookup(String currencyCode) {
+ ensureCurrencyMap();
+//    if (GWT.isScript()) {
+//      return lookupNative(dataMapNative, currencyCode);
+//    } else {
+   return dataMapJava[currencyCode];
+//    }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="lookupName">
+<button class="show-code">Code</button>
+String <strong>lookupName</strong>(String currencyCode) <a class="anchor-link" href="#lookupName"
+              title="Permalink to CurrencyList.lookupName">#</a></h4>
+<div class="doc">
+<p>Lookup a currency name based on the ISO4217 currency code.</p>
+<p>@param currencyCode ISO4217 currency code
+@return name of the currency, or null if code not found</p>
+<pre class="source">
+String lookupName(String currencyCode) {
+ ensureNamesMap();
+//    if (GWT.isScript()) {
+//      return lookupNameNative(namesMapNative, currencyCode);
+//    } else {
+   String result = namesMapJava[currencyCode];
+   return (result == null) ? currencyCode : result;
+//    }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="map">
+<button class="show-code">Code</button>
+Iterable <strong>map</strong>(f(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#map"
+              title="Permalink to CurrencyList.map">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns a lazy <code>Iterable</code> where each element <code>e</code> of <code>this</code> is replaced
+by the result of <code>f(e)</code>.</p>
+<p>This method returns a view of the mapped elements. As long as the
+returned <code>Iterable</code> is not iterated over, the supplied function 
+<span class="param">f</span> will
+not be invoked. The transformed elements will not be cached. Iterating
+multiple times over the the returned <code>Iterable</code> will invoke the supplied
+function 
+<span class="param">f</span> multiple times on the same element.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable map(f(CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="reduce">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>reduce</strong>(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> combine(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> value, <a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#reduce"
+              title="Permalink to CurrencyList.reduce">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Reduces a collection to a single value by iteratively combining elements
+of the collection using the provided function.</p>
+<p>Example of calculating the sum of an iterable:</p>
+<pre><code>iterable.reduce((value, element) =&gt; value + element);
+</code></pre>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData reduce(CurrencyData combine(CurrencyData value, CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="singleWhere">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> <strong>singleWhere</strong>(bool test(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> value)) <a class="anchor-link" href="#singleWhere"
+              title="Permalink to CurrencyList.singleWhere">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the single element that satisfies <code>f</code>. If no or more than one
+element match then a <code>StateError</code> is thrown.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+CurrencyData singleWhere(bool test(CurrencyData value)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="skip">
+<button class="show-code">Code</button>
+Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>skip</strong>(int n) <a class="anchor-link" href="#skip"
+              title="Permalink to CurrencyList.skip">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterable</code> that skips the first 
+<span class="param">n</span> elements.</p>
+<p>If <code>this</code> has fewer than 
+<span class="param">n</span> elements, then the resulting <code>Iterable</code> will
+be empty.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable&lt;CurrencyData&gt; skip(int n) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="skipWhile">
+<button class="show-code">Code</button>
+Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>skipWhile</strong>(bool test(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> value)) <a class="anchor-link" href="#skipWhile"
+              title="Permalink to CurrencyList.skipWhile">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterable</code> that skips elements while 
+<span class="param">test</span> is satisfied.</p>
+<p>The filtering happens lazily. Every new <code>Iterator</code> of the returned
+<code>Iterable</code> will iterate over all elements of <code>this</code>.
+As long as the iterator's elements do not satisfy 
+<span class="param">test</span> they are
+discarded. Once an element satisfies the 
+<span class="param">test</span> the iterator stops testing
+and uses every element unconditionally.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable&lt;CurrencyData&gt; skipWhile(bool test(CurrencyData value)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="take">
+<button class="show-code">Code</button>
+Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>take</strong>(int n) <a class="anchor-link" href="#take"
+              title="Permalink to CurrencyList.take">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterable</code> with at most 
+<span class="param">n</span> elements.</p>
+<p>The returned <code>Iterable</code> may contain fewer than 
+<span class="param">n</span> elements, if <code>this</code>
+contains fewer than 
+<span class="param">n</span> elements.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable&lt;CurrencyData&gt; take(int n) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="takeWhile">
+<button class="show-code">Code</button>
+Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>takeWhile</strong>(bool test(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> value)) <a class="anchor-link" href="#takeWhile"
+              title="Permalink to CurrencyList.takeWhile">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns an <code>Iterable</code> that stops once 
+<span class="param">test</span> is not satisfied anymore.</p>
+<p>The filtering happens lazily. Every new <code>Iterator</code> of the returned
+<code>Iterable</code> will start iterating over the elements of <code>this</code>.
+When the iterator encounters an element <code>e</code> that does not satisfy 
+<span class="param">test</span>,
+it discards <code>e</code> and moves into the finished state. That is, it will not
+ask or provide any more elements.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable&lt;CurrencyData&gt; takeWhile(bool test(CurrencyData value)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toList">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>toList</strong>({bool growable: true}) <a class="anchor-link" href="#toList"
+              title="Permalink to CurrencyList.toList">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a <code>List</code> containing the elements of this <code>Iterable</code>.</p>
+<p>The elements will be in iteration order. The list is fixed-length
+if 
+<span class="param">growable</span> is false.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+List&lt;CurrencyData&gt; toList({ bool growable: true }) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toSet">
+<button class="show-code">Code</button>
+Set&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>toSet</strong>() <a class="anchor-link" href="#toSet"
+              title="Permalink to CurrencyList.toSet">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a <code>Set</code> containing the elements of this <code>Iterable</code>.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Set&lt;CurrencyData&gt; toSet() { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="where">
+<button class="show-code">Code</button>
+Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; <strong>where</strong>(bool f(<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a> element)) <a class="anchor-link" href="#where"
+              title="Permalink to CurrencyList.where">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns a lazy <code>Iterable</code> with all elements that satisfy the
+predicate 
+<span class="param">f</span>.</p>
+<p>This method returns a view of the mapped elements. As long as the
+returned <code>Iterable</code> is not iterated over, the supplied function 
+<span class="param">f</span> will
+not be invoked. Iterating will not cache results, and thus iterating
+multiple times over the the returned <code>Iterable</code> will invoke the supplied
+function 
+<span class="param">f</span> multiple times on the same element.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+Iterable&lt;CurrencyData&gt; where(bool f(CurrencyData element)) { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.130</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

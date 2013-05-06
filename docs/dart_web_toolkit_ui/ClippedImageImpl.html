@@ -1,0 +1,179 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ClippedImageImpl class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="ClippedImageImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ClippedImageImpl.html">ClippedImageImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ClippedImageImpl</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Uses a combination of a clear image and a background image to clip all except
+a desired portion of an underlying image.</p>
+<p>Do not use this class - it is used for implementation only, and its methods
+may change in the future.</p>
+<pre class="source">
+class ClippedImageImpl {
+
+ String clearImage = DWT.getModuleBaseURL() + "resource/images/clear.gif";
+
+ dart_html.Element createStructure(SafeUri url, int left, int top, int width, int height) {
+   dart_html.ImageElement img = new dart_html.ImageElement();
+   img.src = clearImage;
+   //
+   String style = "url(\"${url.asString()}\") no-repeat ${-left}px ${-top}px";
+   img.style.background = style;
+   img.style.width = "${width}px";
+   img.style.height = "${height}px";
+   img.onLoad.listen((dart_html.Event evt) {
+     img.dataset[DomImpl.UNHANDLED_EVENT_ATTR] = BrowserEvents.LOAD;
+   });
+   //
+   return img;
+ }
+
+ SafeHtml getSafeHtml(SafeUri url, int left, int top, int width, int height) {
+   String style = "url(\"${url.asString()}\") no-repeat ${-left}px ${-top}px";
+   String res = "&lt;img onload='this.data-${DomImpl.UNHANDLED_EVENT_ATTR}=\"load\";' src='${clearImage}' style='background:${style}; width: ${width}px; height: ${height}px' border='0'&gt;";
+   return new SafeHtmlString(res);
+ }
+
+ dart_html.ImageElement getImgElement(Image image) {
+   return image.getElement() as dart_html.ImageElement;
+ }
+
+ void adjust(dart_html.ImageElement img, SafeUri url, int left, int top, int width, int height) {
+   String style = "url(\"${url.asString()}\") no-repeat -${left}px -${top}px";
+   img.style.background = style;
+   img.style.width = width.toString() + Unit.PX.value;
+   img.style.height = height.toString() + Unit.PX.value;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="clearImage">
+<button class="show-code">Code</button>
+String         <strong>clearImage</strong> <a class="anchor-link"
+            href="#clearImage"
+            title="Permalink to ClippedImageImpl.clearImage">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String clearImage = DWT.getModuleBaseURL() + "resource/images/clear.gif"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="adjust">
+<button class="show-code">Code</button>
+void <strong>adjust</strong>(ImageElement img, <a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> url, int left, int top, int width, int height) <a class="anchor-link" href="#adjust"
+              title="Permalink to ClippedImageImpl.adjust">#</a></h4>
+<div class="doc">
+<pre class="source">
+void adjust(dart_html.ImageElement img, SafeUri url, int left, int top, int width, int height) {
+ String style = "url(\"${url.asString()}\") no-repeat -${left}px -${top}px";
+ img.style.background = style;
+ img.style.width = width.toString() + Unit.PX.value;
+ img.style.height = height.toString() + Unit.PX.value;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="createStructure">
+<button class="show-code">Code</button>
+Element <strong>createStructure</strong>(<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> url, int left, int top, int width, int height) <a class="anchor-link" href="#createStructure"
+              title="Permalink to ClippedImageImpl.createStructure">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.Element createStructure(SafeUri url, int left, int top, int width, int height) {
+ dart_html.ImageElement img = new dart_html.ImageElement();
+ img.src = clearImage;
+ //
+ String style = "url(\"${url.asString()}\") no-repeat ${-left}px ${-top}px";
+ img.style.background = style;
+ img.style.width = "${width}px";
+ img.style.height = "${height}px";
+ img.onLoad.listen((dart_html.Event evt) {
+   img.dataset[DomImpl.UNHANDLED_EVENT_ATTR] = BrowserEvents.LOAD;
+ });
+ //
+ return img;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getImgElement">
+<button class="show-code">Code</button>
+ImageElement <strong>getImgElement</strong>(<a href="../dart_web_toolkit_ui/Image.html">Image</a> image) <a class="anchor-link" href="#getImgElement"
+              title="Permalink to ClippedImageImpl.getImgElement">#</a></h4>
+<div class="doc">
+<pre class="source">
+dart_html.ImageElement getImgElement(Image image) {
+ return image.getElement() as dart_html.ImageElement;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getSafeHtml">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> <strong>getSafeHtml</strong>(<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> url, int left, int top, int width, int height) <a class="anchor-link" href="#getSafeHtml"
+              title="Permalink to ClippedImageImpl.getSafeHtml">#</a></h4>
+<div class="doc">
+<pre class="source">
+SafeHtml getSafeHtml(SafeUri url, int left, int top, int width, int height) {
+ String style = "url(\"${url.asString()}\") no-repeat ${-left}px ${-top}px";
+ String res = "&lt;img onload='this.data-${DomImpl.UNHANDLED_EVENT_ATTR}=\"load\";' src='${clearImage}' style='background:${style}; width: ${width}px; height: ${height}px' border='0'&gt;";
+ return new SafeHtmlString(res);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.696</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

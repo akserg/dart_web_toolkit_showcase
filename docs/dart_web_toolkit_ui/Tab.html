@@ -1,0 +1,149 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Tab abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="Tab">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Tab.html">Tab</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Tab</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Set of characteristic interfaces supported by {@link TabBar} tabs.</p>
+<p>Note that this set might expand over time, so implement this interface at
+your own risk.</p>
+<pre class="source">
+abstract class Tab implements HasAllKeyHandlers, HasClickHandlers, HasWordWrap {
+ /**
+  * Check if the underlying widget implements {@link HasWordWrap}.
+  *
+  * @return true if the widget implements {@link HasWordWrap}
+  */
+ bool hasWordWrap();
+}
+</pre>
+</div>
+<h3>Implements</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasWordWrap.html">HasWordWrap</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasClickHandlers.html">HasClickHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAllKeyHandlers.html">HasAllKeyHandlers</a></span></p>
+<div class="inherited">
+<h3>Properties</h3>
+<div class="method inherited"><h4 id="wordWrap">
+abstract bool <strong>get wordWrap</strong> <a class="anchor-link" href="#wordWrap"
+              title="Permalink to Tab.get wordWrap">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasWordWrap.html">HasWordWrap</a> </div><div class="doc">
+<p>Gets whether word-wrapping is enabled.</p>
+<p>@return &lt;code>true&lt;/code> if word-wrapping is enabled.</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="wordWrap=">
+abstract void <strong>set wordWrap</strong>(bool wrap) <a class="anchor-link" href="#wordWrap="
+              title="Permalink to Tab.set wordWrap">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasWordWrap.html">HasWordWrap</a> </div><div class="doc">
+<p>Sets whether word-wrapping is enabled.</p>
+<p>@param wrap &lt;code>true&lt;/code> to enable word-wrapping.</p>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="addClickHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addClickHandler</strong>(<a href="../dart_web_toolkit_event/ClickHandler.html">ClickHandler</a> handler) <a class="anchor-link" href="#addClickHandler"
+              title="Permalink to Tab.addClickHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasClickHandlers.html">HasClickHandlers</a> </div><div class="doc">
+<p>Adds a {@link ClickEvent} handler.</p>
+<p>@param handler the click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addKeyDownHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyDownHandler</strong>(<a href="../dart_web_toolkit_event/KeyDownHandler.html">KeyDownHandler</a> handler) <a class="anchor-link" href="#addKeyDownHandler"
+              title="Permalink to Tab.addKeyDownHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasKeyDownHandlers.html">HasKeyDownHandlers</a> </div><div class="doc">
+<p>Adds a {@link KeyDownEvent} handler.</p>
+<p>@param handler the key down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addKeyPressHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyPressHandler</strong>(<a href="../dart_web_toolkit_event/KeyPressHandler.html">KeyPressHandler</a> handler) <a class="anchor-link" href="#addKeyPressHandler"
+              title="Permalink to Tab.addKeyPressHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasKeyPressHandlers.html">HasKeyPressHandlers</a> </div><div class="doc">
+<p>Adds a {@link KeyPressEvent} handler.</p>
+<p>@param handler the key press handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addKeyUpHandler">
+abstract <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addKeyUpHandler</strong>(<a href="../dart_web_toolkit_event/KeyUpHandler.html">KeyUpHandler</a> handler) <a class="anchor-link" href="#addKeyUpHandler"
+              title="Permalink to Tab.addKeyUpHandler">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasKeyUpHandlers.html">HasKeyUpHandlers</a> </div><div class="doc">
+<p>Adds a {@link KeyUpEvent} handler.</p>
+<p>@param handler the key up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="fireEvent">
+abstract void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> event) <a class="anchor-link" href="#fireEvent"
+              title="Permalink to Tab.fireEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/HasHandlers.html">HasHandlers</a> </div><div class="doc">
+<p>Fires the given event to the handlers listening to the event's type.</p>
+<p>Any exceptions thrown by handlers will be bundled into a
+<code>UmbrellaException</code> and then re-thrown after all handlers have
+completed. An exception thrown by a handler will not prevent other handlers
+from executing.</p>
+<p>@param event the event</p>
+</div>
+</div>
+<div class="method"><h4 id="hasWordWrap">
+abstract bool <strong>hasWordWrap</strong>() <a class="anchor-link" href="#hasWordWrap"
+              title="Permalink to Tab.hasWordWrap">#</a></h4>
+<div class="doc">
+<p>Check if the underlying widget implements {@link HasWordWrap}.</p>
+<p>@return true if the widget implements {@link HasWordWrap}</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:22.163</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,142 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>HasTreeItemsForIsWidget abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="HasTreeItemsForIsWidget">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/HasTreeItemsForIsWidget.html">HasTreeItemsForIsWidget</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>HasTreeItemsForIsWidget</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Extends this interface with convenience methods to handle {@link IsWidget}.</p>
+<pre class="source">
+abstract class HasTreeItemsForIsWidget extends HasTreeItems {
+ TreeItem addIsWidgetItem(IsWidget w);
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>HasTreeItemsForIsWidget</strong></span></p>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Tree.html">Tree</a></span></p>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="addIsTreeItem">
+abstract void <strong>addIsTreeItem</strong>(<a href="../dart_web_toolkit_ui/IsTreeItem.html">IsTreeItem</a> isItem) <a class="anchor-link" href="#addIsTreeItem"
+              title="Permalink to HasTreeItemsForIsWidget.addIsTreeItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Adds an item wrapped by specified {@link IsTreeItem}.</p>
+<p>@param isItem the wrapper of item to be added</p>
+</div>
+</div>
+<div class="method"><h4 id="addIsWidgetItem">
+abstract <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addIsWidgetItem</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w) <a class="anchor-link" href="#addIsWidgetItem"
+              title="Permalink to HasTreeItemsForIsWidget.addIsWidgetItem">#</a></h4>
+<div class="doc">
+</div>
+</div>
+<div class="method inherited"><h4 id="addItem">
+abstract void <strong>addItem</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item) <a class="anchor-link" href="#addItem"
+              title="Permalink to HasTreeItemsForIsWidget.addItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Adds an tree item.</p>
+<p>@param item the item to be added</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addSafeHtmlItem">
+abstract <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addSafeHtmlItem</strong>(<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> itemHtml) <a class="anchor-link" href="#addSafeHtmlItem"
+              title="Permalink to HasTreeItemsForIsWidget.addSafeHtmlItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Adds a simple tree item containing the specified html.</p>
+<p>@param itemHtml the html of the item to be added
+@return the item that was added</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addTextItem">
+abstract <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addTextItem</strong>(String itemText) <a class="anchor-link" href="#addTextItem"
+              title="Permalink to HasTreeItemsForIsWidget.addTextItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Adds a simple tree item containing the specified text.</p>
+<p>@param itemText the text of the item to be added
+@return the item that was added</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="addWidgetItem">
+abstract <a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> <strong>addWidgetItem</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget) <a class="anchor-link" href="#addWidgetItem"
+              title="Permalink to HasTreeItemsForIsWidget.addWidgetItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Adds a new tree item containing the specified widget.</p>
+<p>@param widget the widget to be added
+@return the new item</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeIsTreeItem">
+abstract void <strong>removeIsTreeItem</strong>(<a href="../dart_web_toolkit_ui/IsTreeItem.html">IsTreeItem</a> isItem) <a class="anchor-link" href="#removeIsTreeItem"
+              title="Permalink to HasTreeItemsForIsWidget.removeIsTreeItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Removes an item.</p>
+<p>@param isItem the wrapper of item to be removed</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeItem">
+abstract void <strong>removeItem</strong>(<a href="../dart_web_toolkit_ui/TreeItem.html">TreeItem</a> item) <a class="anchor-link" href="#removeItem"
+              title="Permalink to HasTreeItemsForIsWidget.removeItem">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Removes an item.</p>
+<p>@param item the item to be removed</p>
+</div>
+</div>
+<div class="method inherited"><h4 id="removeItems">
+abstract void <strong>removeItems</strong>() <a class="anchor-link" href="#removeItems"
+              title="Permalink to HasTreeItemsForIsWidget.removeItems">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/HasTreeItems.html">HasTreeItems</a> </div><div class="doc">
+<p>Removes all items.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:21.047</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

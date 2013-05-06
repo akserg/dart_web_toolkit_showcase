@@ -1,0 +1,245 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>FocusImpl abstract class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="FocusImpl">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>FocusImpl</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Interface for creating and manipulating focusable elements
+that aren't naturally focusable in all browsers, such as DIVs.</p>
+<pre class="source">
+abstract class FocusImpl {
+
+ /**
+  * Remove focus from [Element].
+  */
+ void blur(dart_html.Element elem);
+
+ /**
+  * Create focusable element.
+  */
+ dart_html.Element createFocusable();
+
+ /**
+  * Set focus on [Element].
+  */
+ void focus(dart_html.Element elem);
+
+ /**
+  * Return [Element] tab index.
+  */
+ int getTabIndex(dart_html.Element elem);
+
+ /**
+  * Set [Element] tab [index].
+  */
+ void setTabIndex(dart_html.Element elem, int index);
+
+ /**
+  * Set Access Key for keyboard navigation.
+  */
+ void setAccessKey(dart_html.Element elem, int key);
+
+ /**
+  * Static instance of FocusImpl.
+  */
+ static FocusImpl implPanel;
+
+ /**
+  * This instance may not be a {@link FocusImplStandard}, because that special
+  * case is only needed for things that aren't naturally focusable on some
+  * browsers, such as DIVs. This exact class works for truly focusable widgets
+  * on those browsers.
+  *
+  * The compiler will optimize out the conditional.
+  */
+ static FocusImpl implWidget;
+
+ /**
+  * Return instance of [FocusImpl] depends on broswer.
+  */
+ static FocusImpl getFocusImplForPanel() {
+   if (implPanel == null) {
+     implPanel = new FocusImplDefault();
+   }
+   return implPanel;
+ }
+
+ /**
+  * Returns the focus implementation class for manipulating focusable elements
+  * that are naturally focusable in all browsers, such as text boxes.
+  */
+ static FocusImpl getFocusImplForWidget() {
+   if (implWidget == null) {
+     implWidget = new FocusImplDefault(); //(implPanel is FocusImplStandard) ? new FocusImpl() : implPanel;
+   }
+   return implWidget;
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/FocusImplDefault.html">FocusImplDefault</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="implPanel">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a>         <strong>implPanel</strong> <a class="anchor-link"
+            href="#implPanel"
+            title="Permalink to FocusImpl.implPanel">#</a>
+        </h4>
+        <div class="doc">
+<p>Static instance of FocusImpl.</p>
+<pre class="source">
+static FocusImpl implPanel
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="implWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a>         <strong>implWidget</strong> <a class="anchor-link"
+            href="#implWidget"
+            title="Permalink to FocusImpl.implWidget">#</a>
+        </h4>
+        <div class="doc">
+<p>This instance may not be a {@link FocusImplStandard}, because that special
+case is only needed for things that aren't naturally focusable on some
+browsers, such as DIVs. This exact class works for truly focusable widgets
+on those browsers.</p>
+<p>The compiler will optimize out the conditional.</p>
+<pre class="source">
+static FocusImpl implWidget
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="getFocusImplForPanel">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a> <strong>getFocusImplForPanel</strong>() <a class="anchor-link" href="#getFocusImplForPanel"
+              title="Permalink to FocusImpl.getFocusImplForPanel">#</a></h4>
+<div class="doc">
+<p>Return instance of <a class="crossref" href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a> depends on broswer.</p>
+<pre class="source">
+static FocusImpl getFocusImplForPanel() {
+ if (implPanel == null) {
+   implPanel = new FocusImplDefault();
+ }
+ return implPanel;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFocusImplForWidget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/FocusImpl.html">FocusImpl</a> <strong>getFocusImplForWidget</strong>() <a class="anchor-link" href="#getFocusImplForWidget"
+              title="Permalink to FocusImpl.getFocusImplForWidget">#</a></h4>
+<div class="doc">
+<p>Returns the focus implementation class for manipulating focusable elements
+that are naturally focusable in all browsers, such as text boxes.</p>
+<pre class="source">
+static FocusImpl getFocusImplForWidget() {
+ if (implWidget == null) {
+   implWidget = new FocusImplDefault(); //(implPanel is FocusImplStandard) ? new FocusImpl() : implPanel;
+ }
+ return implWidget;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="blur">
+abstract void <strong>blur</strong>(Element elem) <a class="anchor-link" href="#blur"
+              title="Permalink to FocusImpl.blur">#</a></h4>
+<div class="doc">
+<p>Remove focus from <code>Element</code>.</p>
+</div>
+</div>
+<div class="method"><h4 id="createFocusable">
+abstract Element <strong>createFocusable</strong>() <a class="anchor-link" href="#createFocusable"
+              title="Permalink to FocusImpl.createFocusable">#</a></h4>
+<div class="doc">
+<p>Create focusable element.</p>
+</div>
+</div>
+<div class="method"><h4 id="focus">
+abstract void <strong>focus</strong>(Element elem) <a class="anchor-link" href="#focus"
+              title="Permalink to FocusImpl.focus">#</a></h4>
+<div class="doc">
+<p>Set focus on <code>Element</code>.</p>
+</div>
+</div>
+<div class="method"><h4 id="getTabIndex">
+abstract int <strong>getTabIndex</strong>(Element elem) <a class="anchor-link" href="#getTabIndex"
+              title="Permalink to FocusImpl.getTabIndex">#</a></h4>
+<div class="doc">
+<p>Return <code>Element</code> tab index.</p>
+</div>
+</div>
+<div class="method"><h4 id="setAccessKey">
+abstract void <strong>setAccessKey</strong>(Element elem, int key) <a class="anchor-link" href="#setAccessKey"
+              title="Permalink to FocusImpl.setAccessKey">#</a></h4>
+<div class="doc">
+<p>Set Access Key for keyboard navigation.</p>
+</div>
+</div>
+<div class="method"><h4 id="setTabIndex">
+abstract void <strong>setTabIndex</strong>(Element elem, int index) <a class="anchor-link" href="#setTabIndex"
+              title="Permalink to FocusImpl.setTabIndex">#</a></h4>
+<div class="doc">
+<p>Set <code>Element</code> tab 
+<span class="param">index</span>.</p>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.547</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

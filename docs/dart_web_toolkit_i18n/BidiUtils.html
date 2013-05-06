@@ -1,0 +1,737 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>BidiUtils class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="BidiUtils">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/BidiUtils.html">BidiUtils</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>BidiUtils</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Utility functions for performing common Bidi tests on strings.</p>
+<pre class="source">
+class BidiUtils {
+
+ /**
+  * An instance of BidiUtils, to be returned by {@link #get()}.
+  */
+ static final BidiUtils _INSTANCE = new BidiUtils();
+
+ /**
+  * Get an instance of BidiUtils.
+  * @return An instance of BidiUtils
+  */
+ static BidiUtils get() {
+   return _INSTANCE;
+ }
+
+ /**
+  * A practical pattern to identify strong LTR characters. This pattern is not
+  * completely correct according to the Unicode standard. It is simplified
+  * for performance and small code size.
+  * &lt;p&gt;
+  * This is volatile to prevent the compiler from inlining this constant in
+  * various references below.
+  */
+ static String LTR_CHARS = "A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF";
+
+ /**
+  * A practical pattern to identify strong RTL characters. This pattern is not
+  * completely correct according to the Unicode standard. It is simplified for
+  * performance and small code size.
+  * &lt;p&gt;
+  * This is volatile to prevent the compiler from inlining this constant in
+  * various references below.
+  */
+ static String RTL_CHARS = "\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC";
+
+ /**
+  * Simplified regular expression for an HTML tag (opening or closing) or an
+  * HTML escape. We might want to skip over such expressions when estimating
+  * the text directionality.
+  */
+ static final RegExp SKIP_HTML_RE = new RegExp("&lt;[^&gt;]*&gt;|&amp;[^;]+;", multiLine:true);
+
+ /**
+  * The name of the element property which controls element directionality.
+  */
+//  static final String DIR_PROPERTY_NAME = "dir";
+
+ /**
+  * The value for the directionality property which will set the element directionality
+  * to right-to-left.
+  */
+ static final String DIR_PROPERTY_VALUE_RTL = "rtl";
+
+ /**
+  * The value for the directionality property which will set the element directionality
+  * to left-to-right.
+  */
+ static final String DIR_PROPERTY_VALUE_LTR = "ltr";
+
+ /**
+  * Regular expressions to check if the last strongly-directional character in
+  * a piece of text is RTL.
+  */
+ static final RegExp LAST_STRONG_IS_RTL_RE = new RegExp("[${RTL_CHARS}][^${LTR_CHARS}]*");
+
+ /**
+  * Regular expressions to check if the last strongly-directional character in
+  * a piece of text is LTR.
+  */
+ static final RegExp LAST_STRONG_IS_LTR_RE = new RegExp("[${LTR_CHARS}][^${RTL_CHARS}]*");
+
+ /**
+  * Regular expression to check if the first strongly directional character in
+  * a string is RTL.
+  */
+ static final RegExp FIRST_STRONG_IS_RTL_RE = new RegExp("^[^${LTR_CHARS}]*[${RTL_CHARS}]");
+
+ /**
+  * Regular expression to check if a string looks like something that must
+  * always be LTR even in RTL text, e.g. a URL. When estimating the
+  * directionality of text containing these, we treat these as weakly LTR, like
+  * numbers.
+  */
+ static final RegExp IS_REQUIRED_LTR_RE = new RegExp("^http://.*");
+
+ /**
+  * Regular expression to check if a string contains any numerals. Used to
+  * differentiate between completely neutral strings and those containing
+  * numbers, which are weakly LTR.
+  */
+ static final RegExp HAS_NUMERALS_RE = new RegExp("\\d");
+ 
+ /**
+  * Regular expression to check if a string contains any LTR characters.
+  */
+ static final RegExp HAS_ANY_LTR_RE = new RegExp("[${LTR_CHARS}]");
+ 
+ /**
+  * Returns the input text with spaces instead of HTML tags or HTML escapes, if
+  * isStripNeeded is true. Else returns the input as is.
+  * Useful for text directionality estimation.
+  * Note: the function should not be used in other contexts; it is not 100%
+  * correct, but rather a good-enough implementation for directionality
+  * estimation purposes.
+  */
+ String stripHtmlIfNeeded(String str, bool isStripNeeded) {
+   return isStripNeeded ? str.replaceAll(SKIP_HTML_RE, " ") : str;
+ }
+
+ /**
+  * Regular expression to split a string into "words" for directionality
+  * estimation based on relative word counts.
+  */
+ static final RegExp WORD_SEPARATOR_RE = new RegExp("\\s+");
+ 
+ /**
+  * This constant defines the threshold of RTL directionality.
+  */
+ static final double RTL_DETECTION_THRESHOLD = 0.4;
+ 
+ /**
+  * Gets the directionality of an element.
+  *
+  * @param  elem  the element on which to check the directionality property
+  * @return &lt;code&gt;RTL&lt;/code&gt; if the directionality is right-to-left,
+  *         &lt;code&gt;LTR&lt;/code&gt; if the directionality is left-to-right, or
+  *         &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality is not explicitly set
+  */
+ static Direction getDirectionOnElement(dart_html.Element elem) {
+   String dirPropertyValue = elem.dir;
+
+   if (DIR_PROPERTY_VALUE_RTL == dirPropertyValue.toLowerCase()) {
+     return Direction.RTL;
+   } else if (DIR_PROPERTY_VALUE_LTR == dirPropertyValue.toLowerCase()) {
+     return Direction.LTR;
+   }
+
+   return Direction.DEFAULT;
+ }
+
+ /**
+  * Sets the directionality property for an element.
+  *
+  * @param elem  the element on which to set the property
+  * @param direction &lt;code&gt;RTL&lt;/code&gt; if the directionality should be set to right-to-left,
+  *                  &lt;code&gt;LTR&lt;/code&gt; if the directionality should be set to left-to-right
+  *                  &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality should be removed from the element
+  */
+ static void setDirectionOnElement(dart_html.Element elem, Direction direction) {
+   switch (direction) {
+     case Direction.RTL:
+       elem.dir = DIR_PROPERTY_VALUE_RTL;
+       break;
+     case Direction.LTR:
+       elem.dir = DIR_PROPERTY_VALUE_LTR;
+       break;
+     case Direction.DEFAULT:
+       if (getDirectionOnElement(elem) != Direction.DEFAULT) {
+         // only clear out the the dir property if it has already been set to something
+         // explicitly
+         elem.dir = "";
+       }
+       break;
+   }
+ }
+
+ /**
+  * Check whether the last strongly-directional character in the string is LTR.
+  * @param str the string to check
+  * @param isHtml whether str is HTML / HTML-escaped
+  * @return whether LTR exit directionality was detected
+  */
+ bool endsWithLtr(String str, [bool isHtml = false]) {
+   if (isHtml) {
+     str = stripHtmlIfNeeded(str, isHtml);
+   }
+   return LAST_STRONG_IS_LTR_RE.hasMatch(str);
+ }
+
+ /**
+  * Check whether the last strongly-directional character in the string is RTL.
+  * @param str the string to check
+  * @param isHtml whether str is HTML / HTML-escaped
+  * @return whether RTL exit directionality was detected
+  */
+ bool endsWithRtl(String str, [bool isHtml = false]) {
+   if (isHtml) {
+     str = stripHtmlIfNeeded(str, isHtml);
+   }
+   return LAST_STRONG_IS_RTL_RE.hasMatch(str);
+ }
+ 
+ /**
+  * Check whether the first strongly-directional character in the string is
+  * RTL.
+  * @param str the string to check
+  * @param isHtml whether {@code str} is HTML / HTML-escaped
+  * @return whether RTL exit directionality was detected
+  */
+ bool startsWithRtl(String str, [bool isHtml = false]) {
+   if (isHtml) {
+     str = stripHtmlIfNeeded(str, isHtml);
+   }
+   return FIRST_STRONG_IS_RTL_RE.hasMatch(str);
+ }
+ 
+ /**
+  * Checks if the given string has any LTR characters in it.
+  * @param str the string to be tested
+  * @param isHtml whether str is HTML / HTML-escaped
+  * @return whether the string contains any LTR characters
+  */
+ bool hasAnyLtr(String str, [bool isHtml = false]) {
+   if (isHtml) {
+     str = stripHtmlIfNeeded(str, isHtml);
+   }
+   return HAS_ANY_LTR_RE.hasMatch(str);
+ }
+ 
+ /**
+  * Estimates the directionality of a string based on relative word counts.
+  * If the number of RTL words is above a certain percentage of the total
+  * number of strongly directional words, returns RTL.
+  * Otherwise, if any words are strongly or weakly LTR, returns LTR.
+  * Otherwise, returns DEFAULT, which is used to mean "neutral".
+  * Numbers are counted as weakly LTR.
+  * @param str the string to check
+  * @param isHtml whether {@code str} is HTML / HTML-escaped. Use this to
+  *        ignore HTML tags and escapes that would otherwise be mistaken for
+  *        LTR text.
+  * @return the string's directionality
+  */
+ Direction estimateDirection(String str, [bool isHtml = false]) {
+   if (isHtml) {
+     str = stripHtmlIfNeeded(str, isHtml);
+   }
+   //
+   int rtlCount = 0;
+   int total = 0;
+   bool hasWeaklyLtr = false;
+   Iterable&lt;Match&gt; tokens = WORD_SEPARATOR_RE.allMatches(str);
+   for (int i = 0; i &lt; tokens.length; i++) {
+     Match match = tokens.elementAt(i);
+     String token = match.str;
+     if (startsWithRtl(token)) {
+       rtlCount++;
+       total++;
+     } else if (IS_REQUIRED_LTR_RE.hasMatch(token)) {
+       hasWeaklyLtr = true;
+     } else if (hasAnyLtr(token)) {
+       total++;
+     } else if (HAS_NUMERALS_RE.hasMatch(token)) {
+       hasWeaklyLtr = true;
+     }
+   }
+
+   return total == 0 ? (hasWeaklyLtr ? Direction.LTR : Direction.DEFAULT)
+       : (rtlCount / total &gt; RTL_DETECTION_THRESHOLD ? Direction.RTL :
+       Direction.LTR);
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="DIR_PROPERTY_VALUE_LTR">
+<button class="show-code">Code</button>
+final String         <strong>DIR_PROPERTY_VALUE_LTR</strong> <a class="anchor-link"
+            href="#DIR_PROPERTY_VALUE_LTR"
+            title="Permalink to BidiUtils.DIR_PROPERTY_VALUE_LTR">#</a>
+        </h4>
+        <div class="doc">
+<p>The value for the directionality property which will set the element directionality
+to left-to-right.</p>
+<pre class="source">
+static final String DIR_PROPERTY_VALUE_LTR = "ltr"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="DIR_PROPERTY_VALUE_RTL">
+<button class="show-code">Code</button>
+final String         <strong>DIR_PROPERTY_VALUE_RTL</strong> <a class="anchor-link"
+            href="#DIR_PROPERTY_VALUE_RTL"
+            title="Permalink to BidiUtils.DIR_PROPERTY_VALUE_RTL">#</a>
+        </h4>
+        <div class="doc">
+<p>The name of the element property which controls element directionality.</p>
+<p>The value for the directionality property which will set the element directionality
+to right-to-left.</p>
+<pre class="source">
+static final String DIR_PROPERTY_VALUE_RTL = "rtl"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="FIRST_STRONG_IS_RTL_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>FIRST_STRONG_IS_RTL_RE</strong> <a class="anchor-link"
+            href="#FIRST_STRONG_IS_RTL_RE"
+            title="Permalink to BidiUtils.FIRST_STRONG_IS_RTL_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expression to check if the first strongly directional character in
+a string is RTL.</p>
+<pre class="source">
+static final RegExp FIRST_STRONG_IS_RTL_RE = new RegExp("^[^${LTR_CHARS}]*[${RTL_CHARS}]")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HAS_ANY_LTR_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>HAS_ANY_LTR_RE</strong> <a class="anchor-link"
+            href="#HAS_ANY_LTR_RE"
+            title="Permalink to BidiUtils.HAS_ANY_LTR_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expression to check if a string contains any LTR characters.</p>
+<pre class="source">
+static final RegExp HAS_ANY_LTR_RE = new RegExp("[${LTR_CHARS}]")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="HAS_NUMERALS_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>HAS_NUMERALS_RE</strong> <a class="anchor-link"
+            href="#HAS_NUMERALS_RE"
+            title="Permalink to BidiUtils.HAS_NUMERALS_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expression to check if a string contains any numerals. Used to
+differentiate between completely neutral strings and those containing
+numbers, which are weakly LTR.</p>
+<pre class="source">
+static final RegExp HAS_NUMERALS_RE = new RegExp("\\d")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="IS_REQUIRED_LTR_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>IS_REQUIRED_LTR_RE</strong> <a class="anchor-link"
+            href="#IS_REQUIRED_LTR_RE"
+            title="Permalink to BidiUtils.IS_REQUIRED_LTR_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expression to check if a string looks like something that must
+always be LTR even in RTL text, e.g. a URL. When estimating the
+directionality of text containing these, we treat these as weakly LTR, like
+numbers.</p>
+<pre class="source">
+static final RegExp IS_REQUIRED_LTR_RE = new RegExp("^http://.*")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LAST_STRONG_IS_LTR_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>LAST_STRONG_IS_LTR_RE</strong> <a class="anchor-link"
+            href="#LAST_STRONG_IS_LTR_RE"
+            title="Permalink to BidiUtils.LAST_STRONG_IS_LTR_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expressions to check if the last strongly-directional character in
+a piece of text is LTR.</p>
+<pre class="source">
+static final RegExp LAST_STRONG_IS_LTR_RE = new RegExp("[${LTR_CHARS}][^${RTL_CHARS}]*")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LAST_STRONG_IS_RTL_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>LAST_STRONG_IS_RTL_RE</strong> <a class="anchor-link"
+            href="#LAST_STRONG_IS_RTL_RE"
+            title="Permalink to BidiUtils.LAST_STRONG_IS_RTL_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expressions to check if the last strongly-directional character in
+a piece of text is RTL.</p>
+<pre class="source">
+static final RegExp LAST_STRONG_IS_RTL_RE = new RegExp("[${RTL_CHARS}][^${LTR_CHARS}]*")
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="LTR_CHARS">
+<button class="show-code">Code</button>
+String         <strong>LTR_CHARS</strong> <a class="anchor-link"
+            href="#LTR_CHARS"
+            title="Permalink to BidiUtils.LTR_CHARS">#</a>
+        </h4>
+        <div class="doc">
+<p>A practical pattern to identify strong LTR characters. This pattern is not
+completely correct according to the Unicode standard. It is simplified
+for performance and small code size.
+&lt;p>
+This is volatile to prevent the compiler from inlining this constant in
+various references below.</p>
+<pre class="source">
+static String LTR_CHARS = "A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="RTL_CHARS">
+<button class="show-code">Code</button>
+String         <strong>RTL_CHARS</strong> <a class="anchor-link"
+            href="#RTL_CHARS"
+            title="Permalink to BidiUtils.RTL_CHARS">#</a>
+        </h4>
+        <div class="doc">
+<p>A practical pattern to identify strong RTL characters. This pattern is not
+completely correct according to the Unicode standard. It is simplified for
+performance and small code size.
+&lt;p>
+This is volatile to prevent the compiler from inlining this constant in
+various references below.</p>
+<pre class="source">
+static String RTL_CHARS = "\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="RTL_DETECTION_THRESHOLD">
+<button class="show-code">Code</button>
+final double         <strong>RTL_DETECTION_THRESHOLD</strong> <a class="anchor-link"
+            href="#RTL_DETECTION_THRESHOLD"
+            title="Permalink to BidiUtils.RTL_DETECTION_THRESHOLD">#</a>
+        </h4>
+        <div class="doc">
+<p>This constant defines the threshold of RTL directionality.</p>
+<pre class="source">
+static final double RTL_DETECTION_THRESHOLD = 0.4
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="SKIP_HTML_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>SKIP_HTML_RE</strong> <a class="anchor-link"
+            href="#SKIP_HTML_RE"
+            title="Permalink to BidiUtils.SKIP_HTML_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Simplified regular expression for an HTML tag (opening or closing) or an
+HTML escape. We might want to skip over such expressions when estimating
+the text directionality.</p>
+<pre class="source">
+static final RegExp SKIP_HTML_RE = new RegExp("&lt;[^&gt;]*&gt;|&amp;[^;]+;", multiLine:true)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="WORD_SEPARATOR_RE">
+<button class="show-code">Code</button>
+final RegExp         <strong>WORD_SEPARATOR_RE</strong> <a class="anchor-link"
+            href="#WORD_SEPARATOR_RE"
+            title="Permalink to BidiUtils.WORD_SEPARATOR_RE">#</a>
+        </h4>
+        <div class="doc">
+<p>Regular expression to split a string into "words" for directionality
+estimation based on relative word counts.</p>
+<pre class="source">
+static final RegExp WORD_SEPARATOR_RE = new RegExp("\\s+")
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/BidiUtils.html">BidiUtils</a> <strong>get</strong>() <a class="anchor-link" href="#get"
+              title="Permalink to BidiUtils.get">#</a></h4>
+<div class="doc">
+<p>Get an instance of BidiUtils.
+@return An instance of BidiUtils</p>
+<pre class="source">
+static BidiUtils get() {
+ return _INSTANCE;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDirectionOnElement">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>getDirectionOnElement</strong>(Element elem) <a class="anchor-link" href="#getDirectionOnElement"
+              title="Permalink to BidiUtils.getDirectionOnElement">#</a></h4>
+<div class="doc">
+<p>Gets the directionality of an element.</p>
+<p>@param  elem  the element on which to check the directionality property
+@return &lt;code>RTL&lt;/code> if the directionality is right-to-left,</p>
+<pre><code>    &lt;code&gt;LTR&lt;/code&gt; if the directionality is left-to-right, or
+    &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality is not explicitly set
+</code></pre>
+<pre class="source">
+static Direction getDirectionOnElement(dart_html.Element elem) {
+ String dirPropertyValue = elem.dir;
+
+ if (DIR_PROPERTY_VALUE_RTL == dirPropertyValue.toLowerCase()) {
+   return Direction.RTL;
+ } else if (DIR_PROPERTY_VALUE_LTR == dirPropertyValue.toLowerCase()) {
+   return Direction.LTR;
+ }
+
+ return Direction.DEFAULT;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDirectionOnElement">
+<button class="show-code">Code</button>
+void <strong>setDirectionOnElement</strong>(Element elem, <a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> direction) <a class="anchor-link" href="#setDirectionOnElement"
+              title="Permalink to BidiUtils.setDirectionOnElement">#</a></h4>
+<div class="doc">
+<p>Sets the directionality property for an element.</p>
+<p>@param elem  the element on which to set the property
+@param direction &lt;code>RTL&lt;/code> if the directionality should be set to right-to-left,</p>
+<pre><code>             &lt;code&gt;LTR&lt;/code&gt; if the directionality should be set to left-to-right
+             &lt;code&gt;DEFAULT&lt;/code&gt; if the directionality should be removed from the element
+</code></pre>
+<pre class="source">
+static void setDirectionOnElement(dart_html.Element elem, Direction direction) {
+ switch (direction) {
+   case Direction.RTL:
+     elem.dir = DIR_PROPERTY_VALUE_RTL;
+     break;
+   case Direction.LTR:
+     elem.dir = DIR_PROPERTY_VALUE_LTR;
+     break;
+   case Direction.DEFAULT:
+     if (getDirectionOnElement(elem) != Direction.DEFAULT) {
+       // only clear out the the dir property if it has already been set to something
+       // explicitly
+       elem.dir = "";
+     }
+     break;
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="endsWithLtr">
+<button class="show-code">Code</button>
+bool <strong>endsWithLtr</strong>(String str, [bool isHtml = false]) <a class="anchor-link" href="#endsWithLtr"
+              title="Permalink to BidiUtils.endsWithLtr">#</a></h4>
+<div class="doc">
+<p>Check whether the last strongly-directional character in the string is LTR.
+@param str the string to check
+@param isHtml whether str is HTML / HTML-escaped
+@return whether LTR exit directionality was detected</p>
+<pre class="source">
+bool endsWithLtr(String str, [bool isHtml = false]) {
+ if (isHtml) {
+   str = stripHtmlIfNeeded(str, isHtml);
+ }
+ return LAST_STRONG_IS_LTR_RE.hasMatch(str);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="endsWithRtl">
+<button class="show-code">Code</button>
+bool <strong>endsWithRtl</strong>(String str, [bool isHtml = false]) <a class="anchor-link" href="#endsWithRtl"
+              title="Permalink to BidiUtils.endsWithRtl">#</a></h4>
+<div class="doc">
+<p>Check whether the last strongly-directional character in the string is RTL.
+@param str the string to check
+@param isHtml whether str is HTML / HTML-escaped
+@return whether RTL exit directionality was detected</p>
+<pre class="source">
+bool endsWithRtl(String str, [bool isHtml = false]) {
+ if (isHtml) {
+   str = stripHtmlIfNeeded(str, isHtml);
+ }
+ return LAST_STRONG_IS_RTL_RE.hasMatch(str);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="estimateDirection">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_i18n/Direction.html">Direction</a> <strong>estimateDirection</strong>(String str, [bool isHtml = false]) <a class="anchor-link" href="#estimateDirection"
+              title="Permalink to BidiUtils.estimateDirection">#</a></h4>
+<div class="doc">
+<p>Estimates the directionality of a string based on relative word counts.
+If the number of RTL words is above a certain percentage of the total
+number of strongly directional words, returns RTL.
+Otherwise, if any words are strongly or weakly LTR, returns LTR.
+Otherwise, returns DEFAULT, which is used to mean "neutral".
+Numbers are counted as weakly LTR.
+@param str the string to check
+@param isHtml whether {@code str} is HTML / HTML-escaped. Use this to</p>
+<pre><code>   ignore HTML tags and escapes that would otherwise be mistaken for
+   LTR text.
+</code></pre>
+<p>@return the string's directionality</p>
+<pre class="source">
+Direction estimateDirection(String str, [bool isHtml = false]) {
+ if (isHtml) {
+   str = stripHtmlIfNeeded(str, isHtml);
+ }
+ //
+ int rtlCount = 0;
+ int total = 0;
+ bool hasWeaklyLtr = false;
+ Iterable&lt;Match&gt; tokens = WORD_SEPARATOR_RE.allMatches(str);
+ for (int i = 0; i &lt; tokens.length; i++) {
+   Match match = tokens.elementAt(i);
+   String token = match.str;
+   if (startsWithRtl(token)) {
+     rtlCount++;
+     total++;
+   } else if (IS_REQUIRED_LTR_RE.hasMatch(token)) {
+     hasWeaklyLtr = true;
+   } else if (hasAnyLtr(token)) {
+     total++;
+   } else if (HAS_NUMERALS_RE.hasMatch(token)) {
+     hasWeaklyLtr = true;
+   }
+ }
+
+ return total == 0 ? (hasWeaklyLtr ? Direction.LTR : Direction.DEFAULT)
+     : (rtlCount / total &gt; RTL_DETECTION_THRESHOLD ? Direction.RTL :
+     Direction.LTR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="hasAnyLtr">
+<button class="show-code">Code</button>
+bool <strong>hasAnyLtr</strong>(String str, [bool isHtml = false]) <a class="anchor-link" href="#hasAnyLtr"
+              title="Permalink to BidiUtils.hasAnyLtr">#</a></h4>
+<div class="doc">
+<p>Checks if the given string has any LTR characters in it.
+@param str the string to be tested
+@param isHtml whether str is HTML / HTML-escaped
+@return whether the string contains any LTR characters</p>
+<pre class="source">
+bool hasAnyLtr(String str, [bool isHtml = false]) {
+ if (isHtml) {
+   str = stripHtmlIfNeeded(str, isHtml);
+ }
+ return HAS_ANY_LTR_RE.hasMatch(str);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="startsWithRtl">
+<button class="show-code">Code</button>
+bool <strong>startsWithRtl</strong>(String str, [bool isHtml = false]) <a class="anchor-link" href="#startsWithRtl"
+              title="Permalink to BidiUtils.startsWithRtl">#</a></h4>
+<div class="doc">
+<p>Check whether the first strongly-directional character in the string is
+RTL.
+@param str the string to check
+@param isHtml whether {@code str} is HTML / HTML-escaped
+@return whether RTL exit directionality was detected</p>
+<pre class="source">
+bool startsWithRtl(String str, [bool isHtml = false]) {
+ if (isHtml) {
+   str = stripHtmlIfNeeded(str, isHtml);
+ }
+ return FIRST_STRONG_IS_RTL_RE.hasMatch(str);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="stripHtmlIfNeeded">
+<button class="show-code">Code</button>
+String <strong>stripHtmlIfNeeded</strong>(String str, bool isStripNeeded) <a class="anchor-link" href="#stripHtmlIfNeeded"
+              title="Permalink to BidiUtils.stripHtmlIfNeeded">#</a></h4>
+<div class="doc">
+<p>Returns the input text with spaces instead of HTML tags or HTML escapes, if
+isStripNeeded is true. Else returns the input as is.
+Useful for text directionality estimation.
+Note: the function should not be used in other contexts; it is not 100%
+correct, but rather a good-enough implementation for directionality
+estimation purposes.</p>
+<pre class="source">
+String stripHtmlIfNeeded(String str, bool isStripNeeded) {
+ return isStripNeeded ? str.replaceAll(SKIP_HTML_RE, " ") : str;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.384</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

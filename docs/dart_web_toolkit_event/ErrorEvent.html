@@ -1,0 +1,332 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ErrorEvent class / dart_web_toolkit_event Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_event" data-type="ErrorEvent">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/ErrorEvent.html">ErrorEvent</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ErrorEvent</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Represents a native error event.</p>
+<pre class="source">
+class ErrorEvent extends DomEvent {
+
+ /**
+  * The event type.
+  */
+ static DomEventType&lt;ErrorHandler&gt; TYPE = new DomEventType&lt;ErrorHandler&gt;(BrowserEvents.LOAD, new ErrorEvent());
+
+ DomEventType&lt;ErrorHandler&gt; getAssociatedType() {
+   return TYPE;
+ }
+
+ ErrorEvent();
+
+ void dispatch(ErrorHandler handler) {
+   handler.onError(this);
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/IEvent.html">IEvent&lt;H&gt;</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>ErrorEvent</strong></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="TYPE">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a>&lt;<a href="../dart_web_toolkit_event/ErrorHandler.html">ErrorHandler</a>&gt;         <strong>TYPE</strong> <a class="anchor-link"
+            href="#TYPE"
+            title="Permalink to ErrorEvent.TYPE">#</a>
+        </h4>
+        <div class="doc">
+<p>The event type.</p>
+<pre class="source">
+static DomEventType&lt;ErrorHandler&gt; TYPE = new DomEventType&lt;ErrorHandler&gt;(BrowserEvents.LOAD, new ErrorEvent())
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="ErrorEvent">
+<button class="show-code">Code</button>
+new <strong>ErrorEvent</strong>() <a class="anchor-link" href="#ErrorEvent"
+              title="Permalink to ErrorEvent.ErrorEvent">#</a></h4>
+<div class="doc">
+<pre class="source">
+ErrorEvent();
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="assertLive">
+<button class="show-code">Code</button>
+void <strong>assertLive</strong>() <a class="anchor-link" href="#assertLive"
+              title="Permalink to ErrorEvent.assertLive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Asserts that the event still should be accessed. All events are considered
+to be "dead" after their original handler manager finishes firing them. An
+event can be revived by calling {@link GwtEvent#revive()}.</p>
+<pre class="source">
+void assertLive() {
+ assert (!_dead) ; //: "This event has already finished being processed by its original handler manager, so you can no longer access it";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="dispatch">
+<button class="show-code">Code</button>
+void <strong>dispatch</strong>(<a href="../dart_web_toolkit_event/ErrorHandler.html">ErrorHandler</a> handler) <a class="anchor-link" href="#dispatch"
+              title="Permalink to ErrorEvent.dispatch">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Implemented by subclasses to invoke their handlers in a type safe
+manner. Intended to be called by <code>EventBus#fireEvent(Event)</code> or
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@param handler handler
+@see EventBus#dispatchEvent(Event, Object)</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/ErrorEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+void dispatch(ErrorHandler handler) {
+ handler.onError(this);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getAssociatedType">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a>&lt;<a href="../dart_web_toolkit_event/ErrorHandler.html">ErrorHandler</a>&gt; <strong>getAssociatedType</strong>() <a class="anchor-link" href="#getAssociatedType"
+              title="Permalink to ErrorEvent.getAssociatedType">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns the <a class="crossref" href="../dart_web_toolkit_event/EventType.html">EventType</a> used to register this event, allowing an
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> to find handlers of the appropriate class.</p>
+<p>@return the type</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/ErrorEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+DomEventType&lt;ErrorHandler&gt; getAssociatedType() {
+ return TYPE;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getNativeEvent">
+<button class="show-code">Code</button>
+Event <strong>getNativeEvent</strong>() <a class="anchor-link" href="#getNativeEvent"
+              title="Permalink to ErrorEvent.getNativeEvent">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a> </div><div class="doc">
+<div class="inherited">
+<p>Gets the underlying native event.</p>
+<p>@return the native event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasNativeEvent.html">HasNativeEvent</a> </div></div>
+<pre class="source">
+dart_html.Event getNativeEvent() {
+ assertLive();
+ return _nativeEvent;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getRelativeElement">
+<button class="show-code">Code</button>
+Element <strong>getRelativeElement</strong>() <a class="anchor-link" href="#getRelativeElement"
+              title="Permalink to ErrorEvent.getRelativeElement">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a> </div><div class="doc">
+<p>Gets the element relative to which event coordinates will be measured.
+If this element is &lt;code>null&lt;/code>, event coordinates will be measured
+relative to the window's client area.</p>
+<p>@return the event's relative element</p>
+<pre class="source">
+dart_html.Element getRelativeElement() {
+ assertLive();
+ return _relativeElem;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="getSource">
+<button class="show-code">Code</button>
+Object <strong>getSource</strong>() <a class="anchor-link" href="#getSource"
+              title="Permalink to ErrorEvent.getSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns the source for this event. The type and meaning of the source is
+arbitrary, and is most useful as a secondary key for handler registration.
+(See <code>EventBus#addHandlerToSource</code>, which allows a handler to
+register for events of a particular type, tied to a particular source.)</p>
+<p>Note that the source is actually set at dispatch time, e.g. via
+<code>EventBus#fireEventFromSource(Event, Object)</code>.</p>
+<p>@return object representing the source of this event</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a>&lt;<a href="../dart_web_toolkit_event/ErrorEvent.html">H</a>&gt; </div></div>
+<pre class="source">
+Object getSource() {
+ assertLive();
+ return super.getSource();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="isLive">
+<button class="show-code">Code</button>
+bool <strong>isLive</strong>() <a class="anchor-link" href="#isLive"
+              title="Permalink to ErrorEvent.isLive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Is the event current live?</p>
+<p>@return whether the event is live</p>
+<pre class="source">
+bool isLive() {
+ return !_dead;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="kill">
+<button class="show-code">Code</button>
+void <strong>kill</strong>() <a class="anchor-link" href="#kill"
+              title="Permalink to ErrorEvent.kill">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Kill the event. After the event has been killed, users cannot really on its
+values or functions being available.</p>
+<pre class="source">
+void kill() {
+ _dead = true;
+ setSource(null);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="overrideSource">
+<button class="show-code">Code</button>
+void <strong>overrideSource</strong>(Object source) <a class="anchor-link" href="#overrideSource"
+              title="Permalink to ErrorEvent.overrideSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<pre class="source">
+void overrideSource(Object source) {
+ super.setSource(source);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="preventDefault">
+<button class="show-code">Code</button>
+void <strong>preventDefault</strong>() <a class="anchor-link" href="#preventDefault"
+              title="Permalink to ErrorEvent.preventDefault">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a> </div><div class="doc">
+<p>Prevents the wrapped native event's default action.</p>
+<pre class="source">
+void preventDefault() {
+ assertLive();
+ _nativeEvent.preventDefault();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="revive">
+<button class="show-code">Code</button>
+void <strong>revive</strong>() <a class="anchor-link" href="#revive"
+              title="Permalink to ErrorEvent.revive">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DwtEvent.html">DwtEvent</a> </div><div class="doc">
+<p>Revives the event. Used when recycling event instances.</p>
+<pre class="source">
+void revive() {
+ _dead = false;
+ setSource(null);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setSource">
+<button class="show-code">Code</button>
+void <strong>setSource</strong>(source) <a class="anchor-link" href="#setSource"
+              title="Permalink to ErrorEvent.setSource">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> </div><div class="doc">
+<p>Set the source that triggered this event. Intended to be called by the
+<a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> during dispatch.</p>
+<p>@param source the source of this event.
+@see EventBus#fireEventFromSource(Event, Object)
+@see EventBus#setSourceOfEvent(Event, Object)</p>
+<pre class="source">
+void setSource(dynamic source) {
+ this._source = source;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="stopPropagation">
+<button class="show-code">Code</button>
+void <strong>stopPropagation</strong>() <a class="anchor-link" href="#stopPropagation"
+              title="Permalink to ErrorEvent.stopPropagation">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DomEvent.html">DomEvent</a> </div><div class="doc">
+<p>Stops the propagation of the underlying native event.</p>
+<pre class="source">
+void stopPropagation() {
+ assertLive();
+ _nativeEvent.stopPropagation();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to ErrorEvent.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> </div><div class="doc">
+<p>The toString() for abstract event is overridden to avoid accidently
+including class literals in the the compiled output. Use <code>Event</code></p>
+<h1>toDebugString to get more information about the event.</h1>
+<pre class="source">
+String toString() {
+ return "An event type";
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:18.484</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

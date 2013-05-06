@@ -1,0 +1,211 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Role class / dart_web_toolkit_role Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_role" data-type="Role">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_role.html">dart_web_toolkit_role</a> &rsaquo; <a href="../dart_web_toolkit_role/Role.html">Role</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Role</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Allows ARIA Accessibility attributes to be added to widgets so that they can be identified by
+assistive technology.</p><p>ARIA roles define widgets and page structure that can be interpreted by a reader
+application/device. There is a set of abstract roles which are used as
+building blocks of the roles hierarchy structural and define the common properties and states
+for the concrete roles. Abstract roles cannot be set to HTML elements.</p><p>This class defines some of the supported operations for a role -- set/get/remove
+role to/from a DOM element.</p><p>For more details about ARIA roles check <a href="http://www.w3.org/TR/wai-aria/roles">
+The Roles Model </a>.</p>
+<pre class="source">
+class Role {
+
+ static final String ATTR_NAME_ROLE = "role";
+ String _roleName;
+
+ Role(String roleName) {
+   assert (roleName != null); // : "Role name cannot be null";
+   this._roleName = roleName;
+ }
+
+ /**
+  * Gets the role for the element {@code element}. If none is set, "" is returned.
+  *
+  * @param element HTML element
+  * @return The role attribute value
+  */
+ String get(dart_html.Element element) {
+   assert (element != null); // : "Element cannot be null.";
+   return element.attributes[ATTR_NAME_ROLE];
+ }
+
+ /**
+  * Gets the role name
+  *
+  * @return The role name
+  */
+ String getName() {
+   return _roleName;
+ }
+
+ /**
+  * Removes the role for element {@code element}
+  *
+  * @param element HTML element
+  */
+ void remove(dart_html.Element element) {
+   assert (element != null); // : "Element cannot be null.";
+   element.attributes.remove(ATTR_NAME_ROLE);
+ }
+
+ /**
+  * Sets the role to element {@code element}
+  *
+  * @param element HTML element
+  */
+ void set(dart_html.Element element) {
+   assert (element != null); // : "Element cannot be null.";
+   element.attributes[ATTR_NAME_ROLE] = _roleName;
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/ButtonRoleImpl.html">ButtonRoleImpl</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="ATTR_NAME_ROLE">
+<button class="show-code">Code</button>
+final String         <strong>ATTR_NAME_ROLE</strong> <a class="anchor-link"
+            href="#ATTR_NAME_ROLE"
+            title="Permalink to Role.ATTR_NAME_ROLE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static final String ATTR_NAME_ROLE = "role"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Role">
+<button class="show-code">Code</button>
+new <strong>Role</strong>(String roleName) <a class="anchor-link" href="#Role"
+              title="Permalink to Role.Role">#</a></h4>
+<div class="doc">
+<pre class="source">
+Role(String roleName) {
+ assert (roleName != null); // : "Role name cannot be null";
+ this._roleName = roleName;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+String <strong>get</strong>(Element element) <a class="anchor-link" href="#get"
+              title="Permalink to Role.get">#</a></h4>
+<div class="doc">
+<p>Gets the role for the element {@code element}. If none is set, "" is returned.</p>
+<p>@param element HTML element
+@return The role attribute value</p>
+<pre class="source">
+String get(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ return element.attributes[ATTR_NAME_ROLE];
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getName">
+<button class="show-code">Code</button>
+String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to Role.getName">#</a></h4>
+<div class="doc">
+<p>Gets the role name</p>
+<p>@return The role name</p>
+<pre class="source">
+String getName() {
+ return _roleName;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="remove">
+<button class="show-code">Code</button>
+void <strong>remove</strong>(Element element) <a class="anchor-link" href="#remove"
+              title="Permalink to Role.remove">#</a></h4>
+<div class="doc">
+<p>Removes the role for element {@code element}</p>
+<p>@param element HTML element</p>
+<pre class="source">
+void remove(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ element.attributes.remove(ATTR_NAME_ROLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="set">
+<button class="show-code">Code</button>
+void <strong>set</strong>(Element element) <a class="anchor-link" href="#set"
+              title="Permalink to Role.set">#</a></h4>
+<div class="doc">
+<p>Sets the role to element {@code element}</p>
+<p>@param element HTML element</p>
+<pre class="source">
+void set(dart_html.Element element) {
+ assert (element != null); // : "Element cannot be null.";
+ element.attributes[ATTR_NAME_ROLE] = _roleName;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:20.572</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

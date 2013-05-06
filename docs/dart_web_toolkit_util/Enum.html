@@ -1,0 +1,107 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Enum&lt;T&gt; abstract class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="Enum&amp;lt;T&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/Enum.html">Enum&lt;T&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Enum&lt;T&gt;</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Emulation of Java Enum class.</p>
+<p>Example:</p>
+<p>class Meter&lt;int> extends Enum&lt;int> {</p>
+<p> const Meter(int val) : super (val);</p>
+<p> static const Meter HIGH = const Meter(100);
+ static const Meter MIDDLE = const Meter(50);
+ static const Meter LOW = const Meter(10);
+}</p>
+<p>and usage:</p>
+<p>assert (Meter.HIGH, 100);
+assert (Meter.HIGH is Meter);</p>
+<pre class="source">
+abstract class Enum&lt;T&gt; {
+
+ final T _value;
+
+ const Enum(this._value);
+
+ T get value =&gt; _value;
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_layout/Alignment.html">Alignment&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/AnimationType.html">AnimationType&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/Direction.html">Direction&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Display.html">Display&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/DockLayoutConstant.html">DockLayoutConstant&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Overflow.html">Overflow&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Position.html">Position&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/PredefinedFormat.html">PredefinedFormat&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_role/PressedValue.html">PressedValue&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_resource/RepeatStyle.html">RepeatStyle&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/TextAlign.html">TextAlign&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/TextAlignment.html">TextAlignment</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_i18n/TextDirection.html">TextDirection&lt;int&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Unit.html">Unit&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/Visibility.html">Visibility&lt;String&gt;</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_util/WhiteSpace.html">WhiteSpace&lt;String&gt;</a></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Enum">
+<button class="show-code">Code</button>
+const <strong>Enum</strong>(<a href="../dart_web_toolkit_util/Enum.html">T</a> _value) <a class="anchor-link" href="#Enum"
+              title="Permalink to Enum&lt;T&gt;.Enum">#</a></h4>
+<div class="doc">
+<pre class="source">
+const Enum(this._value);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="value">
+<button class="show-code">Code</button>
+final <a href="../dart_web_toolkit_util/Enum.html">T</a>         <strong>value</strong> <a class="anchor-link"
+            href="#value"
+            title="Permalink to Enum&lt;T&gt;.value">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+T get value =&gt; _value;
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:27.730</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

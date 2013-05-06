@@ -1,0 +1,302 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SimpleFace class / dart_web_toolkit_ui Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_ui" data-type="SimpleFace">
+        <div class="page">
+        <div class="header">
+          <a href="http://www.dartwebtoolkit.com"><div class="logo"></div></a>
+          <a href="http://www.dartwebtoolkit.com">API Reference 0.3.7+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/SimpleFace.html">SimpleFace</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SimpleFace</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class SimpleFace extends Face {
+
+ String name;
+ int faceID;
+
+ SimpleFace(CustomButton customButton, Face delegateTo, this.name, this.faceID) : super(customButton, delegateTo);
+
+ String getName() {
+   return name;
+ }
+
+ int getFaceID() {
+   return faceID;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Face.html">Face</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>SimpleFace</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SimpleFace">
+<button class="show-code">Code</button>
+new <strong>SimpleFace</strong>(<a href="../dart_web_toolkit_ui/CustomButton.html">CustomButton</a> customButton, <a href="../dart_web_toolkit_ui/Face.html">Face</a> delegateTo, String name, int faceID) <a class="anchor-link" href="#SimpleFace"
+              title="Permalink to SimpleFace.SimpleFace">#</a></h4>
+<div class="doc">
+<pre class="source">
+SimpleFace(CustomButton customButton, Face delegateTo, this.name, this.faceID) : super(customButton, delegateTo);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field inherited"><h4 id="delegateTo">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Face.html">Face</a>         <strong>delegateTo</strong> <a class="anchor-link"
+            href="#delegateTo"
+            title="Permalink to SimpleFace.delegateTo">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<pre class="source">
+Face delegateTo
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="face">
+<button class="show-code">Code</button>
+Element         <strong>face</strong> <a class="anchor-link"
+            href="#face"
+            title="Permalink to SimpleFace.face">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<pre class="source">
+dart_html.Element face
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="faceID">
+<button class="show-code">Code</button>
+int         <strong>faceID</strong> <a class="anchor-link"
+            href="#faceID"
+            title="Permalink to SimpleFace.faceID">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+int faceID
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="html">
+<button class="show-code">Code</button>
+String <strong>get html</strong> <a class="anchor-link" href="#html"
+              title="Permalink to SimpleFace.get html">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<p>Gets the face's contents as html.</p>
+<p>@return face's contents as html</p>
+<pre class="source">
+String get html =&gt; getFace().innerHtml;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="html=">
+<button class="show-code">Code</button>
+void <strong>set html</strong>(String value) <a class="anchor-link" href="#html="
+              title="Permalink to SimpleFace.set html">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<p>Set the face's contents as html.</p>
+<p>@param html html to set as face's contents html</p>
+<pre class="source">
+void set html(String value) {
+ face = new dart_html.DivElement();
+ UiObject.manageElementStyleName(face, STYLENAME_HTML_FACE, true);
+ face.innerHtml = value;
+ updateButtonFace();
+}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="name">
+<button class="show-code">Code</button>
+String         <strong>name</strong> <a class="anchor-link"
+            href="#name"
+            title="Permalink to SimpleFace.name">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String name
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="text">
+<button class="show-code">Code</button>
+String <strong>get text</strong> <a class="anchor-link" href="#text"
+              title="Permalink to SimpleFace.get text">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<p>Gets the face's contents as text.</p>
+<p>@return face's contents as text</p>
+<pre class="source">
+String get text =&gt; getFace().text;
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="text=">
+<button class="show-code">Code</button>
+void <strong>set text</strong>(String value) <a class="anchor-link" href="#text="
+              title="Permalink to SimpleFace.set text">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<p>Sets the face's contents as text.</p>
+<p>@param text text to set as face's contents</p>
+<pre class="source">
+void set text(String value) {
+ face = new dart_html.DivElement();
+ UiObject.manageElementStyleName(face, STYLENAME_HTML_FACE, true);
+ face.text = value;
+ updateButtonFace();
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method inherited"><h4 id="getFace">
+<button class="show-code">Code</button>
+Element <strong>getFace</strong>() <a class="anchor-link" href="#getFace"
+              title="Permalink to SimpleFace.getFace">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<p>Gets the contents associated with this face.</p>
+<pre class="source">
+dart_html.Element getFace() {
+ if (face == null) {
+   if (delegateTo == null) {
+     // provide a default face as none was supplied.
+     face = new dart_html.DivElement();
+     return face;
+   } else {
+     return delegateTo.getFace();
+   }
+ } else {
+   return face;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFaceID">
+<button class="show-code">Code</button>
+int <strong>getFaceID</strong>() <a class="anchor-link" href="#getFaceID"
+              title="Permalink to SimpleFace.getFaceID">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Gets the ID associated with this face. This will be a bitwise and of all
+of the attributes that comprise this face.</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div></div>
+<pre class="source">
+int getFaceID() {
+ return faceID;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getName">
+<button class="show-code">Code</button>
+String <strong>getName</strong>() <a class="anchor-link" href="#getName"
+              title="Permalink to SimpleFace.getName">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Get the name of the face. This property is also used as a modifier on the
+&lt;code>CustomButton&lt;/code> style. &lt;p/> For instance, if the
+&lt;code>CustomButton&lt;/code> style is "gwt-PushButton" and the face name is
+"up", then the CSS class name will be "gwt-PushButton-up".</p>
+<p>@return the face's name</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div></div>
+<pre class="source">
+String getName() {
+ return name;
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="setImage">
+<button class="show-code">Code</button>
+void <strong>setImage</strong>(<a href="../dart_web_toolkit_ui/Image.html">Image</a> image) <a class="anchor-link" href="#setImage"
+              title="Permalink to SimpleFace.setImage">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<p>Set the face's contents as an image.</p>
+<p>@param image image to set as face contents</p>
+<pre class="source">
+void setImage(Image image) {
+ face = image.getElement();
+ updateButtonFace();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to SimpleFace.toString">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<div class="inherited">
+<p>Returns a string representation of this object.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+String toString() {
+ return this.getName();
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="updateButtonFace">
+<button class="show-code">Code</button>
+void <strong>updateButtonFace</strong>() <a class="anchor-link" href="#updateButtonFace"
+              title="Permalink to SimpleFace.updateButtonFace">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Face.html">Face</a> </div><div class="doc">
+<pre class="source">
+void updateButtonFace() {
+ if (_customButton._curFace != null &amp;&amp; _customButton._curFace.getFace() == this.getFace()) {
+   _customButton._setCurrentFaceElement(face);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-06 17:27:25.346</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        
