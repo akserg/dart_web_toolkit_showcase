@@ -32,6 +32,7 @@ class ListBoxModel extends mvp.ViewModel {
   // Return code snipet how to use component
   String get code {
     return '''
+List<String> listTypes = ["Car Type", "Sport", "City"];
 const String NOTHING = "nothing";
 
 // Create a panel to align the Widgets
@@ -39,20 +40,41 @@ ui.HorizontalPanel hPanel = new ui.HorizontalPanel();
 hPanel.spacing = 20;
 
 ui.Label selectedBox = new ui.Label(NOTHING);
-List<String> listTypes = ["Car Type", "Sport", "City"];
+
+// Add a drop box with the list types
+ui.ListBox dropBox = new ui.ListBox();
+for (int i = 0; i < listTypes.length; i++) {
+  dropBox.addItem(listTypes[i]);
+}
+ui.VerticalPanel dropBoxPanel = new ui.VerticalPanel();
+dropBoxPanel.spacing = 4;
+dropBoxPanel.add(dropBox);
+hPanel.add(dropBoxPanel);
 
 // Add a list box with multiple selection enabled
 ui.ListBox multiBox = new ui.ListBox(true);
 multiBox.setWidth("11em");
-multiBox.setVisibleItemCount(4);
+multiBox.setVisibleItemCount(10);
 for (int i = 0; i < listTypes.length; i++) {
   multiBox.addItem(listTypes[i]);
 }
 ui.VerticalPanel multiBoxPanel = new ui.VerticalPanel();
 multiBoxPanel.spacing = 4;
-multiBoxPanel.add(new ui.Html("Select all that apply:"));
 multiBoxPanel.add(multiBox);
 hPanel.add(multiBoxPanel);
+
+// Add a drop box with the list types
+ui.VerticalPanel selectedPanel = new ui.VerticalPanel();
+selectedPanel.spacing = 4;
+selectedPanel.add(new ui.Html("Selected:"));
+selectedPanel.add(selectedBox);
+hPanel.add(selectedPanel);
+
+// Add a handler to handle drop box events
+dropBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){
+  showCategory(multiBox, dropBox.getSelectedIndex());
+  selectedBox.text = NOTHING;
+}));
 
 // Add a handler to handle drop box events
 multiBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){
@@ -73,14 +95,38 @@ multiBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent even
   selectedBox.text = sb.toString().length > 0 ? sb.toString() : NOTHING;
 }));
 
-// Add a drop box with the list types
-ui.VerticalPanel dropBoxPanel = new ui.VerticalPanel();
-dropBoxPanel.spacing = 4;
-dropBoxPanel.add(new ui.Html("Selected:"));
-dropBoxPanel.add(selectedBox);
-hPanel.add(dropBoxPanel);
+// Show default category
+showCategory(multiBox, 0);
 
 return hPanel;
+
+...
+
+
+/**
+ * Display the options for a given category in the list box.
+ *
+ * @param listBox the ListBox to add the options to
+ * @param category the category index
+ */
+void showCategory(ui.ListBox listBox, int category) {
+  listBox.clear();
+  List<String> listData = null;
+  switch (category) {
+    case 0:
+      listData = ["compact", "sedan", "coupe", "convertable", "SUV", "truck"];
+      break;
+    case 1:
+      listData = ["Baseball", "Basketball", "Footbal"];
+      break;
+    case 2:
+      listData = ["Paris", "London"];
+      break;
+  }
+  for (int i = 0; i < listData.length; i++) {
+    listBox.addItem(listData[i]);
+  }
+}
 ''';
   }
   
@@ -93,29 +139,50 @@ return hPanel;
    * Return instantiated Component code.
    */
   ui.Widget asWidget() {
-    
+    List<String> listTypes = ["Car Type", "Sport", "City"];
     const String NOTHING = "nothing";
-    
+
     // Create a panel to align the Widgets
     ui.HorizontalPanel hPanel = new ui.HorizontalPanel();
     hPanel.spacing = 20;
-
-    ui.Label selectedBox = new ui.Label(NOTHING);
-    List<String> listTypes = ["Car Type", "Sport", "City"];
     
+    ui.Label selectedBox = new ui.Label(NOTHING);
+
+    // Add a drop box with the list types
+    ui.ListBox dropBox = new ui.ListBox();
+    for (int i = 0; i < listTypes.length; i++) {
+      dropBox.addItem(listTypes[i]);
+    }
+    ui.VerticalPanel dropBoxPanel = new ui.VerticalPanel();
+    dropBoxPanel.spacing = 4;
+    dropBoxPanel.add(dropBox);
+    hPanel.add(dropBoxPanel);
+
     // Add a list box with multiple selection enabled
     ui.ListBox multiBox = new ui.ListBox(true);
     multiBox.setWidth("11em");
-    multiBox.setVisibleItemCount(4);
+    multiBox.setVisibleItemCount(10);
     for (int i = 0; i < listTypes.length; i++) {
       multiBox.addItem(listTypes[i]);
     }
     ui.VerticalPanel multiBoxPanel = new ui.VerticalPanel();
     multiBoxPanel.spacing = 4;
-    multiBoxPanel.add(new ui.Html("Select all that apply:"));
     multiBoxPanel.add(multiBox);
     hPanel.add(multiBoxPanel);
+    
+    // Add a drop box with the list types
+    ui.VerticalPanel selectedPanel = new ui.VerticalPanel();
+    selectedPanel.spacing = 4;
+    selectedPanel.add(new ui.Html("Selected:"));
+    selectedPanel.add(selectedBox);
+    hPanel.add(selectedPanel);
 
+    // Add a handler to handle drop box events
+    dropBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){
+      showCategory(multiBox, dropBox.getSelectedIndex());
+      selectedBox.text = NOTHING;
+    }));
+    
     // Add a handler to handle drop box events
     multiBox.addChangeHandler(new event.ChangeHandlerAdapter((event.ChangeEvent event){
       StringBuffer sb = new StringBuffer();
@@ -135,19 +202,15 @@ return hPanel;
       selectedBox.text = sb.toString().length > 0 ? sb.toString() : NOTHING;
     }));
 
-    // Add a drop box with the list types
-    ui.VerticalPanel dropBoxPanel = new ui.VerticalPanel();
-    dropBoxPanel.spacing = 4;
-    dropBoxPanel.add(new ui.Html("Selected:"));
-    dropBoxPanel.add(selectedBox);
-    hPanel.add(dropBoxPanel);
-    
+    // Show default category
+    showCategory(multiBox, 0);
+
     return hPanel;
   }
   
   /**
    * Display the options for a given category in the list box.
-  *
+   *
    * @param listBox the ListBox to add the options to
    * @param category the category index
    */

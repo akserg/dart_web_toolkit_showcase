@@ -5,6 +5,7 @@ Dart Web Toolkit Showcase Changes
 
 * Fixed bug Style change does not work.
 * Changed library minor version number.
+* Added Combobox example to showcase.
 
 **May 3, 2013
 
