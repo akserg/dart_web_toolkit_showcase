@@ -28731,7 +28731,7 @@ $.DWT_majorVersion = function() {
 };
 
 $.DWT_minorVersion = function() {
-  return "7";
+  return "8";
 };
 
 $.AllMouseHandlersAdapter$ = function(callback) {
