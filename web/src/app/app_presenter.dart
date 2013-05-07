@@ -33,7 +33,7 @@ class AppPresenter implements mvp.Presenter {
 
 abstract class AppPresenterDisplay implements mvp.Display {
   /**
-   * Set list of [Page]s.
+   * Set list of Pages.
    */
   void set pages(List<mvp.Presenter> values);
 }
