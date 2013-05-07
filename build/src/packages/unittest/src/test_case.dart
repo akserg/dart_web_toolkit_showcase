@@ -61,9 +61,9 @@ class TestCase {
   Completer _testComplete;
 
   TestCase._internal(this.id, this.description, this.testFunction)
-  : currentGroup = _currentGroup,
-    setUp = _testSetup,
-    tearDown = _testTeardown;
+  : currentGroup = _currentContext.fullName,
+    setUp = _currentContext.testSetup,
+    tearDown = _currentContext.testTeardown;
 
   bool get isComplete => !enabled || result != null;
 
@@ -83,7 +83,10 @@ class TestCase {
     --_callbackFunctionsOutstanding;
     if (f is Future) {
       return f.then((_) => _finishTest())
-       .catchError((error) => fail("${error}"));
+        .catchError((error) {
+          var stack = getAttachedStackTrace(error);
+          _registerException(this, error, stack);
+        });
     } else {
       _finishTest();
       return null;
@@ -118,7 +121,9 @@ class TestCase {
           // a failed setUp. There is no right answer, but doing it
           // seems to be the more conservative approach, because
           // unittest will not stop at a test failure.
-          error("$description: Test setup failed: $e");
+          var stack = getAttachedStackTrace(e);
+          if (stack == null) stack = '';
+          error("$description: Test setup failed: $e", "$stack");
         });
     } else {
       var f = _runTest();
@@ -144,7 +149,7 @@ class TestCase {
   // is the first time the result is being set.
   void _setResult(String testResult, String messageText, String stack) {
     _message = messageText;
-    _stackTrace = stack;
+    _stackTrace = _formatStack(stack);
     if (result == null) {
       _result = testResult;
       _config.onTestResult(this);
@@ -195,6 +200,7 @@ class TestCase {
   }
 
   void fail(String messageText, [String stack = '']) {
+    assert(stack != null);
     if (result != null) {
       String newMessage = (result == PASS)
           ? 'Test failed after initially passing: $messageText'
@@ -207,6 +213,7 @@ class TestCase {
   }
 
   void error(String messageText, [String stack = '']) {
+    assert(stack != null);
     _complete(ERROR, messageText, stack);
   }
 

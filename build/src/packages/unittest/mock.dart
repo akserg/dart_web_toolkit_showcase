@@ -5,6 +5,21 @@
 /**
  * A simple mocking/spy library.
  *
+ * ## Installing ##
+ *
+ * Use [pub][] to install this package. Add the following to your `pubspec.yaml`
+ * file.
+ *
+ *     dependencies:
+ *       mock: any
+ *
+ * Then run `pub install`.
+ *
+ * For more information, see the
+ * [mock package on pub.dartlang.org](http://pub.dartlang.org/packages/mock).
+ *
+ * ## Using ##
+ *
  * To create a mock objects for some class T, create a new class using:
  *
  *     class MockT extends Mock implements T {};
@@ -87,11 +102,26 @@
  *       }
  *     }
  *
+ * However, there is an even easier way, by calling [Mock.spy], e.g.:
+ *
+ *      var foo = new Foo();
+ *      var spy = new Mock.spy(foo);
+ *      print(spy.bar(1, 2, 3));
+ *
+ * Spys created with Mock.spy do not have user-defined behavior;
+ * they are simply proxies,  and thus will throw an exception if
+ * you call [when]. They capture all calls in the log, so you can
+ * do assertions on their history, such as:
+ *
+ *       spy.getLogs(callsTo('bar')).verify(happenedOnce);
+ *
+ * [pub]: http://pub.dartlang.org
  */
 
 library mock;
 
-import 'dart:mirrors' show MirrorSystem;
+import 'dart:mirrors';
+import 'dart:collection' show LinkedHashMap;
 
 import 'matcher.dart';
 
@@ -1221,13 +1251,16 @@ class Mock {
   final String name;
 
   /** The set of [Behavior]s supported. */
-  Map<String,Behavior> _behaviors;
+  LinkedHashMap<String,Behavior> _behaviors;
 
   /** The [log] of calls made. Only used if [name] is null. */
   LogEntryList log;
 
   /** How to handle unknown method calls - swallow or throw. */
   final bool _throwIfNoBehavior;
+
+  /** For spys, the real object that we are spying on. */
+  Object _realObject;
 
   /** Whether to create an audit log or not. */
   bool _logging;
@@ -1246,7 +1279,7 @@ class Mock {
    */
   Mock() : _throwIfNoBehavior = false, log = null, name = null {
     logging = true;
-    _behaviors = new Map<String,Behavior>();
+    _behaviors = new LinkedHashMap<String,Behavior>();
   }
 
   /**
@@ -1265,7 +1298,20 @@ class Mock {
       throw new Exception("Mocks with shared logs must have a name.");
     }
     logging = enableLogging;
-    _behaviors = new Map<String,Behavior>();
+    _behaviors = new LinkedHashMap<String,Behavior>();
+  }
+
+  /**
+   * This constructor creates a spy with no user-defined behavior.
+   * This is simply a proxy for a real object that passes calls
+   * through to that real object but captures an audit trail of
+   * calls made to the object that can be queried and validated
+   * later.
+   */
+  Mock.spy(this._realObject, {this.name, this.log})
+    : _behaviors = null,
+     _throwIfNoBehavior = true {
+    logging = true;
   }
 
   /**
@@ -1307,6 +1353,17 @@ class Mock {
         method = method.substring(0, method.length - 1);
       }
     }
+    if (_behaviors == null) { // Spy.
+      var mirror = reflect(_realObject);
+      try {
+        var result = mirror.delegate(invocation);
+        log.add(new LogEntry(name, method, args, Action.PROXY, result));
+        return result;
+      } catch (e) {
+        log.add(new LogEntry(name, method, args, Action.THROW, e));
+        throw e;
+      }
+    }
     bool matchedMethodName = false;
     MatchState matchState = new MatchState();
     for (String k in _behaviors.keys) {
@@ -1343,7 +1400,8 @@ class Mock {
           throw value;
         } else if (action == Action.PROXY) {
           // TODO(gram): Replace all this with:
-          //     var rtn = invocation.invokeOn(value);
+          //     var rtn = reflect(value).apply(invocation.positionalArguments,
+          //         invocation.namedArguments);
           // once that is supported.
           var rtn;
           switch (args.length) {

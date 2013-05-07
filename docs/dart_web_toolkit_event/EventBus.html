@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.8+2</a>
+          <a href="../index.html">API Reference 0.3.9</a>
          &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/EventBus.html">EventBus&lt;H&gt;</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -55,10 +55,10 @@ be of general interest.</p>
 abstract class EventBus&lt;H&gt; {
 
  /**
-  * Invokes [dispatch] with [handler].
+  * Invokes [IEvent.dispatch] with [handler].
   *
   * Protected to allow EventBus implementations in different packages to
-  * dispatch events even though the [dispatch] method is protected.
+  * dispatch events even though the [IEvent.dispatch] method is protected.
   */
  static void dispatchEvent(IEvent event, handler) {
    event.dispatch(handler);
@@ -145,10 +145,10 @@ abstract class EventBus&lt;H&gt; {
 void <strong>dispatchEvent</strong>(<a href="../dart_web_toolkit_event/IEvent.html">IEvent</a> event, handler) <a class="anchor-link" href="#dispatchEvent"
               title="Permalink to EventBus&lt;H&gt;.dispatchEvent">#</a></h4>
 <div class="doc">
-<p>Invokes <code>dispatch</code> with 
+<p>Invokes <a class="crossref" href="../dart_web_toolkit_event/IEvent.html#dispatch">IEvent.dispatch</a> with 
 <span class="param">handler</span>.</p>
 <p>Protected to allow EventBus implementations in different packages to
-dispatch events even though the <code>dispatch</code> method is protected.</p>
+dispatch events even though the <a class="crossref" href="../dart_web_toolkit_event/IEvent.html#dispatch">IEvent.dispatch</a> method is protected.</p>
 <pre class="source">
 static void dispatchEvent(IEvent event, handler) {
  event.dispatch(handler);
@@ -240,7 +240,7 @@ from executing.</p>
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-06 21:36:11.422</div>
+          <div>This page was generated at 2013-05-07 18:55:41.898</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
