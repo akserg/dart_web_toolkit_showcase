@@ -3,7 +3,7 @@ Dart Web Toolkit Showcase Changes
 
 **May 13, 2013
 
-* Following Dart 0.5.5.
+* Following Dart 0.5.7.
 * Following DartWeb Toolkit 0.3.10
 * Following Lost Dart 0.4.8
 
