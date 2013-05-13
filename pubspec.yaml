@@ -6,6 +6,6 @@ authors:
 - Sergey Akopkokhyants <akserg@gmail.com>
 homepage: http://akserg.github.com/dart_web_toolkit_showcase
 dependencies:
-  intl: ">=0.5.5"
+  intl: ">=0.5.7"
   lost_dart: ">=0.4.8"
-  dart_web_toolkit: ">=0.3.10+2"
+  dart_web_toolkit: ">=0.3.10+3"

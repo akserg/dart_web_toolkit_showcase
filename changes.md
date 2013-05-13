@@ -5,6 +5,9 @@ Dart Web Toolkit Showcase Changes
 
 * Following Dart Web Toolkit 0.3.10.
 * Following Lost Dart 0.4.8.
+* Following the Dart SDK 0.5.7.2_r22611
+
+**May 10, 2013
 
 * Following Dart Web Toolkit 0.3.9.
 * Fixed bug Example of TabLayoutPanel has wrong code.
