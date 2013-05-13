@@ -15079,18 +15079,16 @@ $$.LabelBase = {"": "Widget;directionalTextHelper,_autoHorizontalAlignment,_horz
         if (t1 === $.Direction_LTR)
           align = $.HorizontalAlignmentConstant_TextAlign_left;
         else {
-          if (t1 === $.Direction_RTL)
-            ;
-          align = $.HorizontalAlignmentConstant_TextAlign_right;
+          t1 = t1 === $.Direction_RTL ? $.HorizontalAlignmentConstant_TextAlign_right : $.HorizontalAlignmentConstant_TextAlign_left;
+          align = t1;
         }
       } else {
         t1 = t2.textDir;
         if (t1 === $.Direction_LTR)
           align = $.HorizontalAlignmentConstant_TextAlign_right;
         else {
-          if (t1 === $.Direction_RTL)
-            ;
-          align = $.HorizontalAlignmentConstant_TextAlign_left;
+          t1 = t1 === $.Direction_RTL ? $.HorizontalAlignmentConstant_TextAlign_left : $.HorizontalAlignmentConstant_TextAlign_right;
+          align = t1;
         }
       }
     }
@@ -30206,7 +30204,7 @@ $._DockAnimateCommand$ = function(_panel, layout) {
 };
 
 $.DockPanel$ = function() {
-  var t1 = new $.DockPanel($.HorizontalAlignmentConstant_TextAlign_right, $.VerticalAlignmentConstant_top, null, null, null, null, null, null, 0, null, false, null, null, null);
+  var t1 = new $.DockPanel($.HorizontalAlignmentConstant_TextAlign_left, $.VerticalAlignmentConstant_top, null, null, null, null, null, null, 0, null, false, null, null, null);
   t1.ComplexPanel$0();
   t1.CellPanel$0();
   t1.DockPanel$0();
@@ -30214,7 +30212,7 @@ $.DockPanel$ = function() {
 };
 
 $.DockPanelLayoutData$ = function(dir) {
-  var t1 = new $.DockPanelLayoutData(null, $.HorizontalAlignmentConstant_TextAlign_right.getTextAlignString$0(), "", null, $.VerticalAlignmentConstant_top.getVerticalAlignString$0(), "");
+  var t1 = new $.DockPanelLayoutData(null, $.HorizontalAlignmentConstant_TextAlign_left.getTextAlignString$0(), "", null, $.VerticalAlignmentConstant_top.getVerticalAlignString$0(), "");
   t1.DockPanelLayoutData$1(dir);
   return t1;
 };
@@ -30344,7 +30342,7 @@ $.History_encodeHistoryToken = function(historyToken) {
 };
 
 $.HorizontalPanel$ = function() {
-  var t1 = new $.HorizontalPanel($.HorizontalAlignmentConstant_TextAlign_right, $.VerticalAlignmentConstant_top, null, null, null, null, null, null, 0, null, false, null, null, null);
+  var t1 = new $.HorizontalPanel($.HorizontalAlignmentConstant_TextAlign_left, $.VerticalAlignmentConstant_top, null, null, null, null, null, null, 0, null, false, null, null, null);
   t1.ComplexPanel$0();
   t1.CellPanel$0();
   t1.HorizontalPanel$0();
@@ -31354,7 +31352,7 @@ $.UiObject__updatePrimaryAndDependentStyleNames$bailout = function(state0, elem,
 };
 
 $.VerticalPanel$ = function() {
-  var t1 = new $.VerticalPanel($.HorizontalAlignmentConstant_TextAlign_right, $.VerticalAlignmentConstant_top, null, null, null, null, null, 0, null, false, null, null, null);
+  var t1 = new $.VerticalPanel($.HorizontalAlignmentConstant_TextAlign_left, $.VerticalAlignmentConstant_top, null, null, null, null, null, 0, null, false, null, null, null);
   t1.ComplexPanel$0();
   t1.CellPanel$0();
   t1.VerticalPanel$0();
