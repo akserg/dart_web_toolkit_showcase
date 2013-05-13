@@ -8,4 +8,4 @@ homepage: http://akserg.github.com/dart_web_toolkit_showcase
 dependencies:
   intl: ">=0.5.5"
   lost_dart: ">=0.4.8"
-  dart_web_toolkit: ">=0.3.10+1"
+  dart_web_toolkit: ">=0.3.10+2"
