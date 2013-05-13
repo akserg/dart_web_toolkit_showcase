@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.9</a>
+          <a href="../index.html">API Reference 0.3.10+1</a>
          &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/HasHorizontalAlignment.html">HasHorizontalAlignment</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -61,41 +61,41 @@ abstract class HasHorizontalAlignment {
  /**
   * Specifies that the widget's contents should be aligned in the center.
   */
- static HorizontalAlignmentConstant ALIGN_CENTER = new HorizontalAlignmentConstant(TextAlign.CENTER.value);
+ static const HorizontalAlignmentConstant ALIGN_CENTER = const HorizontalAlignmentConstant(TextAlign.CENTER);
 
  /**
   * Specifies that the widget's contents should be aligned as justify.
   */
- static HorizontalAlignmentConstant ALIGN_JUSTIFY = new HorizontalAlignmentConstant(TextAlign.JUSTIFY.value);
+ static const HorizontalAlignmentConstant ALIGN_JUSTIFY = const HorizontalAlignmentConstant(TextAlign.JUSTIFY);
 
  /**
   * Specifies that the widget's contents should be aligned to the left.
   */
- static HorizontalAlignmentConstant ALIGN_LEFT = new HorizontalAlignmentConstant(TextAlign.LEFT.value);
+ static const HorizontalAlignmentConstant ALIGN_LEFT = const HorizontalAlignmentConstant(TextAlign.LEFT);
 
  /**
   * Specifies that the widget's contents should be aligned to the right.
   */
- static HorizontalAlignmentConstant ALIGN_RIGHT = new HorizontalAlignmentConstant(TextAlign.RIGHT.value);
+ static const HorizontalAlignmentConstant ALIGN_RIGHT = const HorizontalAlignmentConstant(TextAlign.RIGHT);
 
  /**
   * In a RTL layout, specifies that the widget's contents should be aligned to
   * the right. In a LTR layout, specifies that the widget's constants should be
   * aligned to the left.
   */
- static HorizontalAlignmentConstant ALIGN_LOCALE_START = LocaleInfo.getCurrentLocale().isRTL() ? HasHorizontalAlignment.ALIGN_RIGHT : HasHorizontalAlignment.ALIGN_LEFT;
+ static const HorizontalAlignmentConstant ALIGN_LOCALE_START = HasHorizontalAlignment.ALIGN_RIGHT; //LocaleInfo.getCurrentLocale().isRTL() ? HasHorizontalAlignment.ALIGN_RIGHT : HasHorizontalAlignment.ALIGN_LEFT;
 
  /**
   * In a RTL layout, specifies that the widget's contents should be aligned to
   * the left. In a LTR layout, specifies that the widget's constants should be
   * aligned to the right.
   */
- static HorizontalAlignmentConstant ALIGN_LOCALE_END = LocaleInfo.getCurrentLocale().isRTL() ? HasHorizontalAlignment.ALIGN_LEFT : HasHorizontalAlignment.ALIGN_RIGHT;
+ static const HorizontalAlignmentConstant ALIGN_LOCALE_END = HasHorizontalAlignment.ALIGN_LEFT ; //LocaleInfo.getCurrentLocale().isRTL() ? HasHorizontalAlignment.ALIGN_LEFT : HasHorizontalAlignment.ALIGN_RIGHT;
 
  /**
   * Synonym of {@link #ALIGN_LOCALE_START}.
   */
- static HorizontalAlignmentConstant ALIGN_DEFAULT = HasHorizontalAlignment.ALIGN_LOCALE_START;
+ static const HorizontalAlignmentConstant ALIGN_DEFAULT = HasHorizontalAlignment.ALIGN_LOCALE_START;
 
  /**
   * Gets the horizontal alignment.
@@ -134,59 +134,59 @@ abstract class HasHorizontalAlignment {
 <h3>Static Properties</h3>
 <div class="field"><h4 id="ALIGN_CENTER">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_CENTER</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_CENTER</strong> <a class="anchor-link"
             href="#ALIGN_CENTER"
             title="Permalink to HasHorizontalAlignment.ALIGN_CENTER">#</a>
         </h4>
         <div class="doc">
 <p>Specifies that the widget's contents should be aligned in the center.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_CENTER = new HorizontalAlignmentConstant(TextAlign.CENTER.value)
+static const HorizontalAlignmentConstant ALIGN_CENTER = const HorizontalAlignmentConstant(TextAlign.CENTER)
 </pre>
 </div>
 </div>
 <div class="field"><h4 id="ALIGN_DEFAULT">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_DEFAULT</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_DEFAULT</strong> <a class="anchor-link"
             href="#ALIGN_DEFAULT"
             title="Permalink to HasHorizontalAlignment.ALIGN_DEFAULT">#</a>
         </h4>
         <div class="doc">
 <p>Synonym of {@link #ALIGN<em>LOCALE</em>START}.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_DEFAULT = HasHorizontalAlignment.ALIGN_LOCALE_START
+static const HorizontalAlignmentConstant ALIGN_DEFAULT = HasHorizontalAlignment.ALIGN_LOCALE_START
 </pre>
 </div>
 </div>
 <div class="field"><h4 id="ALIGN_JUSTIFY">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_JUSTIFY</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_JUSTIFY</strong> <a class="anchor-link"
             href="#ALIGN_JUSTIFY"
             title="Permalink to HasHorizontalAlignment.ALIGN_JUSTIFY">#</a>
         </h4>
         <div class="doc">
 <p>Specifies that the widget's contents should be aligned as justify.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_JUSTIFY = new HorizontalAlignmentConstant(TextAlign.JUSTIFY.value)
+static const HorizontalAlignmentConstant ALIGN_JUSTIFY = const HorizontalAlignmentConstant(TextAlign.JUSTIFY)
 </pre>
 </div>
 </div>
 <div class="field"><h4 id="ALIGN_LEFT">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_LEFT</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_LEFT</strong> <a class="anchor-link"
             href="#ALIGN_LEFT"
             title="Permalink to HasHorizontalAlignment.ALIGN_LEFT">#</a>
         </h4>
         <div class="doc">
 <p>Specifies that the widget's contents should be aligned to the left.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_LEFT = new HorizontalAlignmentConstant(TextAlign.LEFT.value)
+static const HorizontalAlignmentConstant ALIGN_LEFT = const HorizontalAlignmentConstant(TextAlign.LEFT)
 </pre>
 </div>
 </div>
 <div class="field"><h4 id="ALIGN_LOCALE_END">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_LOCALE_END</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_LOCALE_END</strong> <a class="anchor-link"
             href="#ALIGN_LOCALE_END"
             title="Permalink to HasHorizontalAlignment.ALIGN_LOCALE_END">#</a>
         </h4>
@@ -195,13 +195,13 @@ static HorizontalAlignmentConstant ALIGN_LEFT = new HorizontalAlignmentConstant(
 the left. In a LTR layout, specifies that the widget's constants should be
 aligned to the right.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_LOCALE_END = LocaleInfo.getCurrentLocale().isRTL() ? HasHorizontalAlignment.ALIGN_LEFT : HasHorizontalAlignment.ALIGN_RIGHT
+static const HorizontalAlignmentConstant ALIGN_LOCALE_END = HasHorizontalAlignment.ALIGN_LEFT
 </pre>
 </div>
 </div>
 <div class="field"><h4 id="ALIGN_LOCALE_START">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_LOCALE_START</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_LOCALE_START</strong> <a class="anchor-link"
             href="#ALIGN_LOCALE_START"
             title="Permalink to HasHorizontalAlignment.ALIGN_LOCALE_START">#</a>
         </h4>
@@ -210,20 +210,20 @@ static HorizontalAlignmentConstant ALIGN_LOCALE_END = LocaleInfo.getCurrentLocal
 the right. In a LTR layout, specifies that the widget's constants should be
 aligned to the left.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_LOCALE_START = LocaleInfo.getCurrentLocale().isRTL() ? HasHorizontalAlignment.ALIGN_RIGHT : HasHorizontalAlignment.ALIGN_LEFT
+static const HorizontalAlignmentConstant ALIGN_LOCALE_START = HasHorizontalAlignment.ALIGN_RIGHT
 </pre>
 </div>
 </div>
 <div class="field"><h4 id="ALIGN_RIGHT">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_RIGHT</strong> <a class="anchor-link"
+const <a href="../dart_web_toolkit_i18n/HorizontalAlignmentConstant.html">HorizontalAlignmentConstant</a>         <strong>ALIGN_RIGHT</strong> <a class="anchor-link"
             href="#ALIGN_RIGHT"
             title="Permalink to HasHorizontalAlignment.ALIGN_RIGHT">#</a>
         </h4>
         <div class="doc">
 <p>Specifies that the widget's contents should be aligned to the right.</p>
 <pre class="source">
-static HorizontalAlignmentConstant ALIGN_RIGHT = new HorizontalAlignmentConstant(TextAlign.RIGHT.value)
+static const HorizontalAlignmentConstant ALIGN_RIGHT = const HorizontalAlignmentConstant(TextAlign.RIGHT)
 </pre>
 </div>
 </div>
@@ -267,7 +267,7 @@ rules.</p>
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-07 18:55:42.157</div>
+          <div>This page was generated at 2013-05-13 21:32:09.530</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

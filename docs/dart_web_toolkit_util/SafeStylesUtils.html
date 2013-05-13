@@ -1,0 +1,1536 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SafeStylesUtils class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="SafeStylesUtils">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.10+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/SafeStylesUtils.html">SafeStylesUtils</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SafeStylesUtils</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Utility class containing static methods for creating {@link SafeStyles}.</p>
+<pre class="source">
+class SafeStylesUtils {
+
+ static SafeStylesUtilsImpl _impl;
+
+ /**
+  * Sets the background-image CSS property.
+  * 
+  * @param uri the URI of the background image
+  * @return a {@link SafeStyles} instance
+  * @see #forTrustedBackgroundImage(String)
+  */
+ static SafeStyles forBackgroundImage(SafeUri uri) {
+   return fromTrustedNameAndValue("background-image", "url(\"" + uri.asString() + "\")");
+ }
+
+ /**
+  * Sets the border-style CSS property.
+  */
+ static SafeStyles forBorderStyle(BorderStyle value) {
+   return fromTrustedNameAndValue("border-style", value.value);
+ }
+
+ /**
+  * Set the border-width css property.
+  */
+ static SafeStyles forBorderWidth(double value, Unit unit) {
+   return fromTrustedNameAndValue("border-width", value, unit);
+ }
+
+ /**
+  * Set the bottom css property.
+  */
+ static SafeStyles forBottom(double value, Unit unit) {
+   return fromTrustedNameAndValue("bottom", value, unit);
+ }
+
+ /**
+  * Sets the 'clear' CSS property.
+  */
+ static SafeStyles forClear(Clear value) {
+   return fromTrustedNameAndValue("clear", value.value);
+ }
+
+ /**
+  * Sets the cursor CSS property.
+  */
+ static SafeStyles forCursor(Cursor value) {
+   return fromTrustedNameAndValue("cursor", value.value);
+ }
+
+ /**
+  * Sets the display CSS property.
+  */
+ static SafeStyles forDisplay(Display value) {
+   return fromTrustedNameAndValue("display", value.value);
+ }
+
+ /**
+  * Set the float css property.
+  */
+ static SafeStyles forFloat(Float value) {
+   return fromTrustedNameAndValue("float", value.value);
+ }
+
+ /**
+  * Set the font-size css property.
+  */
+ static SafeStyles forFontSize(double value, Unit unit) {
+   return fromTrustedNameAndValue("font-size", value, unit);
+ }
+
+ /**
+  * Sets the font-style CSS property.
+  */
+ static SafeStyles forFontStyle(FontStyle value) {
+   return fromTrustedNameAndValue("font-style", value.value);
+ }
+
+ /**
+  * Sets the font-weight CSS property.
+  */
+ static SafeStyles forFontWeight(FontWeight value) {
+   return fromTrustedNameAndValue("font-weight", value.value);
+ }
+
+ /**
+  * Set the height css property.
+  */
+ static SafeStyles forHeight(double value, Unit unit) {
+   return fromTrustedNameAndValue("height", value, unit);
+ }
+
+ /**
+  * Set the left css property.
+  */
+ static SafeStyles forLeft(double value, Unit unit) {
+   return fromTrustedNameAndValue("left", value, unit);
+ }
+
+ /**
+  * Set the line-height css property.
+  */
+ static SafeStyles forLineHeight(double value, Unit unit) {
+   return fromTrustedNameAndValue("line-height", value, unit);
+ }
+
+ /**
+  * Sets the list-style-type CSS property.
+  */
+ static SafeStyles forListStyleType(ListStyleType value) {
+   return fromTrustedNameAndValue("list-style-type", value.value);
+ }
+
+ /**
+  * Set the margin css property.
+  */
+ static SafeStyles forMargin(double value, Unit unit) {
+   return fromTrustedNameAndValue("margin", value, unit);
+ }
+
+ /**
+  * Set the margin-bottom css property.
+  */
+ static SafeStyles forMarginBottom(double value, Unit unit) {
+   return fromTrustedNameAndValue("margin-bottom", value, unit);
+ }
+
+ /**
+  * Set the margin-left css property.
+  */
+ static SafeStyles forMarginLeft(double value, Unit unit) {
+   return fromTrustedNameAndValue("margin-left", value, unit);
+ }
+
+ /**
+  * Set the margin-right css property.
+  */
+ static SafeStyles forMarginRight(double value, Unit unit) {
+   return fromTrustedNameAndValue("margin-right", value, unit);
+ }
+
+ /**
+  * Set the margin-top css property.
+  */
+ static SafeStyles forMarginTop(double value, Unit unit) {
+   return fromTrustedNameAndValue("margin-top", value, unit);
+ }
+
+ /**
+  * Set the opacity css property.
+  */
+ static SafeStyles forOpacity(double value) {
+   return impl().forOpacity(value);
+ }
+
+ /**
+  * Sets the outline-style CSS property.
+  */
+ static SafeStyles forOutlineStyle(OutlineStyle value) {
+   return fromTrustedNameAndValue("outline-style", value.value);
+ }
+
+ /**
+  * Set the outline-width css property.
+  */
+ static SafeStyles forOutlineWidth(double value, Unit unit) {
+   return fromTrustedNameAndValue("outline-width", value, unit);
+ }
+
+ /**
+  * Sets the overflow CSS property.
+  */
+ static SafeStyles forOverflow(Overflow value) {
+   return fromTrustedNameAndValue("overflow", value.value);
+ }
+
+ /**
+  * Sets the overflow-x CSS property.
+  */
+ static SafeStyles forOverflowX(Overflow value) {
+   return fromTrustedNameAndValue("overflow-x", value.value);
+ }
+
+ /**
+  * Sets the overflow-y CSS property.
+  */
+ static SafeStyles forOverflowY(Overflow value) {
+   return fromTrustedNameAndValue("overflow-y", value.value);
+ }
+
+ /**
+  * Set the padding css property.
+  */
+ static SafeStyles forPadding(double value, Unit unit) {
+   return fromTrustedNameAndValue("padding", value, unit);
+ }
+
+ /**
+  * Set the padding-bottom css property.
+  */
+ static SafeStyles forPaddingBottom(double value, Unit unit) {
+   return fromTrustedNameAndValue("padding-bottom", value, unit);
+ }
+
+ /**
+  * Set the padding-left css property.
+  */
+ static SafeStyles forPaddingLeft(double value, Unit unit) {
+   return fromTrustedNameAndValue("padding-left", value, unit);
+ }
+
+ /**
+  * Set the padding-right css property.
+  */
+ static SafeStyles forPaddingRight(double value, Unit unit) {
+   return fromTrustedNameAndValue("padding-right", value, unit);
+ }
+
+ /**
+  * Set the padding-top css property.
+  */
+ static SafeStyles forPaddingTop(double value, Unit unit) {
+   return fromTrustedNameAndValue("padding-top", value, unit);
+ }
+
+ /**
+  * Sets the position CSS property.
+  */
+ static SafeStyles forPosition(Position value) {
+   return fromTrustedNameAndValue("position", value.value);
+ }
+
+ /**
+  * Set the right css property.
+  */
+ static SafeStyles forRight(double value, Unit unit) {
+   return fromTrustedNameAndValue("right", value, unit);
+ }
+
+ /**
+  * Set the table-layout CSS property.
+  */
+ static SafeStyles forTableLayout(TableLayout value) {
+   return fromTrustedNameAndValue("table-layout", value.value);
+ }
+
+ /**
+  * Sets the 'text-align' CSS property.
+  */
+ static SafeStyles forTextAlign(TextAlign value) {
+   return fromTrustedNameAndValue("text-align", value.value);
+ }
+
+ /**
+  * Sets the 'text-decoration' CSS property.
+  */
+ static SafeStyles forTextDecoration(TextDecoration value) {
+   return fromTrustedNameAndValue("text-decoration", value.value);
+ }
+
+ /**
+  * Set the 'text-indent' CSS property.
+  */
+ static SafeStyles forTextIndent(double value, Unit unit) {
+   return fromTrustedNameAndValue("text-indent", value + unit.value);
+ }
+
+ /**
+  * Set the 'text-justify' CSS3 property.
+  */
+ static SafeStyles forTextJustify(TextJustify value) {
+   return fromTrustedNameAndValue("text-justify", value.value);
+ }
+
+ /**
+  * Set the 'text-overflow' CSS3 property.
+  */
+ static SafeStyles forTextOverflow(TextOverflow value) {
+   return fromTrustedNameAndValue("text-overflow", value.value);
+ }
+
+ /**
+  * Set the 'text-transform' CSS property.
+  */
+ static SafeStyles forTextTransform(TextTransform value) {
+   return fromTrustedNameAndValue("text-transform", value.value);
+ }
+
+ /**
+  * Set the top css property.
+  */
+ static SafeStyles forTop(double value, Unit unit) {
+   return fromTrustedNameAndValue("top", value, unit);
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted background color,
+  * i.e., without escaping the value. No checks are performed. The calling code
+  * should be carefully reviewed to ensure the argument will satisfy the
+  * {@link SafeStyles} contract when they are composed into the form:
+  * "&amp;lt;name&amp;gt;:&amp;lt;value&amp;gt;;".
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * &lt;/p&gt;
+  * 
+  * @param value the property value
+  * @return a {@link SafeStyles} instance
+  */
+ static SafeStyles forTrustedBackgroundColor(String value) {
+   return fromTrustedNameAndValue("background-color", value);
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted background image,
+  * i.e., without escaping the value. No checks are performed. The calling code
+  * should be carefully reviewed to ensure the argument will satisfy the
+  * {@link SafeStyles} contract when they are composed into the form:
+  * "&amp;lt;name&amp;gt;:&amp;lt;value&amp;gt;;".
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * &lt;/p&gt;
+  * 
+  * @param value the property value
+  * @return a {@link SafeStyles} instance
+  * @see #forBackgroundImage(SafeUri)
+  */
+ static SafeStyles forTrustedBackgroundImage(String value) {
+   return fromTrustedNameAndValue("background-image", value);
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted border color, i.e.,
+  * without escaping the value. No checks are performed. The calling code
+  * should be carefully reviewed to ensure the argument will satisfy the
+  * {@link SafeStyles} contract when they are composed into the form:
+  * "&amp;lt;name&amp;gt;:&amp;lt;value&amp;gt;;".
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * &lt;/p&gt;
+  * 
+  * @param value the property value
+  * @return a {@link SafeStyles} instance
+  */
+ static SafeStyles forTrustedBorderColor(String value) {
+   return fromTrustedNameAndValue("border-color", value);
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted font color, i.e.,
+  * without escaping the value. No checks are performed. The calling code
+  * should be carefully reviewed to ensure the argument will satisfy the
+  * {@link SafeStyles} contract when they are composed into the form:
+  * "&amp;lt;name&amp;gt;:&amp;lt;value&amp;gt;;".
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * &lt;/p&gt;
+  * 
+  * @param value the property value
+  * @return a {@link SafeStyles} instance
+  */
+ static SafeStyles forTrustedColor(String value) {
+   return fromTrustedNameAndValue("color", value);
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted outline color,
+  * i.e., without escaping the value. No checks are performed. The calling code
+  * should be carefully reviewed to ensure the argument will satisfy the
+  * {@link SafeStyles} contract when they are composed into the form:
+  * "&amp;lt;name&amp;gt;:&amp;lt;value&amp;gt;;".
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * &lt;/p&gt;
+  * 
+  * @param value the property value
+  * @return a {@link SafeStyles} instance
+  */
+ static SafeStyles forTrustedOutlineColor(String value) {
+   return fromTrustedNameAndValue("outline-color", value);
+ }
+
+ /**
+  * Sets the vertical-align CSS property.
+  */
+ static SafeStyles forVerticalAlign(value, [Unit unit = null]) {
+   if (value is VerticalAlign) {
+     return fromTrustedNameAndValue("vertical-align", (value as VerticalAlign).value);
+   } else {
+     return fromTrustedNameAndValue("vertical-align", value, unit);
+   }
+ }
+
+ /**
+  * Sets the visibility CSS property.
+  */
+ static SafeStyles forVisibility(Visibility value) {
+   return fromTrustedNameAndValue("visibility", value.value);
+ }
+
+ /**
+  * Set the 'white-space' CSS property.
+  */
+ static SafeStyles forWhiteSpace(WhiteSpace value) {
+   return fromTrustedNameAndValue("white-space", value.value);
+ }
+
+ /**
+  * Set the width css property.
+  */
+ static SafeStyles forWidth(double value, Unit unit) {
+   return fromTrustedNameAndValue("width", value, unit);
+ }
+
+ /**
+  * Set the z-index css property.
+  */
+ static SafeStyles forZIndex(int value) {
+   return new SafeStylesString("z-index: %value;");
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted name and a trusted
+  * value, i.e., without escaping the name and value. No checks are performed.
+  * The calling code should be carefully reviewed to ensure the argument will
+  * satisfy the {@link SafeStyles} contract when they are composed into the
+  * form: "&amp;lt;name&amp;gt;:&amp;lt;value&amp;gt;;".
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * &lt;/p&gt;
+  * 
+  * &lt;p&gt;
+  * The name should be in hyphenated format, not camelCase format.
+  * &lt;/p&gt;
+  * 
+  * @param name the property name
+  * @param value the value
+  * @param unit the units of the value
+  * @return a {@link SafeStyles} instance
+  */
+ static SafeStyles fromTrustedNameAndValue(String name, value, [Unit unit = null]) {
+   //SafeStylesHostedModeUtils.maybeCheckValidStyleName(name);
+   if (unit != null) {
+     return new SafeStylesString(name + ":" + value + unit.value + ";");
+   } else {
+     return fromTrustedString(name + ":" + value + ";");
+   }
+ }
+
+ /**
+  * &lt;p&gt;
+  * Returns a {@link SafeStyles} constructed from a trusted string, i.e.,
+  * without escaping the string. No checks are performed. The calling code
+  * should be carefully reviewed to ensure the argument meets the
+  * {@link SafeStyles} contract.
+  * 
+  * &lt;p&gt;
+  * Generally, {@link SafeStyles} should be of the form
+  * {@code cssPropertyName:value;}, where neither the name nor the value
+  * contain malicious scripts.
+  * 
+  * &lt;p&gt;
+  * {@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+  * could be unsafe to place a {@link SafeStyles} into a &amp;lt;style&amp;gt; tag
+  * (where it can't be HTML escaped). For example, if the {@link SafeStyles}
+  * containing "
+  * &lt;code&gt;font: 'foo &amp;lt;style&amp;gt;&amp;lt;script&amp;gt;evil&amp;lt;/script&amp;gt;&lt;/code&gt;'" is
+  * used in a style sheet in a &amp;lt;style&amp;gt; tag, this could then break out of
+  * the style context into HTML.
+  * 
+  * &lt;p&gt;
+  * The following example values comply with this type's contract:
+  * &lt;ul&gt;
+  * &lt;li&gt;&lt;code&gt;width: 1em;&lt;/code&gt;&lt;/li&gt;
+  * &lt;li&gt;&lt;code&gt;height:1em;&lt;/code&gt;&lt;/li&gt;
+  * &lt;li&gt;&lt;code&gt;width: 1em;height: 1em;&lt;/code&gt;&lt;/li&gt;
+  * &lt;li&gt;&lt;code&gt;background:url('http://url');&lt;/code&gt;&lt;/li&gt;
+  * &lt;/ul&gt;
+  * In addition, the empty string is safe for use in a CSS attribute.
+  * 
+  * &lt;p&gt;
+  * The following example values do &lt;em&gt;not&lt;/em&gt; comply with this type's
+  * contract:
+  * &lt;ul&gt;
+  * &lt;li&gt;&lt;code&gt;background: red&lt;/code&gt; (missing a trailing semi-colon)&lt;/li&gt;
+  * &lt;li&gt;&lt;code&gt;background:&lt;/code&gt; (missing a value and a trailing semi-colon)&lt;/li&gt;
+  * &lt;li&gt;&lt;code&gt;1em&lt;/code&gt; (missing an attribute name, which provides context for
+  * the value)&lt;/li&gt;
+  * &lt;/ul&gt;
+  * 
+  * @param s the input String
+  * @return a {@link SafeStyles} instance
+  */
+ static SafeStyles fromTrustedString(String s) {
+   return new SafeStylesString(s);
+ }
+
+ /**
+  * Verify that the basic constraints of a {@link SafeStyles} are met. This
+  * method is not a guarantee that the specified css is safe for use in a CSS
+  * style attribute. It is a minimal set of assertions to check for common
+  * errors.
+  * 
+  * @param styles the CSS properties string
+  * @throws NullPointerException if the css is null
+  * @throws AssertionError if the css does not meet the contraints
+  */
+ static void verifySafeStylesConstraints(String styles) {
+   if (styles == null) {
+     throw new Exception("css is null");
+   }
+
+   // CSS properties must end in a semi-colon or they cannot be safely
+   // composed with other properties.
+   assert ((styles.trim().length == 0) || styles.endsWith(";"));
+//    : "Invalid CSS Property: '"
+//        + styles + "'. CSS properties must be an empty string or end with a semi-colon (;).";
+   assert (!styles.contains("&lt;") &amp;&amp; !styles.contains("&gt;"));
+//    : "Invalid CSS Property: '" + styles
+//        + "'. CSS should not contain brackets (&lt; or &gt;).";
+ }
+
+ static SafeStylesUtilsImpl impl() {
+   if (_impl == null) {
+//      if (GWT.isClient()) {
+       _impl = new SafeStylesUtilsImpl(); //GWT.create(SafeStylesUtilsImpl.class);
+//      } else {
+//        _impl = new ImplServer();
+//      }
+   }
+   return _impl;
+ }
+
+ // prevent instantiation
+ SafeStylesUtils() {
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="forBackgroundImage">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forBackgroundImage</strong>(<a href="../dart_web_toolkit_util/SafeUri.html">SafeUri</a> uri) <a class="anchor-link" href="#forBackgroundImage"
+              title="Permalink to SafeStylesUtils.forBackgroundImage">#</a></h4>
+<div class="doc">
+<p>Sets the background-image CSS property.</p>
+<p>@param uri the URI of the background image
+@return a {@link SafeStyles} instance
+@see #forTrustedBackgroundImage(String)</p>
+<pre class="source">
+static SafeStyles forBackgroundImage(SafeUri uri) {
+ return fromTrustedNameAndValue("background-image", "url(\"" + uri.asString() + "\")");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forBorderStyle">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forBorderStyle</strong>(<a href="../dart_web_toolkit_util/BorderStyle.html">BorderStyle</a> value) <a class="anchor-link" href="#forBorderStyle"
+              title="Permalink to SafeStylesUtils.forBorderStyle">#</a></h4>
+<div class="doc">
+<p>Sets the border-style CSS property.</p>
+<pre class="source">
+static SafeStyles forBorderStyle(BorderStyle value) {
+ return fromTrustedNameAndValue("border-style", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forBorderWidth">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forBorderWidth</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forBorderWidth"
+              title="Permalink to SafeStylesUtils.forBorderWidth">#</a></h4>
+<div class="doc">
+<p>Set the border-width css property.</p>
+<pre class="source">
+static SafeStyles forBorderWidth(double value, Unit unit) {
+ return fromTrustedNameAndValue("border-width", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forBottom">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forBottom</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forBottom"
+              title="Permalink to SafeStylesUtils.forBottom">#</a></h4>
+<div class="doc">
+<p>Set the bottom css property.</p>
+<pre class="source">
+static SafeStyles forBottom(double value, Unit unit) {
+ return fromTrustedNameAndValue("bottom", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forClear">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forClear</strong>(<a href="../dart_web_toolkit_util/Clear.html">Clear</a> value) <a class="anchor-link" href="#forClear"
+              title="Permalink to SafeStylesUtils.forClear">#</a></h4>
+<div class="doc">
+<p>Sets the 'clear' CSS property.</p>
+<pre class="source">
+static SafeStyles forClear(Clear value) {
+ return fromTrustedNameAndValue("clear", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forCursor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forCursor</strong>(<a href="../dart_web_toolkit_util/Cursor.html">Cursor</a> value) <a class="anchor-link" href="#forCursor"
+              title="Permalink to SafeStylesUtils.forCursor">#</a></h4>
+<div class="doc">
+<p>Sets the cursor CSS property.</p>
+<pre class="source">
+static SafeStyles forCursor(Cursor value) {
+ return fromTrustedNameAndValue("cursor", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forDisplay">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forDisplay</strong>(<a href="../dart_web_toolkit_util/Display.html">Display</a> value) <a class="anchor-link" href="#forDisplay"
+              title="Permalink to SafeStylesUtils.forDisplay">#</a></h4>
+<div class="doc">
+<p>Sets the display CSS property.</p>
+<pre class="source">
+static SafeStyles forDisplay(Display value) {
+ return fromTrustedNameAndValue("display", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forFloat">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forFloat</strong>(<a href="../dart_web_toolkit_util/Float.html">Float</a> value) <a class="anchor-link" href="#forFloat"
+              title="Permalink to SafeStylesUtils.forFloat">#</a></h4>
+<div class="doc">
+<p>Set the float css property.</p>
+<pre class="source">
+static SafeStyles forFloat(Float value) {
+ return fromTrustedNameAndValue("float", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forFontSize">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forFontSize</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forFontSize"
+              title="Permalink to SafeStylesUtils.forFontSize">#</a></h4>
+<div class="doc">
+<p>Set the font-size css property.</p>
+<pre class="source">
+static SafeStyles forFontSize(double value, Unit unit) {
+ return fromTrustedNameAndValue("font-size", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forFontStyle">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forFontStyle</strong>(<a href="../dart_web_toolkit_util/FontStyle.html">FontStyle</a> value) <a class="anchor-link" href="#forFontStyle"
+              title="Permalink to SafeStylesUtils.forFontStyle">#</a></h4>
+<div class="doc">
+<p>Sets the font-style CSS property.</p>
+<pre class="source">
+static SafeStyles forFontStyle(FontStyle value) {
+ return fromTrustedNameAndValue("font-style", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forFontWeight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forFontWeight</strong>(<a href="../dart_web_toolkit_util/FontWeight.html">FontWeight</a> value) <a class="anchor-link" href="#forFontWeight"
+              title="Permalink to SafeStylesUtils.forFontWeight">#</a></h4>
+<div class="doc">
+<p>Sets the font-weight CSS property.</p>
+<pre class="source">
+static SafeStyles forFontWeight(FontWeight value) {
+ return fromTrustedNameAndValue("font-weight", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forHeight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forHeight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forHeight"
+              title="Permalink to SafeStylesUtils.forHeight">#</a></h4>
+<div class="doc">
+<p>Set the height css property.</p>
+<pre class="source">
+static SafeStyles forHeight(double value, Unit unit) {
+ return fromTrustedNameAndValue("height", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forLeft">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forLeft</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forLeft"
+              title="Permalink to SafeStylesUtils.forLeft">#</a></h4>
+<div class="doc">
+<p>Set the left css property.</p>
+<pre class="source">
+static SafeStyles forLeft(double value, Unit unit) {
+ return fromTrustedNameAndValue("left", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forLineHeight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forLineHeight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forLineHeight"
+              title="Permalink to SafeStylesUtils.forLineHeight">#</a></h4>
+<div class="doc">
+<p>Set the line-height css property.</p>
+<pre class="source">
+static SafeStyles forLineHeight(double value, Unit unit) {
+ return fromTrustedNameAndValue("line-height", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forListStyleType">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forListStyleType</strong>(<a href="../dart_web_toolkit_util/ListStyleType.html">ListStyleType</a> value) <a class="anchor-link" href="#forListStyleType"
+              title="Permalink to SafeStylesUtils.forListStyleType">#</a></h4>
+<div class="doc">
+<p>Sets the list-style-type CSS property.</p>
+<pre class="source">
+static SafeStyles forListStyleType(ListStyleType value) {
+ return fromTrustedNameAndValue("list-style-type", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forMargin">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forMargin</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forMargin"
+              title="Permalink to SafeStylesUtils.forMargin">#</a></h4>
+<div class="doc">
+<p>Set the margin css property.</p>
+<pre class="source">
+static SafeStyles forMargin(double value, Unit unit) {
+ return fromTrustedNameAndValue("margin", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forMarginBottom">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forMarginBottom</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forMarginBottom"
+              title="Permalink to SafeStylesUtils.forMarginBottom">#</a></h4>
+<div class="doc">
+<p>Set the margin-bottom css property.</p>
+<pre class="source">
+static SafeStyles forMarginBottom(double value, Unit unit) {
+ return fromTrustedNameAndValue("margin-bottom", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forMarginLeft">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forMarginLeft</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forMarginLeft"
+              title="Permalink to SafeStylesUtils.forMarginLeft">#</a></h4>
+<div class="doc">
+<p>Set the margin-left css property.</p>
+<pre class="source">
+static SafeStyles forMarginLeft(double value, Unit unit) {
+ return fromTrustedNameAndValue("margin-left", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forMarginRight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forMarginRight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forMarginRight"
+              title="Permalink to SafeStylesUtils.forMarginRight">#</a></h4>
+<div class="doc">
+<p>Set the margin-right css property.</p>
+<pre class="source">
+static SafeStyles forMarginRight(double value, Unit unit) {
+ return fromTrustedNameAndValue("margin-right", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forMarginTop">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forMarginTop</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forMarginTop"
+              title="Permalink to SafeStylesUtils.forMarginTop">#</a></h4>
+<div class="doc">
+<p>Set the margin-top css property.</p>
+<pre class="source">
+static SafeStyles forMarginTop(double value, Unit unit) {
+ return fromTrustedNameAndValue("margin-top", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forOpacity">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forOpacity</strong>(double value) <a class="anchor-link" href="#forOpacity"
+              title="Permalink to SafeStylesUtils.forOpacity">#</a></h4>
+<div class="doc">
+<p>Set the opacity css property.</p>
+<pre class="source">
+static SafeStyles forOpacity(double value) {
+ return impl().forOpacity(value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forOutlineStyle">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forOutlineStyle</strong>(<a href="../dart_web_toolkit_util/OutlineStyle.html">OutlineStyle</a> value) <a class="anchor-link" href="#forOutlineStyle"
+              title="Permalink to SafeStylesUtils.forOutlineStyle">#</a></h4>
+<div class="doc">
+<p>Sets the outline-style CSS property.</p>
+<pre class="source">
+static SafeStyles forOutlineStyle(OutlineStyle value) {
+ return fromTrustedNameAndValue("outline-style", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forOutlineWidth">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forOutlineWidth</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forOutlineWidth"
+              title="Permalink to SafeStylesUtils.forOutlineWidth">#</a></h4>
+<div class="doc">
+<p>Set the outline-width css property.</p>
+<pre class="source">
+static SafeStyles forOutlineWidth(double value, Unit unit) {
+ return fromTrustedNameAndValue("outline-width", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forOverflow">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forOverflow</strong>(<a href="../dart_web_toolkit_util/Overflow.html">Overflow</a> value) <a class="anchor-link" href="#forOverflow"
+              title="Permalink to SafeStylesUtils.forOverflow">#</a></h4>
+<div class="doc">
+<p>Sets the overflow CSS property.</p>
+<pre class="source">
+static SafeStyles forOverflow(Overflow value) {
+ return fromTrustedNameAndValue("overflow", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forOverflowX">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forOverflowX</strong>(<a href="../dart_web_toolkit_util/Overflow.html">Overflow</a> value) <a class="anchor-link" href="#forOverflowX"
+              title="Permalink to SafeStylesUtils.forOverflowX">#</a></h4>
+<div class="doc">
+<p>Sets the overflow-x CSS property.</p>
+<pre class="source">
+static SafeStyles forOverflowX(Overflow value) {
+ return fromTrustedNameAndValue("overflow-x", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forOverflowY">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forOverflowY</strong>(<a href="../dart_web_toolkit_util/Overflow.html">Overflow</a> value) <a class="anchor-link" href="#forOverflowY"
+              title="Permalink to SafeStylesUtils.forOverflowY">#</a></h4>
+<div class="doc">
+<p>Sets the overflow-y CSS property.</p>
+<pre class="source">
+static SafeStyles forOverflowY(Overflow value) {
+ return fromTrustedNameAndValue("overflow-y", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forPadding">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forPadding</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forPadding"
+              title="Permalink to SafeStylesUtils.forPadding">#</a></h4>
+<div class="doc">
+<p>Set the padding css property.</p>
+<pre class="source">
+static SafeStyles forPadding(double value, Unit unit) {
+ return fromTrustedNameAndValue("padding", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forPaddingBottom">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forPaddingBottom</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forPaddingBottom"
+              title="Permalink to SafeStylesUtils.forPaddingBottom">#</a></h4>
+<div class="doc">
+<p>Set the padding-bottom css property.</p>
+<pre class="source">
+static SafeStyles forPaddingBottom(double value, Unit unit) {
+ return fromTrustedNameAndValue("padding-bottom", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forPaddingLeft">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forPaddingLeft</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forPaddingLeft"
+              title="Permalink to SafeStylesUtils.forPaddingLeft">#</a></h4>
+<div class="doc">
+<p>Set the padding-left css property.</p>
+<pre class="source">
+static SafeStyles forPaddingLeft(double value, Unit unit) {
+ return fromTrustedNameAndValue("padding-left", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forPaddingRight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forPaddingRight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forPaddingRight"
+              title="Permalink to SafeStylesUtils.forPaddingRight">#</a></h4>
+<div class="doc">
+<p>Set the padding-right css property.</p>
+<pre class="source">
+static SafeStyles forPaddingRight(double value, Unit unit) {
+ return fromTrustedNameAndValue("padding-right", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forPaddingTop">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forPaddingTop</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forPaddingTop"
+              title="Permalink to SafeStylesUtils.forPaddingTop">#</a></h4>
+<div class="doc">
+<p>Set the padding-top css property.</p>
+<pre class="source">
+static SafeStyles forPaddingTop(double value, Unit unit) {
+ return fromTrustedNameAndValue("padding-top", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forPosition">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forPosition</strong>(<a href="../dart_web_toolkit_util/Position.html">Position</a> value) <a class="anchor-link" href="#forPosition"
+              title="Permalink to SafeStylesUtils.forPosition">#</a></h4>
+<div class="doc">
+<p>Sets the position CSS property.</p>
+<pre class="source">
+static SafeStyles forPosition(Position value) {
+ return fromTrustedNameAndValue("position", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forRight">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forRight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forRight"
+              title="Permalink to SafeStylesUtils.forRight">#</a></h4>
+<div class="doc">
+<p>Set the right css property.</p>
+<pre class="source">
+static SafeStyles forRight(double value, Unit unit) {
+ return fromTrustedNameAndValue("right", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTableLayout">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTableLayout</strong>(<a href="../dart_web_toolkit_util/TableLayout.html">TableLayout</a> value) <a class="anchor-link" href="#forTableLayout"
+              title="Permalink to SafeStylesUtils.forTableLayout">#</a></h4>
+<div class="doc">
+<p>Set the table-layout CSS property.</p>
+<pre class="source">
+static SafeStyles forTableLayout(TableLayout value) {
+ return fromTrustedNameAndValue("table-layout", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTextAlign">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTextAlign</strong>(<a href="../dart_web_toolkit_util/TextAlign.html">TextAlign</a> value) <a class="anchor-link" href="#forTextAlign"
+              title="Permalink to SafeStylesUtils.forTextAlign">#</a></h4>
+<div class="doc">
+<p>Sets the 'text-align' CSS property.</p>
+<pre class="source">
+static SafeStyles forTextAlign(TextAlign value) {
+ return fromTrustedNameAndValue("text-align", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTextDecoration">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTextDecoration</strong>(<a href="../dart_web_toolkit_util/TextDecoration.html">TextDecoration</a> value) <a class="anchor-link" href="#forTextDecoration"
+              title="Permalink to SafeStylesUtils.forTextDecoration">#</a></h4>
+<div class="doc">
+<p>Sets the 'text-decoration' CSS property.</p>
+<pre class="source">
+static SafeStyles forTextDecoration(TextDecoration value) {
+ return fromTrustedNameAndValue("text-decoration", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTextIndent">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTextIndent</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forTextIndent"
+              title="Permalink to SafeStylesUtils.forTextIndent">#</a></h4>
+<div class="doc">
+<p>Set the 'text-indent' CSS property.</p>
+<pre class="source">
+static SafeStyles forTextIndent(double value, Unit unit) {
+ return fromTrustedNameAndValue("text-indent", value + unit.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTextJustify">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTextJustify</strong>(<a href="../dart_web_toolkit_util/TextJustify.html">TextJustify</a> value) <a class="anchor-link" href="#forTextJustify"
+              title="Permalink to SafeStylesUtils.forTextJustify">#</a></h4>
+<div class="doc">
+<p>Set the 'text-justify' CSS3 property.</p>
+<pre class="source">
+static SafeStyles forTextJustify(TextJustify value) {
+ return fromTrustedNameAndValue("text-justify", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTextOverflow">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTextOverflow</strong>(<a href="../dart_web_toolkit_util/TextOverflow.html">TextOverflow</a> value) <a class="anchor-link" href="#forTextOverflow"
+              title="Permalink to SafeStylesUtils.forTextOverflow">#</a></h4>
+<div class="doc">
+<p>Set the 'text-overflow' CSS3 property.</p>
+<pre class="source">
+static SafeStyles forTextOverflow(TextOverflow value) {
+ return fromTrustedNameAndValue("text-overflow", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTextTransform">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTextTransform</strong>(<a href="../dart_web_toolkit_util/TextTransform.html">TextTransform</a> value) <a class="anchor-link" href="#forTextTransform"
+              title="Permalink to SafeStylesUtils.forTextTransform">#</a></h4>
+<div class="doc">
+<p>Set the 'text-transform' CSS property.</p>
+<pre class="source">
+static SafeStyles forTextTransform(TextTransform value) {
+ return fromTrustedNameAndValue("text-transform", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTop">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTop</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forTop"
+              title="Permalink to SafeStylesUtils.forTop">#</a></h4>
+<div class="doc">
+<p>Set the top css property.</p>
+<pre class="source">
+static SafeStyles forTop(double value, Unit unit) {
+ return fromTrustedNameAndValue("top", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTrustedBackgroundColor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTrustedBackgroundColor</strong>(String value) <a class="anchor-link" href="#forTrustedBackgroundColor"
+              title="Permalink to SafeStylesUtils.forTrustedBackgroundColor">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted background color,
+i.e., without escaping the value. No checks are performed. The calling code
+should be carefully reviewed to ensure the argument will satisfy the
+{@link SafeStyles} contract when they are composed into the form:
+"&lt;name&gt;:&lt;value&gt;;".<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.
+</p>
+<p>@param value the property value
+@return a {@link SafeStyles} instance</p>
+<pre class="source">
+static SafeStyles forTrustedBackgroundColor(String value) {
+ return fromTrustedNameAndValue("background-color", value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTrustedBackgroundImage">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTrustedBackgroundImage</strong>(String value) <a class="anchor-link" href="#forTrustedBackgroundImage"
+              title="Permalink to SafeStylesUtils.forTrustedBackgroundImage">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted background image,
+i.e., without escaping the value. No checks are performed. The calling code
+should be carefully reviewed to ensure the argument will satisfy the
+{@link SafeStyles} contract when they are composed into the form:
+"&lt;name&gt;:&lt;value&gt;;".<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.
+</p>
+<p>@param value the property value
+@return a {@link SafeStyles} instance
+@see #forBackgroundImage(SafeUri)</p>
+<pre class="source">
+static SafeStyles forTrustedBackgroundImage(String value) {
+ return fromTrustedNameAndValue("background-image", value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTrustedBorderColor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTrustedBorderColor</strong>(String value) <a class="anchor-link" href="#forTrustedBorderColor"
+              title="Permalink to SafeStylesUtils.forTrustedBorderColor">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted border color, i.e.,
+without escaping the value. No checks are performed. The calling code
+should be carefully reviewed to ensure the argument will satisfy the
+{@link SafeStyles} contract when they are composed into the form:
+"&lt;name&gt;:&lt;value&gt;;".<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.
+</p>
+<p>@param value the property value
+@return a {@link SafeStyles} instance</p>
+<pre class="source">
+static SafeStyles forTrustedBorderColor(String value) {
+ return fromTrustedNameAndValue("border-color", value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTrustedColor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTrustedColor</strong>(String value) <a class="anchor-link" href="#forTrustedColor"
+              title="Permalink to SafeStylesUtils.forTrustedColor">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted font color, i.e.,
+without escaping the value. No checks are performed. The calling code
+should be carefully reviewed to ensure the argument will satisfy the
+{@link SafeStyles} contract when they are composed into the form:
+"&lt;name&gt;:&lt;value&gt;;".<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.
+</p>
+<p>@param value the property value
+@return a {@link SafeStyles} instance</p>
+<pre class="source">
+static SafeStyles forTrustedColor(String value) {
+ return fromTrustedNameAndValue("color", value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forTrustedOutlineColor">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forTrustedOutlineColor</strong>(String value) <a class="anchor-link" href="#forTrustedOutlineColor"
+              title="Permalink to SafeStylesUtils.forTrustedOutlineColor">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted outline color,
+i.e., without escaping the value. No checks are performed. The calling code
+should be carefully reviewed to ensure the argument will satisfy the
+{@link SafeStyles} contract when they are composed into the form:
+"&lt;name&gt;:&lt;value&gt;;".<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.
+</p>
+<p>@param value the property value
+@return a {@link SafeStyles} instance</p>
+<pre class="source">
+static SafeStyles forTrustedOutlineColor(String value) {
+ return fromTrustedNameAndValue("outline-color", value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forVerticalAlign">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forVerticalAlign</strong>(value, [<a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit = null]) <a class="anchor-link" href="#forVerticalAlign"
+              title="Permalink to SafeStylesUtils.forVerticalAlign">#</a></h4>
+<div class="doc">
+<p>Sets the vertical-align CSS property.</p>
+<pre class="source">
+static SafeStyles forVerticalAlign(value, [Unit unit = null]) {
+ if (value is VerticalAlign) {
+   return fromTrustedNameAndValue("vertical-align", (value as VerticalAlign).value);
+ } else {
+   return fromTrustedNameAndValue("vertical-align", value, unit);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forVisibility">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forVisibility</strong>(<a href="../dart_web_toolkit_util/Visibility.html">Visibility</a> value) <a class="anchor-link" href="#forVisibility"
+              title="Permalink to SafeStylesUtils.forVisibility">#</a></h4>
+<div class="doc">
+<p>Sets the visibility CSS property.</p>
+<pre class="source">
+static SafeStyles forVisibility(Visibility value) {
+ return fromTrustedNameAndValue("visibility", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forWhiteSpace">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forWhiteSpace</strong>(<a href="../dart_web_toolkit_util/WhiteSpace.html">WhiteSpace</a> value) <a class="anchor-link" href="#forWhiteSpace"
+              title="Permalink to SafeStylesUtils.forWhiteSpace">#</a></h4>
+<div class="doc">
+<p>Set the 'white-space' CSS property.</p>
+<pre class="source">
+static SafeStyles forWhiteSpace(WhiteSpace value) {
+ return fromTrustedNameAndValue("white-space", value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forWidth">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forWidth</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#forWidth"
+              title="Permalink to SafeStylesUtils.forWidth">#</a></h4>
+<div class="doc">
+<p>Set the width css property.</p>
+<pre class="source">
+static SafeStyles forWidth(double value, Unit unit) {
+ return fromTrustedNameAndValue("width", value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forZIndex">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>forZIndex</strong>(int value) <a class="anchor-link" href="#forZIndex"
+              title="Permalink to SafeStylesUtils.forZIndex">#</a></h4>
+<div class="doc">
+<p>Set the z-index css property.</p>
+<pre class="source">
+static SafeStyles forZIndex(int value) {
+ return new SafeStylesString("z-index: %value;");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fromTrustedNameAndValue">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>fromTrustedNameAndValue</strong>(String name, value, [<a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit = null]) <a class="anchor-link" href="#fromTrustedNameAndValue"
+              title="Permalink to SafeStylesUtils.fromTrustedNameAndValue">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted name and a trusted
+value, i.e., without escaping the name and value. No checks are performed.
+The calling code should be carefully reviewed to ensure the argument will
+satisfy the {@link SafeStyles} contract when they are composed into the
+form: "&lt;name&gt;:&lt;value&gt;;".<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.
+</p><p>
+The name should be in hyphenated format, not camelCase format.
+</p>
+<p>@param name the property name
+@param value the value
+@param unit the units of the value
+@return a {@link SafeStyles} instance</p>
+<pre class="source">
+static SafeStyles fromTrustedNameAndValue(String name, value, [Unit unit = null]) {
+ //SafeStylesHostedModeUtils.maybeCheckValidStyleName(name);
+ if (unit != null) {
+   return new SafeStylesString(name + ":" + value + unit.value + ";");
+ } else {
+   return fromTrustedString(name + ":" + value + ";");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fromTrustedString">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStyles.html">SafeStyles</a> <strong>fromTrustedString</strong>(String s) <a class="anchor-link" href="#fromTrustedString"
+              title="Permalink to SafeStylesUtils.fromTrustedString">#</a></h4>
+<div class="doc">
+<p>
+Returns a {@link SafeStyles} constructed from a trusted string, i.e.,
+without escaping the string. No checks are performed. The calling code
+should be carefully reviewed to ensure the argument meets the
+{@link SafeStyles} contract.<p>
+Generally, {@link SafeStyles} should be of the form
+{@code cssPropertyName:value;}, where neither the name nor the value
+contain malicious scripts.<p>
+{@link SafeStyles} may never contain literal angle brackets. Otherwise, it
+could be unsafe to place a {@link SafeStyles} into a &lt;style&gt; tag
+(where it can't be HTML escaped). For example, if the {@link SafeStyles}
+containing "
+<code>font: 'foo &lt;style&gt;&lt;script&gt;evil&lt;/script&gt;</code>'" is
+used in a style sheet in a &lt;style&gt; tag, this could then break out of
+the style context into HTML.<p>
+The following example values comply with this type's contract:
+<ul>
+<li><code>width: 1em;</code></li>
+<li><code>height:1em;</code></li>
+<li><code>width: 1em;height: 1em;</code></li>
+<li><code>background:url('http://url');</code></li>
+</ul>
+In addition, the empty string is safe for use in a CSS attribute.<p>
+The following example values do <em>not</em> comply with this type's
+contract:
+<ul>
+<li><code>background: red</code> (missing a trailing semi-colon)</li>
+<li><code>background:</code> (missing a value and a trailing semi-colon)</li>
+<li><code>1em</code> (missing an attribute name, which provides context for
+the value)</li>
+</ul>
+<p>@param s the input String
+@return a {@link SafeStyles} instance</p>
+<pre class="source">
+static SafeStyles fromTrustedString(String s) {
+ return new SafeStylesString(s);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="verifySafeStylesConstraints">
+<button class="show-code">Code</button>
+void <strong>verifySafeStylesConstraints</strong>(String styles) <a class="anchor-link" href="#verifySafeStylesConstraints"
+              title="Permalink to SafeStylesUtils.verifySafeStylesConstraints">#</a></h4>
+<div class="doc">
+<p>Verify that the basic constraints of a {@link SafeStyles} are met. This
+method is not a guarantee that the specified css is safe for use in a CSS
+style attribute. It is a minimal set of assertions to check for common
+errors.</p>
+<p>@param styles the CSS properties string
+@throws NullPointerException if the css is null
+@throws AssertionError if the css does not meet the contraints</p>
+<pre class="source">
+static void verifySafeStylesConstraints(String styles) {
+ if (styles == null) {
+   throw new Exception("css is null");
+ }
+
+ // CSS properties must end in a semi-colon or they cannot be safely
+ // composed with other properties.
+ assert ((styles.trim().length == 0) || styles.endsWith(";"));
+//    : "Invalid CSS Property: '"
+//        + styles + "'. CSS properties must be an empty string or end with a semi-colon (;).";
+ assert (!styles.contains("&lt;") &amp;&amp; !styles.contains("&gt;"));
+//    : "Invalid CSS Property: '" + styles
+//        + "'. CSS should not contain brackets (&lt; or &gt;).";
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="impl">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeStylesUtilsImpl.html">SafeStylesUtilsImpl</a> <strong>impl</strong>() <a class="anchor-link" href="#impl"
+              title="Permalink to SafeStylesUtils.impl">#</a></h4>
+<div class="doc">
+<pre class="source">
+static SafeStylesUtilsImpl impl() {
+ if (_impl == null) {
+//      if (GWT.isClient()) {
+     _impl = new SafeStylesUtilsImpl(); //GWT.create(SafeStylesUtilsImpl.class);
+//      } else {
+//        _impl = new ImplServer();
+//      }
+ }
+ return _impl;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SafeStylesUtils">
+<button class="show-code">Code</button>
+new <strong>SafeStylesUtils</strong>() <a class="anchor-link" href="#SafeStylesUtils"
+              title="Permalink to SafeStylesUtils.SafeStylesUtils">#</a></h4>
+<div class="doc">
+<pre class="source">
+SafeStylesUtils() {
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-13 21:32:18.311</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

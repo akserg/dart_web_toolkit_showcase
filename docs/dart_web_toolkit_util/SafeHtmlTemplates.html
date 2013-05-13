@@ -1,0 +1,133 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SafeHtmlTemplates abstract class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="SafeHtmlTemplates">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.10+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/SafeHtmlTemplates.html">SafeHtmlTemplates</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SafeHtmlTemplates</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A tag interface that facilitates compile-time binding of HTML templates to
+generate SafeHtml strings.</p><p>
+Example usage:<pre>
+  public interface MyTemplate extends SafeHtmlTemplates {
+    &#064;Template("&lt;span class=\"{3}\"&gt;{0}: &lt;a href=\"{1}\"&gt;{2}&lt;/a&gt;&lt;/span&gt;")
+    SafeHtml messageWithLink(SafeHtml message, String url, String linkText,
+      String style);
+  }
+<p>  private static final MyTemplate TEMPLATE = GWT.create(MyTemplate.class);</p>
+<p>  public void useTemplate(...) {</p>
+<pre><code>SafeHtml message;
+String url;
+String linkText;
+String style;
+// ...
+SafeHtml messageWithLink =
+  TEMPLATE.messageWithLink(message, url, linkText, style);
+</code></pre>
+<p>  }
+&lt;/pre></p><p>
+Instantiating a {@code SafeHtmlTemplates} interface with {@code GWT.create()}
+returns an instance of an implementation that is generated at compile time.
+The code generator parses the value of each template method's
+{@code @Template} annotation as an HTML template, with template
+variables denoted by curly-brace placeholders that refer by index to the
+corresponding template method parameter.<p>
+The code generator's template parser is lenient, and will accept HTML that is
+not well-formed; the accepted set of HTML is similar to what is typically
+accepted by browsers. However, the following constraints on the HTML template
+are enforced:<ol>
+<li>Template variables may not appear in a JavaScript context (inside a
+{@code <script>} tag, or in an {@code onClick} etc handler).</li>
+<li>Template variables may not appear inside HTML comments.</li>
+<li>If a template variable appears inside the value of an attribute, the
+value must be enclosed in quotes.</li>
+<li>Template variables may not appear in the context of an attribute name,
+nor elsewhere inside a tag except within a quoted attribute value.</li>
+<li>The template must end in "inner HTML" context, and not inside a tag or
+attribute.</li>
+</ol><p>
+<b>Limitation:</b> For templates with template variables in a CSS (style)
+context, the current implementation of the code generator does not guarantee
+that the generated template method produces values that adhere to the
+{@code SafeHtml} type contract. When the code generator encounters a template
+with a variable in a style attribute or tag, such as,
+{@code <div style=\"{0}\">}, a warning will be emitted. In this
+case, developers are advised to carefully review uses of this template to
+ensure that parameters passed to the template are from a trusted source or
+suitably sanitized.<p> Future implementations of the code generator may place additional
+constraints on template parameters in style contexts.
+<pre class="source">
+abstract class SafeHtmlTemplates {
+
+ /**
+  * The HTML template.
+  */
+//  @Retention(RetentionPolicy.RUNTIME)
+//  @Target(ElementType.METHOD)
+//  @Documented
+ Template template;
+}
+</pre>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="template">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/Template.html">Template</a>         <strong>template</strong> <a class="anchor-link"
+            href="#template"
+            title="Permalink to SafeHtmlTemplates.template">#</a>
+        </h4>
+        <div class="doc">
+<p>The HTML template.</p>
+<pre class="source">
+Template template
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-13 21:32:18.326</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

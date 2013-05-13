@@ -5754,7 +5754,7 @@ $$.StyleChooserComponent = {"": "Composite;styles,_widget,_renderable,eventsToSi
     var widget, headerText, styleChooser, t1, selected, i, style;
     widget = $.HorizontalPanel$();
     this.initWidget$1(widget);
-    widget.setVerticalAlignment$1($.get$HasVerticalAlignment_ALIGN_MIDDLE());
+    widget.setVerticalAlignment$1($.VerticalAlignmentConstant_middle);
     headerText = $.Label$(label, null);
     headerText.addStyleName$1("style-chooser");
     widget.add$1(widget, headerText);
@@ -5905,8 +5905,8 @@ $$.ComponentPreview = {"": "Object;_liblib6$_panel,_overviewPanel,_sourcePanel,_
     this._emptyPanel = $.FlexTable$();
     this._emptyPanel.setSize$2("100%", "100%");
     this._emptyPanel.setWidget$3(0, 0, $.Label$("Select component from tree", null));
-    this._emptyPanel.getFlexCellFormatter$0().setVerticalAlignment$3(0, 0, $.get$HasVerticalAlignment_ALIGN_MIDDLE());
-    this._emptyPanel.getFlexCellFormatter$0().setHorizontalAlignment$3(0, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    this._emptyPanel.getFlexCellFormatter$0().setVerticalAlignment$3(0, 0, $.VerticalAlignmentConstant_middle);
+    this._emptyPanel.getFlexCellFormatter$0().setHorizontalAlignment$3(0, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     t1 = this._overviewPanel;
     t1.add$1(t1, this._emptyPanel);
     this._overviewContentPanel = $.SplitLayoutPanel$(8);
@@ -6136,7 +6136,7 @@ $$.StackLayoutPanelModel = {"": "ViewModel;",
     hPanel = $.HorizontalPanel$();
     $.setProperty$2$x($.get$style$x(hPanel._element), "height", "100%");
     hPanel.set$spacing(hPanel, 0);
-    hPanel._vertAlign = $.get$HasVerticalAlignment_ALIGN_MIDDLE();
+    hPanel._vertAlign = $.VerticalAlignmentConstant_middle;
     headerText = $.Button$(text, null);
     $.set$$$dom_className$x(headerText.getStyleElement$0(), "cw-StackPanelHeader");
     td = document.createElement("td");
@@ -6452,7 +6452,7 @@ $$.DecoratorPanelModel = {"": "ViewModel;",
     cellFormatter = $.propertyTypeCast(layout.cellFormatter, "$isFlexCellFormatter");
     layout.setHtml$3(0, 0, "Enter Search Criteria");
     cellFormatter.setColSpan$3(0, 0, 2);
-    cellFormatter.setHorizontalAlignment$3(0, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    cellFormatter.setHorizontalAlignment$3(0, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     layout.setHtml$3(1, 0, "Name:");
     layout.setWidget$3(1, 1, $.TextBox$());
     layout.setHtml$3(2, 0, "Description:");
@@ -6490,7 +6490,7 @@ $$.DisclosurePanelModel = {"": "ViewModel;",
     cellFormatter = $.propertyTypeCast(layout.cellFormatter, "$isFlexCellFormatter");
     layout.setHtml$3(0, 0, "Enter Search Criteria");
     cellFormatter.setColSpan$3(0, 0, 2);
-    cellFormatter.setHorizontalAlignment$3(0, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    cellFormatter.setHorizontalAlignment$3(0, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     layout.setHtml$3(1, 0, "Name");
     layout.setWidget$3(1, 1, $.TextBox$());
     layout.setHtml$3(2, 0, "Description");
@@ -6551,7 +6551,7 @@ $$.DockPanelModel = {"": "ViewModel;",
     dock.set$spacing(dock, 4);
     dock.setWidth$1("100%");
     dock.setHeight$1("100%");
-    dock._horzAlign = $.get$HasHorizontalAlignment_ALIGN_CENTER();
+    dock._horzAlign = $.HorizontalAlignmentConstant_TextAlign_center;
     dock.addWidgetTo$2($.Html$("This is the first north component", null), $.DockLayoutConstant_4);
     dock.addWidgetTo$2($.Html$("This is the first south component", null), $.DockLayoutConstant_5);
     dock.addWidgetTo$2($.Html$("This is the east component", null), $.DockLayoutConstant_3);
@@ -6588,7 +6588,7 @@ $$.FlexTableModel = {"": "ViewModel;",
     cellFormatter = $.propertyTypeCast(layout.cellFormatter, "$isFlexCellFormatter");
     layout.setHtml$3(0, 0, "Enter Search Criteria");
     cellFormatter.setColSpan$3(0, 0, 2);
-    cellFormatter.setHorizontalAlignment$3(0, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    cellFormatter.setHorizontalAlignment$3(0, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     layout.setHtml$3(1, 0, "Name:");
     layout.setWidget$3(1, 1, $.TextBox$());
     layout.setHtml$3(2, 0, "Description:");
@@ -8504,7 +8504,7 @@ $$.TreeModel = {"": "ViewModel;",
     return "";
   },
   asWidget$0: function() {
-    var staticTree, staticTreeWrapper, staticDecorator, dynamicTreeWrapper, dynamicDecorator, grid, t1, t2;
+    var staticTree, staticTreeWrapper, staticDecorator, dynamicTreeWrapper, dynamicDecorator, grid, t1;
     staticTree = $._createStaticTree();
     staticTree._isAnimationEnabled = true;
     staticTreeWrapper = $.ScrollPanel$(staticTree);
@@ -8518,10 +8518,9 @@ $$.TreeModel = {"": "ViewModel;",
     grid = $.Grid$(2, 3);
     $.Dom_setElementPropertyInt(grid.tableElem, "cellPadding", 2);
     t1 = grid.rowFormatter;
-    t2 = $.get$HasVerticalAlignment_ALIGN_TOP();
     t1._liblib1$_table.prepareRow$1(1);
     t1 = $.get$rows$x($.interceptedTypeCast($.get$parent$x(t1._liblib1$_table.bodyElem), "$isTableElement"));
-    $.setProperty$2$x($.get$style$x(t1.$index(t1, 1)), "verticalAlign", t2._verticalAlignString);
+    $.setProperty$2$x($.get$style$x(t1.$index(t1, 1)), "verticalAlign", $.VerticalAlignmentConstant_top._verticalAlignString);
     grid.setHtml$3(0, 0, "<b>Static Tree:</b>");
     grid.setHtml$3(0, 1, "   ");
     grid.setHtml$3(0, 2, "<b>Dynamic Tree:</b>");
@@ -8576,13 +8575,13 @@ $$.HomeView = {"": "Object;",
     title = $.Html$("<h2>Welcom to <strong>Dart Web Toolkit</strong> !</h2>", null);
     $.setProperty$2$x($.get$style$x(title._element), "width", "80%");
     layout.setWidget$3(0, 0, title);
-    cellFormatter.setHorizontalAlignment$3(0, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    cellFormatter.setHorizontalAlignment$3(0, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     logoImage = $.Image$("img/dwt-logo.png");
     $.UiObject_manageElementStyleName(logoImage.getStyleElement$0(), "logo-image", true);
     layout.setWidget$3(1, 0, logoImage);
-    cellFormatter.setHorizontalAlignment$3(2, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    cellFormatter.setHorizontalAlignment$3(2, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     layout.setHtml$3(2, 0, "Dart Web Toolkit is a pure Dart application framework that works on all modern browsers.<br/>It enables you to create the best cross-platform applications using nothing but a browser.");
-    cellFormatter.setHorizontalAlignment$3(1, 0, $.get$HasHorizontalAlignment_ALIGN_CENTER());
+    cellFormatter.setHorizontalAlignment$3(1, 0, $.HorizontalAlignmentConstant_TextAlign_center);
     $.DecoratorPanel$($.List_top_middle_bottom, 1).setWidget$1(layout);
     return layout;
   }
@@ -10589,9 +10588,10 @@ $$.DirectionalTextHelper = {"": "Object;directionEstimator,isDirectionExplicitly
 
 $$.AutoHorizontalAlignmentConstant = {"": "Object;"};
 
-$$.HorizontalAlignmentConstant = {"": "AutoHorizontalAlignmentConstant;_textAlignString",
+$$.HorizontalAlignmentConstant = {"": "AutoHorizontalAlignmentConstant;_textAlign",
   getTextAlignString$0: function() {
-    return this._textAlignString;
+    var t1 = this._textAlign;
+    return t1.get$value(t1);
   },
   $isHorizontalAlignmentConstant: true
 };
@@ -13745,7 +13745,8 @@ $$.DockPanel = {"": "CellPanel;_horzAlign,_vertAlign,_center,_spacing,_liblib1$_
   setWidgetCellHorizontalAlignment$2: function(w, align) {
     var data, t1;
     data = $.propertyTypeCast(w.get$_layoutData(), "$isDockPanelLayoutData");
-    data.hAlign = align._textAlignString;
+    t1 = align._textAlign;
+    data.hAlign = t1.get$value(t1);
     t1 = data.td;
     if (t1 != null)
       $.set$textAlign$x(t1.style, align.getTextAlignString$0());
@@ -14325,7 +14326,7 @@ $$.HtmlTable = {"": "Panel;",
     widget.removeFromParent$0();
     t1 = this.widgetMap;
     t1.put$1(t1, widget);
-    td.appendChild(widget.get$_element());
+    td.appendChild(widget.getElement$0());
     widget.setParent$1(this);
   },
   createCell$0: function() {
@@ -14471,10 +14472,13 @@ $$.CellFormatter = {"": "Object;_liblib1$_table",
     return new $.BoundClosure$3(this, "setHeight$3");
   },
   setHorizontalAlignment$3: function(row, column, align) {
-    var t1;
+    var elem, t1, t2;
     this._liblib1$_table.prepareCell$2(row, column);
-    t1 = $.get$attributes$x(this.getCellElement$3(this._liblib1$_table.bodyElem, row, column));
-    t1.$indexSet(t1, "align", align._textAlignString);
+    elem = this.getCellElement$3(this._liblib1$_table.bodyElem, row, column);
+    t1 = align._textAlign;
+    t1 = t1.get$value(t1);
+    t2 = $.get$attributes$x(elem);
+    t2.$indexSet(t2, "align", t1);
   },
   setVerticalAlignment$3: function(row, column, align) {
     this._liblib1$_table.prepareCell$2(row, column);
@@ -15072,21 +15076,21 @@ $$.LabelBase = {"": "Widget;directionalTextHelper,_autoHorizontalAlignment,_horz
       t2 = this.directionalTextHelper;
       if (align == null ? t1 == null : align === t1) {
         t1 = t2.textDir;
-        if (t1 === $.Direction_LTR) {
-          t1 = $.get$HasHorizontalAlignment_ALIGN_LEFT();
-          align = t1;
-        } else {
-          t1 = t1 === $.Direction_RTL ? $.get$HasHorizontalAlignment_ALIGN_RIGHT() : $.get$HasHorizontalAlignment_ALIGN_LOCALE_START();
-          align = t1;
+        if (t1 === $.Direction_LTR)
+          align = $.HorizontalAlignmentConstant_TextAlign_left;
+        else {
+          if (t1 === $.Direction_RTL)
+            ;
+          align = $.HorizontalAlignmentConstant_TextAlign_right;
         }
       } else {
         t1 = t2.textDir;
-        if (t1 === $.Direction_LTR) {
-          t1 = $.get$HasHorizontalAlignment_ALIGN_RIGHT();
-          align = t1;
-        } else {
-          t1 = t1 === $.Direction_RTL ? $.get$HasHorizontalAlignment_ALIGN_LEFT() : $.get$HasHorizontalAlignment_ALIGN_LOCALE_END();
-          align = t1;
+        if (t1 === $.Direction_LTR)
+          align = $.HorizontalAlignmentConstant_TextAlign_right;
+        else {
+          if (t1 === $.Direction_RTL)
+            ;
+          align = $.HorizontalAlignmentConstant_TextAlign_left;
         }
       }
     }
@@ -18012,7 +18016,7 @@ $$.TabBar = {"": "Composite;panel,selectedTab,_widget,_renderable,eventsToSink,_
     this.initWidget$1(t1);
     this.sinkEvents$1(1);
     this.clearAndSetStyleName$1("dwt-TabBar");
-    t1.setVerticalAlignment$1($.get$HasVerticalAlignment_ALIGN_BOTTOM());
+    t1.setVerticalAlignment$1($.VerticalAlignmentConstant_bottom);
     first = $.Html$("&nbsp;", true);
     rest = $.Html$("&nbsp;", true);
     first.clearAndSetStyleName$1("dwt-TabBarFirst");
@@ -18594,9 +18598,12 @@ $$.Tree = {"": "Widget;_childWidgets,_curSelection,_focusable,_images,_indentVal
     t1.removeItem$1(t1, item);
   },
   removeItems$0: function() {
-    var t1;
-    for (; t1 = this._root, t1.getChildCount$0() > 0;)
-      t1.removeItem$1(t1, t1.getChild$1(0));
+    var t1, t2;
+    for (; t1 = this._root, t1.getChildCount$0() > 0;) {
+      t1 = t1.getChild$1(0);
+      t2 = this._root;
+      t2.removeItem$1(t2, t1);
+    }
   },
   setAnimationEnabled$1: function(enable) {
     this._isAnimationEnabled = enable;
@@ -28860,7 +28867,7 @@ $.DialogBoxModel$ = function() {
 };
 
 $._createDialogBox = function() {
-  var dialogBox, dialogContents, details, t1, td, image, closeButton;
+  var dialogBox, dialogContents, details, td, image, closeButton;
   dialogBox = $.DialogBox$(false, true, null);
   dialogBox.set$text(dialogBox, "Sample DialogBox");
   dialogContents = $.VerticalPanel$();
@@ -28869,23 +28876,20 @@ $._createDialogBox = function() {
   dialogBox.maybeUpdateSize$0();
   details = $.Html$("This is an example of a standard dialog box component.", null);
   dialogContents.add$1(dialogContents, details);
-  t1 = $.get$HasHorizontalAlignment_ALIGN_CENTER();
   td = dialogContents.getWidgetTd$1(details);
   if (td != null)
-    $.set$textAlign$x($.get$style$x(td), t1.getTextAlignString$0());
+    $.set$textAlign$x($.get$style$x(td), $.HorizontalAlignmentConstant_TextAlign_center.getTextAlignString$0());
   image = $.Image$("img/lights.png");
   dialogContents.add$1(dialogContents, image);
-  t1 = $.get$HasHorizontalAlignment_ALIGN_CENTER();
   td = dialogContents.getWidgetTd$1(image);
   if (td != null)
-    $.set$textAlign$x($.get$style$x(td), t1.getTextAlignString$0());
+    $.set$textAlign$x($.get$style$x(td), $.HorizontalAlignmentConstant_TextAlign_center.getTextAlignString$0());
   closeButton = $.Button$("Close", $.ClickHandlerAdapter$(new $._createDialogBox_anon(dialogBox)));
   dialogContents.add$1(dialogContents, closeButton);
   $.get$LocaleInfo_instance();
-  t1 = $.get$HasHorizontalAlignment_ALIGN_RIGHT();
   td = dialogContents.getWidgetTd$1(closeButton);
   if (td != null)
-    $.set$textAlign$x($.get$style$x(td), t1.getTextAlignString$0());
+    $.set$textAlign$x($.get$style$x(td), $.HorizontalAlignmentConstant_TextAlign_right.getTextAlignString$0());
   return dialogBox;
 };
 
@@ -29207,7 +29211,7 @@ $.DWT_majorVersion = function() {
 };
 
 $.DWT_minorVersion = function() {
-  return "9";
+  return "10";
 };
 
 $.AllMouseHandlersAdapter$ = function(callback) {
@@ -29652,14 +29656,6 @@ $.DirectionalTextHelper$ = function(element, isElementInline) {
   var t1 = new $.DirectionalTextHelper(null, false, false, null, null, false, null);
   t1.DirectionalTextHelper$2(element, isElementInline);
   return t1;
-};
-
-$.HorizontalAlignmentConstant$ = function(_textAlignString) {
-  return new $.HorizontalAlignmentConstant(_textAlignString);
-};
-
-$.VerticalAlignmentConstant$ = function(_verticalAlignString) {
-  return new $.VerticalAlignmentConstant(_verticalAlignString);
 };
 
 $.LocaleInfoImpl$ = function() {
@@ -30210,7 +30206,7 @@ $._DockAnimateCommand$ = function(_panel, layout) {
 };
 
 $.DockPanel$ = function() {
-  var t1 = new $.DockPanel($.get$HasHorizontalAlignment_ALIGN_DEFAULT(), $.get$HasVerticalAlignment_ALIGN_TOP(), null, null, null, null, null, null, 0, null, false, null, null, null);
+  var t1 = new $.DockPanel($.HorizontalAlignmentConstant_TextAlign_right, $.VerticalAlignmentConstant_top, null, null, null, null, null, null, 0, null, false, null, null, null);
   t1.ComplexPanel$0();
   t1.CellPanel$0();
   t1.DockPanel$0();
@@ -30218,7 +30214,7 @@ $.DockPanel$ = function() {
 };
 
 $.DockPanelLayoutData$ = function(dir) {
-  var t1 = new $.DockPanelLayoutData(null, $.get$HasHorizontalAlignment_ALIGN_DEFAULT().getTextAlignString$0(), "", null, $.get$HasVerticalAlignment_ALIGN_TOP().getVerticalAlignString$0(), "");
+  var t1 = new $.DockPanelLayoutData(null, $.HorizontalAlignmentConstant_TextAlign_right.getTextAlignString$0(), "", null, $.VerticalAlignmentConstant_top.getVerticalAlignString$0(), "");
   t1.DockPanelLayoutData$1(dir);
   return t1;
 };
@@ -30348,7 +30344,7 @@ $.History_encodeHistoryToken = function(historyToken) {
 };
 
 $.HorizontalPanel$ = function() {
-  var t1 = new $.HorizontalPanel($.get$HasHorizontalAlignment_ALIGN_DEFAULT(), $.get$HasVerticalAlignment_ALIGN_TOP(), null, null, null, null, null, null, 0, null, false, null, null, null);
+  var t1 = new $.HorizontalPanel($.HorizontalAlignmentConstant_TextAlign_right, $.VerticalAlignmentConstant_top, null, null, null, null, null, null, 0, null, false, null, null, null);
   t1.ComplexPanel$0();
   t1.CellPanel$0();
   t1.HorizontalPanel$0();
@@ -31358,7 +31354,7 @@ $.UiObject__updatePrimaryAndDependentStyleNames$bailout = function(state0, elem,
 };
 
 $.VerticalPanel$ = function() {
-  var t1 = new $.VerticalPanel($.get$HasHorizontalAlignment_ALIGN_DEFAULT(), $.get$HasVerticalAlignment_ALIGN_TOP(), null, null, null, null, null, 0, null, false, null, null, null);
+  var t1 = new $.VerticalPanel($.HorizontalAlignmentConstant_TextAlign_right, $.VerticalAlignmentConstant_top, null, null, null, null, null, 0, null, false, null, null, null);
   t1.ComplexPanel$0();
   t1.CellPanel$0();
   t1.VerticalPanel$0();
@@ -31534,10 +31530,12 @@ Isolate.makeConstantList = function(list) {
   return list;
 };
 $.List_empty = Isolate.makeConstantList([]);
-$.EventStreamProvider_drag = new $.EventStreamProvider("drag");
 $.Unit_pc = new $.Unit("pc");
-$.Display_none = new $.Display("none");
-$.Overflow_scroll = new $.Overflow("scroll");
+$.EventStreamProvider_drag = new $.EventStreamProvider("drag");
+$.PressedValue_2 = new $.PressedValue(2);
+$.PressedValue_3 = new $.PressedValue(3);
+$.PressedValue_0 = new $.PressedValue(0);
+$.PressedValue_1 = new $.PressedValue(1);
 $.EventStreamProvider_keypress = new $.EventStreamProvider("keypress");
 $.EventStreamProvider_touchstart = new $.EventStreamProvider("touchstart");
 $.Unit_aNe = new $.Unit("%");
@@ -31553,83 +31551,87 @@ $.EventStreamProvider_drop = new $.EventStreamProvider("drop");
 $.ScrollAlignment_BOTTOM = new $.ScrollAlignment("BOTTOM");
 $.EventStreamProvider_scroll = new $.EventStreamProvider("scroll");
 $.EventStreamProvider_hashchange = new $.EventStreamProvider("hashchange");
-$._CustomEventStreamProvider__determineMouseWheelEventType = new $._CustomEventStreamProvider($.Element__determineMouseWheelEventType);
-$.Direction_LTR = new $.Direction("LTR");
+$.TextAlign_left = new $.TextAlign("left");
+$.HorizontalAlignmentConstant_TextAlign_left = new $.HorizontalAlignmentConstant($.TextAlign_left);
+$.Display_none = new $.Display("none");
+$.Direction_RTL = new $.Direction("RTL");
 $.EventStreamProvider_touchmove = new $.EventStreamProvider("touchmove");
+$.Overflow_scroll = new $.Overflow("scroll");
 $.Window_methods = $.Window.prototype;
+$.Alignment_BEGIN = new $.Alignment("BEGIN");
+$.VerticalAlignmentConstant_middle = new $.VerticalAlignmentConstant("middle");
+$.TextAlign_right = new $.TextAlign("right");
+$.HorizontalAlignmentConstant_TextAlign_right = new $.HorizontalAlignmentConstant($.TextAlign_right);
 $.EventStreamProvider_paste = new $.EventStreamProvider("paste");
 $.JSNull_methods = $.JSNull.prototype;
+$.Alignment_STRETCH = new $.Alignment("STRETCH");
 $.DomMimeTypeArray_methods = $.DomMimeTypeArray.prototype;
 $.TextAlign_center = new $.TextAlign("center");
+$.VerticalAlignmentConstant_top = new $.VerticalAlignmentConstant("top");
 $.EventStreamProvider_mouseover = new $.EventStreamProvider("mouseover");
 $.Unit_ex = new $.Unit("ex");
 $.EventStreamProvider_resize = new $.EventStreamProvider("resize");
 $.EventStreamProvider_success = new $.EventStreamProvider("success");
+$.VerticalAlignmentConstant_bottom = new $.VerticalAlignmentConstant("bottom");
 $.EventStreamProvider_dragend = new $.EventStreamProvider("dragend");
 $.EventStreamProvider_focus = new $.EventStreamProvider("focus");
 $.EventStreamProvider_dragover = new $.EventStreamProvider("dragover");
 $._WorkerStub_methods = $._WorkerStub.prototype;
-$.Alignment_STRETCH = new $.Alignment("STRETCH");
+$._CustomEventStreamProvider__determineMouseWheelEventType = new $._CustomEventStreamProvider($.Element__determineMouseWheelEventType);
 $.JSNumber_methods = $.JSNumber.prototype;
-$.Alignment_BEGIN = new $.Alignment("BEGIN");
 $.EventStreamProvider_keyup = new $.EventStreamProvider("keyup");
-$.Direction_RTL = new $.Direction("RTL");
+$.Direction_LTR = new $.Direction("LTR");
 $.Unit_px = new $.Unit("px");
-$.Alignment_END = new $.Alignment("END");
 $.EventStreamProvider_load = new $.EventStreamProvider("load");
 $.EventStreamProvider_dblclick = new $.EventStreamProvider("dblclick");
 $.WhiteSpace_nowrap = new $.WhiteSpace("nowrap");
 $.ScrollAlignment_CENTER = new $.ScrollAlignment("CENTER");
-$.TextAlign_right = new $.TextAlign("right");
 $.JSArray_methods = $.JSArray.prototype;
 $.EventStreamProvider_dragleave = new $.EventStreamProvider("dragleave");
 $.EventStreamProvider_open = new $.EventStreamProvider("open");
+$.HorizontalAlignmentConstant_TextAlign_center = new $.HorizontalAlignmentConstant($.TextAlign_center);
 $.EventStreamProvider_unload = new $.EventStreamProvider("unload");
 $.JSInt_methods = $.JSInt.prototype;
 $.Position_absolute = new $.Position("absolute");
 $.Unit_mm = new $.Unit("mm");
 $.EventStreamProvider_keydown = new $.EventStreamProvider("keydown");
 $.WhiteSpace_normal = new $.WhiteSpace("normal");
-$.DockLayoutConstant_4 = new $.DockLayoutConstant(4);
 $.DockLayoutConstant_5 = new $.DockLayoutConstant(5);
-$.DockLayoutConstant_6 = new $.DockLayoutConstant(6);
+$.DockLayoutConstant_4 = new $.DockLayoutConstant(4);
+$.Position_relative = new $.Position("relative");
 $.C_CloseToken = new $.CloseToken();
 $.EventStreamProvider_mousedown = new $.EventStreamProvider("mousedown");
 $.EventStreamProvider_click = new $.EventStreamProvider("click");
-$.DockLayoutConstant_1 = new $.DockLayoutConstant(1);
-$.DockLayoutConstant_0 = new $.DockLayoutConstant(0);
+$.Direction_DEFAULT = new $.Direction("DEFAULT");
 $.DockLayoutConstant_3 = new $.DockLayoutConstant(3);
+$.DockLayoutConstant_0 = new $.DockLayoutConstant(0);
+$.Alignment_END = new $.Alignment("END");
 $.EventStreamProvider_dragenter = new $.EventStreamProvider("dragenter");
-$.AnimationType_1 = new $.AnimationType(1);
-$.AnimationType_0 = new $.AnimationType(0);
 $.List_top_middle_bottom = Isolate.makeConstantList(["top", "middle", "bottom"]);
+$.DockLayoutConstant_2 = new $.DockLayoutConstant(2);
+$.DockLayoutConstant_1 = new $.DockLayoutConstant(1);
 $.Unit_em = new $.Unit("em");
 $.EventStreamProvider_progress = new $.EventStreamProvider("progress");
+$.AnimationType_1 = new $.AnimationType(1);
+$.DockLayoutConstant_6 = new $.DockLayoutConstant(6);
 $.AnimationType_2 = new $.AnimationType(2);
-$.DockLayoutConstant_2 = new $.DockLayoutConstant(2);
+$.AnimationType_0 = new $.AnimationType(0);
 $.EventStreamProvider_canplaythrough = new $.EventStreamProvider("canplaythrough");
 $.EventStreamProvider_dragstart = new $.EventStreamProvider("dragstart");
-$.Position_relative = new $.Position("relative");
 $.JSDouble_methods = $.JSDouble.prototype;
 $.Unit_cm = new $.Unit("cm");
 $.EventStreamProvider_mousemove = new $.EventStreamProvider("mousemove");
-$.Overflow_hidden = new $.Overflow("hidden");
-$.Display_block = new $.Display("block");
 $.EventStreamProvider_mouseup = new $.EventStreamProvider("mouseup");
 $.EventStreamProvider_mouseout = new $.EventStreamProvider("mouseout");
-$.Overflow_auto = new $.Overflow("auto");
+$.Overflow_hidden = new $.Overflow("hidden");
 $.EventStreamProvider_ended = new $.EventStreamProvider("ended");
-$.C__Random = new $._Random();
+$.Overflow_auto = new $.Overflow("auto");
 $.Unit_pt = new $.Unit("pt");
+$.C__Random = new $._Random();
+$.Display_block = new $.Display("block");
 $.EventStreamProvider_close = new $.EventStreamProvider("close");
-$.TextAlign_left = new $.TextAlign("left");
 $.Unit_in = new $.Unit("in");
-$.PressedValue_0 = new $.PressedValue(0);
-$.PressedValue_3 = new $.PressedValue(3);
-$.PressedValue_1 = new $.PressedValue(1);
-$.PressedValue_2 = new $.PressedValue(2);
 $.EventStreamProvider_touchcancel = new $.EventStreamProvider("touchcancel");
-$.Direction_DEFAULT = new $.Direction("DEFAULT");
 $.NodeList_methods = $.NodeList.prototype;
 $.JSString_methods = $.JSString.prototype;
 $.EventStreamProvider_touchend = new $.EventStreamProvider("touchend");
@@ -32530,33 +32532,6 @@ Isolate.$lazy($, "HAS_ANY_LTR_RE", "BidiUtils_HAS_ANY_LTR_RE", "get$BidiUtils_HA
 });
 Isolate.$lazy($, "WORD_SEPARATOR_RE", "BidiUtils_WORD_SEPARATOR_RE", "get$BidiUtils_WORD_SEPARATOR_RE", function() {
   return $.RegExp_RegExp("\\s+", true, false);
-});
-Isolate.$lazy($, "ALIGN_CENTER", "HasHorizontalAlignment_ALIGN_CENTER", "get$HasHorizontalAlignment_ALIGN_CENTER", function() {
-  return $.HorizontalAlignmentConstant$($.TextAlign_center.get$value($.TextAlign_center));
-});
-Isolate.$lazy($, "ALIGN_LEFT", "HasHorizontalAlignment_ALIGN_LEFT", "get$HasHorizontalAlignment_ALIGN_LEFT", function() {
-  return $.HorizontalAlignmentConstant$($.TextAlign_left.get$value($.TextAlign_left));
-});
-Isolate.$lazy($, "ALIGN_RIGHT", "HasHorizontalAlignment_ALIGN_RIGHT", "get$HasHorizontalAlignment_ALIGN_RIGHT", function() {
-  return $.HorizontalAlignmentConstant$($.TextAlign_right.get$value($.TextAlign_right));
-});
-Isolate.$lazy($, "ALIGN_LOCALE_START", "HasHorizontalAlignment_ALIGN_LOCALE_START", "get$HasHorizontalAlignment_ALIGN_LOCALE_START", function() {
-  return $.LocaleInfo_getCurrentLocale().isRTL$0() ? $.get$HasHorizontalAlignment_ALIGN_RIGHT() : $.get$HasHorizontalAlignment_ALIGN_LEFT();
-});
-Isolate.$lazy($, "ALIGN_LOCALE_END", "HasHorizontalAlignment_ALIGN_LOCALE_END", "get$HasHorizontalAlignment_ALIGN_LOCALE_END", function() {
-  return $.LocaleInfo_getCurrentLocale().isRTL$0() ? $.get$HasHorizontalAlignment_ALIGN_LEFT() : $.get$HasHorizontalAlignment_ALIGN_RIGHT();
-});
-Isolate.$lazy($, "ALIGN_DEFAULT", "HasHorizontalAlignment_ALIGN_DEFAULT", "get$HasHorizontalAlignment_ALIGN_DEFAULT", function() {
-  return $.get$HasHorizontalAlignment_ALIGN_LOCALE_START();
-});
-Isolate.$lazy($, "ALIGN_BOTTOM", "HasVerticalAlignment_ALIGN_BOTTOM", "get$HasVerticalAlignment_ALIGN_BOTTOM", function() {
-  return $.VerticalAlignmentConstant$("bottom");
-});
-Isolate.$lazy($, "ALIGN_MIDDLE", "HasVerticalAlignment_ALIGN_MIDDLE", "get$HasVerticalAlignment_ALIGN_MIDDLE", function() {
-  return $.VerticalAlignmentConstant$("middle");
-});
-Isolate.$lazy($, "ALIGN_TOP", "HasVerticalAlignment_ALIGN_TOP", "get$HasVerticalAlignment_ALIGN_TOP", function() {
-  return $.VerticalAlignmentConstant$("top");
 });
 Isolate.$lazy($, "instance", "LocaleInfo_instance", "get$LocaleInfo_instance", function() {
   return $.LocaleInfo$($.LocaleInfoImpl$());

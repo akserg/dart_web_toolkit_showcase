@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.9</a>
+          <a href="../index.html">API Reference 0.3.10+1</a>
          &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/DomImplStandard.html">DomImplStandard</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -176,6 +176,20 @@ class DomImplStandard extends DomImpl {
    captureElem = elem;
  }
 
+ //******
+ // Style
+ //******
+ 
+ String getStyleProperty(dart_html.Element elem, String name) {
+   dart_html.CssStyleDeclaration style = elem.style;
+   return style.getPropertyValue(name); 
+ }
+ 
+ void setStyleProperty(dart_html.Element elem, String name, String value) {
+   dart_html.CssStyleDeclaration style = elem.style;
+   style.setProperty(name, value);
+ }
+ 
  //*******
  // Events
  //*******
@@ -464,6 +478,20 @@ dart_html.Element captureElem
 </pre>
 </div>
 </div>
+<div class="field inherited"><h4 id="cssFloatPropertyName">
+<button class="show-code">Code</button>
+final String         <strong>cssFloatPropertyName</strong> <a class="anchor-link"
+            href="#cssFloatPropertyName"
+            title="Permalink to DomImplStandard.cssFloatPropertyName">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_event/DomImpl.html">DomImpl</a> </div><div class="doc">
+<pre class="source">
+String get cssFloatPropertyName {
+ return "cssFloat";
+}
+</pre>
+</div>
+</div>
 </div>
 <div>
 <h3>Methods</h3>
@@ -669,6 +697,19 @@ int getEventTypeInt(dart_html.Event evt) {
 </pre>
 </div>
 </div>
+<div class="method"><h4 id="getStyleProperty">
+<button class="show-code">Code</button>
+String <strong>getStyleProperty</strong>(Element elem, String name) <a class="anchor-link" href="#getStyleProperty"
+              title="Permalink to DomImplStandard.getStyleProperty">#</a></h4>
+<div class="doc">
+<pre class="source">
+String getStyleProperty(dart_html.Element elem, String name) {
+ dart_html.CssStyleDeclaration style = elem.style;
+ return style.getPropertyValue(name); 
+}
+</pre>
+</div>
+</div>
 <div class="method"><h4 id="initEventSystem">
 <button class="show-code">Code</button>
 void <strong>initEventSystem</strong>() <a class="anchor-link" href="#initEventSystem"
@@ -849,6 +890,19 @@ void setEventListener(dart_html.Element elem, EventListener listener) {
 </pre>
 </div>
 </div>
+<div class="method"><h4 id="setStyleProperty">
+<button class="show-code">Code</button>
+void <strong>setStyleProperty</strong>(Element elem, String name, String value) <a class="anchor-link" href="#setStyleProperty"
+              title="Permalink to DomImplStandard.setStyleProperty">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setStyleProperty(dart_html.Element elem, String name, String value) {
+ dart_html.CssStyleDeclaration style = elem.style;
+ style.setProperty(name, value);
+}
+</pre>
+</div>
+</div>
 <div class="method"><h4 id="sinkBitlessEvent">
 <button class="show-code">Code</button>
 void <strong>sinkBitlessEvent</strong>(Element elem, String eventTypeName) <a class="anchor-link" href="#sinkBitlessEvent"
@@ -924,7 +978,7 @@ void sinkEventsImpl(dart_html.Element elem, int bits) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-07 18:55:41.817</div>
+          <div>This page was generated at 2013-05-13 21:32:09.141</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

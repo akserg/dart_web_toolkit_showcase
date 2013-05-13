@@ -1,0 +1,387 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>SafeHtmlBuilder class / dart_web_toolkit_util Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_util" data-type="SafeHtmlBuilder">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.10+1</a>
+         &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>SafeHtmlBuilder</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>A builder that facilitates the building up of XSS-safe HTML from text
+snippets. It is used essentially like a {@link StringBuilder}; unlike a
+{@link StringBuilder}, it automatically HTML-escapes appended input where
+necessary.</p><p>
+In addition, it supports methods that allow strings with HTML markup to be
+appended without escaping: One can append other {@link SafeHtml} objects, and
+one can append constant strings. The method that appends constant strings
+({@link #appendHtmlConstant(String)}) requires a convention of use to be
+adhered to in order for this class to adhere to the contract required by
+{@link SafeHtml}: The argument expression must be fully determined and known
+to be safe at compile time, and the value of the argument must not contain
+incomplete HTML tags. See {@link #appendHtmlConstant(String)} for details.<p>
+The accumulated XSS-safe HTML can be obtained in the form of a
+{@link SafeHtml} via the {@link #toSafeHtml()} method.<p>
+This class is not thread-safe.
+<pre class="source">
+class SafeHtmlBuilder {
+
+ final StringBuffer _sb = new StringBuffer();
+
+ /**
+  * Constructs an empty SafeHtmlBuilder.
+  */
+ SafeHtmlBuilder() {
+ }
+
+ /*
+  * Boolean and numeric types converted to String are always HTML safe -- no
+  * escaping necessary.
+  */
+
+ /**
+  * Appends the string representation of a bool.
+  *
+  * @param b the bool whose string representation to append
+  * @return a reference to this object
+  */
+ SafeHtmlBuilder append(value) {
+   _sb.write(value.asString());
+   return this;
+ }
+
+ /**
+  * Appends the string representation of a number.
+  *
+  * @param num the number whose string representation to append
+  * @return a reference to this object
+  */
+ SafeHtmlBuilder appendAll(Iterable objects, [String separator = ""]) {
+   _sb.writeAll(objects, separator);
+   return this;
+ }
+
+ /**
+  * Appends the string representation of a char.
+  *
+  * @param c the character whose string representation to append
+  * @return a reference to this object
+  * @see SafeHtmlUtils#htmlEscape(char)
+  */
+ SafeHtmlBuilder appendCharCode(int charCode) {
+   _sb.write(SafeHtmlUtils.htmlEscape(new String.fromCharCode(charCode)));
+   return this;
+ }
+
+ /**
+  * Appends the contents of another {@link SafeHtml} object, without applying
+  * HTML-escaping to it.
+  *
+  * @param html the {@link SafeHtml} to append
+  * @return a reference to this object
+  */
+ SafeHtmlBuilder appendSafeHtml(SafeHtml html) {
+   _sb.write(html.asString());
+   return this;
+ }
+
+ /**
+  * Appends a string after HTML-escaping it.
+  *
+  * @param text the string to append
+  * @return a reference to this object
+  * @see SafeHtmlUtils#htmlEscape(String)
+  */
+ SafeHtmlBuilder appendEscaped(String text) {
+   _sb.write(SafeHtmlUtils.htmlEscape(text));
+   return this;
+ }
+
+ /**
+  * Appends a string consisting of several newline-separated lines after
+  * HTML-escaping it. Newlines in the original string are converted to {@code
+  * &lt;br&gt;} tags.
+  *
+  * @param text the string to append
+  * @return a reference to this object
+  * @see SafeHtmlUtils#htmlEscape(String)
+  */
+ SafeHtmlBuilder appendEscapedLines(String text) {
+   _sb.write(SafeHtmlUtils.htmlEscape(text).replaceAll("\n", "&lt;br&gt;"));
+   return this;
+ }
+
+ /**
+  * Appends a compile-time-constant string, which will &lt;em&gt;not&lt;/em&gt; be escaped.
+  *
+  * &lt;p&gt;
+  * &lt;b&gt;Important&lt;/b&gt;: For this class to be able to honor its contract as
+  * required by {@link SafeHtml}, all uses of this method must satisfy the
+  * following constraints:
+  *
+  * &lt;ol&gt;
+  *
+  * &lt;li&gt;The argument expression must be fully determined at compile time.
+  *
+  * &lt;li&gt;The value of the argument must end in "inner HTML" context and not
+  * contain incomplete HTML tags. I.e., the following is not a correct use of
+  * this method, because the {@code &lt;a&gt;} tag is incomplete:
+  *
+  * &lt;pre class="code"&gt;
+  * {@code shb.appendConstantHtml("&lt;a href='").append(url)}&lt;/pre&gt;
+  *
+  * &lt;/ol&gt;
+  *
+  * &lt;p&gt;
+  * The first constraint provides a sufficient condition that the appended
+  * string (and any HTML markup contained in it) originates from a trusted
+  * source. The second constraint ensures the composability of {@link SafeHtml}
+  * values.
+  *
+  * &lt;p&gt;
+  * When executing client-side in Development Mode, or server side with
+  * assertions enabled, the argument is HTML-parsed and validated to satisfy
+  * the second constraint (the server-side check can also be enabled
+  * programmatically, see
+  * {@link SafeHtmlHostedModeUtils#maybeCheckCompleteHtml(String)} for
+  * details). For performance reasons, this check is not performed in prod mode
+  * on the client, and with assertions disabled on the server.
+  *
+  * @param html the HTML snippet to be appended
+  * @return a reference to this object
+  * @throws IllegalArgumentException if not running in prod mode and {@code
+  *           html} violates the second constraint
+  */
+ SafeHtmlBuilder appendHtmlConstant(String html) {
+//    SafeHtmlHostedModeUtils.maybeCheckCompleteHtml(html);
+   _sb.write(html);
+   return this;
+ }
+
+ /**
+  * Returns the safe HTML accumulated in the builder as a {@link SafeHtml}.
+  *
+  * @return a SafeHtml instance
+  */
+ SafeHtml toSafeHtml() {
+   return new SafeHtmlString(_sb.toString());
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="SafeHtmlBuilder">
+<button class="show-code">Code</button>
+new <strong>SafeHtmlBuilder</strong>() <a class="anchor-link" href="#SafeHtmlBuilder"
+              title="Permalink to SafeHtmlBuilder.SafeHtmlBuilder">#</a></h4>
+<div class="doc">
+<p>Constructs an empty SafeHtmlBuilder.</p>
+<pre class="source">
+SafeHtmlBuilder() {
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="append">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>append</strong>(value) <a class="anchor-link" href="#append"
+              title="Permalink to SafeHtmlBuilder.append">#</a></h4>
+<div class="doc">
+<p>Appends the string representation of a bool.</p>
+<p>@param b the bool whose string representation to append
+@return a reference to this object</p>
+<pre class="source">
+SafeHtmlBuilder append(value) {
+ _sb.write(value.asString());
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="appendAll">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>appendAll</strong>(Iterable objects, [String separator = ""]) <a class="anchor-link" href="#appendAll"
+              title="Permalink to SafeHtmlBuilder.appendAll">#</a></h4>
+<div class="doc">
+<p>Appends the string representation of a number.</p>
+<p>@param num the number whose string representation to append
+@return a reference to this object</p>
+<pre class="source">
+SafeHtmlBuilder appendAll(Iterable objects, [String separator = ""]) {
+ _sb.writeAll(objects, separator);
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="appendCharCode">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>appendCharCode</strong>(int charCode) <a class="anchor-link" href="#appendCharCode"
+              title="Permalink to SafeHtmlBuilder.appendCharCode">#</a></h4>
+<div class="doc">
+<p>Appends the string representation of a char.</p>
+<p>@param c the character whose string representation to append
+@return a reference to this object
+@see SafeHtmlUtils#htmlEscape(char)</p>
+<pre class="source">
+SafeHtmlBuilder appendCharCode(int charCode) {
+ _sb.write(SafeHtmlUtils.htmlEscape(new String.fromCharCode(charCode)));
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="appendEscaped">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>appendEscaped</strong>(String text) <a class="anchor-link" href="#appendEscaped"
+              title="Permalink to SafeHtmlBuilder.appendEscaped">#</a></h4>
+<div class="doc">
+<p>Appends a string after HTML-escaping it.</p>
+<p>@param text the string to append
+@return a reference to this object
+@see SafeHtmlUtils#htmlEscape(String)</p>
+<pre class="source">
+SafeHtmlBuilder appendEscaped(String text) {
+ _sb.write(SafeHtmlUtils.htmlEscape(text));
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="appendEscapedLines">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>appendEscapedLines</strong>(String text) <a class="anchor-link" href="#appendEscapedLines"
+              title="Permalink to SafeHtmlBuilder.appendEscapedLines">#</a></h4>
+<div class="doc">
+<p>Appends a string consisting of several newline-separated lines after
+HTML-escaping it. Newlines in the original string are converted to {@code
+&lt;br>} tags.</p>
+<p>@param text the string to append
+@return a reference to this object
+@see SafeHtmlUtils#htmlEscape(String)</p>
+<pre class="source">
+SafeHtmlBuilder appendEscapedLines(String text) {
+ _sb.write(SafeHtmlUtils.htmlEscape(text).replaceAll("\n", "&lt;br&gt;"));
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="appendHtmlConstant">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>appendHtmlConstant</strong>(String html) <a class="anchor-link" href="#appendHtmlConstant"
+              title="Permalink to SafeHtmlBuilder.appendHtmlConstant">#</a></h4>
+<div class="doc">
+<p>Appends a compile-time-constant string, which will &lt;em>not&lt;/em> be escaped.</p><p>
+<b>Important</b>: For this class to be able to honor its contract as
+required by {@link SafeHtml}, all uses of this method must satisfy the
+following constraints:<ol><li>The argument expression must be fully determined at compile time.<li>The value of the argument must end in "inner HTML" context and not
+contain incomplete HTML tags. I.e., the following is not a correct use of
+this method, because the {@code <a>} tag is incomplete:<pre class="code">
+{@code shb.appendConstantHtml("<a href='").append(url)}</pre>
+<p>&lt;/ol></p><p>
+The first constraint provides a sufficient condition that the appended
+string (and any HTML markup contained in it) originates from a trusted
+source. The second constraint ensures the composability of {@link SafeHtml}
+values.<p>
+When executing client-side in Development Mode, or server side with
+assertions enabled, the argument is HTML-parsed and validated to satisfy
+the second constraint (the server-side check can also be enabled
+programmatically, see
+{@link SafeHtmlHostedModeUtils#maybeCheckCompleteHtml(String)} for
+details). For performance reasons, this check is not performed in prod mode
+on the client, and with assertions disabled on the server.
+<p>@param html the HTML snippet to be appended
+@return a reference to this object
+@throws IllegalArgumentException if not running in prod mode and {@code</p>
+<pre><code>      html} violates the second constraint
+</code></pre>
+<pre class="source">
+SafeHtmlBuilder appendHtmlConstant(String html) {
+//    SafeHtmlHostedModeUtils.maybeCheckCompleteHtml(html);
+ _sb.write(html);
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="appendSafeHtml">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> <strong>appendSafeHtml</strong>(<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> html) <a class="anchor-link" href="#appendSafeHtml"
+              title="Permalink to SafeHtmlBuilder.appendSafeHtml">#</a></h4>
+<div class="doc">
+<p>Appends the contents of another {@link SafeHtml} object, without applying
+HTML-escaping to it.</p>
+<p>@param html the {@link SafeHtml} to append
+@return a reference to this object</p>
+<pre class="source">
+SafeHtmlBuilder appendSafeHtml(SafeHtml html) {
+ _sb.write(html.asString());
+ return this;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toSafeHtml">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> <strong>toSafeHtml</strong>() <a class="anchor-link" href="#toSafeHtml"
+              title="Permalink to SafeHtmlBuilder.toSafeHtml">#</a></h4>
+<div class="doc">
+<p>Returns the safe HTML accumulated in the builder as a {@link SafeHtml}.</p>
+<p>@return a SafeHtml instance</p>
+<pre class="source">
+SafeHtml toSafeHtml() {
+ return new SafeHtmlString(_sb.toString());
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-05-13 21:32:18.336</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

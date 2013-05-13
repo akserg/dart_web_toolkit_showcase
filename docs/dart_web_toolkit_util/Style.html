@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.9</a>
+          <a href="../index.html">API Reference 0.3.10+1</a>
          &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/Style.html">Style</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -45,12 +45,75 @@
 <div class="doc">
 <pre class="source">
 class Style {
+ 
+ static const String _BORDER_STYLE_SOLID = "solid";
+ static const String _BORDER_STYLE_DASHED = "dashed";
+ static const String _BORDER_STYLE_DOTTED = "dotted";
+ static const String _BORDER_STYLE_HIDDEN = "hidden";
+ static const String _BORDER_STYLE_NONE = "none";
+ 
+ static const String _CLEAR_BOTH = "both";
+ static const String _CLEAR_LEFT = "left";
+ static const String _CLEAR_NONE = "none";
+ static const String _CLEAR_RIGHT = "right";
+
+ static const String _CURSOR_ROW_RESIZE = "row-resize";
+ static const String _CURSOR_COL_RESIZE = "col-resize";
+ static const String _CURSOR_HELP = "help";
+ static const String _CURSOR_WAIT = "wait";
+ static const String _CURSOR_TEXT = "text";
+ static const String _CURSOR_W_RESIZE = "w-resize";
+ static const String _CURSOR_S_RESIZE = "s-resize";
+ static const String _CURSOR_SW_RESIZE = "sw-resize";
+ static const String _CURSOR_SE_RESIZE = "se-resize";
+ static const String _CURSOR_N_RESIZE = "n-resize";
+ static const String _CURSOR_NW_RESIZE = "nw-resize";
+ static const String _CURSOR_NE_RESIZE = "ne-resize";
+ static const String _CURSOR_E_RESIZE = "e-resize";
+ static const String _CURSOR_MOVE = "move";
+ static const String _CURSOR_POINTER = "pointer";
+ static const String _CURSOR_CROSSHAIR = "crosshair";
+ static const String _CURSOR_AUTO = "auto";
+ static const String _CURSOR_DEFAULT = "default";
 
  static const String _DISPLAY_INLINE_BLOCK = "inline-block";
  static const String _DISPLAY_INLINE = "inline";
  static const String _DISPLAY_BLOCK = "block";
  static const String _DISPLAY_NONE = "none";
 
+ static const String _FLOAT_LEFT = "left";
+ static const String _FLOAT_RIGHT = "right";
+ static const String _FLOAT_NONE = "none";
+
+ static const String _FONT_STYLE_OBLIQUE = "oblique";
+ static const String _FONT_STYLE_ITALIC = "italic";
+ static const String _FONT_STYLE_NORMAL = "normal";
+
+ static const String _FONT_WEIGHT_LIGHTER = "lighter";
+ static const String _FONT_WEIGHT_BOLDER = "bolder";
+ static const String _FONT_WEIGHT_BOLD = "bold";
+ static const String _FONT_WEIGHT_NORMAL = "normal";
+
+ static const String _LIST_STYLE_TYPE_UPPER_ROMAN = "upper-roman";
+ static const String _LIST_STYLE_TYPE_LOWER_ROMAN = "lower-roman";
+ static const String _LIST_STYLE_TYPE_UPPER_ALPHA = "upper-alpha";
+ static const String _LIST_STYLE_TYPE_LOWER_ALPHA = "lower-alpha";
+ static const String _LIST_STYLE_TYPE_DECIMAL = "decimal";
+ static const String _LIST_STYLE_TYPE_SQUARE = "square";
+ static const String _LIST_STYLE_TYPE_CIRCLE = "circle";
+ static const String _LIST_STYLE_TYPE_DISC = "disc";
+ static const String _LIST_STYLE_TYPE_NONE = "none";
+
+ static const String _OUTLINE_STYLE_DASHED = "dashed";
+ static const String _OUTLINE_STYLE_DOTTED = "dotted";
+ static const String _OUTLINE_STYLE_DOUBLE = "double";
+ static const String _OUTLINE_STYLE_GROOVE = "groove";
+ static const String _OUTLINE_STYLE_INSET = "inset";
+ static const String _OUTLINE_STYLE_NONE = "none";
+ static const String _OUTLINE_STYLE_OUTSET = "outset";
+ static const String _OUTLINE_STYLE_RIDGE = "ridge";
+ static const String _OUTLINE_STYLE_SOLID = "solid";
+ 
  static const String _OVERFLOW_AUTO = "auto";
  static const String _OVERFLOW_SCROLL = "scroll";
  static const String _OVERFLOW_HIDDEN = "hidden";
@@ -61,11 +124,86 @@ class Style {
  static const String _POSITION_RELATIVE = "relative";
  static const String _POSITION_STATIC = "static const";
 
+ static const String _STYLE_Z_INDEX = "zIndex";
+ static const String _STYLE_WIDTH = "width";
+ static const String _STYLE_VISIBILITY = "visibility";
+ static const String _STYLE_TOP = "top";
+ static const String _STYLE_TEXT_DECORATION = "textDecoration";
+ static const String _STYLE_RIGHT = "right";
+ static const String _STYLE_POSITION = "position";
+ static const String _STYLE_PADDING_TOP = "paddingTop";
+ static const String _STYLE_PADDING_RIGHT = "paddingRight";
+ static const String _STYLE_PADDING_LEFT = "paddingLeft";
+ static const String _STYLE_PADDING_BOTTOM = "paddingBottom";
+ static const String _STYLE_PADDING = "padding";
+ static const String _STYLE_OVERFLOW = "overflow";
+ static const String _STYLE_OVERFLOW_X = "overflowX";
+ static const String _STYLE_OVERFLOW_Y = "overflowY";
+ static const String _STYLE_OPACITY = "opacity";
+ static const String _STYLE_MARGIN_TOP = "marginTop";
+ static const String _STYLE_MARGIN_RIGHT = "marginRight";
+ static const String _STYLE_MARGIN_LEFT = "marginLeft";
+ static const String _STYLE_MARGIN_BOTTOM = "marginBottom";
+ static const String _STYLE_MARGIN = "margin";
+ static const String _STYLE_LIST_STYLE_TYPE = "listStyleType";
+ static const String _STYLE_LEFT = "left";
+ static const String _STYLE_HEIGHT = "height";
+ static const String _STYLE_FONT_WEIGHT = "fontWeight";
+ static const String _STYLE_FONT_STYLE = "fontStyle";
+ static const String _STYLE_FONT_SIZE = "fontSize";
+ static const String _STYLE_DISPLAY = "display";
+ static const String _STYLE_CURSOR = "cursor";
+ static const String _STYLE_COLOR = "color";
+ static const String _STYLE_CLEAR = "clear";
+ static const String _STYLE_BOTTOM = "bottom";
+ static const String _STYLE_BORDER_WIDTH = "borderWidth";
+ static const String _STYLE_BORDER_STYLE = "borderStyle";
+ static const String _STYLE_BORDER_COLOR = "borderColor";
+ static const String _STYLE_BACKGROUND_IMAGE = "backgroundImage";
+ static const String _STYLE_BACKGROUND_COLOR = "backgroundColor";
+ static const String _STYLE_VERTICAL_ALIGN = "verticalAlign";
+ static const String _STYLE_TABLE_LAYOUT = "tableLayout";
+ static const String _STYLE_TEXT_ALIGN = "textAlign";
+ static const String _STYLE_TEXT_INDENT = "textIndent";
+ static const String _STYLE_TEXT_JUSTIFY = "textJustify";
+ static const String _STYLE_TEXT_OVERFLOW = "textOverflow";
+ static const String _STYLE_TEXT_TRANSFORM = "textTransform";
+ static const String _STYLE_OUTLINE_WIDTH = "outlineWidth";
+ static const String _STYLE_OUTLINE_STYLE = "outlineStyle";
+ static const String _STYLE_OUTLINE_COLOR = "outlineColor";
+ static const String _STYLE_LINE_HEIGHT = "lineHeight";
+ static const String _STYLE_WHITE_SPACE = "whiteSpace";
+ 
+ static const String _TABLE_LAYOUT_AUTO = "auto";
+ static const String _TABLE_LAYOUT_FIXED = "fixed";
+ 
  static const String _TEXT_ALIGN_CENTER = "center";
  static const String _TEXT_ALIGN_JUSTIFY = "justify";
  static const String _TEXT_ALIGN_LEFT = "left";
  static const String _TEXT_ALIGN_RIGHT = "right";
 
+ static const String _TEXT_DECORATION_BLINK = "blink";
+ static const String _TEXT_DECORATION_LINE_THROUGH = "line-through";
+ static const String _TEXT_DECORATION_NONE = "none";
+ static const String _TEXT_DECORATION_OVERLINE = "overline";
+ static const String _TEXT_DECORATION_UNDERLINE = "underline";
+ 
+ static const String _TEXT_JUSTIFY_AUTO = "auto";
+ static const String _TEXT_JUSTIFY_DISTRIBUTE = "distribute";
+ static const String _TEXT_JUSTIFY_INTER_CLUSTER = "inter-cluster";
+ static const String _TEXT_JUSTIFY_INTER_IDEOGRAPH = "inter-ideograph";
+ static const String _TEXT_JUSTIFY_INTER_WORD = "inter-word";
+ static const String _TEXT_JUSTIFY_KASHIDA = "kashida";
+ static const String _TEXT_JUSTIFY_NONE = "none";
+ 
+ static const String _TEXT_OVERFLOW_CLIP = "clip";
+ static const String _TEXT_OVERFLOW_ELLIPSIS = "ellipsis";
+
+ static const String _TEXT_TRANSFORM_CAPITALIZE = "capitalize";
+ static const String _TEXT_TRANSFORM_NONE = "none";
+ static const String _TEXT_TRANSFORM_LOWERCASE = "lowercase";
+ static const String _TEXT_TRANSFORM_UPPERCASE = "uppercase";
+ 
  static const String _UNIT_MM = "mm";
  static const String _UNIT_CM = "cm";
  static const String _UNIT_IN = "in";
@@ -75,23 +213,3081 @@ class Style {
  static const String _UNIT_EM = "em";
  static const String _UNIT_PCT = "%";
  static const String _UNIT_PX = "px";
+ 
+ static const String _VERTICAL_ALIGN_BASELINE = "baseline";
+ static const String _VERTICAL_ALIGN_SUB = "sub";
+ static const String _VERTICAL_ALIGN_SUPER = "super";
+ static const String _VERTICAL_ALIGN_TOP = "top";
+ static const String _VERTICAL_ALIGN_TEXT_TOP = "text-top";
+ static const String _VERTICAL_ALIGN_MIDDLE = "middle";
+ static const String _VERTICAL_ALIGN_BOTTOM = "bottom";
+ static const String _VERTICAL_ALIGN_TEXT_BOTTOM = "text-bottom";
 
+ static const String _VISIBILITY_HIDDEN = "hidden";
+ static const String _VISIBILITY_VISIBLE = "visible";
+ 
  static const String _WHITE_SPACE_NORMAL = "normal";
  static const String _WHITE_SPACE_NOWRAP = "nowrap";
  static const String _WHITE_SPACE_PRE = "pre";
  static const String _WHITE_SPACE_PRE_LINE = "pre-line";
  static const String _WHITE_SPACE_PRE_WRAP = "pre-wrap";
  
- static const String _VISIBILITY_HIDDEN = "hidden";
- static const String _VISIBILITY_VISIBLE = "visible";
+ dart_html.Element _el;
+ 
+ void setElement(dart_html.Element el) {
+   this._el = el;
+ }
+ 
+ /**
+  * Clear the background-color css property.
+  */
+ void clearBackgroundColor() {
+    clearProperty(_STYLE_BACKGROUND_COLOR);
+ }
+
+ /**
+  * Clear the background-image css property.
+  */
+ void clearBackgroundImage() {
+    clearProperty(_STYLE_BACKGROUND_IMAGE);
+ }
+
+ /**
+  * Clear the border-color css property.
+  */
+ void clearBorderColor() {
+    clearProperty(_STYLE_BORDER_COLOR);
+ }
+
+ /**
+  * Clears the border-style CSS property.
+  */
+ void clearBorderStyle() {
+   clearProperty(_STYLE_BORDER_STYLE);
+ }
+
+ /**
+  * Clear the border-width css property.
+  */
+ void clearBorderWidth() {
+    clearProperty(_STYLE_BORDER_WIDTH);
+ }
+
+ /**
+  * Clear the bottom css property.
+  */
+ void clearBottom() {
+    clearProperty(_STYLE_BOTTOM);
+ }
+
+ /**
+  * Clear the 'clear' CSS property.
+  */
+ void clearClear() {
+    clearProperty(_STYLE_CLEAR);
+ }
+
+ /**
+  * Clear the color css property.
+  */
+ void clearColor() {
+    clearProperty(_STYLE_COLOR);
+ }
+
+ /**
+  * Clears the cursor CSS property.
+  */
+ void clearCursor() {
+   clearProperty(_STYLE_CURSOR);
+ }
+
+ /**
+  * Clears the display CSS property.
+  */
+ void clearDisplay() {
+   clearProperty(_STYLE_DISPLAY);
+ }
+
+ /**
+  * Clear the float css property.
+  */
+ void clearFloat() {
+   clearProperty(event.Dom.cssFloatPropertyName());
+ }
+
+ /**
+  * Clear the font-size css property.
+  */
+ void clearFontSize() {
+   clearProperty(_STYLE_FONT_SIZE);
+ }
+
+ /**
+  * Clears the font-style CSS property.
+  */
+ void clearFontStyle() {
+   clearProperty(_STYLE_FONT_STYLE);
+ }
+
+ /**
+  * Clears the font-weight CSS property.
+  */
+ void clearFontWeight() {
+   clearProperty(_STYLE_FONT_WEIGHT);
+ }
+
+ /**
+  * Clear the height css property.
+  */
+ void clearHeight() {
+    clearProperty(_STYLE_HEIGHT);
+ }
+
+ /**
+  * Clear the left css property.
+  */
+ void clearLeft() {
+    clearProperty(_STYLE_LEFT);
+ }
+
+ /**
+  * Clear the line-height css property.
+  */
+ void clearLineHeight() {
+    clearProperty(_STYLE_LINE_HEIGHT);
+ }
+
+ /**
+  * Clears the list-style-type CSS property.
+  */
+ void clearListStyleType() {
+   clearProperty(_STYLE_LIST_STYLE_TYPE);
+ }
+
+ /**
+  * Clear the margin css property.
+  */
+ void clearMargin() {
+    clearProperty(_STYLE_MARGIN);
+ }
+
+ /**
+  * Clear the margin-bottom css property.
+  */
+ void clearMarginBottom() {
+    clearProperty(_STYLE_MARGIN_BOTTOM);
+ }
+
+ /**
+  * Clear the margin-left css property.
+  */
+ void clearMarginLeft() {
+    clearProperty(_STYLE_MARGIN_LEFT);
+ }
+
+ /**
+  * Clear the margin-right css property.
+  */
+ void clearMarginRight() {
+    clearProperty(_STYLE_MARGIN_RIGHT);
+ }
+
+ /**
+  * Clear the margin-top css property.
+  */
+ void clearMarginTop() {
+    clearProperty(_STYLE_MARGIN_TOP);
+ }
+
+ /**
+  * Clear the opacity css property.
+  */
+ void clearOpacity() {
+   event.Dom.cssClearOpacity(_el);
+ }
+
+ /**
+  * Clear the outline-color css property.
+  */
+ void clearOutlineColor() {
+    clearProperty(_STYLE_OUTLINE_COLOR);
+ }
+
+ /**
+  * Clears the outline-style CSS property.
+  */
+ void clearOutlineStyle() {
+   clearProperty(_STYLE_OUTLINE_STYLE);
+ }
+
+ /**
+  * Clear the outline-width css property.
+  */
+ void clearOutlineWidth() {
+    clearProperty(_STYLE_OUTLINE_WIDTH);
+ }
+
+ /**
+  * Clears the overflow CSS property.
+  */
+ void clearOverflow() {
+   clearProperty(_STYLE_OVERFLOW);
+ }
+
+ /**
+  * Clears the overflow-x CSS property.
+  */
+ void clearOverflowX() {
+   clearProperty(_STYLE_OVERFLOW_X);
+ }
+ 
+ /**
+  * Clears the overflow-y CSS property.
+  */
+ void clearOverflowY() {
+   clearProperty(_STYLE_OVERFLOW_Y);
+ }
+ 
+ /**
+  * Clear the padding css property.
+  */
+ void clearPadding() {
+    clearProperty(_STYLE_PADDING);
+ }
+
+ /**
+  * Clear the padding-bottom css property.
+  */
+ void clearPaddingBottom() {
+    clearProperty(_STYLE_PADDING_BOTTOM);
+ }
+
+ /**
+  * Clear the padding-left css property.
+  */
+ void clearPaddingLeft() {
+    clearProperty(_STYLE_PADDING_LEFT);
+ }
+
+ /**
+  * Clear the padding-right css property.
+  */
+ void clearPaddingRight() {
+    clearProperty(_STYLE_PADDING_RIGHT);
+ }
+
+ /**
+  * Clear the padding-top css property.
+  */
+ void clearPaddingTop() {
+    clearProperty(_STYLE_PADDING_TOP);
+ }
+
+ /**
+  * Clears the position CSS property.
+  */
+ void clearPosition() {
+   clearProperty(_STYLE_POSITION);
+ }
+
+ /**
+  * Clears the value of a named property, causing it to revert to its default.
+  */
+ void clearProperty(String name) {
+   setProperty(name, "");
+ }
+
+ /**
+  * Clear the right css property.
+  */
+ void clearRight() {
+    clearProperty(_STYLE_RIGHT);
+ }
+
+ /**
+  * Clear the table-layout css property.
+  */
+ void clearTableLayout() {
+   clearProperty(_STYLE_TABLE_LAYOUT);
+ }
+
+ /**
+  * Clear the 'text-align' CSS property.
+  */
+ void clearTextAlign() {
+   clearProperty(_STYLE_TEXT_ALIGN);
+ }
+
+ /**
+  * Clears the text-decoration CSS property.
+  */
+ void clearTextDecoration() {
+   clearProperty(_STYLE_TEXT_DECORATION);
+ }
+ 
+ /**
+  * Clear the 'text-indent' CSS property.
+  */
+ void clearTextIndent() {
+   clearProperty(_STYLE_TEXT_INDENT);
+ }
+ 
+ /**
+  * Clear the 'text-justify' CSS3 property.
+  */
+ void clearTextJustify() {
+   clearProperty(_STYLE_TEXT_JUSTIFY);
+ }
+ 
+ /**
+  * Clear the 'text-overflow' CSS3 property.
+  */
+ void clearTextOverflow() {
+   clearProperty(_STYLE_TEXT_OVERFLOW);
+ }
+ 
+ /**
+  * Clear the 'text-transform' CSS property.
+  */
+ void clearTextTransform() {
+   clearProperty(_STYLE_TEXT_TRANSFORM);
+ }
+
+ /**
+  * Clear the top css property.
+  */
+ void clearTop() {
+    clearProperty(_STYLE_TOP);
+ }
+
+ /**
+  * Clears the visibility CSS property.
+  */
+ void clearVisibility() {
+   clearProperty(_STYLE_VISIBILITY);
+ }
+
+ /**
+  * Clear the 'white-space' CSS property.
+  */
+ void clearWhiteSpace() {
+   clearProperty(_STYLE_WHITE_SPACE);
+ }
+
+ /**
+  * Clear the width css property.
+  */
+ void clearWidth() {
+    clearProperty(_STYLE_WIDTH);
+ }
+
+ /**
+  * Clear the z-index css property.
+  */
+ void clearZIndex() {
+    clearProperty(_STYLE_Z_INDEX);
+ }
+
+ /**
+  * Get the background-color css property.
+  */
+ String getBackgroundColor() {
+   return getProperty(_STYLE_BACKGROUND_COLOR);
+ }
+
+ /**
+  * Get the background-image css property.
+  */
+ String getBackgroundImage() {
+   return getProperty(_STYLE_BACKGROUND_IMAGE);
+ }
+
+ /**
+  * Get the border-color css property.
+  */
+ String getBorderColor() {
+   return getProperty(_STYLE_BORDER_COLOR);
+ }
+
+ /**
+  * Gets the border-style CSS property.
+  */
+ String getBorderStyle() {
+   return getProperty(_STYLE_BORDER_STYLE);
+ }
+
+ /**
+  * Get the border-width css property.
+  */
+ String getBorderWidth() {
+   return getProperty(_STYLE_BORDER_WIDTH);
+ }
+
+ /**
+  * Get the bottom css property.
+  */
+ String getBottom() {
+   return getProperty(_STYLE_BOTTOM);
+ }
+
+ /**
+  * Get the 'clear' CSS property.
+  */
+ String getClear() {
+   return getProperty(_STYLE_CLEAR);
+ }
+
+ /**
+  * Get the color css property.
+  */
+ String getColor() {
+   return getProperty(_STYLE_COLOR);
+ }
+
+ /**
+  * Gets the cursor CSS property.
+  */
+ String getCursor() {
+   return getProperty(_STYLE_CURSOR);
+ }
+
+ /**
+  * Gets the display CSS property.
+  */
+ String getDisplay() {
+   return getProperty(_STYLE_DISPLAY);
+ }
+
+ /**
+  * Get the font-size css property.
+  */
+ String getFontSize() {
+   return getProperty(_STYLE_FONT_SIZE);
+ }
+
+ /**
+  * Gets the font-style CSS property.
+  */
+ String getFontStyle() {
+   return getProperty(_STYLE_FONT_STYLE);
+ }
+
+ /**
+  * Gets the font-weight CSS property.
+  */
+ String getFontWeight() {
+   return getProperty(_STYLE_FONT_WEIGHT);
+ }
+
+ /**
+  * Get the height css property.
+  */
+ String getHeight() {
+   return getProperty(_STYLE_HEIGHT);
+ }
+
+ /**
+  * Get the left css property.
+  */
+ String getLeft() {
+   return getProperty(_STYLE_LEFT);
+ }
+
+ /**
+  * Get the line-height css property.
+  */
+ String getLineHeight() {
+   return getProperty(_STYLE_LINE_HEIGHT);
+ }
+
+ /**
+  * Gets the list-style-type CSS property.
+  */
+ String getListStyleType() {
+   return getProperty(_STYLE_LIST_STYLE_TYPE);
+ }
+
+ /**
+  * Get the margin css property.
+  */
+ String getMargin() {
+   return getProperty(_STYLE_MARGIN);
+ }
+
+ /**
+  * Get the margin-bottom css property.
+  */
+ String getMarginBottom() {
+   return getProperty(_STYLE_MARGIN_BOTTOM);
+ }
+
+ /**
+  * Get the margin-left css property.
+  */
+ String getMarginLeft() {
+   return getProperty(_STYLE_MARGIN_LEFT);
+ }
+
+ /**
+  * Get the margin-right css property.
+  */
+ String getMarginRight() {
+   return getProperty(_STYLE_MARGIN_RIGHT);
+ }
+
+ /**
+  * Get the margin-top css property.
+  */
+ String getMarginTop() {
+   return getProperty(_STYLE_MARGIN_TOP);
+ }
+
+ /**
+  * Get the opacity css property.
+  */
+ String getOpacity() {
+   return getProperty(_STYLE_OPACITY);
+ }
+
+ /**
+  * Gets the overflow CSS property.
+  */
+ String getOverflow() {
+   return getProperty(_STYLE_OVERFLOW);
+ }
+
+ /**
+  * Gets the overflow-x CSS property. 
+  */
+ String getOverflowX() {
+   return getProperty(_STYLE_OVERFLOW_X);
+ }
+
+ /**
+  * Gets the overflow-y CSS property. 
+  */
+ String getOverflowY() {
+   return getProperty(_STYLE_OVERFLOW_Y);
+ }
+
+ /**
+  * Get the padding css property.
+  */
+ String getPadding() {
+   return getProperty(_STYLE_PADDING);
+ }
+
+ /**
+  * Get the padding-bottom css property.
+  */
+ String getPaddingBottom() {
+   return getProperty(_STYLE_PADDING_BOTTOM);
+ }
+
+ /**
+  * Get the padding-left css property.
+  */
+ String getPaddingLeft() {
+   return getProperty(_STYLE_PADDING_LEFT);
+ }
+
+ /**
+  * Get the padding-right css property.
+  */
+ String getPaddingRight() {
+   return getProperty(_STYLE_PADDING_RIGHT);
+ }
+
+ /**
+  * Get the padding-top css property.
+  */
+ String getPaddingTop() {
+   return getProperty(_STYLE_PADDING_TOP);
+ }
+
+ /**
+  * Gets the position CSS property.
+  */
+ String getPosition() {
+   return getProperty(_STYLE_POSITION);
+ }
+
+ /**
+  * Gets the value of a named property.
+  */
+ String getProperty(String name) {
+   _assertCamelCase(name);
+   return _getPropertyImpl(name);
+ }
+
+ /**
+  * Get the right css property.
+  */
+ String getRight() {
+   return getProperty(_STYLE_RIGHT);
+ }
+
+ /**
+  * Gets the table-layout property.
+  */
+ String getTableLayout() {
+   return getProperty(_STYLE_TABLE_LAYOUT);
+ }
+
+ /**
+  * Get the 'text-align' CSS property.
+  */
+ String getTextAlign() {
+   return getProperty(_STYLE_TEXT_ALIGN);
+ }
+
+ /**
+  * Gets the text-decoration CSS property.
+  */
+ String getTextDecoration() {
+   return getProperty(_STYLE_TEXT_DECORATION);
+ }
+ 
+ /**
+  * Get the 'text-indent' CSS property.
+  */
+ String getTextIndent() {
+   return getProperty(_STYLE_TEXT_INDENT);
+ }
+ 
+ /**
+  * Get the 'text-justify' CSS3 property.
+  */
+ String getTextJustify() {
+   return getProperty(_STYLE_TEXT_JUSTIFY);
+ }
+
+ /**
+  * Get the 'text-overflow' CSS3 property.
+  */
+ String getTextOverflow() {
+   return getProperty(_STYLE_TEXT_OVERFLOW);
+ }
+
+ /**
+  * Get the 'text-transform' CSS property.
+  */
+ String getTextTransform() {
+   return getProperty(_STYLE_TEXT_TRANSFORM);
+ }
+
+ /**
+  * Get the top css property.
+  */
+ String getTop() {
+   return getProperty(_STYLE_TOP);
+ }
+
+ /**
+  * Gets the vertical-align CSS property.
+  */
+ String getVerticalAlign() {
+   return getProperty(_STYLE_VERTICAL_ALIGN);
+ }
+
+ /**
+  * Gets the visibility CSS property.
+  */
+ String getVisibility() {
+   return getProperty(_STYLE_VISIBILITY);
+ }
+
+ /**
+  * Get the 'white-space' CSS property.
+  */
+ String getWhiteSpace() {
+   return getProperty(_STYLE_WHITE_SPACE);
+ }
+
+ /**
+  * Get the width css property.
+  */
+ String getWidth() {
+   return getProperty(_STYLE_WIDTH);
+ }
+
+ /**
+  * Get the z-index css property.
+  */
+ String getZIndex() {
+   return event.Dom.getStyleProperty(_el, _STYLE_Z_INDEX);
+ }
+
+ /**
+  * Set the background-color css property.
+  */
+ void setBackgroundColor(String value) {
+   setProperty(_STYLE_BACKGROUND_COLOR, value);
+ }
+
+ /**
+  * Set the background-image css property.
+  */
+ void setBackgroundImage(String value) {
+   setProperty(_STYLE_BACKGROUND_IMAGE, value);
+ }
+
+ /**
+  * Set the border-color css property.
+  */
+ void setBorderColor(String value) {
+   setProperty(_STYLE_BORDER_COLOR, value);
+ }
+
+ /**
+  * Sets the border-style CSS property.
+  */
+ void setBorderStyle(BorderStyle value) {
+   setProperty(_STYLE_BORDER_STYLE, value.value);
+ }
+
+ /**
+  * Set the border-width css property.
+  */
+ void setBorderWidth(double value, Unit unit) {
+   setProperty(_STYLE_BORDER_WIDTH, value, unit);
+ }
+
+ /**
+  * Set the bottom css property.
+  */
+ void setBottom(double value, Unit unit) {
+   setProperty(_STYLE_BOTTOM, value, unit);
+ }
+
+ /**
+  * Sets the 'clear' CSS property.
+  */
+ void setClear(Clear value) {
+   setProperty(_STYLE_CLEAR, value.value);
+ }
+
+ /**
+  * Sets the color CSS property.
+  */
+ void setColor(String value) {
+   setProperty(_STYLE_COLOR, value);
+ }
+
+ /**
+  * Sets the cursor CSS property.
+  */
+ void setCursor(Cursor value) {
+   setProperty(_STYLE_CURSOR, value.value);
+ }
+
+ /**
+  * Sets the display CSS property.
+  */
+ void setDisplay(Display value) {
+   setProperty(_STYLE_DISPLAY, value.value);
+ }
+
+ /**
+  * Set the float css property.
+  */
+ void setFloat(Float value) {
+   setProperty(event.Dom.cssFloatPropertyName(), value.value);
+ }
+
+ /**
+  * Set the font-size css property.
+  */
+ void setFontSize(double value, Unit unit) {
+   setProperty(_STYLE_FONT_SIZE, value, unit);
+ }
+
+ /**
+  * Sets the font-style CSS property.
+  */
+ void setFontStyle(FontStyle value) {
+   setProperty(_STYLE_FONT_STYLE, value.value);
+ }
+
+ /**
+  * Sets the font-weight CSS property.
+  */
+ void setFontWeight(FontWeight value) {
+   setProperty(_STYLE_FONT_WEIGHT, value.value);
+ }
+
+ /**
+  * Set the height css property.
+  */
+ void setHeight(double value, Unit unit) {
+   setProperty(_STYLE_HEIGHT, value, unit);
+ }
+
+ /**
+  * Set the left css property.
+  */
+ void setLeft(double value, Unit unit) {
+   setProperty(_STYLE_LEFT, value, unit);
+ }
+
+ /**
+  * Set the line-height css property.
+  */
+ void setLineHeight(double value, Unit unit) {
+   setProperty(_STYLE_LINE_HEIGHT, value, unit);
+ }
+
+ /**
+  * Sets the list-style-type CSS property.
+  */
+ void setListStyleType(ListStyleType value) {
+   setProperty(_STYLE_LIST_STYLE_TYPE, value.value);
+ }
+
+ /**
+  * Set the margin css property.
+  */
+ void setMargin(double value, Unit unit) {
+   setProperty(_STYLE_MARGIN, value, unit);
+ }
+
+ /**
+  * Set the margin-bottom css property.
+  */
+ void setMarginBottom(double value, Unit unit) {
+   setProperty(_STYLE_MARGIN_BOTTOM, value, unit);
+ }
+
+ /**
+  * Set the margin-left css property.
+  */
+ void setMarginLeft(double value, Unit unit) {
+   setProperty(_STYLE_MARGIN_LEFT, value, unit);
+ }
+
+ /**
+  * Set the margin-right css property.
+  */
+ void setMarginRight(double value, Unit unit) {
+   setProperty(_STYLE_MARGIN_RIGHT, value, unit);
+ }
+
+ /**
+  * Set the margin-top css property.
+  */
+ void setMarginTop(double value, Unit unit) {
+   setProperty(_STYLE_MARGIN_TOP, value, unit);
+ }
+
+ /**
+  * Set the opacity css property.
+  */
+ void setOpacity(double value) {
+   event.Dom.cssSetOpacity(_el, value);
+ }
+
+ /**
+  * Set the outline-color css property.
+  */
+ void setOutlineColor(String value) {
+   setProperty(_STYLE_OUTLINE_COLOR, value);
+ }
+
+ /**
+  * Sets the outline-style CSS property.
+  */
+ void setOutlineStyle(OutlineStyle value) {
+   setProperty(_STYLE_OUTLINE_STYLE, value.value);
+ }
+
+ /**
+  * Set the outline-width css property.
+  */
+ void setOutlineWidth(double value, Unit unit) {
+   setProperty(_STYLE_OUTLINE_WIDTH, value, unit);
+ }
+
+ /**
+  * Sets the overflow CSS property.
+  */
+ void setOverflow(Overflow value) {
+   setProperty(_STYLE_OVERFLOW, value.value);
+ }
+
+ /**
+  * Sets the overflow-x CSS property.
+  */
+ void setOverflowX(Overflow value) {
+   setProperty(_STYLE_OVERFLOW_X, value.value);
+ }
+
+ /**
+  * Sets the overflow-y CSS property.
+  */
+ void setOverflowY(Overflow value) {
+   setProperty(_STYLE_OVERFLOW_Y, value.value);
+ }
+
+ /**
+  * Set the padding css property.
+  */
+ void setPadding(double value, Unit unit) {
+   setProperty(_STYLE_PADDING, value, unit);
+ }
+
+ /**
+  * Set the padding-bottom css property.
+  */
+ void setPaddingBottom(double value, Unit unit) {
+   setProperty(_STYLE_PADDING_BOTTOM, value, unit);
+ }
+
+ /**
+  * Set the padding-left css property.
+  */
+ void setPaddingLeft(double value, Unit unit) {
+   setProperty(_STYLE_PADDING_LEFT, value, unit);
+ }
+
+ /**
+  * Set the padding-right css property.
+  */
+ void setPaddingRight(double value, Unit unit) {
+   setProperty(_STYLE_PADDING_RIGHT, value, unit);
+ }
+
+ /**
+  * Set the padding-top css property.
+  */
+ void setPaddingTop(double value, Unit unit) {
+   setProperty(_STYLE_PADDING_TOP, value, unit);
+ }
+
+ /**
+  * Sets the position CSS property.
+  */
+ void setPosition(Position value) {
+   setProperty(_STYLE_POSITION, value.value);
+ }
+
+ /**
+  * Sets the value of a named property in the specified units.
+  */
+ void setProperty(String name, value, [Unit unit = null]) {
+   assert(value != null);
+   _assertCamelCase(name);
+   if (unit == null) {
+     _setPropertyImpl(name, value.toString());
+   } else {
+     _setPropertyImpl(name, value.toString() + unit.value);
+   }
+ }
+
+ /**
+  * Sets the value of a named property, in pixels.
+  * 
+  * This is shorthand for &lt;code&gt;value + "px"&lt;/code&gt;.
+  */
+ void setPropertyPx(String name, int value) {
+   setProperty(name, value, Unit.PX);
+ }
+
+ /**
+  * Set the right css property.
+  */
+ void setRight(double value, Unit unit) {
+   setProperty(_STYLE_RIGHT, value, unit);
+ }
+
+ /**
+  * Set the table-layout CSS property.
+  */
+ void setTableLayout(TableLayout value) {
+   setProperty(_STYLE_TABLE_LAYOUT, value.value);
+ }
+
+ /**
+  * Set the 'text-align' CSS property.
+  */
+ void setTextAlign(TextAlign value) {
+   setProperty(_STYLE_TEXT_ALIGN, value.value);
+ }
+
+ /**
+  * Sets the text-decoration CSS property.
+  */
+ void setTextDecoration(TextDecoration value) {
+   setProperty(_STYLE_TEXT_DECORATION, value.value);
+ }
+ 
+ /**
+  * Set the 'text-indent' CSS property.
+  */
+ void setTextIndent(double value, Unit unit) {
+   setProperty(_STYLE_TEXT_INDENT, value, unit);
+ }
+
+ /**
+  * Set the 'text-justify' CSS3 property.
+  */
+ void setTextJustify(TextJustify value) {
+   setProperty(_STYLE_TEXT_JUSTIFY, value.value);
+ }
+
+ /**
+  * Set the 'text-overflow' CSS3 property.
+  */
+ void setTextOverflow(TextOverflow value) {
+   setProperty(_STYLE_TEXT_OVERFLOW, value.value);
+ }
+
+ /**
+  * Set the 'text-transform' CSS property.
+  */
+ void setTextTransform(TextTransform value) {
+   setProperty(_STYLE_TEXT_TRANSFORM, value.value);
+ }
+
+ /**
+  * Set the top css property.
+  */
+ void setTop(double value, Unit unit) {
+   setProperty(_STYLE_TOP, value, unit);
+ }
+
+ /**
+  * Sets the vertical-align CSS property.
+  */
+ void setVerticalAlign(value, [Unit unit = null]) {
+   if (value is VerticalAlign) {
+     setProperty(_STYLE_VERTICAL_ALIGN, value.value);
+   } else {
+     setProperty(_STYLE_VERTICAL_ALIGN, value, unit);
+   }
+ }
+
+ /**
+  * Sets the visibility CSS property.
+  */
+ void setVisibility(Visibility value) {
+   setProperty(_STYLE_VISIBILITY, value.value);
+ }
+
+ /**
+  * Set the 'white-space' CSS property.
+  */
+ void setWhiteSpace(WhiteSpace value) {
+   setProperty(_STYLE_WHITE_SPACE, value.value);
+ }
+
+ /**
+  * Set the width css property.
+  */
+ void setWidth(double value, Unit unit) {
+   setProperty(_STYLE_WIDTH, value, unit);
+ }
+
+ /**
+  * Set the z-index css property.
+  */
+ void setZIndex(int value) {
+   setProperty(_STYLE_Z_INDEX, "%value");
+ }
+
+ /**
+  * Assert that the specified property does not contain a hyphen.
+  * 
+  * @param name the property name
+  */
+ void _assertCamelCase(String name) {
+   assert (!name.contains("-")); // : "The style name '" + name + "' should be in camelCase format";
+ }
+
+ /**
+  * Gets the value of a named property.
+  */
+ String _getPropertyImpl(String name) {
+   return event.Dom.getStyleProperty(_el, name); 
+ }
+
+ /**
+  * Sets the value of a named property.
+  */
+ void _setPropertyImpl(String name, String value) {
+   event.Dom.setStyleProperty(_el, name, value);
+ }
 }
 </pre>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="clearBackgroundColor">
+<button class="show-code">Code</button>
+void <strong>clearBackgroundColor</strong>() <a class="anchor-link" href="#clearBackgroundColor"
+              title="Permalink to Style.clearBackgroundColor">#</a></h4>
+<div class="doc">
+<p>Clear the background-color css property.</p>
+<pre class="source">
+void clearBackgroundColor() {
+  clearProperty(_STYLE_BACKGROUND_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearBackgroundImage">
+<button class="show-code">Code</button>
+void <strong>clearBackgroundImage</strong>() <a class="anchor-link" href="#clearBackgroundImage"
+              title="Permalink to Style.clearBackgroundImage">#</a></h4>
+<div class="doc">
+<p>Clear the background-image css property.</p>
+<pre class="source">
+void clearBackgroundImage() {
+  clearProperty(_STYLE_BACKGROUND_IMAGE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearBorderColor">
+<button class="show-code">Code</button>
+void <strong>clearBorderColor</strong>() <a class="anchor-link" href="#clearBorderColor"
+              title="Permalink to Style.clearBorderColor">#</a></h4>
+<div class="doc">
+<p>Clear the border-color css property.</p>
+<pre class="source">
+void clearBorderColor() {
+  clearProperty(_STYLE_BORDER_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearBorderStyle">
+<button class="show-code">Code</button>
+void <strong>clearBorderStyle</strong>() <a class="anchor-link" href="#clearBorderStyle"
+              title="Permalink to Style.clearBorderStyle">#</a></h4>
+<div class="doc">
+<p>Clears the border-style CSS property.</p>
+<pre class="source">
+void clearBorderStyle() {
+ clearProperty(_STYLE_BORDER_STYLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearBorderWidth">
+<button class="show-code">Code</button>
+void <strong>clearBorderWidth</strong>() <a class="anchor-link" href="#clearBorderWidth"
+              title="Permalink to Style.clearBorderWidth">#</a></h4>
+<div class="doc">
+<p>Clear the border-width css property.</p>
+<pre class="source">
+void clearBorderWidth() {
+  clearProperty(_STYLE_BORDER_WIDTH);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearBottom">
+<button class="show-code">Code</button>
+void <strong>clearBottom</strong>() <a class="anchor-link" href="#clearBottom"
+              title="Permalink to Style.clearBottom">#</a></h4>
+<div class="doc">
+<p>Clear the bottom css property.</p>
+<pre class="source">
+void clearBottom() {
+  clearProperty(_STYLE_BOTTOM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearClear">
+<button class="show-code">Code</button>
+void <strong>clearClear</strong>() <a class="anchor-link" href="#clearClear"
+              title="Permalink to Style.clearClear">#</a></h4>
+<div class="doc">
+<p>Clear the 'clear' CSS property.</p>
+<pre class="source">
+void clearClear() {
+  clearProperty(_STYLE_CLEAR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearColor">
+<button class="show-code">Code</button>
+void <strong>clearColor</strong>() <a class="anchor-link" href="#clearColor"
+              title="Permalink to Style.clearColor">#</a></h4>
+<div class="doc">
+<p>Clear the color css property.</p>
+<pre class="source">
+void clearColor() {
+  clearProperty(_STYLE_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearCursor">
+<button class="show-code">Code</button>
+void <strong>clearCursor</strong>() <a class="anchor-link" href="#clearCursor"
+              title="Permalink to Style.clearCursor">#</a></h4>
+<div class="doc">
+<p>Clears the cursor CSS property.</p>
+<pre class="source">
+void clearCursor() {
+ clearProperty(_STYLE_CURSOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearDisplay">
+<button class="show-code">Code</button>
+void <strong>clearDisplay</strong>() <a class="anchor-link" href="#clearDisplay"
+              title="Permalink to Style.clearDisplay">#</a></h4>
+<div class="doc">
+<p>Clears the display CSS property.</p>
+<pre class="source">
+void clearDisplay() {
+ clearProperty(_STYLE_DISPLAY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearFloat">
+<button class="show-code">Code</button>
+void <strong>clearFloat</strong>() <a class="anchor-link" href="#clearFloat"
+              title="Permalink to Style.clearFloat">#</a></h4>
+<div class="doc">
+<p>Clear the float css property.</p>
+<pre class="source">
+void clearFloat() {
+ clearProperty(event.Dom.cssFloatPropertyName());
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearFontSize">
+<button class="show-code">Code</button>
+void <strong>clearFontSize</strong>() <a class="anchor-link" href="#clearFontSize"
+              title="Permalink to Style.clearFontSize">#</a></h4>
+<div class="doc">
+<p>Clear the font-size css property.</p>
+<pre class="source">
+void clearFontSize() {
+ clearProperty(_STYLE_FONT_SIZE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearFontStyle">
+<button class="show-code">Code</button>
+void <strong>clearFontStyle</strong>() <a class="anchor-link" href="#clearFontStyle"
+              title="Permalink to Style.clearFontStyle">#</a></h4>
+<div class="doc">
+<p>Clears the font-style CSS property.</p>
+<pre class="source">
+void clearFontStyle() {
+ clearProperty(_STYLE_FONT_STYLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearFontWeight">
+<button class="show-code">Code</button>
+void <strong>clearFontWeight</strong>() <a class="anchor-link" href="#clearFontWeight"
+              title="Permalink to Style.clearFontWeight">#</a></h4>
+<div class="doc">
+<p>Clears the font-weight CSS property.</p>
+<pre class="source">
+void clearFontWeight() {
+ clearProperty(_STYLE_FONT_WEIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearHeight">
+<button class="show-code">Code</button>
+void <strong>clearHeight</strong>() <a class="anchor-link" href="#clearHeight"
+              title="Permalink to Style.clearHeight">#</a></h4>
+<div class="doc">
+<p>Clear the height css property.</p>
+<pre class="source">
+void clearHeight() {
+  clearProperty(_STYLE_HEIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearLeft">
+<button class="show-code">Code</button>
+void <strong>clearLeft</strong>() <a class="anchor-link" href="#clearLeft"
+              title="Permalink to Style.clearLeft">#</a></h4>
+<div class="doc">
+<p>Clear the left css property.</p>
+<pre class="source">
+void clearLeft() {
+  clearProperty(_STYLE_LEFT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearLineHeight">
+<button class="show-code">Code</button>
+void <strong>clearLineHeight</strong>() <a class="anchor-link" href="#clearLineHeight"
+              title="Permalink to Style.clearLineHeight">#</a></h4>
+<div class="doc">
+<p>Clear the line-height css property.</p>
+<pre class="source">
+void clearLineHeight() {
+  clearProperty(_STYLE_LINE_HEIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearListStyleType">
+<button class="show-code">Code</button>
+void <strong>clearListStyleType</strong>() <a class="anchor-link" href="#clearListStyleType"
+              title="Permalink to Style.clearListStyleType">#</a></h4>
+<div class="doc">
+<p>Clears the list-style-type CSS property.</p>
+<pre class="source">
+void clearListStyleType() {
+ clearProperty(_STYLE_LIST_STYLE_TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearMargin">
+<button class="show-code">Code</button>
+void <strong>clearMargin</strong>() <a class="anchor-link" href="#clearMargin"
+              title="Permalink to Style.clearMargin">#</a></h4>
+<div class="doc">
+<p>Clear the margin css property.</p>
+<pre class="source">
+void clearMargin() {
+  clearProperty(_STYLE_MARGIN);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearMarginBottom">
+<button class="show-code">Code</button>
+void <strong>clearMarginBottom</strong>() <a class="anchor-link" href="#clearMarginBottom"
+              title="Permalink to Style.clearMarginBottom">#</a></h4>
+<div class="doc">
+<p>Clear the margin-bottom css property.</p>
+<pre class="source">
+void clearMarginBottom() {
+  clearProperty(_STYLE_MARGIN_BOTTOM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearMarginLeft">
+<button class="show-code">Code</button>
+void <strong>clearMarginLeft</strong>() <a class="anchor-link" href="#clearMarginLeft"
+              title="Permalink to Style.clearMarginLeft">#</a></h4>
+<div class="doc">
+<p>Clear the margin-left css property.</p>
+<pre class="source">
+void clearMarginLeft() {
+  clearProperty(_STYLE_MARGIN_LEFT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearMarginRight">
+<button class="show-code">Code</button>
+void <strong>clearMarginRight</strong>() <a class="anchor-link" href="#clearMarginRight"
+              title="Permalink to Style.clearMarginRight">#</a></h4>
+<div class="doc">
+<p>Clear the margin-right css property.</p>
+<pre class="source">
+void clearMarginRight() {
+  clearProperty(_STYLE_MARGIN_RIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearMarginTop">
+<button class="show-code">Code</button>
+void <strong>clearMarginTop</strong>() <a class="anchor-link" href="#clearMarginTop"
+              title="Permalink to Style.clearMarginTop">#</a></h4>
+<div class="doc">
+<p>Clear the margin-top css property.</p>
+<pre class="source">
+void clearMarginTop() {
+  clearProperty(_STYLE_MARGIN_TOP);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOpacity">
+<button class="show-code">Code</button>
+void <strong>clearOpacity</strong>() <a class="anchor-link" href="#clearOpacity"
+              title="Permalink to Style.clearOpacity">#</a></h4>
+<div class="doc">
+<p>Clear the opacity css property.</p>
+<pre class="source">
+void clearOpacity() {
+ event.Dom.cssClearOpacity(_el);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOutlineColor">
+<button class="show-code">Code</button>
+void <strong>clearOutlineColor</strong>() <a class="anchor-link" href="#clearOutlineColor"
+              title="Permalink to Style.clearOutlineColor">#</a></h4>
+<div class="doc">
+<p>Clear the outline-color css property.</p>
+<pre class="source">
+void clearOutlineColor() {
+  clearProperty(_STYLE_OUTLINE_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOutlineStyle">
+<button class="show-code">Code</button>
+void <strong>clearOutlineStyle</strong>() <a class="anchor-link" href="#clearOutlineStyle"
+              title="Permalink to Style.clearOutlineStyle">#</a></h4>
+<div class="doc">
+<p>Clears the outline-style CSS property.</p>
+<pre class="source">
+void clearOutlineStyle() {
+ clearProperty(_STYLE_OUTLINE_STYLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOutlineWidth">
+<button class="show-code">Code</button>
+void <strong>clearOutlineWidth</strong>() <a class="anchor-link" href="#clearOutlineWidth"
+              title="Permalink to Style.clearOutlineWidth">#</a></h4>
+<div class="doc">
+<p>Clear the outline-width css property.</p>
+<pre class="source">
+void clearOutlineWidth() {
+  clearProperty(_STYLE_OUTLINE_WIDTH);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOverflow">
+<button class="show-code">Code</button>
+void <strong>clearOverflow</strong>() <a class="anchor-link" href="#clearOverflow"
+              title="Permalink to Style.clearOverflow">#</a></h4>
+<div class="doc">
+<p>Clears the overflow CSS property.</p>
+<pre class="source">
+void clearOverflow() {
+ clearProperty(_STYLE_OVERFLOW);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOverflowX">
+<button class="show-code">Code</button>
+void <strong>clearOverflowX</strong>() <a class="anchor-link" href="#clearOverflowX"
+              title="Permalink to Style.clearOverflowX">#</a></h4>
+<div class="doc">
+<p>Clears the overflow-x CSS property.</p>
+<pre class="source">
+void clearOverflowX() {
+ clearProperty(_STYLE_OVERFLOW_X);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearOverflowY">
+<button class="show-code">Code</button>
+void <strong>clearOverflowY</strong>() <a class="anchor-link" href="#clearOverflowY"
+              title="Permalink to Style.clearOverflowY">#</a></h4>
+<div class="doc">
+<p>Clears the overflow-y CSS property.</p>
+<pre class="source">
+void clearOverflowY() {
+ clearProperty(_STYLE_OVERFLOW_Y);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearPadding">
+<button class="show-code">Code</button>
+void <strong>clearPadding</strong>() <a class="anchor-link" href="#clearPadding"
+              title="Permalink to Style.clearPadding">#</a></h4>
+<div class="doc">
+<p>Clear the padding css property.</p>
+<pre class="source">
+void clearPadding() {
+  clearProperty(_STYLE_PADDING);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearPaddingBottom">
+<button class="show-code">Code</button>
+void <strong>clearPaddingBottom</strong>() <a class="anchor-link" href="#clearPaddingBottom"
+              title="Permalink to Style.clearPaddingBottom">#</a></h4>
+<div class="doc">
+<p>Clear the padding-bottom css property.</p>
+<pre class="source">
+void clearPaddingBottom() {
+  clearProperty(_STYLE_PADDING_BOTTOM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearPaddingLeft">
+<button class="show-code">Code</button>
+void <strong>clearPaddingLeft</strong>() <a class="anchor-link" href="#clearPaddingLeft"
+              title="Permalink to Style.clearPaddingLeft">#</a></h4>
+<div class="doc">
+<p>Clear the padding-left css property.</p>
+<pre class="source">
+void clearPaddingLeft() {
+  clearProperty(_STYLE_PADDING_LEFT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearPaddingRight">
+<button class="show-code">Code</button>
+void <strong>clearPaddingRight</strong>() <a class="anchor-link" href="#clearPaddingRight"
+              title="Permalink to Style.clearPaddingRight">#</a></h4>
+<div class="doc">
+<p>Clear the padding-right css property.</p>
+<pre class="source">
+void clearPaddingRight() {
+  clearProperty(_STYLE_PADDING_RIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearPaddingTop">
+<button class="show-code">Code</button>
+void <strong>clearPaddingTop</strong>() <a class="anchor-link" href="#clearPaddingTop"
+              title="Permalink to Style.clearPaddingTop">#</a></h4>
+<div class="doc">
+<p>Clear the padding-top css property.</p>
+<pre class="source">
+void clearPaddingTop() {
+  clearProperty(_STYLE_PADDING_TOP);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearPosition">
+<button class="show-code">Code</button>
+void <strong>clearPosition</strong>() <a class="anchor-link" href="#clearPosition"
+              title="Permalink to Style.clearPosition">#</a></h4>
+<div class="doc">
+<p>Clears the position CSS property.</p>
+<pre class="source">
+void clearPosition() {
+ clearProperty(_STYLE_POSITION);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearProperty">
+<button class="show-code">Code</button>
+void <strong>clearProperty</strong>(String name) <a class="anchor-link" href="#clearProperty"
+              title="Permalink to Style.clearProperty">#</a></h4>
+<div class="doc">
+<p>Clears the value of a named property, causing it to revert to its default.</p>
+<pre class="source">
+void clearProperty(String name) {
+ setProperty(name, "");
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearRight">
+<button class="show-code">Code</button>
+void <strong>clearRight</strong>() <a class="anchor-link" href="#clearRight"
+              title="Permalink to Style.clearRight">#</a></h4>
+<div class="doc">
+<p>Clear the right css property.</p>
+<pre class="source">
+void clearRight() {
+  clearProperty(_STYLE_RIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTableLayout">
+<button class="show-code">Code</button>
+void <strong>clearTableLayout</strong>() <a class="anchor-link" href="#clearTableLayout"
+              title="Permalink to Style.clearTableLayout">#</a></h4>
+<div class="doc">
+<p>Clear the table-layout css property.</p>
+<pre class="source">
+void clearTableLayout() {
+ clearProperty(_STYLE_TABLE_LAYOUT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTextAlign">
+<button class="show-code">Code</button>
+void <strong>clearTextAlign</strong>() <a class="anchor-link" href="#clearTextAlign"
+              title="Permalink to Style.clearTextAlign">#</a></h4>
+<div class="doc">
+<p>Clear the 'text-align' CSS property.</p>
+<pre class="source">
+void clearTextAlign() {
+ clearProperty(_STYLE_TEXT_ALIGN);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTextDecoration">
+<button class="show-code">Code</button>
+void <strong>clearTextDecoration</strong>() <a class="anchor-link" href="#clearTextDecoration"
+              title="Permalink to Style.clearTextDecoration">#</a></h4>
+<div class="doc">
+<p>Clears the text-decoration CSS property.</p>
+<pre class="source">
+void clearTextDecoration() {
+ clearProperty(_STYLE_TEXT_DECORATION);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTextIndent">
+<button class="show-code">Code</button>
+void <strong>clearTextIndent</strong>() <a class="anchor-link" href="#clearTextIndent"
+              title="Permalink to Style.clearTextIndent">#</a></h4>
+<div class="doc">
+<p>Clear the 'text-indent' CSS property.</p>
+<pre class="source">
+void clearTextIndent() {
+ clearProperty(_STYLE_TEXT_INDENT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTextJustify">
+<button class="show-code">Code</button>
+void <strong>clearTextJustify</strong>() <a class="anchor-link" href="#clearTextJustify"
+              title="Permalink to Style.clearTextJustify">#</a></h4>
+<div class="doc">
+<p>Clear the 'text-justify' CSS3 property.</p>
+<pre class="source">
+void clearTextJustify() {
+ clearProperty(_STYLE_TEXT_JUSTIFY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTextOverflow">
+<button class="show-code">Code</button>
+void <strong>clearTextOverflow</strong>() <a class="anchor-link" href="#clearTextOverflow"
+              title="Permalink to Style.clearTextOverflow">#</a></h4>
+<div class="doc">
+<p>Clear the 'text-overflow' CSS3 property.</p>
+<pre class="source">
+void clearTextOverflow() {
+ clearProperty(_STYLE_TEXT_OVERFLOW);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTextTransform">
+<button class="show-code">Code</button>
+void <strong>clearTextTransform</strong>() <a class="anchor-link" href="#clearTextTransform"
+              title="Permalink to Style.clearTextTransform">#</a></h4>
+<div class="doc">
+<p>Clear the 'text-transform' CSS property.</p>
+<pre class="source">
+void clearTextTransform() {
+ clearProperty(_STYLE_TEXT_TRANSFORM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearTop">
+<button class="show-code">Code</button>
+void <strong>clearTop</strong>() <a class="anchor-link" href="#clearTop"
+              title="Permalink to Style.clearTop">#</a></h4>
+<div class="doc">
+<p>Clear the top css property.</p>
+<pre class="source">
+void clearTop() {
+  clearProperty(_STYLE_TOP);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearVisibility">
+<button class="show-code">Code</button>
+void <strong>clearVisibility</strong>() <a class="anchor-link" href="#clearVisibility"
+              title="Permalink to Style.clearVisibility">#</a></h4>
+<div class="doc">
+<p>Clears the visibility CSS property.</p>
+<pre class="source">
+void clearVisibility() {
+ clearProperty(_STYLE_VISIBILITY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearWhiteSpace">
+<button class="show-code">Code</button>
+void <strong>clearWhiteSpace</strong>() <a class="anchor-link" href="#clearWhiteSpace"
+              title="Permalink to Style.clearWhiteSpace">#</a></h4>
+<div class="doc">
+<p>Clear the 'white-space' CSS property.</p>
+<pre class="source">
+void clearWhiteSpace() {
+ clearProperty(_STYLE_WHITE_SPACE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearWidth">
+<button class="show-code">Code</button>
+void <strong>clearWidth</strong>() <a class="anchor-link" href="#clearWidth"
+              title="Permalink to Style.clearWidth">#</a></h4>
+<div class="doc">
+<p>Clear the width css property.</p>
+<pre class="source">
+void clearWidth() {
+  clearProperty(_STYLE_WIDTH);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="clearZIndex">
+<button class="show-code">Code</button>
+void <strong>clearZIndex</strong>() <a class="anchor-link" href="#clearZIndex"
+              title="Permalink to Style.clearZIndex">#</a></h4>
+<div class="doc">
+<p>Clear the z-index css property.</p>
+<pre class="source">
+void clearZIndex() {
+  clearProperty(_STYLE_Z_INDEX);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getBackgroundColor">
+<button class="show-code">Code</button>
+String <strong>getBackgroundColor</strong>() <a class="anchor-link" href="#getBackgroundColor"
+              title="Permalink to Style.getBackgroundColor">#</a></h4>
+<div class="doc">
+<p>Get the background-color css property.</p>
+<pre class="source">
+String getBackgroundColor() {
+ return getProperty(_STYLE_BACKGROUND_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getBackgroundImage">
+<button class="show-code">Code</button>
+String <strong>getBackgroundImage</strong>() <a class="anchor-link" href="#getBackgroundImage"
+              title="Permalink to Style.getBackgroundImage">#</a></h4>
+<div class="doc">
+<p>Get the background-image css property.</p>
+<pre class="source">
+String getBackgroundImage() {
+ return getProperty(_STYLE_BACKGROUND_IMAGE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getBorderColor">
+<button class="show-code">Code</button>
+String <strong>getBorderColor</strong>() <a class="anchor-link" href="#getBorderColor"
+              title="Permalink to Style.getBorderColor">#</a></h4>
+<div class="doc">
+<p>Get the border-color css property.</p>
+<pre class="source">
+String getBorderColor() {
+ return getProperty(_STYLE_BORDER_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getBorderStyle">
+<button class="show-code">Code</button>
+String <strong>getBorderStyle</strong>() <a class="anchor-link" href="#getBorderStyle"
+              title="Permalink to Style.getBorderStyle">#</a></h4>
+<div class="doc">
+<p>Gets the border-style CSS property.</p>
+<pre class="source">
+String getBorderStyle() {
+ return getProperty(_STYLE_BORDER_STYLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getBorderWidth">
+<button class="show-code">Code</button>
+String <strong>getBorderWidth</strong>() <a class="anchor-link" href="#getBorderWidth"
+              title="Permalink to Style.getBorderWidth">#</a></h4>
+<div class="doc">
+<p>Get the border-width css property.</p>
+<pre class="source">
+String getBorderWidth() {
+ return getProperty(_STYLE_BORDER_WIDTH);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getBottom">
+<button class="show-code">Code</button>
+String <strong>getBottom</strong>() <a class="anchor-link" href="#getBottom"
+              title="Permalink to Style.getBottom">#</a></h4>
+<div class="doc">
+<p>Get the bottom css property.</p>
+<pre class="source">
+String getBottom() {
+ return getProperty(_STYLE_BOTTOM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getClear">
+<button class="show-code">Code</button>
+String <strong>getClear</strong>() <a class="anchor-link" href="#getClear"
+              title="Permalink to Style.getClear">#</a></h4>
+<div class="doc">
+<p>Get the 'clear' CSS property.</p>
+<pre class="source">
+String getClear() {
+ return getProperty(_STYLE_CLEAR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getColor">
+<button class="show-code">Code</button>
+String <strong>getColor</strong>() <a class="anchor-link" href="#getColor"
+              title="Permalink to Style.getColor">#</a></h4>
+<div class="doc">
+<p>Get the color css property.</p>
+<pre class="source">
+String getColor() {
+ return getProperty(_STYLE_COLOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getCursor">
+<button class="show-code">Code</button>
+String <strong>getCursor</strong>() <a class="anchor-link" href="#getCursor"
+              title="Permalink to Style.getCursor">#</a></h4>
+<div class="doc">
+<p>Gets the cursor CSS property.</p>
+<pre class="source">
+String getCursor() {
+ return getProperty(_STYLE_CURSOR);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getDisplay">
+<button class="show-code">Code</button>
+String <strong>getDisplay</strong>() <a class="anchor-link" href="#getDisplay"
+              title="Permalink to Style.getDisplay">#</a></h4>
+<div class="doc">
+<p>Gets the display CSS property.</p>
+<pre class="source">
+String getDisplay() {
+ return getProperty(_STYLE_DISPLAY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFontSize">
+<button class="show-code">Code</button>
+String <strong>getFontSize</strong>() <a class="anchor-link" href="#getFontSize"
+              title="Permalink to Style.getFontSize">#</a></h4>
+<div class="doc">
+<p>Get the font-size css property.</p>
+<pre class="source">
+String getFontSize() {
+ return getProperty(_STYLE_FONT_SIZE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFontStyle">
+<button class="show-code">Code</button>
+String <strong>getFontStyle</strong>() <a class="anchor-link" href="#getFontStyle"
+              title="Permalink to Style.getFontStyle">#</a></h4>
+<div class="doc">
+<p>Gets the font-style CSS property.</p>
+<pre class="source">
+String getFontStyle() {
+ return getProperty(_STYLE_FONT_STYLE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getFontWeight">
+<button class="show-code">Code</button>
+String <strong>getFontWeight</strong>() <a class="anchor-link" href="#getFontWeight"
+              title="Permalink to Style.getFontWeight">#</a></h4>
+<div class="doc">
+<p>Gets the font-weight CSS property.</p>
+<pre class="source">
+String getFontWeight() {
+ return getProperty(_STYLE_FONT_WEIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getHeight">
+<button class="show-code">Code</button>
+String <strong>getHeight</strong>() <a class="anchor-link" href="#getHeight"
+              title="Permalink to Style.getHeight">#</a></h4>
+<div class="doc">
+<p>Get the height css property.</p>
+<pre class="source">
+String getHeight() {
+ return getProperty(_STYLE_HEIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getLeft">
+<button class="show-code">Code</button>
+String <strong>getLeft</strong>() <a class="anchor-link" href="#getLeft"
+              title="Permalink to Style.getLeft">#</a></h4>
+<div class="doc">
+<p>Get the left css property.</p>
+<pre class="source">
+String getLeft() {
+ return getProperty(_STYLE_LEFT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getLineHeight">
+<button class="show-code">Code</button>
+String <strong>getLineHeight</strong>() <a class="anchor-link" href="#getLineHeight"
+              title="Permalink to Style.getLineHeight">#</a></h4>
+<div class="doc">
+<p>Get the line-height css property.</p>
+<pre class="source">
+String getLineHeight() {
+ return getProperty(_STYLE_LINE_HEIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getListStyleType">
+<button class="show-code">Code</button>
+String <strong>getListStyleType</strong>() <a class="anchor-link" href="#getListStyleType"
+              title="Permalink to Style.getListStyleType">#</a></h4>
+<div class="doc">
+<p>Gets the list-style-type CSS property.</p>
+<pre class="source">
+String getListStyleType() {
+ return getProperty(_STYLE_LIST_STYLE_TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getMargin">
+<button class="show-code">Code</button>
+String <strong>getMargin</strong>() <a class="anchor-link" href="#getMargin"
+              title="Permalink to Style.getMargin">#</a></h4>
+<div class="doc">
+<p>Get the margin css property.</p>
+<pre class="source">
+String getMargin() {
+ return getProperty(_STYLE_MARGIN);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getMarginBottom">
+<button class="show-code">Code</button>
+String <strong>getMarginBottom</strong>() <a class="anchor-link" href="#getMarginBottom"
+              title="Permalink to Style.getMarginBottom">#</a></h4>
+<div class="doc">
+<p>Get the margin-bottom css property.</p>
+<pre class="source">
+String getMarginBottom() {
+ return getProperty(_STYLE_MARGIN_BOTTOM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getMarginLeft">
+<button class="show-code">Code</button>
+String <strong>getMarginLeft</strong>() <a class="anchor-link" href="#getMarginLeft"
+              title="Permalink to Style.getMarginLeft">#</a></h4>
+<div class="doc">
+<p>Get the margin-left css property.</p>
+<pre class="source">
+String getMarginLeft() {
+ return getProperty(_STYLE_MARGIN_LEFT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getMarginRight">
+<button class="show-code">Code</button>
+String <strong>getMarginRight</strong>() <a class="anchor-link" href="#getMarginRight"
+              title="Permalink to Style.getMarginRight">#</a></h4>
+<div class="doc">
+<p>Get the margin-right css property.</p>
+<pre class="source">
+String getMarginRight() {
+ return getProperty(_STYLE_MARGIN_RIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getMarginTop">
+<button class="show-code">Code</button>
+String <strong>getMarginTop</strong>() <a class="anchor-link" href="#getMarginTop"
+              title="Permalink to Style.getMarginTop">#</a></h4>
+<div class="doc">
+<p>Get the margin-top css property.</p>
+<pre class="source">
+String getMarginTop() {
+ return getProperty(_STYLE_MARGIN_TOP);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOpacity">
+<button class="show-code">Code</button>
+String <strong>getOpacity</strong>() <a class="anchor-link" href="#getOpacity"
+              title="Permalink to Style.getOpacity">#</a></h4>
+<div class="doc">
+<p>Get the opacity css property.</p>
+<pre class="source">
+String getOpacity() {
+ return getProperty(_STYLE_OPACITY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOverflow">
+<button class="show-code">Code</button>
+String <strong>getOverflow</strong>() <a class="anchor-link" href="#getOverflow"
+              title="Permalink to Style.getOverflow">#</a></h4>
+<div class="doc">
+<p>Gets the overflow CSS property.</p>
+<pre class="source">
+String getOverflow() {
+ return getProperty(_STYLE_OVERFLOW);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOverflowX">
+<button class="show-code">Code</button>
+String <strong>getOverflowX</strong>() <a class="anchor-link" href="#getOverflowX"
+              title="Permalink to Style.getOverflowX">#</a></h4>
+<div class="doc">
+<p>Gets the overflow-x CSS property. </p>
+<pre class="source">
+String getOverflowX() {
+ return getProperty(_STYLE_OVERFLOW_X);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getOverflowY">
+<button class="show-code">Code</button>
+String <strong>getOverflowY</strong>() <a class="anchor-link" href="#getOverflowY"
+              title="Permalink to Style.getOverflowY">#</a></h4>
+<div class="doc">
+<p>Gets the overflow-y CSS property. </p>
+<pre class="source">
+String getOverflowY() {
+ return getProperty(_STYLE_OVERFLOW_Y);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPadding">
+<button class="show-code">Code</button>
+String <strong>getPadding</strong>() <a class="anchor-link" href="#getPadding"
+              title="Permalink to Style.getPadding">#</a></h4>
+<div class="doc">
+<p>Get the padding css property.</p>
+<pre class="source">
+String getPadding() {
+ return getProperty(_STYLE_PADDING);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPaddingBottom">
+<button class="show-code">Code</button>
+String <strong>getPaddingBottom</strong>() <a class="anchor-link" href="#getPaddingBottom"
+              title="Permalink to Style.getPaddingBottom">#</a></h4>
+<div class="doc">
+<p>Get the padding-bottom css property.</p>
+<pre class="source">
+String getPaddingBottom() {
+ return getProperty(_STYLE_PADDING_BOTTOM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPaddingLeft">
+<button class="show-code">Code</button>
+String <strong>getPaddingLeft</strong>() <a class="anchor-link" href="#getPaddingLeft"
+              title="Permalink to Style.getPaddingLeft">#</a></h4>
+<div class="doc">
+<p>Get the padding-left css property.</p>
+<pre class="source">
+String getPaddingLeft() {
+ return getProperty(_STYLE_PADDING_LEFT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPaddingRight">
+<button class="show-code">Code</button>
+String <strong>getPaddingRight</strong>() <a class="anchor-link" href="#getPaddingRight"
+              title="Permalink to Style.getPaddingRight">#</a></h4>
+<div class="doc">
+<p>Get the padding-right css property.</p>
+<pre class="source">
+String getPaddingRight() {
+ return getProperty(_STYLE_PADDING_RIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPaddingTop">
+<button class="show-code">Code</button>
+String <strong>getPaddingTop</strong>() <a class="anchor-link" href="#getPaddingTop"
+              title="Permalink to Style.getPaddingTop">#</a></h4>
+<div class="doc">
+<p>Get the padding-top css property.</p>
+<pre class="source">
+String getPaddingTop() {
+ return getProperty(_STYLE_PADDING_TOP);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getPosition">
+<button class="show-code">Code</button>
+String <strong>getPosition</strong>() <a class="anchor-link" href="#getPosition"
+              title="Permalink to Style.getPosition">#</a></h4>
+<div class="doc">
+<p>Gets the position CSS property.</p>
+<pre class="source">
+String getPosition() {
+ return getProperty(_STYLE_POSITION);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getProperty">
+<button class="show-code">Code</button>
+String <strong>getProperty</strong>(String name) <a class="anchor-link" href="#getProperty"
+              title="Permalink to Style.getProperty">#</a></h4>
+<div class="doc">
+<p>Gets the value of a named property.</p>
+<pre class="source">
+String getProperty(String name) {
+ _assertCamelCase(name);
+ return _getPropertyImpl(name);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getRight">
+<button class="show-code">Code</button>
+String <strong>getRight</strong>() <a class="anchor-link" href="#getRight"
+              title="Permalink to Style.getRight">#</a></h4>
+<div class="doc">
+<p>Get the right css property.</p>
+<pre class="source">
+String getRight() {
+ return getProperty(_STYLE_RIGHT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTableLayout">
+<button class="show-code">Code</button>
+String <strong>getTableLayout</strong>() <a class="anchor-link" href="#getTableLayout"
+              title="Permalink to Style.getTableLayout">#</a></h4>
+<div class="doc">
+<p>Gets the table-layout property.</p>
+<pre class="source">
+String getTableLayout() {
+ return getProperty(_STYLE_TABLE_LAYOUT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextAlign">
+<button class="show-code">Code</button>
+String <strong>getTextAlign</strong>() <a class="anchor-link" href="#getTextAlign"
+              title="Permalink to Style.getTextAlign">#</a></h4>
+<div class="doc">
+<p>Get the 'text-align' CSS property.</p>
+<pre class="source">
+String getTextAlign() {
+ return getProperty(_STYLE_TEXT_ALIGN);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextDecoration">
+<button class="show-code">Code</button>
+String <strong>getTextDecoration</strong>() <a class="anchor-link" href="#getTextDecoration"
+              title="Permalink to Style.getTextDecoration">#</a></h4>
+<div class="doc">
+<p>Gets the text-decoration CSS property.</p>
+<pre class="source">
+String getTextDecoration() {
+ return getProperty(_STYLE_TEXT_DECORATION);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextIndent">
+<button class="show-code">Code</button>
+String <strong>getTextIndent</strong>() <a class="anchor-link" href="#getTextIndent"
+              title="Permalink to Style.getTextIndent">#</a></h4>
+<div class="doc">
+<p>Get the 'text-indent' CSS property.</p>
+<pre class="source">
+String getTextIndent() {
+ return getProperty(_STYLE_TEXT_INDENT);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextJustify">
+<button class="show-code">Code</button>
+String <strong>getTextJustify</strong>() <a class="anchor-link" href="#getTextJustify"
+              title="Permalink to Style.getTextJustify">#</a></h4>
+<div class="doc">
+<p>Get the 'text-justify' CSS3 property.</p>
+<pre class="source">
+String getTextJustify() {
+ return getProperty(_STYLE_TEXT_JUSTIFY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextOverflow">
+<button class="show-code">Code</button>
+String <strong>getTextOverflow</strong>() <a class="anchor-link" href="#getTextOverflow"
+              title="Permalink to Style.getTextOverflow">#</a></h4>
+<div class="doc">
+<p>Get the 'text-overflow' CSS3 property.</p>
+<pre class="source">
+String getTextOverflow() {
+ return getProperty(_STYLE_TEXT_OVERFLOW);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTextTransform">
+<button class="show-code">Code</button>
+String <strong>getTextTransform</strong>() <a class="anchor-link" href="#getTextTransform"
+              title="Permalink to Style.getTextTransform">#</a></h4>
+<div class="doc">
+<p>Get the 'text-transform' CSS property.</p>
+<pre class="source">
+String getTextTransform() {
+ return getProperty(_STYLE_TEXT_TRANSFORM);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getTop">
+<button class="show-code">Code</button>
+String <strong>getTop</strong>() <a class="anchor-link" href="#getTop"
+              title="Permalink to Style.getTop">#</a></h4>
+<div class="doc">
+<p>Get the top css property.</p>
+<pre class="source">
+String getTop() {
+ return getProperty(_STYLE_TOP);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getVerticalAlign">
+<button class="show-code">Code</button>
+String <strong>getVerticalAlign</strong>() <a class="anchor-link" href="#getVerticalAlign"
+              title="Permalink to Style.getVerticalAlign">#</a></h4>
+<div class="doc">
+<p>Gets the vertical-align CSS property.</p>
+<pre class="source">
+String getVerticalAlign() {
+ return getProperty(_STYLE_VERTICAL_ALIGN);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getVisibility">
+<button class="show-code">Code</button>
+String <strong>getVisibility</strong>() <a class="anchor-link" href="#getVisibility"
+              title="Permalink to Style.getVisibility">#</a></h4>
+<div class="doc">
+<p>Gets the visibility CSS property.</p>
+<pre class="source">
+String getVisibility() {
+ return getProperty(_STYLE_VISIBILITY);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getWhiteSpace">
+<button class="show-code">Code</button>
+String <strong>getWhiteSpace</strong>() <a class="anchor-link" href="#getWhiteSpace"
+              title="Permalink to Style.getWhiteSpace">#</a></h4>
+<div class="doc">
+<p>Get the 'white-space' CSS property.</p>
+<pre class="source">
+String getWhiteSpace() {
+ return getProperty(_STYLE_WHITE_SPACE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getWidth">
+<button class="show-code">Code</button>
+String <strong>getWidth</strong>() <a class="anchor-link" href="#getWidth"
+              title="Permalink to Style.getWidth">#</a></h4>
+<div class="doc">
+<p>Get the width css property.</p>
+<pre class="source">
+String getWidth() {
+ return getProperty(_STYLE_WIDTH);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="getZIndex">
+<button class="show-code">Code</button>
+String <strong>getZIndex</strong>() <a class="anchor-link" href="#getZIndex"
+              title="Permalink to Style.getZIndex">#</a></h4>
+<div class="doc">
+<p>Get the z-index css property.</p>
+<pre class="source">
+String getZIndex() {
+ return event.Dom.getStyleProperty(_el, _STYLE_Z_INDEX);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBackgroundColor">
+<button class="show-code">Code</button>
+void <strong>setBackgroundColor</strong>(String value) <a class="anchor-link" href="#setBackgroundColor"
+              title="Permalink to Style.setBackgroundColor">#</a></h4>
+<div class="doc">
+<p>Set the background-color css property.</p>
+<pre class="source">
+void setBackgroundColor(String value) {
+ setProperty(_STYLE_BACKGROUND_COLOR, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBackgroundImage">
+<button class="show-code">Code</button>
+void <strong>setBackgroundImage</strong>(String value) <a class="anchor-link" href="#setBackgroundImage"
+              title="Permalink to Style.setBackgroundImage">#</a></h4>
+<div class="doc">
+<p>Set the background-image css property.</p>
+<pre class="source">
+void setBackgroundImage(String value) {
+ setProperty(_STYLE_BACKGROUND_IMAGE, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBorderColor">
+<button class="show-code">Code</button>
+void <strong>setBorderColor</strong>(String value) <a class="anchor-link" href="#setBorderColor"
+              title="Permalink to Style.setBorderColor">#</a></h4>
+<div class="doc">
+<p>Set the border-color css property.</p>
+<pre class="source">
+void setBorderColor(String value) {
+ setProperty(_STYLE_BORDER_COLOR, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBorderStyle">
+<button class="show-code">Code</button>
+void <strong>setBorderStyle</strong>(<a href="../dart_web_toolkit_util/BorderStyle.html">BorderStyle</a> value) <a class="anchor-link" href="#setBorderStyle"
+              title="Permalink to Style.setBorderStyle">#</a></h4>
+<div class="doc">
+<p>Sets the border-style CSS property.</p>
+<pre class="source">
+void setBorderStyle(BorderStyle value) {
+ setProperty(_STYLE_BORDER_STYLE, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBorderWidth">
+<button class="show-code">Code</button>
+void <strong>setBorderWidth</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setBorderWidth"
+              title="Permalink to Style.setBorderWidth">#</a></h4>
+<div class="doc">
+<p>Set the border-width css property.</p>
+<pre class="source">
+void setBorderWidth(double value, Unit unit) {
+ setProperty(_STYLE_BORDER_WIDTH, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setBottom">
+<button class="show-code">Code</button>
+void <strong>setBottom</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setBottom"
+              title="Permalink to Style.setBottom">#</a></h4>
+<div class="doc">
+<p>Set the bottom css property.</p>
+<pre class="source">
+void setBottom(double value, Unit unit) {
+ setProperty(_STYLE_BOTTOM, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setClear">
+<button class="show-code">Code</button>
+void <strong>setClear</strong>(<a href="../dart_web_toolkit_util/Clear.html">Clear</a> value) <a class="anchor-link" href="#setClear"
+              title="Permalink to Style.setClear">#</a></h4>
+<div class="doc">
+<p>Sets the 'clear' CSS property.</p>
+<pre class="source">
+void setClear(Clear value) {
+ setProperty(_STYLE_CLEAR, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setColor">
+<button class="show-code">Code</button>
+void <strong>setColor</strong>(String value) <a class="anchor-link" href="#setColor"
+              title="Permalink to Style.setColor">#</a></h4>
+<div class="doc">
+<p>Sets the color CSS property.</p>
+<pre class="source">
+void setColor(String value) {
+ setProperty(_STYLE_COLOR, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setCursor">
+<button class="show-code">Code</button>
+void <strong>setCursor</strong>(<a href="../dart_web_toolkit_util/Cursor.html">Cursor</a> value) <a class="anchor-link" href="#setCursor"
+              title="Permalink to Style.setCursor">#</a></h4>
+<div class="doc">
+<p>Sets the cursor CSS property.</p>
+<pre class="source">
+void setCursor(Cursor value) {
+ setProperty(_STYLE_CURSOR, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setDisplay">
+<button class="show-code">Code</button>
+void <strong>setDisplay</strong>(<a href="../dart_web_toolkit_util/Display.html">Display</a> value) <a class="anchor-link" href="#setDisplay"
+              title="Permalink to Style.setDisplay">#</a></h4>
+<div class="doc">
+<p>Sets the display CSS property.</p>
+<pre class="source">
+void setDisplay(Display value) {
+ setProperty(_STYLE_DISPLAY, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setElement">
+<button class="show-code">Code</button>
+void <strong>setElement</strong>(Element el) <a class="anchor-link" href="#setElement"
+              title="Permalink to Style.setElement">#</a></h4>
+<div class="doc">
+<pre class="source">
+void setElement(dart_html.Element el) {
+ this._el = el;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setFloat">
+<button class="show-code">Code</button>
+void <strong>setFloat</strong>(<a href="../dart_web_toolkit_util/Float.html">Float</a> value) <a class="anchor-link" href="#setFloat"
+              title="Permalink to Style.setFloat">#</a></h4>
+<div class="doc">
+<p>Set the float css property.</p>
+<pre class="source">
+void setFloat(Float value) {
+ setProperty(event.Dom.cssFloatPropertyName(), value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setFontSize">
+<button class="show-code">Code</button>
+void <strong>setFontSize</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setFontSize"
+              title="Permalink to Style.setFontSize">#</a></h4>
+<div class="doc">
+<p>Set the font-size css property.</p>
+<pre class="source">
+void setFontSize(double value, Unit unit) {
+ setProperty(_STYLE_FONT_SIZE, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setFontStyle">
+<button class="show-code">Code</button>
+void <strong>setFontStyle</strong>(<a href="../dart_web_toolkit_util/FontStyle.html">FontStyle</a> value) <a class="anchor-link" href="#setFontStyle"
+              title="Permalink to Style.setFontStyle">#</a></h4>
+<div class="doc">
+<p>Sets the font-style CSS property.</p>
+<pre class="source">
+void setFontStyle(FontStyle value) {
+ setProperty(_STYLE_FONT_STYLE, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setFontWeight">
+<button class="show-code">Code</button>
+void <strong>setFontWeight</strong>(<a href="../dart_web_toolkit_util/FontWeight.html">FontWeight</a> value) <a class="anchor-link" href="#setFontWeight"
+              title="Permalink to Style.setFontWeight">#</a></h4>
+<div class="doc">
+<p>Sets the font-weight CSS property.</p>
+<pre class="source">
+void setFontWeight(FontWeight value) {
+ setProperty(_STYLE_FONT_WEIGHT, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setHeight">
+<button class="show-code">Code</button>
+void <strong>setHeight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setHeight"
+              title="Permalink to Style.setHeight">#</a></h4>
+<div class="doc">
+<p>Set the height css property.</p>
+<pre class="source">
+void setHeight(double value, Unit unit) {
+ setProperty(_STYLE_HEIGHT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setLeft">
+<button class="show-code">Code</button>
+void <strong>setLeft</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setLeft"
+              title="Permalink to Style.setLeft">#</a></h4>
+<div class="doc">
+<p>Set the left css property.</p>
+<pre class="source">
+void setLeft(double value, Unit unit) {
+ setProperty(_STYLE_LEFT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setLineHeight">
+<button class="show-code">Code</button>
+void <strong>setLineHeight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setLineHeight"
+              title="Permalink to Style.setLineHeight">#</a></h4>
+<div class="doc">
+<p>Set the line-height css property.</p>
+<pre class="source">
+void setLineHeight(double value, Unit unit) {
+ setProperty(_STYLE_LINE_HEIGHT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setListStyleType">
+<button class="show-code">Code</button>
+void <strong>setListStyleType</strong>(<a href="../dart_web_toolkit_util/ListStyleType.html">ListStyleType</a> value) <a class="anchor-link" href="#setListStyleType"
+              title="Permalink to Style.setListStyleType">#</a></h4>
+<div class="doc">
+<p>Sets the list-style-type CSS property.</p>
+<pre class="source">
+void setListStyleType(ListStyleType value) {
+ setProperty(_STYLE_LIST_STYLE_TYPE, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setMargin">
+<button class="show-code">Code</button>
+void <strong>setMargin</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setMargin"
+              title="Permalink to Style.setMargin">#</a></h4>
+<div class="doc">
+<p>Set the margin css property.</p>
+<pre class="source">
+void setMargin(double value, Unit unit) {
+ setProperty(_STYLE_MARGIN, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setMarginBottom">
+<button class="show-code">Code</button>
+void <strong>setMarginBottom</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setMarginBottom"
+              title="Permalink to Style.setMarginBottom">#</a></h4>
+<div class="doc">
+<p>Set the margin-bottom css property.</p>
+<pre class="source">
+void setMarginBottom(double value, Unit unit) {
+ setProperty(_STYLE_MARGIN_BOTTOM, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setMarginLeft">
+<button class="show-code">Code</button>
+void <strong>setMarginLeft</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setMarginLeft"
+              title="Permalink to Style.setMarginLeft">#</a></h4>
+<div class="doc">
+<p>Set the margin-left css property.</p>
+<pre class="source">
+void setMarginLeft(double value, Unit unit) {
+ setProperty(_STYLE_MARGIN_LEFT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setMarginRight">
+<button class="show-code">Code</button>
+void <strong>setMarginRight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setMarginRight"
+              title="Permalink to Style.setMarginRight">#</a></h4>
+<div class="doc">
+<p>Set the margin-right css property.</p>
+<pre class="source">
+void setMarginRight(double value, Unit unit) {
+ setProperty(_STYLE_MARGIN_RIGHT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setMarginTop">
+<button class="show-code">Code</button>
+void <strong>setMarginTop</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setMarginTop"
+              title="Permalink to Style.setMarginTop">#</a></h4>
+<div class="doc">
+<p>Set the margin-top css property.</p>
+<pre class="source">
+void setMarginTop(double value, Unit unit) {
+ setProperty(_STYLE_MARGIN_TOP, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOpacity">
+<button class="show-code">Code</button>
+void <strong>setOpacity</strong>(double value) <a class="anchor-link" href="#setOpacity"
+              title="Permalink to Style.setOpacity">#</a></h4>
+<div class="doc">
+<p>Set the opacity css property.</p>
+<pre class="source">
+void setOpacity(double value) {
+ event.Dom.cssSetOpacity(_el, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOutlineColor">
+<button class="show-code">Code</button>
+void <strong>setOutlineColor</strong>(String value) <a class="anchor-link" href="#setOutlineColor"
+              title="Permalink to Style.setOutlineColor">#</a></h4>
+<div class="doc">
+<p>Set the outline-color css property.</p>
+<pre class="source">
+void setOutlineColor(String value) {
+ setProperty(_STYLE_OUTLINE_COLOR, value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOutlineStyle">
+<button class="show-code">Code</button>
+void <strong>setOutlineStyle</strong>(<a href="../dart_web_toolkit_util/OutlineStyle.html">OutlineStyle</a> value) <a class="anchor-link" href="#setOutlineStyle"
+              title="Permalink to Style.setOutlineStyle">#</a></h4>
+<div class="doc">
+<p>Sets the outline-style CSS property.</p>
+<pre class="source">
+void setOutlineStyle(OutlineStyle value) {
+ setProperty(_STYLE_OUTLINE_STYLE, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOutlineWidth">
+<button class="show-code">Code</button>
+void <strong>setOutlineWidth</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setOutlineWidth"
+              title="Permalink to Style.setOutlineWidth">#</a></h4>
+<div class="doc">
+<p>Set the outline-width css property.</p>
+<pre class="source">
+void setOutlineWidth(double value, Unit unit) {
+ setProperty(_STYLE_OUTLINE_WIDTH, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOverflow">
+<button class="show-code">Code</button>
+void <strong>setOverflow</strong>(<a href="../dart_web_toolkit_util/Overflow.html">Overflow</a> value) <a class="anchor-link" href="#setOverflow"
+              title="Permalink to Style.setOverflow">#</a></h4>
+<div class="doc">
+<p>Sets the overflow CSS property.</p>
+<pre class="source">
+void setOverflow(Overflow value) {
+ setProperty(_STYLE_OVERFLOW, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOverflowX">
+<button class="show-code">Code</button>
+void <strong>setOverflowX</strong>(<a href="../dart_web_toolkit_util/Overflow.html">Overflow</a> value) <a class="anchor-link" href="#setOverflowX"
+              title="Permalink to Style.setOverflowX">#</a></h4>
+<div class="doc">
+<p>Sets the overflow-x CSS property.</p>
+<pre class="source">
+void setOverflowX(Overflow value) {
+ setProperty(_STYLE_OVERFLOW_X, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setOverflowY">
+<button class="show-code">Code</button>
+void <strong>setOverflowY</strong>(<a href="../dart_web_toolkit_util/Overflow.html">Overflow</a> value) <a class="anchor-link" href="#setOverflowY"
+              title="Permalink to Style.setOverflowY">#</a></h4>
+<div class="doc">
+<p>Sets the overflow-y CSS property.</p>
+<pre class="source">
+void setOverflowY(Overflow value) {
+ setProperty(_STYLE_OVERFLOW_Y, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPadding">
+<button class="show-code">Code</button>
+void <strong>setPadding</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setPadding"
+              title="Permalink to Style.setPadding">#</a></h4>
+<div class="doc">
+<p>Set the padding css property.</p>
+<pre class="source">
+void setPadding(double value, Unit unit) {
+ setProperty(_STYLE_PADDING, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPaddingBottom">
+<button class="show-code">Code</button>
+void <strong>setPaddingBottom</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setPaddingBottom"
+              title="Permalink to Style.setPaddingBottom">#</a></h4>
+<div class="doc">
+<p>Set the padding-bottom css property.</p>
+<pre class="source">
+void setPaddingBottom(double value, Unit unit) {
+ setProperty(_STYLE_PADDING_BOTTOM, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPaddingLeft">
+<button class="show-code">Code</button>
+void <strong>setPaddingLeft</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setPaddingLeft"
+              title="Permalink to Style.setPaddingLeft">#</a></h4>
+<div class="doc">
+<p>Set the padding-left css property.</p>
+<pre class="source">
+void setPaddingLeft(double value, Unit unit) {
+ setProperty(_STYLE_PADDING_LEFT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPaddingRight">
+<button class="show-code">Code</button>
+void <strong>setPaddingRight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setPaddingRight"
+              title="Permalink to Style.setPaddingRight">#</a></h4>
+<div class="doc">
+<p>Set the padding-right css property.</p>
+<pre class="source">
+void setPaddingRight(double value, Unit unit) {
+ setProperty(_STYLE_PADDING_RIGHT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPaddingTop">
+<button class="show-code">Code</button>
+void <strong>setPaddingTop</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setPaddingTop"
+              title="Permalink to Style.setPaddingTop">#</a></h4>
+<div class="doc">
+<p>Set the padding-top css property.</p>
+<pre class="source">
+void setPaddingTop(double value, Unit unit) {
+ setProperty(_STYLE_PADDING_TOP, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPosition">
+<button class="show-code">Code</button>
+void <strong>setPosition</strong>(<a href="../dart_web_toolkit_util/Position.html">Position</a> value) <a class="anchor-link" href="#setPosition"
+              title="Permalink to Style.setPosition">#</a></h4>
+<div class="doc">
+<p>Sets the position CSS property.</p>
+<pre class="source">
+void setPosition(Position value) {
+ setProperty(_STYLE_POSITION, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setProperty">
+<button class="show-code">Code</button>
+void <strong>setProperty</strong>(String name, value, [<a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit = null]) <a class="anchor-link" href="#setProperty"
+              title="Permalink to Style.setProperty">#</a></h4>
+<div class="doc">
+<p>Sets the value of a named property in the specified units.</p>
+<pre class="source">
+void setProperty(String name, value, [Unit unit = null]) {
+ assert(value != null);
+ _assertCamelCase(name);
+ if (unit == null) {
+   _setPropertyImpl(name, value.toString());
+ } else {
+   _setPropertyImpl(name, value.toString() + unit.value);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setPropertyPx">
+<button class="show-code">Code</button>
+void <strong>setPropertyPx</strong>(String name, int value) <a class="anchor-link" href="#setPropertyPx"
+              title="Permalink to Style.setPropertyPx">#</a></h4>
+<div class="doc">
+<p>Sets the value of a named property, in pixels.</p>
+<p>This is shorthand for &lt;code>value + "px"&lt;/code>.</p>
+<pre class="source">
+void setPropertyPx(String name, int value) {
+ setProperty(name, value, Unit.PX);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setRight">
+<button class="show-code">Code</button>
+void <strong>setRight</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setRight"
+              title="Permalink to Style.setRight">#</a></h4>
+<div class="doc">
+<p>Set the right css property.</p>
+<pre class="source">
+void setRight(double value, Unit unit) {
+ setProperty(_STYLE_RIGHT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTableLayout">
+<button class="show-code">Code</button>
+void <strong>setTableLayout</strong>(<a href="../dart_web_toolkit_util/TableLayout.html">TableLayout</a> value) <a class="anchor-link" href="#setTableLayout"
+              title="Permalink to Style.setTableLayout">#</a></h4>
+<div class="doc">
+<p>Set the table-layout CSS property.</p>
+<pre class="source">
+void setTableLayout(TableLayout value) {
+ setProperty(_STYLE_TABLE_LAYOUT, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextAlign">
+<button class="show-code">Code</button>
+void <strong>setTextAlign</strong>(<a href="../dart_web_toolkit_util/TextAlign.html">TextAlign</a> value) <a class="anchor-link" href="#setTextAlign"
+              title="Permalink to Style.setTextAlign">#</a></h4>
+<div class="doc">
+<p>Set the 'text-align' CSS property.</p>
+<pre class="source">
+void setTextAlign(TextAlign value) {
+ setProperty(_STYLE_TEXT_ALIGN, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextDecoration">
+<button class="show-code">Code</button>
+void <strong>setTextDecoration</strong>(<a href="../dart_web_toolkit_util/TextDecoration.html">TextDecoration</a> value) <a class="anchor-link" href="#setTextDecoration"
+              title="Permalink to Style.setTextDecoration">#</a></h4>
+<div class="doc">
+<p>Sets the text-decoration CSS property.</p>
+<pre class="source">
+void setTextDecoration(TextDecoration value) {
+ setProperty(_STYLE_TEXT_DECORATION, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextIndent">
+<button class="show-code">Code</button>
+void <strong>setTextIndent</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setTextIndent"
+              title="Permalink to Style.setTextIndent">#</a></h4>
+<div class="doc">
+<p>Set the 'text-indent' CSS property.</p>
+<pre class="source">
+void setTextIndent(double value, Unit unit) {
+ setProperty(_STYLE_TEXT_INDENT, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextJustify">
+<button class="show-code">Code</button>
+void <strong>setTextJustify</strong>(<a href="../dart_web_toolkit_util/TextJustify.html">TextJustify</a> value) <a class="anchor-link" href="#setTextJustify"
+              title="Permalink to Style.setTextJustify">#</a></h4>
+<div class="doc">
+<p>Set the 'text-justify' CSS3 property.</p>
+<pre class="source">
+void setTextJustify(TextJustify value) {
+ setProperty(_STYLE_TEXT_JUSTIFY, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextOverflow">
+<button class="show-code">Code</button>
+void <strong>setTextOverflow</strong>(<a href="../dart_web_toolkit_util/TextOverflow.html">TextOverflow</a> value) <a class="anchor-link" href="#setTextOverflow"
+              title="Permalink to Style.setTextOverflow">#</a></h4>
+<div class="doc">
+<p>Set the 'text-overflow' CSS3 property.</p>
+<pre class="source">
+void setTextOverflow(TextOverflow value) {
+ setProperty(_STYLE_TEXT_OVERFLOW, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTextTransform">
+<button class="show-code">Code</button>
+void <strong>setTextTransform</strong>(<a href="../dart_web_toolkit_util/TextTransform.html">TextTransform</a> value) <a class="anchor-link" href="#setTextTransform"
+              title="Permalink to Style.setTextTransform">#</a></h4>
+<div class="doc">
+<p>Set the 'text-transform' CSS property.</p>
+<pre class="source">
+void setTextTransform(TextTransform value) {
+ setProperty(_STYLE_TEXT_TRANSFORM, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setTop">
+<button class="show-code">Code</button>
+void <strong>setTop</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setTop"
+              title="Permalink to Style.setTop">#</a></h4>
+<div class="doc">
+<p>Set the top css property.</p>
+<pre class="source">
+void setTop(double value, Unit unit) {
+ setProperty(_STYLE_TOP, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVerticalAlign">
+<button class="show-code">Code</button>
+void <strong>setVerticalAlign</strong>(value, [<a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit = null]) <a class="anchor-link" href="#setVerticalAlign"
+              title="Permalink to Style.setVerticalAlign">#</a></h4>
+<div class="doc">
+<p>Sets the vertical-align CSS property.</p>
+<pre class="source">
+void setVerticalAlign(value, [Unit unit = null]) {
+ if (value is VerticalAlign) {
+   setProperty(_STYLE_VERTICAL_ALIGN, value.value);
+ } else {
+   setProperty(_STYLE_VERTICAL_ALIGN, value, unit);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setVisibility">
+<button class="show-code">Code</button>
+void <strong>setVisibility</strong>(<a href="../dart_web_toolkit_util/Visibility.html">Visibility</a> value) <a class="anchor-link" href="#setVisibility"
+              title="Permalink to Style.setVisibility">#</a></h4>
+<div class="doc">
+<p>Sets the visibility CSS property.</p>
+<pre class="source">
+void setVisibility(Visibility value) {
+ setProperty(_STYLE_VISIBILITY, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWhiteSpace">
+<button class="show-code">Code</button>
+void <strong>setWhiteSpace</strong>(<a href="../dart_web_toolkit_util/WhiteSpace.html">WhiteSpace</a> value) <a class="anchor-link" href="#setWhiteSpace"
+              title="Permalink to Style.setWhiteSpace">#</a></h4>
+<div class="doc">
+<p>Set the 'white-space' CSS property.</p>
+<pre class="source">
+void setWhiteSpace(WhiteSpace value) {
+ setProperty(_STYLE_WHITE_SPACE, value.value);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setWidth">
+<button class="show-code">Code</button>
+void <strong>setWidth</strong>(double value, <a href="../dart_web_toolkit_util/Unit.html">Unit</a> unit) <a class="anchor-link" href="#setWidth"
+              title="Permalink to Style.setWidth">#</a></h4>
+<div class="doc">
+<p>Set the width css property.</p>
+<pre class="source">
+void setWidth(double value, Unit unit) {
+ setProperty(_STYLE_WIDTH, value, unit);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="setZIndex">
+<button class="show-code">Code</button>
+void <strong>setZIndex</strong>(int value) <a class="anchor-link" href="#setZIndex"
+              title="Permalink to Style.setZIndex">#</a></h4>
+<div class="doc">
+<p>Set the z-index css property.</p>
+<pre class="source">
+void setZIndex(int value) {
+ setProperty(_STYLE_Z_INDEX, "%value");
+}
+</pre>
+</div>
+</div>
 </div>
         </div>
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-07 18:55:50.343</div>
+          <div>This page was generated at 2013-05-13 21:32:18.423</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
