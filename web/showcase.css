@@ -15,6 +15,15 @@ p {
   color: #333;
 }
 
+#loading {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    margin-left: -100px;
+}
+
 .header-content {
   font-size: 14px;
   font-weight: bold;

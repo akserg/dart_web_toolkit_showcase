@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+** May 18, 2013
+
+* Following Dart Web Toolkit 0.3.10+4.
+* Added loading indicator implementation.
+
 **May 13, 2013
 
 * Following Dart Web Toolkit 0.3.10.
