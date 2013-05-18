@@ -27102,6 +27102,10 @@ $.max = function(a, b) {
 
 $.main = function() {
   var t1, t2, t3, t4, t5, t6, t7, t8, app;
+  t1 = document.querySelector("#loading");
+  t2 = t1.parentNode;
+  if (t2 != null)
+    t2.removeChild(t1);
   t1 = $.get$Context__container();
   t2 = $.AppConfiguration$();
   t3 = $.HomeConfiguration$();
