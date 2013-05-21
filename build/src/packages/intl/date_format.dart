@@ -101,11 +101,11 @@ part of intl;
  *
  *      Pattern                           Result
  *      ----------------                  -------
- *      new DateFormat.yMd()             -> 07/10/1996
- *      new DateFormat("yMd")            -> 07/10/1996
+ *      new DateFormat.yMd()             -> 7/10/1996
+ *      new DateFormat("yMd")            -> 7/10/1996
  *      new DateFormat.yMMMMd("en_US")   -> July 10, 1996
  *      new DateFormat("Hm", "en_US")    -> 12:08 PM
- *      new DateFormat.yMd().add_Hm()        -> 07/10/1996 12:08 PM
+ *      new DateFormat.yMd().add_Hm()    -> 7/10/1996 12:08 PM
  *
  * Explicit Pattern Syntax: Formats can also be specified with a pattern string.
  * The skeleton forms will resolve to explicit patterns of this form, but will
@@ -532,6 +532,15 @@ class DateFormat {
   Map get _availableSkeletons {
     return dateTimePatterns[locale];
   }
+
+  /**
+   * Return the [DateSymbol] information for the locale. This can be useful
+   * to find lists like the names of weekdays or months in a locale, but
+   * the structure of this data may change, and it's generally better to go
+   * through the [format] and [parse] APIs. If the locale isn't present, or
+   * is uninitialized, returns null;
+   */
+  DateSymbols get dateSymbols => dateTimeSymbols[_locale];
 
   /**
    * Set the locale. If the locale can't be found, we also look up
