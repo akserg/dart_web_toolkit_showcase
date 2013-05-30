@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.11</a>
+          <a href="../index.html">API Reference 0.3.12</a>
          &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/SafeHtmlRenderer.html">SafeHtmlRenderer&lt;T&gt;</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -51,19 +51,31 @@ architecture.</p>
 abstract class SafeHtmlRenderer&lt;T&gt; {
 
  /**
+  * Renders {@code object} as safe HTML.
+  */
+ SafeHtml renderAsSafeHtml(T object);
+ 
+ /**
   * Renders {@code object} as safe HTML, appended directly to {@code builder}.
   */
- void render(T object, [SafeHtmlBuilder builder = null]);
+ void render(T object, SafeHtmlBuilder builder);
 }
 </pre>
 </div>
 <div>
 <h3>Methods</h3>
 <div class="method"><h4 id="render">
-abstract void <strong>render</strong>(<a href="../dart_web_toolkit_util/SafeHtmlRenderer.html">T</a> object, [<a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> builder = null]) <a class="anchor-link" href="#render"
+abstract void <strong>render</strong>(<a href="../dart_web_toolkit_util/SafeHtmlRenderer.html">T</a> object, <a href="../dart_web_toolkit_util/SafeHtmlBuilder.html">SafeHtmlBuilder</a> builder) <a class="anchor-link" href="#render"
               title="Permalink to SafeHtmlRenderer&lt;T&gt;.render">#</a></h4>
 <div class="doc">
 <p>Renders {@code object} as safe HTML, appended directly to {@code builder}.</p>
+</div>
+</div>
+<div class="method"><h4 id="renderAsSafeHtml">
+abstract <a href="../dart_web_toolkit_util/SafeHtml.html">SafeHtml</a> <strong>renderAsSafeHtml</strong>(<a href="../dart_web_toolkit_util/SafeHtmlRenderer.html">T</a> object) <a class="anchor-link" href="#renderAsSafeHtml"
+              title="Permalink to SafeHtmlRenderer&lt;T&gt;.renderAsSafeHtml">#</a></h4>
+<div class="doc">
+<p>Renders {@code object} as safe HTML.</p>
 </div>
 </div>
 </div>
@@ -71,7 +83,7 @@ abstract void <strong>render</strong>(<a href="../dart_web_toolkit_util/SafeHtml
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-21 19:48:48.207</div>
+          <div>This page was generated at 2013-05-30 09:14:51.388</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

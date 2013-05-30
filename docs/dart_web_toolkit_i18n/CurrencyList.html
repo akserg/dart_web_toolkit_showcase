@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.11</a>
+          <a href="../index.html">API Reference 0.3.12</a>
          &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/CurrencyList.html">CurrencyList</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -550,8 +550,7 @@ bool <strong>any</strong>(bool f(<a href="../dart_web_toolkit_i18n/CurrencyData.
 <div class="doc">
 <div class="inherited">
 <p>Returns true if one element of this collection satisfies the
-predicate 
-<span class="param">f</span>. Returns false otherwise.</p>
+predicate <code>test</code>. Returns false otherwise.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
 bool any(bool f(CurrencyData element)) { throw new UnsupportedError("");}
@@ -580,9 +579,8 @@ bool contains(CurrencyData element) { throw new UnsupportedError("");}
 <div class="inherited">
 <p>Returns the 
 <span class="param">index</span>th element.</p>
-<p>If [this] [Iterable] has fewer than 
-<span class="param">index</span> elements throws a
-<code>RangeError</code>.</p>
+<p>If <code>this</code> has fewer than 
+<span class="param">index</span> elements throws a <code>RangeError</code>.</p>
 <p>Note: if <code>this</code> does not have a deterministic iteration order then the
 function may simply return any element without any iteration if there are
 at least 
@@ -644,8 +642,7 @@ bool <strong>every</strong>(bool f(<a href="../dart_web_toolkit_i18n/CurrencyDat
 <div class="doc">
 <div class="inherited">
 <p>Returns true if every elements of this collection satisify the
-predicate 
-<span class="param">f</span>. Returns false otherwise.</p>
+predicate <code>test</code>. Returns <code>false</code> otherwise.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
 bool every(bool f(CurrencyData element)) { throw new UnsupportedError("");}
@@ -677,7 +674,8 @@ Iterable expand(Iterable f(CurrencyData element)) { throw new UnsupportedError("
               title="Permalink to CurrencyList.firstWhere">#</a></h4>
 <div class="doc">
 <div class="inherited">
-<p>Returns the first element that satisfies the given predicate <code>f</code>.</p>
+<p>Returns the first element that satisfies the given predicate 
+<span class="param">test</span>.</p>
 <p>If none matches, the result of invoking the 
 <span class="param">orElse</span> function is
 returned. By default, when 
@@ -786,7 +784,8 @@ String join([String separator = ""]) {
               title="Permalink to CurrencyList.lastWhere">#</a></h4>
 <div class="doc">
 <div class="inherited">
-<p>Returns the last element that satisfies the given predicate <code>f</code>.</p>
+<p>Returns the last element that satisfies the given predicate 
+<span class="param">test</span>.</p>
 <p>If none matches, the result of invoking the 
 <span class="param">orElse</span> function is
 returned. By default, when 
@@ -926,7 +925,8 @@ CurrencyData reduce(CurrencyData combine(CurrencyData value, CurrencyData elemen
               title="Permalink to CurrencyList.singleWhere">#</a></h4>
 <div class="doc">
 <div class="inherited">
-<p>Returns the single element that satisfies <code>f</code>. If no or more than one
+<p>Returns the single element that satisfies 
+<span class="param">test</span>. If no or more than one
 element match then a <code>StateError</code> is thrown.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
@@ -960,12 +960,15 @@ Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a
 <p>Returns an <code>Iterable</code> that skips elements while 
 <span class="param">test</span> is satisfied.</p>
 <p>The filtering happens lazily. Every new <code>Iterator</code> of the returned
-<code>Iterable</code> will iterate over all elements of <code>this</code>.
-As long as the iterator's elements do not satisfy 
+<code>Iterable</code> will iterate over all elements of <code>this</code>.</p>
+<p>As long as the iterator's elements do not satisfy 
 <span class="param">test</span> they are
 discarded. Once an element satisfies the 
 <span class="param">test</span> the iterator stops testing
-and uses every element unconditionally.</p>
+and uses every element unconditionally. That is, the elements of the
+returned <code>Iterable</code> are the elements of <code>this</code> starting from the first
+element that doesn't satisfy 
+<span class="param">test</span>.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
 Iterable&lt;CurrencyData&gt; skipWhile(bool test(CurrencyData value)) { throw new UnsupportedError("");}
@@ -999,8 +1002,8 @@ Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a
 <p>Returns an <code>Iterable</code> that stops once 
 <span class="param">test</span> is not satisfied anymore.</p>
 <p>The filtering happens lazily. Every new <code>Iterator</code> of the returned
-<code>Iterable</code> will start iterating over the elements of <code>this</code>.
-When the iterator encounters an element <code>e</code> that does not satisfy 
+<code>Iterable</code> will start iterating over the elements of <code>this</code>.</p>
+<p>When the iterator encounters an element <code>e</code> that does not satisfy 
 <span class="param">test</span>,
 it discards <code>e</code> and moves into the finished state. That is, it will not
 ask or provide any more elements.</p>
@@ -1046,15 +1049,12 @@ Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a
 <div class="doc">
 <div class="inherited">
 <p>Returns a lazy <code>Iterable</code> with all elements that satisfy the
-predicate 
-<span class="param">f</span>.</p>
+predicate <code>test</code>.</p>
 <p>This method returns a view of the mapped elements. As long as the
-returned <code>Iterable</code> is not iterated over, the supplied function 
-<span class="param">f</span> will
+returned <code>Iterable</code> is not iterated over, the supplied function <code>test</code> will
 not be invoked. Iterating will not cache results, and thus iterating
 multiple times over the the returned <code>Iterable</code> will invoke the supplied
-function 
-<span class="param">f</span> multiple times on the same element.</p>
+function <code>test</code> multiple times on the same element.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
 Iterable&lt;CurrencyData&gt; where(bool f(CurrencyData element)) { throw new UnsupportedError("");}
@@ -1066,7 +1066,7 @@ Iterable&lt;CurrencyData&gt; where(bool f(CurrencyData element)) { throw new Uns
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-21 19:48:41.249</div>
+          <div>This page was generated at 2013-05-30 09:14:43.693</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

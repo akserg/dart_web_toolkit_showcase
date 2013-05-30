@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.11</a>
+          <a href="../index.html">API Reference 0.3.12</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Tree.html">Tree</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -521,7 +521,7 @@ class Tree extends Widget implements HasTreeItemsForIsWidget, HasWidgetsForIsWid
      case IEvent.ONKEYUP:
        dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
        if (isArrowKey(kEvent.keyCode)) {
-         event.cancelBubble = true;
+//          event.cancelBubble = true;
          event.preventDefault();
          return;
        }
@@ -2731,7 +2731,7 @@ void onBrowserEvent(dart_html.Event event) {
    case IEvent.ONKEYUP:
      dart_html.KeyboardEvent kEvent = event as dart_html.KeyboardEvent;
      if (isArrowKey(kEvent.keyCode)) {
-       event.cancelBubble = true;
+//          event.cancelBubble = true;
        event.preventDefault();
        return;
      }
@@ -3427,7 +3427,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-21 19:48:42.409</div>
+          <div>This page was generated at 2013-05-30 09:14:45.203</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
