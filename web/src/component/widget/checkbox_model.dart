@@ -111,7 +111,7 @@ return vPanel;
               if (sb.length > 0) {
                 sb.write(", ");
               }
-              sb.write(widget.text);
+              sb.write((widget as ui.CheckBox).text);
             }
           });
           selectedDaysOfWeek.text = sb.toString();
