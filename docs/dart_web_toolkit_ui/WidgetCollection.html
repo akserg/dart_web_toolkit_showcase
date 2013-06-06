@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.12</a>
+          <a href="../index.html">API Reference 0.3.13</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/WidgetCollection.html">WidgetCollection</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -212,6 +212,7 @@ class WidgetCollection extends Iterable&lt;Widget&gt; {
  //**********************
  int get length { return _size;}
  bool get isEmpty { return _size == 0;}
+ bool get isNotEmpty { return _size != 0; }
  Widget get first { throw new UnsupportedError("");}
  Widget get last { throw new UnsupportedError("");}
  Widget get single { throw new UnsupportedError("");}
@@ -295,6 +296,21 @@ final bool         <strong>isEmpty</strong> <a class="anchor-link"
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; </div></div>
 <pre class="source">
 bool get isEmpty { return _size == 0;}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="isNotEmpty">
+<button class="show-code">Code</button>
+final bool         <strong>isNotEmpty</strong> <a class="anchor-link"
+            href="#isNotEmpty"
+            title="Permalink to WidgetCollection.isNotEmpty">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns true if there is at least one element in this collection.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; </div></div>
+<pre class="source">
+bool get isNotEmpty { return _size != 0; }
 </pre>
 </div>
 </div>
@@ -778,14 +794,14 @@ Iterable&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; <strong>
 <p>Returns an <code>Iterable</code> that skips elements while 
 <span class="param">test</span> is satisfied.</p>
 <p>The filtering happens lazily. Every new <code>Iterator</code> of the returned
-<code>Iterable</code> will iterate over all elements of <code>this</code>.</p>
-<p>As long as the iterator's elements do not satisfy 
+<code>Iterable</code> iterates over all elements of <code>this</code>.</p>
+<p>As long as the iterator's elements satisfy 
 <span class="param">test</span> they are
-discarded. Once an element satisfies the 
-<span class="param">test</span> the iterator stops testing
-and uses every element unconditionally. That is, the elements of the
-returned <code>Iterable</code> are the elements of <code>this</code> starting from the first
-element that doesn't satisfy 
+discarded. Once an element does not satisfy the 
+<span class="param">test</span> the iterator stops
+testing and uses every later element unconditionally. That is, the elements
+of the returned <code>Iterable</code> are the elements of <code>this</code> starting from the
+first element that does not satisfy 
 <span class="param">test</span>.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>&gt; </div></div>
 <pre class="source">
@@ -884,7 +900,7 @@ Iterable&lt;Widget&gt; where(bool f(Widget element)) { throw new UnsupportedErro
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-30 09:14:44.584</div>
+          <div>This page was generated at 2013-06-05 07:56:56.023</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

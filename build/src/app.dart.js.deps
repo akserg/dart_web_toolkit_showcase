@@ -77,6 +77,7 @@ file:///Applications/dart/dart-sdk/lib/core/string_buffer.dart
 file:///Applications/dart/dart-sdk/lib/core/string_sink.dart
 file:///Applications/dart/dart-sdk/lib/core/symbol.dart
 file:///Applications/dart/dart-sdk/lib/core/type.dart
+file:///Applications/dart/dart-sdk/lib/core/uri.dart
 file:///Applications/dart/dart-sdk/lib/html/dart2js/html_dart2js.dart
 file:///Applications/dart/dart-sdk/lib/html/html_common/conversions.dart
 file:///Applications/dart/dart-sdk/lib/html/html_common/css_class_set.dart
@@ -94,9 +95,6 @@ file:///Applications/dart/dart-sdk/lib/math/random.dart
 file:///Applications/dart/dart-sdk/lib/mdv_observe_impl/mdv_observe_impl.dart
 file:///Applications/dart/dart-sdk/lib/svg/dart2js/svg_dart2js.dart
 file:///Applications/dart/dart-sdk/lib/typed_data/dart2js/typed_data_dart2js.dart
-file:///Applications/dart/dart-sdk/lib/uri/encode_decode.dart
-file:///Applications/dart/dart-sdk/lib/uri/helpers.dart
-file:///Applications/dart/dart-sdk/lib/uri/uri.dart
 file:///Applications/dart/dart-sdk/lib/utf/utf.dart
 file:///Applications/dart/dart-sdk/lib/utf/utf16.dart
 file:///Applications/dart/dart-sdk/lib/utf/utf32.dart

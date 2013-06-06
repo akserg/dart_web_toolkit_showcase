@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.12</a>
+          <a href="../index.html">API Reference 0.3.13</a>
          &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/CurrencyList.html">CurrencyList</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -318,6 +318,7 @@ class CurrencyList extends Iterable&lt;CurrencyData&gt; {
  int get length { throw new UnsupportedError("");}
  bool contains(CurrencyData element) { throw new UnsupportedError("");}
  bool get isEmpty { throw new UnsupportedError("");}
+ bool get isNotEmpty { throw new UnsupportedError("");}
  CurrencyData get first { throw new UnsupportedError("");}
  CurrencyData get last { throw new UnsupportedError("");}
  CurrencyData get single { throw new UnsupportedError("");}
@@ -434,6 +435,21 @@ final bool         <strong>isEmpty</strong> <a class="anchor-link"
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
 bool get isEmpty { throw new UnsupportedError("");}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="isNotEmpty">
+<button class="show-code">Code</button>
+final bool         <strong>isNotEmpty</strong> <a class="anchor-link"
+            href="#isNotEmpty"
+            title="Permalink to CurrencyList.isNotEmpty">#</a>
+        </h4>
+        <div class="doc">
+<div class="inherited">
+<p>Returns true if there is at least one element in this collection.</p>
+<div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
+<pre class="source">
+bool get isNotEmpty { throw new UnsupportedError("");}
 </pre>
 </div>
 </div>
@@ -960,14 +976,14 @@ Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a
 <p>Returns an <code>Iterable</code> that skips elements while 
 <span class="param">test</span> is satisfied.</p>
 <p>The filtering happens lazily. Every new <code>Iterator</code> of the returned
-<code>Iterable</code> will iterate over all elements of <code>this</code>.</p>
-<p>As long as the iterator's elements do not satisfy 
+<code>Iterable</code> iterates over all elements of <code>this</code>.</p>
+<p>As long as the iterator's elements satisfy 
 <span class="param">test</span> they are
-discarded. Once an element satisfies the 
-<span class="param">test</span> the iterator stops testing
-and uses every element unconditionally. That is, the elements of the
-returned <code>Iterable</code> are the elements of <code>this</code> starting from the first
-element that doesn't satisfy 
+discarded. Once an element does not satisfy the 
+<span class="param">test</span> the iterator stops
+testing and uses every later element unconditionally. That is, the elements
+of the returned <code>Iterable</code> are the elements of <code>this</code> starting from the
+first element that does not satisfy 
 <span class="param">test</span>.</p>
 <div class="docs-inherited-from">docs inherited from Iterable&lt;<a href="../dart_web_toolkit_i18n/CurrencyData.html">CurrencyData</a>&gt; </div></div>
 <pre class="source">
@@ -1066,7 +1082,7 @@ Iterable&lt;CurrencyData&gt; where(bool f(CurrencyData element)) { throw new Uns
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-30 09:14:43.693</div>
+          <div>This page was generated at 2013-06-05 07:56:55.097</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

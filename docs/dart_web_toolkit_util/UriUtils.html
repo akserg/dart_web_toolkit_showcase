@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.12</a>
+          <a href="../index.html">API Reference 0.3.13</a>
          &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/UriUtils.html">UriUtils</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -100,7 +100,7 @@ class UriUtils {
 //      }
 //    }
 //    return sb.toString();
-   return encodeUri(uri);
+   return Uri.encodeFull(uri);
  }
 
  /**
@@ -138,7 +138,7 @@ class UriUtils {
 //      }
 //    }
 //    return escaped.toString();
-   return encodeUriComponent(uri);
+   return Uri.encodeComponent(uri);
  }
 
  /**
@@ -165,7 +165,7 @@ class UriUtils {
 //      return null;
 //    }
 //    return scheme;
-   Uri u = new Uri(uri);
+   Uri u = Uri.parse(uri);
    return u.scheme;
  }
 
@@ -343,7 +343,7 @@ static String encode(String uri) {
 //      }
 //    }
 //    return sb.toString();
- return encodeUri(uri);
+ return Uri.encodeFull(uri);
 }
 </pre>
 </div>
@@ -386,7 +386,7 @@ static String encodeAllowEscapes(String uri) {
 //      }
 //    }
 //    return escaped.toString();
- return encodeUriComponent(uri);
+ return Uri.encodeComponent(uri);
 }
 </pre>
 </div>
@@ -418,7 +418,7 @@ static String extractScheme(String uri) {
 //      return null;
 //    }
 //    return scheme;
- Uri u = new Uri(uri);
+ Uri u = Uri.parse(uri);
  return u.scheme;
 }
 </pre>
@@ -582,7 +582,7 @@ UriUtils() ;
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-05-30 09:14:51.455</div>
+          <div>This page was generated at 2013-06-05 07:57:04.221</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
