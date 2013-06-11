@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.13</a>
+          <a href="../index.html">API Reference 0.3.14+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DecoratedStackPanel.html">DecoratedStackPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -247,7 +247,7 @@ the header as HTML.</p>
 @param asHTML &lt;code>true&lt;/code> to treat the specified text as HTML</p>
 <pre class="source">
 void add(Widget w, [String stackText = null, bool asHtml = false]) {
- insertWidget(w, getWidgetCount());
+ insertAt(w, getWidgetCount());
  if (stackText != null) {
    setStackText(getWidgetCount() - 1, stackText, asHtml);
  }
@@ -1144,22 +1144,10 @@ void insert(Widget child, dart_html.Element container, int beforeIndex,
 </pre>
 </div>
 </div>
-<div class="method inherited"><h4 id="insertIsWidget">
+<div class="method inherited"><h4 id="insertAt">
 <button class="show-code">Code</button>
-void <strong>insertIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w, int beforeIndex) <a class="anchor-link" href="#insertIsWidget"
-              title="Permalink to DecoratedStackPanel.insertIsWidget">#</a></h4>
-<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/StackPanel.html">StackPanel</a> </div><div class="doc">
-<pre class="source">
-void insertIsWidget(IsWidget w, int beforeIndex) {
- insertWidget(asWidgetOrNull(w), beforeIndex);
-}
-</pre>
-</div>
-</div>
-<div class="method inherited"><h4 id="insertWidget">
-<button class="show-code">Code</button>
-void <strong>insertWidget</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w, int beforeIndex) <a class="anchor-link" href="#insertWidget"
-              title="Permalink to DecoratedStackPanel.insertWidget">#</a></h4>
+void <strong>insertAt</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w, int beforeIndex) <a class="anchor-link" href="#insertAt"
+              title="Permalink to DecoratedStackPanel.insertAt">#</a></h4>
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/StackPanel.html">StackPanel</a> </div><div class="doc">
 <p>Insert a new child Widget into this Panel at a specified index, attaching
 its Element to the specified container Element. The child Element will
@@ -1177,7 +1165,7 @@ to the container, depending on the value of &lt;code>domInsert&lt;/code>.</p>
      append &lt;code&gt;child&lt;/code&gt; to the end of &lt;code&gt;container&lt;/code&gt;.
 </code></pre>
 <pre class="source">
-void insertWidget(Widget w, int beforeIndex) {
+void insertAt(Widget w, int beforeIndex) {
  // header
  dart_html.TableRowElement trh = new dart_html.TableRowElement();
  dart_html.TableCellElement tdh = new dart_html.TableCellElement();
@@ -1235,6 +1223,18 @@ void insertWidget(Widget w, int beforeIndex) {
    // Reshow the stack to apply style names
    _setStackVisible(_visibleStack, true);
  }
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="insertIsWidget">
+<button class="show-code">Code</button>
+void <strong>insertIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html">IsWidget</a> w, int beforeIndex) <a class="anchor-link" href="#insertIsWidget"
+              title="Permalink to DecoratedStackPanel.insertIsWidget">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/StackPanel.html">StackPanel</a> </div><div class="doc">
+<pre class="source">
+void insertIsWidget(IsWidget w, int beforeIndex) {
+ insertAt(asWidgetOrNull(w), beforeIndex);
 }
 </pre>
 </div>
@@ -1967,7 +1967,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-05 07:56:59.939</div>
+          <div>This page was generated at 2013-06-11 10:18:42.691</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

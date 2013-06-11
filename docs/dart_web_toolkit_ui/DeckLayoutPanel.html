@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.13</a>
+          <a href="../index.html">API Reference 0.3.14+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DeckLayoutPanel.html">DeckLayoutPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -76,7 +76,7 @@ class DeckLayoutPanel extends ComplexPanel implements AnimatedLayout, RequiresRe
  }
 
  void add(Widget w) {
-   insertWidget(w, getWidgetCount());
+   insertAt(w, getWidgetCount());
  }
 
  //*********************************
@@ -146,10 +146,10 @@ class DeckLayoutPanel extends ComplexPanel implements AnimatedLayout, RequiresRe
  }
 
  void insertIsWidget(IsWidget w, int beforeIndex) {
-   insertWidget(asWidgetOrNull(w), beforeIndex);
+   insertAt(asWidgetOrNull(w), beforeIndex);
  }
 
- void insertWidget(Widget widget, int beforeIndex) {
+ void insertAt(Widget widget, int beforeIndex) {
    Widget before = (beforeIndex &lt; getWidgetCount()) ? getWidget(beforeIndex)
        : null;
    insertBefore(widget, before);
@@ -550,7 +550,7 @@ very last step.</li>
 <div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div></div>
 <pre class="source">
 void add(Widget w) {
- insertWidget(w, getWidgetCount());
+ insertAt(w, getWidgetCount());
 }
 </pre>
 </div>
@@ -1563,6 +1563,29 @@ void insert(Widget child, dart_html.Element container, int beforeIndex,
 </pre>
 </div>
 </div>
+<div class="method"><h4 id="insertAt">
+<button class="show-code">Code</button>
+void <strong>insertAt</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, int beforeIndex) <a class="anchor-link" href="#insertAt"
+              title="Permalink to DeckLayoutPanel.insertAt">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Inserts a child widget before the specified index. If the widget is already
+a child of this panel, it will be moved to the specified index.</p>
+<p>@param w the child widget to be inserted
+@param beforeIndex the index before which it will be inserted
+@throws IndexOutOfBoundsException if &lt;code>beforeIndex&lt;/code> is out of</p>
+<pre><code>      range
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/InsertPanel.html">InsertPanel</a> </div></div>
+<pre class="source">
+void insertAt(Widget widget, int beforeIndex) {
+ Widget before = (beforeIndex &lt; getWidgetCount()) ? getWidget(beforeIndex)
+     : null;
+ insertBefore(widget, before);
+}
+</pre>
+</div>
+</div>
 <div class="method"><h4 id="insertBefore">
 <button class="show-code">Code</button>
 void <strong>insertBefore</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> before) <a class="anchor-link" href="#insertBefore"
@@ -1612,21 +1635,7 @@ void <strong>insertIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="doc">
 <pre class="source">
 void insertIsWidget(IsWidget w, int beforeIndex) {
- insertWidget(asWidgetOrNull(w), beforeIndex);
-}
-</pre>
-</div>
-</div>
-<div class="method"><h4 id="insertWidget">
-<button class="show-code">Code</button>
-void <strong>insertWidget</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, int beforeIndex) <a class="anchor-link" href="#insertWidget"
-              title="Permalink to DeckLayoutPanel.insertWidget">#</a></h4>
-<div class="doc">
-<pre class="source">
-void insertWidget(Widget widget, int beforeIndex) {
- Widget before = (beforeIndex &lt; getWidgetCount()) ? getWidget(beforeIndex)
-     : null;
- insertBefore(widget, before);
+ insertAt(asWidgetOrNull(w), beforeIndex);
 }
 </pre>
 </div>
@@ -2443,7 +2452,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-05 07:56:58.664</div>
+          <div>This page was generated at 2013-06-11 10:18:41.776</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

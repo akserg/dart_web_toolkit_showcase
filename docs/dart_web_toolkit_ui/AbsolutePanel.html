@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.13</a>
+          <a href="../index.html">API Reference 0.3.14+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/AbsolutePanel.html">AbsolutePanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -1365,6 +1365,15 @@ void insert(Widget child, dart_html.Element container, int beforeIndex,
 void <strong>insertAt</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w, int beforeIndex) <a class="anchor-link" href="#insertAt"
               title="Permalink to AbsolutePanel.insertAt">#</a></h4>
 <div class="doc">
+<div class="inherited">
+<p>Inserts a child widget before the specified index. If the widget is already
+a child of this panel, it will be moved to the specified index.</p>
+<p>@param w the child widget to be inserted
+@param beforeIndex the index before which it will be inserted
+@throws IndexOutOfBoundsException if &lt;code>beforeIndex&lt;/code> is out of</p>
+<pre><code>      range
+</code></pre>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/InsertPanel.html">InsertPanel</a> </div></div>
 <pre class="source">
 void insertAt(Widget w, int beforeIndex) {
  insert(w, getElement(), beforeIndex, true);
@@ -2119,7 +2128,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-05 07:57:03.456</div>
+          <div>This page was generated at 2013-06-11 10:18:45.186</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

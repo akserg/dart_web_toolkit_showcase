@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.13</a>
+          <a href="../index.html">API Reference 0.3.14+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/InsertPanel.html">InsertPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -62,7 +62,7 @@ abstract class InsertPanel extends IndexedPanel {
   * @throws IndexOutOfBoundsException if &lt;code&gt;beforeIndex&lt;/code&gt; is out of
   *           range
   */
- void insert(Widget w, int beforeIndex);
+ void insertAt(Widget w, int beforeIndex);
 }
 </pre>
 </div>
@@ -110,9 +110,9 @@ abstract int <strong>getWidgetIndex</strong>(<a href="../dart_web_toolkit_ui/Wid
 </code></pre>
 </div>
 </div>
-<div class="method"><h4 id="insert">
-abstract void <strong>insert</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w, int beforeIndex) <a class="anchor-link" href="#insert"
-              title="Permalink to InsertPanel.insert">#</a></h4>
+<div class="method"><h4 id="insertAt">
+abstract void <strong>insertAt</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w, int beforeIndex) <a class="anchor-link" href="#insertAt"
+              title="Permalink to InsertPanel.insertAt">#</a></h4>
 <div class="doc">
 <p>Inserts a child widget before the specified index. If the widget is already
 a child of this panel, it will be moved to the specified index.</p>
@@ -137,7 +137,7 @@ abstract bool <strong>removeAt</strong>(int index) <a class="anchor-link" href="
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-05 07:57:03.293</div>
+          <div>This page was generated at 2013-06-11 10:18:45.064</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

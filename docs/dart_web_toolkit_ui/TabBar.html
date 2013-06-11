@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.13</a>
+          <a href="../index.html">API Reference 0.3.14+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/TabBar.html">TabBar</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -101,12 +101,12 @@ class TabBar extends Composite implements HasBeforeSelectionHandlers&lt;int&gt;,
    }
 
 
-   HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler&lt;int&gt; handler) {
+   HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler handler) {
      return addHandler(handler, BeforeSelectionEvent.TYPE);
    }
 
 
-   HandlerRegistration addSelectionHandler(SelectionHandler&lt;int&gt; handler) {
+   HandlerRegistration addSelectionHandler(SelectionHandler handler) {
      return addHandler(handler, SelectionEvent.TYPE);
    }
 
@@ -484,7 +484,7 @@ class TabBar extends Composite implements HasBeforeSelectionHandlers&lt;int&gt;,
      SimplePanel focusablePanel = delWidget.getFocusablePanel();
 //      Roles.getTabRole().set(focusablePanel.getElement());
 
-     panel.insertWidget(delWidget, beforeIndex + 1);
+     panel.insertAt(delWidget, beforeIndex + 1);
 
      UiObject.manageElementStyleName(delWidget.getElement().parent, STYLENAME_DEFAULT + "-wrapper", true);
    }
@@ -734,7 +734,7 @@ HandlerRegistration addAttachHandler(AttachEventHandler handler) {
 </div>
 <div class="method"><h4 id="addBeforeSelectionHandler">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBeforeSelectionHandler</strong>(<a href="../dart_web_toolkit_event/BeforeSelectionHandler.html">BeforeSelectionHandler</a>&lt;int&gt; handler) <a class="anchor-link" href="#addBeforeSelectionHandler"
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addBeforeSelectionHandler</strong>(<a href="../dart_web_toolkit_event/BeforeSelectionHandler.html">BeforeSelectionHandler</a> handler) <a class="anchor-link" href="#addBeforeSelectionHandler"
               title="Permalink to TabBar.addBeforeSelectionHandler">#</a></h4>
 <div class="doc">
 <div class="inherited">
@@ -743,7 +743,7 @@ HandlerRegistration addAttachHandler(AttachEventHandler handler) {
 @return the registration for the event</p>
 <div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasBeforeSelectionHandlers.html">HasBeforeSelectionHandlers</a>&lt;int&gt; </div></div>
 <pre class="source">
-HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler&lt;int&gt; handler) {
+HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler handler) {
  return addHandler(handler, BeforeSelectionEvent.TYPE);
 }
 </pre>
@@ -822,7 +822,7 @@ HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&g
 </div>
 <div class="method"><h4 id="addSelectionHandler">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addSelectionHandler</strong>(<a href="../dart_web_toolkit_event/SelectionHandler.html">SelectionHandler</a>&lt;int&gt; handler) <a class="anchor-link" href="#addSelectionHandler"
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addSelectionHandler</strong>(<a href="../dart_web_toolkit_event/SelectionHandler.html">SelectionHandler</a> handler) <a class="anchor-link" href="#addSelectionHandler"
               title="Permalink to TabBar.addSelectionHandler">#</a></h4>
 <div class="doc">
 <div class="inherited">
@@ -831,7 +831,7 @@ HandlerRegistration addHandler(EventHandler handler, EventType&lt;EventHandler&g
 @return the registration for the event</p>
 <div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasSelectionHandlers.html">HasSelectionHandlers</a>&lt;int&gt; </div></div>
 <pre class="source">
-HandlerRegistration addSelectionHandler(SelectionHandler&lt;int&gt; handler) {
+HandlerRegistration addSelectionHandler(SelectionHandler handler) {
  return addHandler(handler, SelectionEvent.TYPE);
 }
 </pre>
@@ -2301,7 +2301,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-05 07:56:57.148</div>
+          <div>This page was generated at 2013-06-11 10:18:40.845</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

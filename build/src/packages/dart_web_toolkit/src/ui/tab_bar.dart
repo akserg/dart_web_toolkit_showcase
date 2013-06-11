@@ -62,12 +62,12 @@ class TabBar extends Composite implements HasBeforeSelectionHandlers<int>, HasSe
     }
 
 
-    HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler<int> handler) {
+    HandlerRegistration addBeforeSelectionHandler(BeforeSelectionHandler handler) {
       return addHandler(handler, BeforeSelectionEvent.TYPE);
     }
 
 
-    HandlerRegistration addSelectionHandler(SelectionHandler<int> handler) {
+    HandlerRegistration addSelectionHandler(SelectionHandler handler) {
       return addHandler(handler, SelectionEvent.TYPE);
     }
 
@@ -445,7 +445,7 @@ class TabBar extends Composite implements HasBeforeSelectionHandlers<int>, HasSe
       SimplePanel focusablePanel = delWidget.getFocusablePanel();
 //      Roles.getTabRole().set(focusablePanel.getElement());
 
-      panel.insertWidget(delWidget, beforeIndex + 1);
+      panel.insertAt(delWidget, beforeIndex + 1);
 
       UiObject.manageElementStyleName(delWidget.getElement().parent, STYLENAME_DEFAULT + "-wrapper", true);
     }
