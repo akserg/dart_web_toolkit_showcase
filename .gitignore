@@ -6,6 +6,9 @@
 *.dart.js_
 *.dart.js.deps
 *.dart.js.map
+part.js
+part.js.deps
+part.js.map
 packages
 packages/
 pubspec.lock
