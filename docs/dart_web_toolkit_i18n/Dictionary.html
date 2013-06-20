@@ -1,0 +1,282 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Dictionary class / dart_web_toolkit_i18n Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_i18n" data-type="Dictionary">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.16</a>
+         &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/Dictionary.html">Dictionary</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Dictionary</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Provides dynamic string lookup of key/value string pairs defined in server side JSON file.</p><p>
+Unlike the family of interfaces that extend [Localizable] which support static
+internationalization, the <code>Dictionary</code> class is fully dynamic.
+As a result, a variety of error conditions (particularly those involving key
+mismatches) cannot be caught until runtime. Similarly, the DWT compiler is
+unable discard unused dictionary values since the structure cannot be
+statically analyzed.
+</p><h3>A Caveat Regarding Locale</h3>
+The JSON file completely determines the mappings defined for each
+dictionary without regard to the <code>locale</code> client property. Thus,
+<code>Dictionary</code> is the most flexible of the internationalization
+types and may provide the simplest form of integration with existing
+localization systems which were not specifically designed to use DWT's
+<code>locale</code> client property.<p>
+See [Localizable] for background on the <code>locale</code> client property.
+</p>
+<pre class="source">
+class Dictionary {
+
+ static Map&lt;String, Dictionary&gt; _cache = new Map&lt;String, Dictionary&gt;();
+
+ /**
+  * Returns the &lt;code&gt;Dictionary&lt;/code&gt; object associated with the given
+  * [url].
+  */
+ static Future&lt;Dictionary&gt; getDictionary(String url) {
+   Completer&lt;Dictionary&gt; completer = new Completer&lt;Dictionary&gt;();
+   Dictionary target = _cache[url];
+   if (target == null) {
+     target = new Dictionary._internal(completer, url);
+     _cache[url] = target;
+   } else {
+     completer.complete(target);
+   }
+   return completer.future;
+ }
+
+ /**
+  * Dictionary pairs.
+  */
+ Map&lt;String, String&gt; _dict;
+
+ /**
+  * Name of dictionary.
+  */
+ String _label;
+ 
+ /**
+  * Constructor for &lt;code&gt;Dictionary&lt;/code&gt;.
+  */
+ Dictionary._internal(Completer&lt;Dictionary&gt; completer, String url) {
+   if (url == null || "" == url) {
+     throw new Exception("Cannot create a Dictionary with a null or empty url");
+   }
+   this._label = "Dictionary $url";
+   Future&lt;Map&gt; data =_read(url);
+   data.catchError((Object error){
+     completer.completeError(new Exception(error.toString()));
+   });
+   data.then((Map&lt;String, String&gt; pairs){
+     _dict = pairs;
+     completer.complete(this);
+   });
+ }
+
+ /**
+  * Get the value associated with the given Dictionary [key].
+  */
+ String get(String key) {
+   assert(key != null);
+   //
+   if (_dict == null) {
+     throw new Exception("Dictionary has not been created.");
+   } else {
+     if (_dict.containsKey(key)) {
+       return _dict[key];
+     } else {
+       throw new Exception("Cannot find '$key' in ${this.toString()}");
+     }
+   }
+ }
+
+ /**
+  * The set of keys associated with this dictionary.
+  */
+ Set&lt;String&gt; keySet() {
+   if (_dict == null) {
+     throw new Exception("Dictionary has not been created.");
+   } else {
+     Set&lt;String&gt; s = new Set&lt;String&gt;.from(_dict.keys);
+     return s;
+   }
+ }
+
+ String toString() {
+   return _label;
+ }
+
+ /**
+  * Collection of values associated with this dictionary.
+  */
+ List&lt;String&gt; values() {
+   if (_dict == null) {
+     throw new Exception("Dictionary has not been created.");
+   } else {
+     List&lt;String&gt; s = new List&lt;String&gt;.from(_dict.values);
+     return s;
+   }
+ }
+
+ /**
+  * Read JSON file from [url], parse it and return as future. 
+  */
+ Future&lt;Map&gt; _read(String url) {
+   Future&lt;String&gt; input = dart_html.HttpRequest.getString('$url');
+   Future&lt;Map&lt;String, String&gt;&gt; data = input.then((String jsonString){
+     // Parse input json string to map
+     return json.parse(jsonString);
+   });
+   return data;
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="getDictionary">
+<button class="show-code">Code</button>
+Future&lt;<a href="../dart_web_toolkit_i18n/Dictionary.html">Dictionary</a>&gt; <strong>getDictionary</strong>(String url) <a class="anchor-link" href="#getDictionary"
+              title="Permalink to Dictionary.getDictionary">#</a></h4>
+<div class="doc">
+<p>Returns the &lt;code>Dictionary&lt;/code> object associated with the given
+
+<span class="param">url</span>.</p>
+<pre class="source">
+static Future&lt;Dictionary&gt; getDictionary(String url) {
+ Completer&lt;Dictionary&gt; completer = new Completer&lt;Dictionary&gt;();
+ Dictionary target = _cache[url];
+ if (target == null) {
+   target = new Dictionary._internal(completer, url);
+   _cache[url] = target;
+ } else {
+   completer.complete(target);
+ }
+ return completer.future;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="get">
+<button class="show-code">Code</button>
+String <strong>get</strong>(String key) <a class="anchor-link" href="#get"
+              title="Permalink to Dictionary.get">#</a></h4>
+<div class="doc">
+<p>Get the value associated with the given Dictionary 
+<span class="param">key</span>.</p>
+<pre class="source">
+String get(String key) {
+ assert(key != null);
+ //
+ if (_dict == null) {
+   throw new Exception("Dictionary has not been created.");
+ } else {
+   if (_dict.containsKey(key)) {
+     return _dict[key];
+   } else {
+     throw new Exception("Cannot find '$key' in ${this.toString()}");
+   }
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="keySet">
+<button class="show-code">Code</button>
+Set&lt;String&gt; <strong>keySet</strong>() <a class="anchor-link" href="#keySet"
+              title="Permalink to Dictionary.keySet">#</a></h4>
+<div class="doc">
+<p>The set of keys associated with this dictionary.</p>
+<pre class="source">
+Set&lt;String&gt; keySet() {
+ if (_dict == null) {
+   throw new Exception("Dictionary has not been created.");
+ } else {
+   Set&lt;String&gt; s = new Set&lt;String&gt;.from(_dict.keys);
+   return s;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toString">
+<button class="show-code">Code</button>
+String <strong>toString</strong>() <a class="anchor-link" href="#toString"
+              title="Permalink to Dictionary.toString">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Returns a string representation of this object.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+String toString() {
+ return _label;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="values">
+<button class="show-code">Code</button>
+List&lt;String&gt; <strong>values</strong>() <a class="anchor-link" href="#values"
+              title="Permalink to Dictionary.values">#</a></h4>
+<div class="doc">
+<p>Collection of values associated with this dictionary.</p>
+<pre class="source">
+List&lt;String&gt; values() {
+ if (_dict == null) {
+   throw new Exception("Dictionary has not been created.");
+ } else {
+   List&lt;String&gt; s = new List&lt;String&gt;.from(_dict.values);
+   return s;
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-06-20 08:56:01.955</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

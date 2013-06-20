@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.14+1</a>
+          <a href="../index.html">API Reference 0.3.16</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DefaultRootPanel.html">DefaultRootPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -950,16 +950,16 @@ String getStylePrimaryName() {
 </pre>
 </div>
 </div>
-<div class="method inherited"><h4 id="getWidget">
+<div class="method inherited"><h4 id="getWidgetAt">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidget</strong>(int index) <a class="anchor-link" href="#getWidget"
-              title="Permalink to DefaultRootPanel.getWidget">#</a></h4>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidgetAt</strong>(int index) <a class="anchor-link" href="#getWidgetAt"
+              title="Permalink to DefaultRootPanel.getWidgetAt">#</a></h4>
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ComplexPanel.html">ComplexPanel</a> </div><div class="doc">
 <p>Gets the child widget at the specified index.</p>
 <p>@param index the child widget's index
 @return the child widget</p>
 <pre class="source">
-Widget getWidget(int index) {
+Widget getWidgetAt(int index) {
  return getChildren().get(index);
 }
 </pre>
@@ -1421,7 +1421,7 @@ bool <strong>removeAt</strong>(int index) <a class="anchor-link" href="#removeAt
 @return &lt;code>false&lt;/code> if the widget is not present</p>
 <pre class="source">
 bool removeAt(int index) {
- return remove(getWidget(index));
+ return remove(getWidgetAt(index));
 }
 </pre>
 </div>
@@ -1866,7 +1866,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-11 10:18:45.247</div>
+          <div>This page was generated at 2013-06-20 08:56:09.408</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

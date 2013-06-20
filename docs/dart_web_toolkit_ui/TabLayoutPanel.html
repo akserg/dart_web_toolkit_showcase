@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.14+1</a>
+          <a href="../index.html">API Reference 0.3.16</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/TabLayoutPanel.html">TabLayoutPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -179,8 +179,15 @@ class TabLayoutPanel extends ResizeComposite implements HasWidgets, ProvidesResi
 //    add(child, html.asString(), true);
 //  }
 
+ /**
+  * Adds a widget to the panel. If the Widget is already attached, it will be
+  * moved to the right-most index.
+  *
+  * @param child the widget to be added
+  * @param html the html to be shown on its tab
+  */
  void add(Widget w) {
-   throw new Exception("A tabText parameter must be specified with add().");
+   insert(w, getWidgetCount());
  }
  
  /**
@@ -276,14 +283,14 @@ class TabLayoutPanel extends ResizeComposite implements HasWidgets, ProvidesResi
   */
  Widget getTabWidget(Widget child) {
    checkChild(child);
-   return getWidgetById(getWidgetIndex(child));
+   return getTabWidgetById(getWidgetIndex(child));
  }
 
  /**
   * Returns the widget at the given index.
   */
- Widget getWidgetById(int index) {
-   return _deckPanel.getWidget(index);
+ Widget getWidgetAt(int index) {
+   return _deckPanel.getWidgetAt(index);
  }
 
  /**
@@ -397,7 +404,7 @@ class TabLayoutPanel extends ResizeComposite implements HasWidgets, ProvidesResi
      return false;
    }
 
-   Widget child = getWidgetById(index);
+   Widget child = getWidgetAt(index);
    _tabBar.removeAt(index);
    _deckPanel._removeProtected(child);
    child.removeStyleName(_CONTENT_STYLE);
@@ -716,16 +723,13 @@ void set visible(bool visible) {
 void <strong>add</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> w) <a class="anchor-link" href="#add"
               title="Permalink to TabLayoutPanel.add">#</a></h4>
 <div class="doc">
-<div class="inherited">
-<p>Adds a child widget.</p>
-<p>@param w the widget to be added
-@throws UnsupportedOperationException if this method is not supported (most</p>
-<pre><code>      often this means that a specific overload must be called)
-</code></pre>
-<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/HasWidgets.html">HasWidgets</a> </div></div>
+<p>Adds a widget to the panel. If the Widget is already attached, it will be
+moved to the right-most index.</p>
+<p>@param child the widget to be added
+@param html the html to be shown on its tab</p>
 <pre class="source">
 void add(Widget w) {
- throw new Exception("A tabText parameter must be specified with add().");
+ insert(w, getWidgetCount());
 }
 </pre>
 </div>
@@ -1462,7 +1466,7 @@ Widget getTabIsWidget(IsWidget child) {
 <pre class="source">
 Widget getTabWidget(Widget child) {
  checkChild(child);
- return getWidgetById(getWidgetIndex(child));
+ return getTabWidgetById(getWidgetIndex(child));
 }
 </pre>
 </div>
@@ -1498,15 +1502,15 @@ Widget getWidget() {
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="getWidgetById">
+<div class="method"><h4 id="getWidgetAt">
 <button class="show-code">Code</button>
-<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidgetById</strong>(int index) <a class="anchor-link" href="#getWidgetById"
-              title="Permalink to TabLayoutPanel.getWidgetById">#</a></h4>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> <strong>getWidgetAt</strong>(int index) <a class="anchor-link" href="#getWidgetAt"
+              title="Permalink to TabLayoutPanel.getWidgetAt">#</a></h4>
 <div class="doc">
 <p>Returns the widget at the given index.</p>
 <pre class="source">
-Widget getWidgetById(int index) {
- return _deckPanel.getWidget(index);
+Widget getWidgetAt(int index) {
+ return _deckPanel.getWidgetAt(index);
 }
 </pre>
 </div>
@@ -1857,7 +1861,7 @@ bool removeAt(int index) {
    return false;
  }
 
- Widget child = getWidgetById(index);
+ Widget child = getWidgetAt(index);
  _tabBar.removeAt(index);
  _deckPanel._removeProtected(child);
  child.removeStyleName(_CONTENT_STYLE);
@@ -2393,7 +2397,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-11 10:18:41.510</div>
+          <div>This page was generated at 2013-06-20 08:56:04.824</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
