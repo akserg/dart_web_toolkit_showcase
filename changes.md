@@ -1,6 +1,11 @@
 Dart Web Toolkit Showcase Changes
 =================================
 
+** June 20, 2013
+
+* Migrate project code to follow Dart SDK version 0.5.20.2_r24160
+* Following Dart Web Toolkit 0.3.16.
+
 ** June 11, 2013
 
 * Migrate project code to follow Dart SDK version 0.5.16.0_r23799
