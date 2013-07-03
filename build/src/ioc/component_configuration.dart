@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Sergey Akopkokhyants.
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * Licensed under the Apache License, Version 2.0 (the "License); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
  * 
@@ -21,117 +21,96 @@ part of dart_web_toolkit_ioc;
 /**
  * Components configuration.
  */
-class ComponentConfiguration extends lost_dart.InCodeConfiguration {
+class ComponentConfiguration {
   
-  ComponentConfiguration() {
+  ComponentConfiguration(lost_dart.Container container) {
     
     // Add Component Page
-    add("ComponentView", (lost_dart.Container container, Map params){
-      ComponentView view = new ComponentView();
-      // Set internal view
-      view.componentTree = container.resolve("ComponentTreeView");
-      view.componentPreview = container.resolve("ComponentPreview");
-      //
-      return view;
-    });
+    container.bind(ComponentView)
+      .setTypeProperty("componentTree", ComponentTreeView)
+      .setTypeProperty("componentPreview", ComponentPreview);
     
     // Add Component Presenter
-    add("ComponentPresenter", (lost_dart.Container container, Map params){
-      ComponentPresenter presenter = new ComponentPresenter();
-      // Set presenter's view
-      presenter.display = container.resolve("ComponentView");
-      // Resolve component models by name
-      List<String> modelNames = container.resolve("componentModels");
-      List models = new List();
-      modelNames.forEach((String modelName){
-        models.add(container.resolve(modelName));
-      });
-      // Set list of ComponentModels
-      presenter.models = models;
-      //
-      return presenter;
-    });
+    container.bind(ComponentPresenter)
+      .setTypeProperty("display", ComponentView)
+      .setRefProperty("models", "componentModels");
     
     // Add Component Manager
-    add("ComponentTreeView", (lost_dart.Container container, Map params){
-      return new ComponentTreeView();
-    });
+    container.bind(ComponentTreeView);
     
     // Add Component Manager
-    add("ComponentPreview", (lost_dart.Container container, Map params){
-      return new ComponentPreview();
-    });
+    container.bind(ComponentPreview);
     
     // Add List of Component Model
-    add("componentModels", (lost_dart.Container container, Map params){
+    container.bindAs("componentModels").toFactory((){
       return [
-              // Widget
-              "ButtonModel", 
-              "CheckBoxModel",
-              "CompositeModel",
-              "DateBoxModel",
-              "DatePickerModel",
-              "DoubleBoxModel",
-              "FileUploadModel",
-              "HiddenModel",
-              "HtmlModel",
-              "HyperlinkModel",
-              "ImageModel",
-              "InlineHtmlModel",
-              "InlineHyperlinkModel",
-              "InlineLabelModel",
-              "IntegerBoxModel",
-              "LabelModel",
-              "ListBoxModel",
-              "MenuBoxModel",
-              "NumberLabelModel",
-              "PasswordTextBoxModel",
-              "PushButtonModel",
-              "RadioButtonModel",
-              "RichTextAreaModel",
-              "SimpleCheckBoxModel",
-              "SimpleRadioButtonModel",
-              "SuggestBoxModel",
-              "TextAreaModel",
-              "TextBoxModel",
-              "ToggleButtonModel",
-              "TreeModel",
-              // Popup
-              "DialogBoxModel",
-              "PopupPanelModel",
-              // Panel
-              "AbsolutePanelModel",
-              "CaptionPanelModel",
-              "DeckPanelModel",
-              "DecoratedStackPanelModel",
-              "DecoratedTabBarModel",
-              "DecoratedTabPanelModel",
-              "DecoratorPanelModel",
-              "DisclosurePanelModel",
-              "DockPanelModel",
-              "FlexTableModel",
-              "FlowPanelModel",
-              "FocusPanelModel",
-              "FormPanelModel",
-              "FrameModel",
-              "GridModel",
-              "HorizontalPanelModel",
-              "HorizontalSplitPanelModel",
-              "HtmlPanelModel",
-              "NamedFrameModel",
-              "ScrolledPanelModel",
-              "SimplePanelModel",
-              "StackPanelModel",
-              "TabBarModel",
-              "TabPanelModel",
-              "VerticalPanelModel",
-              "VerticalSplitPanelModel",
-              // Layout
-              "DockLayoutPanelModel",
-              "LayoutPanelModel",
-              "SplitLayoutPanelModel",
-              "StackLayoutPanelModel",
-              "TabLayoutPanelModel"
+        // Widget
+        container.get(ButtonModel), 
+        container.get(CheckBoxModel),
+        container.get(CompositeModel),
+        container.get(DateBoxModel),
+        container.get(DatePickerModel),
+        container.get(DoubleBoxModel),
+        container.get(FileUploadModel),
+        container.get(HiddenModel),
+        container.get(HtmlModel),
+        container.get(HyperlinkModel),
+        container.get(ImageModel),
+        container.get(InlineHtmlModel),
+        container.get(InlineHyperlinkModel),
+        container.get(InlineLabelModel),
+        container.get(IntegerBoxModel),
+        container.get(LabelModel),
+        container.get(ListBoxModel),
+        container.get(MenuBoxModel),
+        container.get(NumberLabelModel),
+        container.get(PasswordTextBoxModel),
+        container.get(PushButtonModel),
+        container.get(RadioButtonModel),
+        container.get(RichTextAreaModel),
+        container.get(SimpleCheckBoxModel),
+        container.get(SimpleRadioButtonModel),
+        container.get(SuggestBoxModel),
+        container.get(TextAreaModel),
+        container.get(TextBoxModel),
+        container.get(ToggleButtonModel),
+        container.get(TreeModel),
+        // Popup
+        container.get(DialogBoxModel),
+        container.get(PopupPanelModel),
+        // Panel
+        container.get(AbsolutePanelModel),
+        container.get(CaptionPanelModel),
+        container.get(DeckPanelModel),
+        container.get(DecoratedStackPanelModel),
+        container.get(DecoratedTabBarModel),
+        container.get(DecoratedTabPanelModel),
+        container.get(DecoratorPanelModel),
+        container.get(DisclosurePanelModel),
+        container.get(DockPanelModel),
+        container.get(FlexTableModel),
+        container.get(FlowPanelModel),
+        container.get(FocusPanelModel),
+        container.get(FormPanelModel),
+        container.get(FrameModel),
+        container.get(GridModel),
+        container.get(HorizontalPanelModel),
+        container.get(HorizontalSplitPanelModel),
+        container.get(HtmlPanelModel),
+        container.get(NamedFrameModel),
+        container.get(ScrolledPanelModel),
+        container.get(SimplePanelModel),
+        container.get(StackPanelModel),
+        container.get(TabBarModel),
+        container.get(TabPanelModel),
+        container.get(VerticalPanelModel),
+        container.get(VerticalSplitPanelModel),
+        // Layout
+        container.get(DockLayoutPanelModel),
+        container.get(LayoutPanelModel),
+        container.get(SplitLayoutPanelModel),
+        container.get(StackLayoutPanelModel),
+        container.get(TabLayoutPanelModel)
       ];
     });
   }

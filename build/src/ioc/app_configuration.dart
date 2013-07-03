@@ -21,30 +21,20 @@ part of dart_web_toolkit_ioc;
 /**
  * Application level configuration
  */
-class AppConfiguration extends lost_dart.InCodeConfiguration {
-  AppConfiguration() {
+class AppConfiguration {
+  
+  AppConfiguration(lost_dart.Container container) {
     // Add Application Presenter singleton
-    add("AppPresenter", (lost_dart.Container container, Map params){
-      AppPresenter app = new AppPresenter();
-      // Resolve Application View
-      AppView view = container.resolve("AppView");
-      // Initialise Application View with list of pages
-      view.pages = container.resolve("pages");
-      // Initialise Application Presenter with Application View
-      app.display = view;
-      //
-      return app;
-    });
+    container.bind(AppPresenter)
+      .setTypeProperty("display", AppView);
     
     // Add Application View singleton
-    add("AppView", (lost_dart.Container container, Map params){
-      return new AppView();
-    });
+    container.bind(AppView)
+      .setRefProperty("pages", "pages");
     
-    // Add list of Page
-    add("pages", (lost_dart.Container container, Map params){
-      return [container.resolve("HomePresenter"),
-              container.resolve("ComponentPresenter")];
+    // Add list of Pages
+    container.bindAs("pages").toFactory((){
+      return [container.get(HomePresenter), container.get(ComponentPresenter)];
     });
   }
 }

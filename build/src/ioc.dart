@@ -37,7 +37,7 @@ part 'ioc/layout_component_configuration.dart';
 
 /**
  * This class is adapter to implementation real IOC and
- * make migration from one IOC implem entation to other
+ * make migration from one IOC implementation to other
  * with small effort.
  */
 class Context {
@@ -45,11 +45,17 @@ class Context {
   static final lost_dart.Container _container = new lost_dart.Container();
   
   /**
-   * Resolve object by [id]. Map of [params] might be useful
-   * to create new instance of object.
+   * Resolve object by [id].
    */
-  static resolve(String id, [Map params]) {
-    return _container.resolve(id, params);
+  static resolveAs(String id) {
+    return _container.getAs(id);
+  }
+  
+  /**
+   * Resolve object by [type].
+   */
+  static resolve(Type type) {
+    return _container.get(type);
   }
   
   /**
@@ -57,13 +63,12 @@ class Context {
    * configurations.
    */
   static init() {
-    _container.addAll([new AppConfiguration(),
-                       new HomeConfiguration(),
-                       new ComponentConfiguration(),
-                       new WidgetComponentConfiguration(),
-                       new PopupComponentConfiguration(),
-                       new PanelComponentConfiguration(),
-                       new LayoutComponentConfiguration()
-    ]);
+    new AppConfiguration(_container);
+    new HomeConfiguration(_container);
+    new ComponentConfiguration(_container);
+    new WidgetComponentConfiguration(_container);
+    new PopupComponentConfiguration(_container);
+    new PanelComponentConfiguration(_container);
+    new LayoutComponentConfiguration(_container);
   }
 }

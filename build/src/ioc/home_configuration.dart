@@ -21,22 +21,16 @@ part of dart_web_toolkit_ioc;
 /**
  * Home configuration.
  */
-class HomeConfiguration extends lost_dart.InCodeConfiguration {
+class HomeConfiguration {
   
-  HomeConfiguration() {
+  HomeConfiguration(lost_dart.Container container) {
     
     // Add Home Page
-    add("HomeView", (lost_dart.Container container, Map params){
-      return new HomeView();
-    });
+    container.bind(HomeView);
     
     // Add Home Presenter
-    add("HomePresenter", (lost_dart.Container container, Map params){
-      HomePresenter presenter = new HomePresenter();
-      // Set presenter's view
-      presenter.display = container.resolve("HomeView");
-      return presenter;
-    });
+    container.bind(HomePresenter)
+      .setTypeProperty("display", HomeView);
   }
 }
 

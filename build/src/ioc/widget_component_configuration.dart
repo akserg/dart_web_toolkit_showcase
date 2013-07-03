@@ -21,128 +21,41 @@ part of dart_web_toolkit_ioc;
 /**
  * Components configuration.
  */
-class WidgetComponentConfiguration extends lost_dart.InCodeConfiguration {
+class WidgetComponentConfiguration {
   
-  WidgetComponentConfiguration() {
+  WidgetComponentConfiguration(lost_dart.Container container) {
     
-    add("ButtonModel", (lost_dart.Container container, Map params){
-      return new ButtonModel();
-    });
-    
-    add("CheckBoxModel", (lost_dart.Container container, Map params){
-      return new CheckBoxModel();
-    });
-    
-    add("CompositeModel", (lost_dart.Container container, Map params){
-      return new CompositeModel();
-    });
-    
-    add("DateBoxModel", (lost_dart.Container container, Map params){
-      return new DateBoxModel();
-    });
-    
-    add("DatePickerModel", (lost_dart.Container container, Map params){
-      return new DatePickerModel();
-    });
-       
-    add("DoubleBoxModel", (lost_dart.Container container, Map params){
-      return new DoubleBoxModel();
-    });
-    
-    add("FileUploadModel", (lost_dart.Container container, Map params){
-      return new FileUploadModel();
-    });
-    
-    add("HiddenModel", (lost_dart.Container container, Map params){
-      return new HiddenModel();
-    });
-    
-    add("HtmlModel", (lost_dart.Container container, Map params){
-      return new HtmlModel();
-    });
-    
-    add("HyperlinkModel", (lost_dart.Container container, Map params){
-      return new HyperlinkModel();
-    });
-    
-    add("ImageModel", (lost_dart.Container container, Map params){
-      return new ImageModel();
-    });
-    
-    add("InlineHtmlModel", (lost_dart.Container container, Map params){
-      return new InlineHtmlModel();
-    });
-    
-    add("InlineHyperlinkModel", (lost_dart.Container container, Map params){
-      return new InlineHyperlinkModel();
-    });
-    
-    add("InlineLabelModel", (lost_dart.Container container, Map params){
-      return new InlineLabelModel();
-    });
-    
-    add("IntegerBoxModel", (lost_dart.Container container, Map params){
-      return new IntegerBoxModel();
-    });
-    
-    add("LabelModel", (lost_dart.Container container, Map params){
-      return new LabelModel();
-    });
-    
-    add("ListBoxModel", (lost_dart.Container container, Map params){
-      return new ListBoxModel();
-    });
-    
-    add("MenuBoxModel", (lost_dart.Container container, Map params){
-      return new MenuBoxModel();
-    });
-    
-    add("NumberLabelModel", (lost_dart.Container container, Map params){
-      return new NumberLabelModel();
-    });
-    
-    add("PasswordTextBoxModel", (lost_dart.Container container, Map params){
-      return new PasswordTextBoxModel();
-    });
-    
-    add("PushButtonModel", (lost_dart.Container container, Map params){
-      return new PushButtonModel();
-    });
-    
-    add("RadioButtonModel", (lost_dart.Container container, Map params){
-      return new RadioButtonModel();
-    });
-    
-    add("RichTextAreaModel", (lost_dart.Container container, Map params){
-      return new RichTextAreaModel();
-    });
-    
-    add("SimpleCheckBoxModel", (lost_dart.Container container, Map params){
-      return new SimpleCheckBoxModel();
-    });
-    
-    add("SimpleRadioButtonModel", (lost_dart.Container container, Map params){
-      return new SimpleRadioButtonModel();
-    });
-    
-    add("SuggestBoxModel", (lost_dart.Container container, Map params){
-      return new SuggestBoxModel();
-    });
-    
-    add("TextAreaModel", (lost_dart.Container container, Map params){
-      return new TextAreaModel();
-    });
-    
-    add("TextBoxModel", (lost_dart.Container container, Map params){
-      return new TextBoxModel();
-    });
-    
-    add("ToggleButtonModel", (lost_dart.Container container, Map params){
-      return new ToggleButtonModel();
-    });
-    
-    add("TreeModel", (lost_dart.Container container, Map params){
-      return new TreeModel();
-    });
+    container.bindAll([
+      ButtonModel,
+      CheckBoxModel,
+      CompositeModel,
+      DateBoxModel,
+      DatePickerModel,
+      DoubleBoxModel,
+      FileUploadModel,
+      HiddenModel,
+      HtmlModel,
+      HyperlinkModel,
+      ImageModel,
+      InlineHtmlModel,
+      InlineHyperlinkModel,
+      InlineLabelModel,
+      IntegerBoxModel,
+      LabelModel,
+      ListBoxModel,
+      MenuBoxModel,
+      NumberLabelModel,
+      PasswordTextBoxModel,
+      PushButtonModel,
+      RadioButtonModel,
+      RichTextAreaModel,
+      SimpleCheckBoxModel,
+      SimpleRadioButtonModel,
+      SuggestBoxModel,
+      TextAreaModel,
+      TextBoxModel,
+      ToggleButtonModel,
+      TreeModel
+    ]);
   }
 }

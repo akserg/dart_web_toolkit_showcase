@@ -21,29 +21,17 @@ part of dart_web_toolkit_ioc;
 /**
  * Components configuration.
  */
-class LayoutComponentConfiguration extends lost_dart.InCodeConfiguration {
+class LayoutComponentConfiguration {
   
-  LayoutComponentConfiguration() {
+  LayoutComponentConfiguration(lost_dart.Container container) {
     
     // Layout
-    add("DockLayoutPanelModel", (lost_dart.Container container, Map params){
-      return new DockLayoutPanelModel();
-    });
-    
-    add("LayoutPanelModel", (lost_dart.Container container, Map params){
-      return new LayoutPanelModel();
-    });
-    
-    add("SplitLayoutPanelModel", (lost_dart.Container container, Map params){
-      return new SplitLayoutPanelModel();
-    });
-    
-    add("StackLayoutPanelModel", (lost_dart.Container container, Map params){
-      return new StackLayoutPanelModel();
-    });
-    
-    add("TabLayoutPanelModel", (lost_dart.Container container, Map params){
-      return new TabLayoutPanelModel();
-    });
+    container.bindAll([
+      DockLayoutPanelModel,
+      LayoutPanelModel,
+      SplitLayoutPanelModel,
+      StackLayoutPanelModel,
+      TabLayoutPanelModel
+    ]);
   }
 }

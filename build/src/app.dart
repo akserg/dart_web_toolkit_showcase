@@ -45,7 +45,7 @@ void main() {
   ioc.Context.init();
   
   // Resolve Application Presenter
-  AppPresenter app = ioc.Context.resolve("AppPresenter");
+  AppPresenter app = ioc.Context.resolve(AppPresenter);
   // Add view to to RootLayoutPanel
   app.addViewTo(ui.RootLayoutPanel.get());
   
