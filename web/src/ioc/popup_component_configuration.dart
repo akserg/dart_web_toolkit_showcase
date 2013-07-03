@@ -21,17 +21,11 @@ part of dart_web_toolkit_ioc;
 /**
  * Components configuration.
  */
-class PopupComponentConfiguration extends lost_dart.InCodeConfiguration {
+class PopupComponentConfiguration {
   
-  PopupComponentConfiguration() {
+  PopupComponentConfiguration(lost_dart.Container container) {
     
       // Popup
-    add("DialogBoxModel", (lost_dart.Container container, Map params){
-      return new DialogBoxModel();
-    });
-    
-    add("PopupPanelModel", (lost_dart.Container container, Map params){
-      return new PopupPanelModel();
-    });
+    container.bindAll([DialogBoxModel, PopupPanelModel]);
   }
 }
