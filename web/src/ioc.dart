@@ -45,13 +45,15 @@ class Context {
   static final lost_dart.Container _container = new lost_dart.Container();
   
   /**
-   * Resolve object by [id]. Map of [params] might be useful
-   * to create new instance of object.
+   * Resolve object by [id].
    */
   static resolveAs(String id) {
     return _container.getAs(id);
   }
   
+  /**
+   * Resolve object by [type].
+   */
   static resolve(Type type) {
     return _container.get(type);
   }
