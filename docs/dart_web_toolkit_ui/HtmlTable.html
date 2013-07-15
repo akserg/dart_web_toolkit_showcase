@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.16</a>
+          <a href="../index.html">API Reference 0.3.17</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/HtmlTable.html">HtmlTable</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -607,7 +607,7 @@ abstract class HtmlTable extends Panel implements HasAllDragAndDropHandlers, Has
   * @return returns whether a widget was cleared
   */
  bool internalClearCell(dart_html.Element td, bool clearInnerHTML) {
-   var maybeChild = td.$dom_firstChild;
+   var maybeChild = td.firstChild;
    Widget widget = null;
    if (maybeChild != null &amp;&amp; maybeChild is dart_html.Element) {
      widget = widgetMap.get(maybeChild as dart_html.Element);
@@ -744,7 +744,7 @@ abstract class HtmlTable extends Panel implements HasAllDragAndDropHandlers, Has
   */
  Widget getWidgetImpl(int row, int column) {
    dart_html.Element e = cellFormatter.getRawElement(row, column);
-   dart_html.Element child = e.$dom_firstChild;
+   dart_html.Element child = e.firstChild;
    if (child == null) {
      return null;
    } else {
@@ -987,7 +987,7 @@ void add(Widget child) {
 <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addAttachHandler</strong>(<a href="../dart_web_toolkit_event/AttachEventHandler.html">AttachEventHandler</a> handler) <a class="anchor-link" href="#addAttachHandler"
               title="Permalink to HtmlTable.addAttachHandler">#</a></h4>
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
-<p>Adds an <code>AttachEvent</code> handler.</p>
+<p>Adds an <a class="crossref" href="../dart_web_toolkit_event/AttachEvent.html">AttachEvent</a> handler.</p>
 <p>@param handler the handler
 @return the handler registration</p>
 <pre class="source">
@@ -1501,9 +1501,9 @@ dart_html.Element createCell() {
 <a href="../dart_web_toolkit_event/EventBus.html">EventBus</a> <strong>createEventBus</strong>() <a class="anchor-link" href="#createEventBus"
               title="Permalink to HtmlTable.createEventBus">#</a></h4>
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
-<p>Creates the <code>SimpleEventBus</code> used by this Widget. You can override
-this method to create a custom <code>EventBus</code>.</p>
-<p>@return the <code>EventBus</code> you want to use.</p>
+<p>Creates the <a class="crossref" href="../dart_web_toolkit_event/SimpleEventBus.html">SimpleEventBus</a> used by this Widget. You can override
+this method to create a custom <a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a>.</p>
+<p>@return the <a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a> you want to use.</p>
 <pre class="source">
 EventBus createEventBus() {
  return new SimpleEventBus();
@@ -1571,7 +1571,7 @@ void doDetachChildren() {
               title="Permalink to HtmlTable.ensureHandlers">#</a></h4>
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
 <p>Ensures the existence of the event bus.</p>
-<p>@return the <code>EventBus</code>.</p>
+<p>@return the <a class="crossref" href="../dart_web_toolkit_event/EventBus.html">EventBus</a>.</p>
 <pre class="source">
 EventBus ensureHandlers() {
  return _eventBus == null ? _eventBus = createEventBus() : _eventBus;
@@ -1614,7 +1614,7 @@ void <strong>fireEvent</strong>(<a href="../dart_web_toolkit_event/DwtEvent.html
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Widget.html">Widget</a> </div><div class="doc">
 <p>Fires the given event to the handlers listening to the event's type.</p>
 <p>Any exceptions thrown by handlers will be bundled into a
-<code>UmbrellaException</code> and then re-thrown after all handlers have
+<a class="crossref" href="../dart_web_toolkit_event/UmbrellaException.html">UmbrellaException</a> and then re-thrown after all handlers have
 completed. An exception thrown by a handler will not prevent other handlers
 from executing.</p>
 <p>@param event the event</p>
@@ -2079,7 +2079,7 @@ Widget getWidget(int row, int column) {
 <pre class="source">
 Widget getWidgetImpl(int row, int column) {
  dart_html.Element e = cellFormatter.getRawElement(row, column);
- dart_html.Element child = e.$dom_firstChild;
+ dart_html.Element child = e.firstChild;
  if (child == null) {
    return null;
  } else {
@@ -2163,7 +2163,7 @@ may be overridden in subclasses to format an empty cell.</p>
 @return returns whether a widget was cleared</p>
 <pre class="source">
 bool internalClearCell(dart_html.Element td, bool clearInnerHTML) {
- var maybeChild = td.$dom_firstChild;
+ var maybeChild = td.firstChild;
  Widget widget = null;
  if (maybeChild != null &amp;&amp; maybeChild is dart_html.Element) {
    widget = widgetMap.get(maybeChild as dart_html.Element);
@@ -3138,7 +3138,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-20 08:56:04.711</div>
+          <div>This page was generated at 2013-07-15 11:30:37.676</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

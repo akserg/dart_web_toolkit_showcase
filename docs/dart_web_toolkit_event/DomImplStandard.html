@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.16</a>
+          <a href="../index.html">API Reference 0.3.17</a>
          &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/DomImplStandard.html">DomImplStandard</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -72,7 +72,7 @@ class DomImplStandard extends DomImpl {
 
  void insertChild(dart_html.Element parent, dart_html.Element toAdd, int index) {
    int count = 0;
-   dart_html.Node child = parent.$dom_firstChild;
+   dart_html.Node child = parent.firstChild;
    dart_html.Node before;
    while (child != null) {
      if (child.nodeType == 1) { // dart_html.Node.ELEMENT_NODE
@@ -802,7 +802,7 @@ void <strong>insertChild</strong>(Element parent, Element toAdd, int index) <a c
 <pre class="source">
 void insertChild(dart_html.Element parent, dart_html.Element toAdd, int index) {
  int count = 0;
- dart_html.Node child = parent.$dom_firstChild;
+ dart_html.Node child = parent.firstChild;
  dart_html.Node before;
  while (child != null) {
    if (child.nodeType == 1) { // dart_html.Node.ELEMENT_NODE
@@ -978,7 +978,7 @@ void sinkEventsImpl(dart_html.Element elem, int bits) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-20 08:56:01.171</div>
+          <div>This page was generated at 2013-07-15 11:30:34.503</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

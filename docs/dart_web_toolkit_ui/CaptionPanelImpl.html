@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.16</a>
+          <a href="../index.html">API Reference 0.3.17</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/CaptionPanelImpl.html">CaptionPanelImpl</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -67,7 +67,7 @@ class CaptionPanelImpl {
      // This is formulated to become an append (if there's no widget), an
      // insertion at index 0 (if there is a widget but no legend already), or
      // a no-op (if the legend is already in place).
-     fieldset.insertBefore(legend, fieldset.$dom_firstChild);
+     fieldset.insertBefore(legend, fieldset.firstChild);
    } else if (legend.parent != null) {
      // We remove the legend from the DOM because leaving it in with an empty
      // string renders as an ugly gap in the top border on some browsers.
@@ -128,7 +128,7 @@ void setCaption(dart_html.FieldSetElement fieldset, dart_html.Element legend, St
    // This is formulated to become an append (if there's no widget), an
    // insertion at index 0 (if there is a widget but no legend already), or
    // a no-op (if the legend is already in place).
-   fieldset.insertBefore(legend, fieldset.$dom_firstChild);
+   fieldset.insertBefore(legend, fieldset.firstChild);
  } else if (legend.parent != null) {
    // We remove the legend from the DOM because leaving it in with an empty
    // string renders as an ugly gap in the top border on some browsers.
@@ -144,7 +144,7 @@ void setCaption(dart_html.FieldSetElement fieldset, dart_html.Element legend, St
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-06-20 08:56:04.840</div>
+          <div>This page was generated at 2013-07-15 11:30:37.812</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
