@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.17</a>
+          <a href="../index.html">API Reference 0.3.18+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -237,7 +237,7 @@ abstract class UiObject implements HasVisibility {
   * @return the objects's space-separated style names
   */
  static String getElementStyleName(dart_html.Element elem) {
-   return elem.$dom_className;
+   return elem.className;
  }
 
  /**
@@ -247,7 +247,7 @@ abstract class UiObject implements HasVisibility {
   * @param styleName the new style name
   */
  static void setElementStyleName(dart_html.Element elem, String styleName) {
-   elem.$dom_className = styleName;
+   elem.className = styleName;
  }
 
 
@@ -317,11 +317,11 @@ abstract class UiObject implements HasVisibility {
    }
 
    // Keep it only for print
-   String old = elem.$dom_className;
+   String old = elem.className;
 
    if (add) {
      // Get the current style string.
-     String oldClassName = elem.$dom_className;
+     String oldClassName = elem.className;
      int idx = oldClassName.indexOf(style);
 
      // Calculate matching index.
@@ -343,11 +343,11 @@ abstract class UiObject implements HasVisibility {
          oldClassName = oldClassName + " ";
        }
        //setClassName(oldClassName + className);
-       elem.$dom_className = oldClassName + style;
+       elem.className = oldClassName + style;
      }
    } else {
      // Get the current style string.
-     String oldStyle = elem.$dom_className;
+     String oldStyle = elem.className;
      int idx = oldStyle.indexOf(style);
 
      // Calculate matching index.
@@ -379,7 +379,7 @@ abstract class UiObject implements HasVisibility {
          newClassName = begin + " " + end;
        }
 
-       elem.$dom_className = newClassName;
+       elem.className = newClassName;
      }
    }
  }
@@ -389,7 +389,7 @@ abstract class UiObject implements HasVisibility {
   */
  static void _updatePrimaryAndDependentStyleNames(dart_html.Element elem,
      String newPrimaryStyle) {
-   List&lt;String&gt; classes = elem.$dom_className.split(new RegExp("\s+"));
+   List&lt;String&gt; classes = elem.className.split(new RegExp("\s+"));
    if (classes.length == 0) {
      return;
    }
@@ -418,7 +418,7 @@ abstract class UiObject implements HasVisibility {
        classes[i] = newPrimaryStyle + name.substring(oldPrimaryStyleLen);
      }
    }
-   elem.$dom_className = classes.join(" ");
+   elem.className = classes.join(" ");
  }
 
  /**
@@ -868,7 +868,7 @@ String <strong>getElementStyleName</strong>(Element elem) <a class="anchor-link"
 @return the objects's space-separated style names</p>
 <pre class="source">
 static String getElementStyleName(dart_html.Element elem) {
- return elem.$dom_className;
+ return elem.className;
 }
 </pre>
 </div>
@@ -883,7 +883,7 @@ void <strong>setElementStyleName</strong>(Element elem, String styleName) <a cla
 @param styleName the new style name</p>
 <pre class="source">
 static void setElementStyleName(dart_html.Element elem, String styleName) {
- elem.$dom_className = styleName;
+ elem.className = styleName;
 }
 </pre>
 </div>
@@ -968,11 +968,11 @@ static void manageElementStyleName(dart_html.Element elem, String style, bool ad
  }
 
  // Keep it only for print
- String old = elem.$dom_className;
+ String old = elem.className;
 
  if (add) {
    // Get the current style string.
-   String oldClassName = elem.$dom_className;
+   String oldClassName = elem.className;
    int idx = oldClassName.indexOf(style);
 
    // Calculate matching index.
@@ -994,11 +994,11 @@ static void manageElementStyleName(dart_html.Element elem, String style, bool ad
        oldClassName = oldClassName + " ";
      }
      //setClassName(oldClassName + className);
-     elem.$dom_className = oldClassName + style;
+     elem.className = oldClassName + style;
    }
  } else {
    // Get the current style string.
-   String oldStyle = elem.$dom_className;
+   String oldStyle = elem.className;
    int idx = oldStyle.indexOf(style);
 
    // Calculate matching index.
@@ -1030,7 +1030,7 @@ static void manageElementStyleName(dart_html.Element elem, String style, bool ad
        newClassName = begin + " " + end;
      }
 
-     elem.$dom_className = newClassName;
+     elem.className = newClassName;
    }
  }
 }
@@ -1652,7 +1652,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-15 11:30:42.897</div>
+          <div>This page was generated at 2013-07-25 09:06:45.553</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

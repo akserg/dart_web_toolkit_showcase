@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.17</a>
+          <a href="../index.html">API Reference 0.3.18+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Anchor.html">Anchor</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -322,9 +322,9 @@ static String DEFAULT_HREF = "javascript:;"
 </div>
 <div>
 <h3>Constructors</h3>
-<div class="method"><h4 id="Anchor">
+<div class="method"><h4 id="">
 <button class="show-code">Code</button>
-new <strong>Anchor</strong>([bool useDefaultHref = false]) <a class="anchor-link" href="#Anchor"
+new <strong>Anchor</strong>([bool useDefaultHref = false]) <a class="anchor-link" href="#"
               title="Permalink to Anchor.Anchor">#</a></h4>
 <div class="doc">
 <p>Creates an empty anchor.</p>
@@ -342,9 +342,9 @@ Anchor([bool useDefaultHref = false]) {
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="Anchor.fromElement">
+<div class="method"><h4 id="fromElement">
 <button class="show-code">Code</button>
-new <strong>Anchor.fromElement</strong>(AnchorElement element) <a class="anchor-link" href="#Anchor.fromElement"
+new <strong>Anchor.fromElement</strong>(AnchorElement element) <a class="anchor-link" href="#fromElement"
               title="Permalink to Anchor.Anchor.fromElement">#</a></h4>
 <div class="doc">
 <p>This constructor may be used by subclasses to explicitly use an existing
@@ -358,9 +358,9 @@ Anchor.fromElement(dart_html.AnchorElement element) {
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="Anchor.wrap">
+<div class="method"><h4 id="wrap">
 <button class="show-code">Code</button>
-factory <strong>Anchor.wrap</strong>(Element element) <a class="anchor-link" href="#Anchor.wrap"
+factory <strong>Anchor.wrap</strong>(Element element) <a class="anchor-link" href="#wrap"
               title="Permalink to Anchor.Anchor.wrap">#</a></h4>
 <div class="doc">
 <p>Creates an Anchor widget that wraps an existing &lt;a&gt; element.</p>
@@ -425,7 +425,11 @@ void <strong>set enabled</strong>(bool value) <a class="anchor-link" href="#enab
 </code></pre>
 <pre class="source">
 void set enabled(bool value) {
- Dom.setElementPropertyBoolean(getElement(), "disabled", !value);
+ if (value &amp;&amp; !enabled) {
+   Dom.removeElementAttribute(getElement(), "disabled");
+ } else if (!value &amp;&amp; enabled) {
+   Dom.setElementPropertyBoolean(getElement(), "disabled", true);
+ }
 }
 </pre>
 </div>
@@ -2434,7 +2438,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-15 11:30:42.663</div>
+          <div>This page was generated at 2013-07-25 09:06:45.320</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.17</a>
+          <a href="../index.html">API Reference 0.3.18+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DecoratedPopupPanel.html">DecoratedPopupPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -184,9 +184,9 @@ class DecoratedPopupPanel extends PopupPanel {
 <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/DialogBox.html">DialogBox</a></span></p>
 <div>
 <h3>Constructors</h3>
-<div class="method"><h4 id="DecoratedPopupPanel">
+<div class="method"><h4 id="">
 <button class="show-code">Code</button>
-new <strong>DecoratedPopupPanel</strong>([bool autoHide = false, bool modal = false, String prefix = "popup"]) <a class="anchor-link" href="#DecoratedPopupPanel"
+new <strong>DecoratedPopupPanel</strong>([bool autoHide = false, bool modal = false, String prefix = "popup"]) <a class="anchor-link" href="#"
               title="Permalink to DecoratedPopupPanel.DecoratedPopupPanel">#</a></h4>
 <div class="doc">
 <p>Creates an empty decorated popup panel using the specified style names.</p>
@@ -2353,7 +2353,7 @@ void setGlassEnabled(bool enabled) {
  this._isGlassEnabled = enabled;
  if (enabled &amp;&amp; glass == null) {
    glass = new dart_html.DivElement();
-   glass.$dom_className = glassStyleName;
+   glass.className = glassStyleName;
 
    glass.style.position = Position.ABSOLUTE.value;
    glass.style.left = "0" + Unit.PX.value;
@@ -2375,7 +2375,7 @@ void <strong>setGlassStyleName</strong>(String glassStyleName) <a class="anchor-
 void setGlassStyleName(String glassStyleName) {
  this.glassStyleName = glassStyleName;
  if (glass != null) {
-   glass.$dom_className = glassStyleName;
+   glass.className = glassStyleName;
  }
 }
 </pre>
@@ -2885,7 +2885,7 @@ void updateHandlers() {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-15 11:30:37.053</div>
+          <div>This page was generated at 2013-07-25 09:06:39.852</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

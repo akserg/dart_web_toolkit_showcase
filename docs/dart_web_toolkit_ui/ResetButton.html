@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.17</a>
+          <a href="../index.html">API Reference 0.3.18+1</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ResetButton.html">ResetButton</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -129,9 +129,9 @@ static Button wrap(dart_html.Element element) {
 </div>
 <div>
 <h3>Constructors</h3>
-<div class="method"><h4 id="ResetButton">
+<div class="method"><h4 id="">
 <button class="show-code">Code</button>
-new <strong>ResetButton</strong>([String html = null, <a href="../dart_web_toolkit_event/ClickHandler.html">ClickHandler</a> handler = null]) <a class="anchor-link" href="#ResetButton"
+new <strong>ResetButton</strong>([String html = null, <a href="../dart_web_toolkit_event/ClickHandler.html">ClickHandler</a> handler = null]) <a class="anchor-link" href="#"
               title="Permalink to ResetButton.ResetButton">#</a></h4>
 <div class="doc">
 <p>Creates a button with the given HTML caption and click listener.</p>
@@ -144,9 +144,9 @@ ResetButton([String html = null, ClickHandler handler = null]) : super(html, han
 </pre>
 </div>
 </div>
-<div class="method"><h4 id="ResetButton.fromElement">
+<div class="method"><h4 id="fromElement">
 <button class="show-code">Code</button>
-new <strong>ResetButton.fromElement</strong>(Element element) <a class="anchor-link" href="#ResetButton.fromElement"
+new <strong>ResetButton.fromElement</strong>(Element element) <a class="anchor-link" href="#fromElement"
               title="Permalink to ResetButton.ResetButton.fromElement">#</a></h4>
 <div class="doc">
 <p>This constructor may be used by subclasses to explicitly use an existing
@@ -198,7 +198,11 @@ void <strong>set enabled</strong>(bool value) <a class="anchor-link" href="#enab
 </code></pre>
 <pre class="source">
 void set enabled(bool value) {
- Dom.setElementPropertyBoolean(getElement(), "disabled", !value);
+ if (value &amp;&amp; !enabled) {
+   Dom.removeElementAttribute(getElement(), "disabled");
+ } else if (!value &amp;&amp; enabled) {
+   Dom.setElementPropertyBoolean(getElement(), "disabled", true);
+ }
 }
 </pre>
 </div>
@@ -1932,7 +1936,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-15 11:30:41.834</div>
+          <div>This page was generated at 2013-07-25 09:06:44.455</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
