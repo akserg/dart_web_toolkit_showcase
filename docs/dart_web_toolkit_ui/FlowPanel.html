@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/FlowPanel.html">FlowPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -48,13 +48,40 @@ behavior.</p><p>
 <img class='gallery' src='doc-files/FlowPanel.png'/>
 </p>
 <pre class="source">
-class FlowPanel extends ComplexPanel implements InsertPanelForIsWidget {
+class FlowPanel extends ComplexPanel implements InsertPanelForIsWidget, HasClickHandlers, HasDoubleClickHandlers, HasAllMouseHandlers, HasHtml {
 
+ /**
+  * Creates a Hyperlink widget that wraps an existing [AhncorElement].
+  *
+  * This element must already be attached to the document. If the element is
+  * removed from the document, you must call
+  * {@link RootPanel#detachNow(Widget)}.
+  *
+  * @param element the element to be wrapped
+  */
+ factory FlowPanel.wrap(dart_html.Element element) {
+   // Assert that the element is attached.
+   //assert (Document.get().getBody().isOrHasChild(element));
+
+   FlowPanel flowPanel = new FlowPanel.fromElement(element);
+
+   // Mark it attached and remember it for cleanup.
+   flowPanel.onAttach();
+   RootPanel.detachOnWindowClose(flowPanel);
+
+   return flowPanel;
+ }
+ 
  /**
   * Creates an empty flow panel.
   */
- FlowPanel() {
-   setElement(new dart_html.DivElement());
+ FlowPanel() : this.fromElement(new dart_html.DivElement());
+ 
+ /**
+  * Create FlowPanel with specified [DivElement].
+  */
+ FlowPanel.fromElement(dart_html.Element element) {
+   setElement(element);
  }
 
  /**
@@ -78,7 +105,7 @@ class FlowPanel extends ComplexPanel implements InsertPanelForIsWidget {
  }
 
  void insertIsWidget(IsWidget w, int beforeIndex) {
-   insertAt(asWidgetOrNull(w), beforeIndex);
+   insertAt(Widget.asWidgetOrNull(w), beforeIndex);
  }
 
  /**
@@ -92,6 +119,92 @@ class FlowPanel extends ComplexPanel implements InsertPanelForIsWidget {
  void insertAt(Widget w, int beforeIndex) {
    insert(w, getElement(), beforeIndex, true);
  }
+ 
+ //***********************************
+ // Implementation of HasClickHandlers
+ //***********************************
+
+ /**
+  * Adds a {@link ClickEvent} handler.
+  *
+  * @param handler the click handler
+  * @return {@link HandlerRegistration} used to remove this handler
+  */
+ HandlerRegistration addClickHandler(ClickHandler handler) {
+   return addDomHandler(handler, ClickEvent.TYPE);
+ }
+ 
+ HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+   return addDomHandler(handler, DoubleClickEvent.TYPE);
+ }
+ 
+ //**************************
+ // Implementation of HasHtml
+ //**************************
+ 
+ String get text {
+   if (isAttached()) {
+     return getElement().parent.text;
+   } else {
+     dart_html.Element ele = new dart_html.DivElement();
+     dart_html.Node clone = getElement().clone(true);
+     ele.append(clone);
+     return ele.text;
+   }
+ }
+
+ void set text(String value) {
+   if (isAttached()) {
+     getElement().parent.text = value;
+   } else {
+     throw new Exception("FlowPanel is not attached");
+   }
+ }
+ 
+ String get html {
+   if (isAttached()) {
+     return getElement().parent.innerHtml;
+   } else {
+     dart_html.Element ele = new dart_html.DivElement();
+     dart_html.Node clone = getElement().clone(true);
+     ele.append(clone);
+     return ele.innerHtml;
+   }
+ }
+ 
+ void set html(String value) {
+   if (isAttached()) {
+     getElement().parent.innerHtml = value;
+   } else {
+     throw new Exception("FlowPanel is not attached");
+   }
+ }
+ 
+ //**************************************
+ // Implementation of HasAllMouseHandlers
+ //**************************************
+ 
+ HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+   return addDomHandler(handler, MouseDownEvent.TYPE);
+ }
+
+ HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+   return addDomHandler(handler, MouseUpEvent.TYPE);
+ }
+
+ HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+   return addDomHandler(handler, MouseOutEvent.TYPE); }
+
+ HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+   return addDomHandler(handler, MouseOverEvent.TYPE);  }
+
+ HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+   return addDomHandler(handler, MouseMoveEvent.TYPE);
+ }
+
+ HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+   return addDomHandler(handler, MouseWheelEvent.TYPE);
+ }
 }
 </pre>
 </div>
@@ -100,7 +213,7 @@ class FlowPanel extends ComplexPanel implements InsertPanelForIsWidget {
 <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/UiObject.html">UiObject</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Widget.html">Widget</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/Panel.html">Panel</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/ComplexPanel.html">ComplexPanel</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>FlowPanel</strong></span></p>
 <h3>Implements</h3>
 <p>
-<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/InsertPanelForIsWidget.html">InsertPanelForIsWidget</a></span></p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasHtml.html">HasHtml</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasAllMouseHandlers.html">HasAllMouseHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasDoubleClickHandlers.html">HasDoubleClickHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_event/HasClickHandlers.html">HasClickHandlers</a></span>, <span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_ui/InsertPanelForIsWidget.html">InsertPanelForIsWidget</a></span></p>
 <div>
 <h3>Constructors</h3>
 <div class="method"><h4 id="">
@@ -110,14 +223,51 @@ new <strong>FlowPanel</strong>() <a class="anchor-link" href="#"
 <div class="doc">
 <p>Creates an empty flow panel.</p>
 <pre class="source">
-FlowPanel() {
- setElement(new dart_html.DivElement());
+FlowPanel() : this.fromElement(new dart_html.DivElement());
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="fromElement">
+<button class="show-code">Code</button>
+new <strong>FlowPanel.fromElement</strong>(Element element) <a class="anchor-link" href="#fromElement"
+              title="Permalink to FlowPanel.FlowPanel.fromElement">#</a></h4>
+<div class="doc">
+<p>Create FlowPanel with specified <code>DivElement</code>.</p>
+<pre class="source">
+FlowPanel.fromElement(dart_html.Element element) {
+ setElement(element);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="wrap">
+<button class="show-code">Code</button>
+factory <strong>FlowPanel.wrap</strong>(Element element) <a class="anchor-link" href="#wrap"
+              title="Permalink to FlowPanel.FlowPanel.wrap">#</a></h4>
+<div class="doc">
+<p>Creates a Hyperlink widget that wraps an existing <code>AhncorElement</code>.</p>
+<p>This element must already be attached to the document. If the element is
+removed from the document, you must call
+{@link RootPanel#detachNow(Widget)}.</p>
+<p>@param element the element to be wrapped</p>
+<pre class="source">
+factory FlowPanel.wrap(dart_html.Element element) {
+ // Assert that the element is attached.
+ //assert (Document.get().getBody().isOrHasChild(element));
+
+ FlowPanel flowPanel = new FlowPanel.fromElement(element);
+
+ // Mark it attached and remember it for cleanup.
+ flowPanel.onAttach();
+ RootPanel.detachOnWindowClose(flowPanel);
+
+ return flowPanel;
 }
 </pre>
 </div>
 </div>
 </div>
-<div class="inherited">
+<div>
 <h3>Properties</h3>
 <div class="field inherited"><h4 id="eventsToSink">
 <button class="show-code">Code</button>
@@ -132,6 +282,94 @@ When the widget is attached, this is set is empty</p>
 <p>Package protected to allow Composite to see it.</p>
 <pre class="source">
 int eventsToSink = 0
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="html">
+<button class="show-code">Code</button>
+String <strong>get html</strong> <a class="anchor-link" href="#html"
+              title="Permalink to FlowPanel.get html">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Gets this object's contents as HTML.</p>
+<p>@return the object's HTML</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasHtml.html">HasHtml</a> </div></div>
+<pre class="source">
+String get html {
+ if (isAttached()) {
+   return getElement().parent.innerHtml;
+ } else {
+   dart_html.Element ele = new dart_html.DivElement();
+   dart_html.Node clone = getElement().clone(true);
+   ele.append(clone);
+   return ele.innerHtml;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="html=">
+<button class="show-code">Code</button>
+void <strong>set html</strong>(String value) <a class="anchor-link" href="#html="
+              title="Permalink to FlowPanel.set html">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Sets this object's contents via HTML. Use care when setting an object's
+HTML; it is an easy way to expose script-based security problems. Consider
+using {@link #setText(String)} whenever possible.</p>
+<p>@param html the object's new HTML</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasHtml.html">HasHtml</a> </div></div>
+<pre class="source">
+void set html(String value) {
+ if (isAttached()) {
+   getElement().parent.innerHtml = value;
+ } else {
+   throw new Exception("FlowPanel is not attached");
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="text">
+<button class="show-code">Code</button>
+String <strong>get text</strong> <a class="anchor-link" href="#text"
+              title="Permalink to FlowPanel.get text">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Gets this object's text.</p>
+<p>@return the object's text</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasText.html">HasText</a> </div></div>
+<pre class="source">
+String get text {
+ if (isAttached()) {
+   return getElement().parent.text;
+ } else {
+   dart_html.Element ele = new dart_html.DivElement();
+   dart_html.Node clone = getElement().clone(true);
+   ele.append(clone);
+   return ele.text;
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="text=">
+<button class="show-code">Code</button>
+void <strong>set text</strong>(String value) <a class="anchor-link" href="#text="
+              title="Permalink to FlowPanel.set text">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Sets this object's text.</p>
+<p>@param text the object's new text</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasText.html">HasText</a> </div></div>
+<pre class="source">
+void set text(String value) {
+ if (isAttached()) {
+   getElement().parent.text = value;
+ } else {
+   throw new Exception("FlowPanel is not attached");
+ }
+}
 </pre>
 </div>
 </div>
@@ -252,6 +490,21 @@ HandlerRegistration addBitlessDomHandler(EventHandler handler, DomEventType type
 </pre>
 </div>
 </div>
+<div class="method"><h4 id="addClickHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addClickHandler</strong>(<a href="../dart_web_toolkit_event/ClickHandler.html">ClickHandler</a> handler) <a class="anchor-link" href="#addClickHandler"
+              title="Permalink to FlowPanel.addClickHandler">#</a></h4>
+<div class="doc">
+<p>Adds a {@link ClickEvent} handler.</p>
+<p>@param handler the click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<pre class="source">
+HandlerRegistration addClickHandler(ClickHandler handler) {
+ return addDomHandler(handler, ClickEvent.TYPE);
+}
+</pre>
+</div>
+</div>
 <div class="method inherited"><h4 id="addDomHandler">
 <button class="show-code">Code</button>
 <a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDomHandler</strong>(<a href="../dart_web_toolkit_event/EventHandler.html">EventHandler</a> handler, <a href="../dart_web_toolkit_event/DomEventType.html">DomEventType</a> type) <a class="anchor-link" href="#addDomHandler"
@@ -275,6 +528,23 @@ HandlerRegistration addDomHandler(EventHandler handler, DomEventType type) {
    sinkEvents(typeInt);
  }
  return ensureHandlers().addHandler(type, handler);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addDoubleClickHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addDoubleClickHandler</strong>(<a href="../dart_web_toolkit_event/DoubleClickHandler.html">DoubleClickHandler</a> handler) <a class="anchor-link" href="#addDoubleClickHandler"
+              title="Permalink to FlowPanel.addDoubleClickHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link DoubleClickEvent} handler.</p>
+<p>@param handler the double click handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasDoubleClickHandlers.html">HasDoubleClickHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+ return addDomHandler(handler, DoubleClickEvent.TYPE);
 }
 </pre>
 </div>
@@ -303,7 +573,107 @@ void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html"
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 void addIsWidget(IsWidget child) {
- this.add(asWidgetOrNull(child));
+ this.add(Widget.asWidgetOrNull(child));
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseDownHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseDownHandler</strong>(<a href="../dart_web_toolkit_event/MouseDownHandler.html">MouseDownHandler</a> handler) <a class="anchor-link" href="#addMouseDownHandler"
+              title="Permalink to FlowPanel.addMouseDownHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseDownEvent} handler.</p>
+<p>@param handler the mouse down handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseDownHandlers.html">HasMouseDownHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+ return addDomHandler(handler, MouseDownEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseMoveHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseMoveHandler</strong>(<a href="../dart_web_toolkit_event/MouseMoveHandler.html">MouseMoveHandler</a> handler) <a class="anchor-link" href="#addMouseMoveHandler"
+              title="Permalink to FlowPanel.addMouseMoveHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseMoveEvent} handler.</p>
+<p>@param handler the mouse move handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseMoveHandlers.html">HasMouseMoveHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+ return addDomHandler(handler, MouseMoveEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseOutHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOutHandler</strong>(<a href="../dart_web_toolkit_event/MouseOutHandler.html">MouseOutHandler</a> handler) <a class="anchor-link" href="#addMouseOutHandler"
+              title="Permalink to FlowPanel.addMouseOutHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOutEvent} handler.</p>
+<p>@param handler the mouse out handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOutHandlers.html">HasMouseOutHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+ return addDomHandler(handler, MouseOutEvent.TYPE); }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseOverHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseOverHandler</strong>(<a href="../dart_web_toolkit_event/MouseOverHandler.html">MouseOverHandler</a> handler) <a class="anchor-link" href="#addMouseOverHandler"
+              title="Permalink to FlowPanel.addMouseOverHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseOverEvent} handler.</p>
+<p>@param handler the mouse over handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseOverHandlers.html">HasMouseOverHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+ return addDomHandler(handler, MouseOverEvent.TYPE);  }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseUpHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseUpHandler</strong>(<a href="../dart_web_toolkit_event/MouseUpHandler.html">MouseUpHandler</a> handler) <a class="anchor-link" href="#addMouseUpHandler"
+              title="Permalink to FlowPanel.addMouseUpHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseUpEvent} handler.</p>
+<p>@param handler the mouse up handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseUpHandlers.html">HasMouseUpHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+ return addDomHandler(handler, MouseUpEvent.TYPE);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="addMouseWheelHandler">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_event/HandlerRegistration.html">HandlerRegistration</a> <strong>addMouseWheelHandler</strong>(<a href="../dart_web_toolkit_event/MouseWheelHandler.html">MouseWheelHandler</a> handler) <a class="anchor-link" href="#addMouseWheelHandler"
+              title="Permalink to FlowPanel.addMouseWheelHandler">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Adds a {@link MouseWheelEvent} handler.</p>
+<p>@param handler the mouse wheel handler
+@return {@link HandlerRegistration} used to remove this handler</p>
+<div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_event/HasMouseWheelHandlers.html">HasMouseWheelHandlers</a> </div></div>
+<pre class="source">
+HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+ return addDomHandler(handler, MouseWheelEvent.TYPE);
 }
 </pre>
 </div>
@@ -978,7 +1348,7 @@ int <strong>getWidgetIndexIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWi
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ComplexPanel.html">ComplexPanel</a> </div><div class="doc">
 <pre class="source">
 int getWidgetIndexIsWidget(IsWidget child) {
- return getWidgetIndex(asWidgetOrNull(child));
+ return getWidgetIndex(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1066,7 +1436,7 @@ void <strong>insertIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="doc">
 <pre class="source">
 void insertIsWidget(IsWidget w, int beforeIndex) {
- insertAt(asWidgetOrNull(w), beforeIndex);
+ insertAt(Widget.asWidgetOrNull(w), beforeIndex);
 }
 </pre>
 </div>
@@ -1405,7 +1775,7 @@ bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 bool removeIsWidget(IsWidget child) {
- return remove(asWidgetOrNull(child));
+ return remove(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1769,7 +2139,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:41.083</div>
+          <div>This page was generated at 2013-08-28 07:19:09.443</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

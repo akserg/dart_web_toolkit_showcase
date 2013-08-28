@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/TabLayoutPanel.html">TabLayoutPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -272,7 +272,7 @@ class TabLayoutPanel extends ResizeComposite implements HasWidgets, ProvidesResi
   * Convenience overload to allow {@link IsWidget} to be used directly.
   */
  Widget getTabIsWidget(IsWidget child) {
-   return getTabWidget(asWidgetOrNull(child));
+   return getTabWidget(Widget.asWidgetOrNull(child));
  }
 
  /**
@@ -304,7 +304,7 @@ class TabLayoutPanel extends ResizeComposite implements HasWidgets, ProvidesResi
   * Convenience overload to allow {@link IsWidget} to be used directly.
   */
  int getWidgetIndexIsWidget(IsWidget child) {
-   return getWidgetIndex(asWidgetOrNull(child));
+   return getWidgetIndex(Widget.asWidgetOrNull(child));
  }
 
  /**
@@ -1450,7 +1450,7 @@ String getStylePrimaryName() {
 <p>Convenience overload to allow {@link IsWidget} to be used directly.</p>
 <pre class="source">
 Widget getTabIsWidget(IsWidget child) {
- return getTabWidget(asWidgetOrNull(child));
+ return getTabWidget(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1549,7 +1549,7 @@ int <strong>getWidgetIndexIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWi
 <p>Convenience overload to allow {@link IsWidget} to be used directly.</p>
 <pre class="source">
 int getWidgetIndexIsWidget(IsWidget child) {
- return getWidgetIndex(asWidgetOrNull(child));
+ return getWidgetIndex(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -2397,7 +2397,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:40.590</div>
+          <div>This page was generated at 2013-08-28 07:19:09.269</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

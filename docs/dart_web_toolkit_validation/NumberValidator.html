@@ -1,0 +1,883 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>NumberValidator class / dart_web_toolkit_validation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_validation" data-type="NumberValidator">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../dart_web_toolkit_validation.html">dart_web_toolkit_validation</a> &rsaquo; <a href="../dart_web_toolkit_validation/NumberValidator.html">NumberValidator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>NumberValidator</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>The NumberValidator class ensures that a String represents a valid number.
+It can ensure that the input falls:
+- within a given range (specified by <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#minValue">minValue</a> and <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#maxValue">maxValue</a>),
+- is an integer (specified by <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#domain">domain</a>),
+- is non-negative (specified by <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#allowNegative">allowNegative</a>),
+- does not exceed the specified <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#precision">precision</a>.</p>
+<p>The validator correctly validates formatted numbers (e.g., "12,345.67")
+and you can customize the <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#thousandsSeparator">thousandsSeparator</a> and
+<a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#decimalSeparator">decimalSeparator</a> properties for internationalization.</p>
+<pre class="source">
+class NumberValidator extends WidgetValidator {
+ 
+ static const String INTEGER = "integer";
+ static const String DOUBLE = "double";
+ 
+ /**
+  * Specifies whether negative numbers are permitted.
+  * Allowed by default.
+  */
+ bool allowNegative;
+ 
+ /**
+  * The character used to separate the whole from the fractional part of the 
+  * number. Cannot be a digit and must be distinct from the [thousandsSeparator].
+  * By default equals "."
+  */
+ String decimalSeparator;
+ 
+ /**
+  * Type of number to be validated. 
+  * Permitted values are [NumberValidator.INTEGER] and [NumberValidator.DOUBLE].
+  * By default equals [NumberValidator.DOUBLE].
+  */
+ String domain;
+ 
+ /**
+  * Maximum value for a valid number. A value of null means there is no maximum.
+  */
+ num maxValue;
+ 
+ /**
+  * Minimum value for a valid number. A value of null means there is no minimum.
+  */
+ num minValue;
+ 
+ /**
+  * The maximum number of digits allowed to follow the decimal point.
+  * Can be any nonnegative integer.
+  */
+ int precision;
+ 
+ /**
+  * The character used to separate thousands in the whole part of the number.
+  * Cannot be a digit and must be distinct from the [decimalSeparator].
+  */
+ String thousandsSeparator;
+ 
+ /**
+  * Error message when the decimal separator character occurs more than once.
+  * By default equals "The decimal separator can occur only once."
+  */
+ String decimalPointCountError;
+ 
+ /**
+  * Error message when the value exceeds the [maxValue] property.
+  * By default equals "The number entered is too large."
+  */
+ String exceedsMaxError;
+ 
+ /**
+  * Error message when the number must be an integer, as defined by the 
+  * [domain] property.
+  * By default it's equals "The number must be an integer." 
+  */
+ String integerError;
+ 
+ /**
+  * Error message when the value contains invalid characters.
+  *
+  * By default it equals "The input contains invalid characters."
+  */
+ String invalidCharError;
+     
+ /**
+  * Error message when the value contains invalid format characters, which 
+  * means that it contains a digit or minus sign (-) as a separator character, 
+  * or it contains two or more consecutive separator characters.
+  *
+  * By default it equals "One of the formatting parameters is invalid."
+  */
+ String invalidFormatCharsError;
+ 
+ /**
+  * Error message when the value is less than [minValue].
+  *
+  * By default it equals "The amount entered is too small."
+  */
+ String lowerThanMinError;
+ 
+ /**
+  * Error message when the value is negative and the [allowNegative] 
+  * property is [false].
+  *
+  * By default it equals "The amount may not be negative."
+  */
+ String negativeError;
+ 
+ /**
+  * Error message when the value has a precision that exceeds the value defined 
+  *  by the precision property.
+  *
+  *  By "default" it equals "The amount entered has too many digits beyond the decimal point."
+  */
+ String precisionError;
+ 
+ /**
+  * Error message when the thousands separator is in the wrong location.
+  *
+  * By default it equals "The thousands separator must be followed by three digits."
+  */
+ String separationError;
+ 
+ NumberValidator(Widget widget, {
+   this.allowNegative:true,
+   this.decimalPointCountError:"The decimal separator can only occur once.",
+   this.decimalSeparator:".",
+   this.domain:NumberValidator.DOUBLE,
+   this.exceedsMaxError:"The number entered is too large.",
+   this.integerError:"The number must be an integer.",
+   this.invalidCharError:"The input contains invalid characters.",
+   this.invalidFormatCharsError:"One of the formatting parameters is invalid.",
+   this.lowerThanMinError:"The amount entered is too small.",
+   this.maxValue:null,
+   this.minValue:null,
+   this.negativeError:"The amount may not be negative.",
+   this.precision:-1,
+   this.precisionError:"The amount entered has too many digits beyond the decimal point.",
+   this.separationError:"The thousands separator must be followed by three digits.",
+   this.thousandsSeparator:","}) : super(widget);
+ 
+ /**
+  *  Override of the base class [doValidation()] method 
+  *  to validate a number.
+  *
+  *  &lt;p&gt;You do not call this method directly;
+  *  Flex calls it as part of performing a validation.
+  *  If you create a custom Validator class, you must implement this method. &lt;/p&gt;
+  *
+  *  @param value Object to validate.
+  *
+  *  @return An Array of ValidationResult objects, with one ValidationResult 
+  *  object for each field examined by the validator. 
+  *  
+  *  @langversion 3.0
+  *  @playerversion Flash 9
+  *  @playerversion AIR 1.1
+  *  @productversion Flex 3
+  */
+ 
+ /**
+  *  Executes the validation logic of this validatorto validate a number. 
+  *  Invalid result returns an List of [ValidationResult] objects, with one 
+  *  ValidationResult object for each field examined by the validator that 
+  *  failed validation.
+  *
+  *  You must override this method in a subclass of a validator class.
+  */
+ List&lt;ValidationResult&gt; doValidation(dynamic value) {
+   List&lt;ValidationResult&gt; results = super.doValidation(value);
+ 
+   // Return if there are errors
+   // or if the required property is set to [false] and length is 0.
+   String val = value != null? value.toString() : "";
+   if (results.length &gt; 0 || ((val.length == 0) &amp;&amp; !required))
+     return results;
+   else
+       return _validateNumber(value);
+ }
+
+ /**
+  * Validate [value] and  return List of [ValidationResult] objects, with one
+  * ValidationResult object for each field examined by the validator.
+  */
+ List&lt;ValidationResult&gt; _validateNumber(dynamic value) {
+   List&lt;ValidationResult&gt; results = [];
+   
+   String input = value.toString();
+   int len = input.length;
+
+   bool isNegative = false;
+   
+   int i;
+   String c;
+
+   // Make sure the formatting character parameters are unique,
+   // are not digits or the negative sign,
+   // and that the separators are one character.
+   String invalidFormChars = Validator.DECIMAL_DIGITS + "-";
+       
+   if (decimalSeparator == thousandsSeparator ||
+       invalidFormChars.indexOf(decimalSeparator) != -1 ||
+       invalidFormChars.indexOf(thousandsSeparator) != -1 ||
+       decimalSeparator.length != 1 ||
+       thousandsSeparator.length != 1) {
+     results.add(new ValidationResult(true, invalidFormatCharsError));
+     return results;
+   }
+   
+   // Check for invalid characters in input.
+   String validChars = Validator.DECIMAL_DIGITS + "-" + decimalSeparator + thousandsSeparator;
+   for (i = 0; i &lt; len; i++) {
+     c = input[i];
+     if (validChars.indexOf(c) == -1) {
+       results.add(new ValidationResult(true, invalidCharError));
+       return results;
+     }
+   }
+   
+   // Check if the input is negative.
+   if (input[0] == "-") {
+     if (len == 1) {
+       // we have only '-' char
+       results.add(new ValidationResult(true, invalidCharError));
+       return results;
+     } else if (len == 2 &amp;&amp; input[1] == '.') {
+       // handle "-."
+       results.add(new ValidationResult(true, invalidCharError));
+       return results;
+     }
+
+     // Check if negative input is allowed.
+     if (!allowNegative) {
+       results.add(new ValidationResult(true, negativeError));
+       return results;
+     }
+
+     // Strip off the minus sign, update some variables.
+     input = input.substring(1);
+     len--;
+     isNegative = true;
+   }
+   
+   // Make sure there's only one decimal point.
+   if (input.indexOf(decimalSeparator) != input.lastIndexOf(decimalSeparator)) {
+     results.add(new ValidationResult(true, decimalPointCountError));
+     return results;
+   }
+   
+   // Make sure every character after the decimal is a digit,
+   // and that there aren't too many digits after the decimal point:
+   // if domain is int there should be none,
+   // otherwise there should be no more than specified by precision.
+   int decimalSeparatorIndex = input.indexOf(decimalSeparator);
+   if (decimalSeparatorIndex != -1) {
+     int numDigitsAfterDecimal = 0;
+
+     if (i == 1 &amp;&amp; i == len) {
+       // we only have a '.'
+       results.add(new ValidationResult(true, invalidCharError));
+       return results;
+     }
+     
+     for (i = decimalSeparatorIndex + 1; i &lt; len; i++) {
+       // This character must be a digit.
+       if (Validator.DECIMAL_DIGITS.indexOf(input[i]) == -1) {
+         results.add(new ValidationResult(true, invalidCharError));
+         return results;
+       }
+
+       ++numDigitsAfterDecimal;
+
+       // There may not be any non-zero digits after the decimal
+       // if domain is int.
+       if (domain == NumberValidator.INTEGER &amp;&amp; input[i] != "0") {
+         results.add(new ValidationResult(true, integerError));
+         return results;
+       }
+
+       // Make sure precision is not exceeded.
+       if (precision != -1 &amp;&amp; numDigitsAfterDecimal &gt; precision) {
+         results.add(new ValidationResult(true, precisionError));
+         return results;
+       }
+     }
+   }
+   
+   // Make sure the input begins with a digit or a decimal point.
+   if (Validator.DECIMAL_DIGITS.indexOf(input[0]) == -1 &amp;&amp; input[0] != decimalSeparator) {
+     results.add(new ValidationResult(true, invalidCharError));
+     return results;
+   }
+   
+   // Make sure that every character before the decimal point
+   // is a digit or is a thousands separator.
+   // If it's a thousands separator,
+   // make sure it's followed by three consecutive digits.
+   int end = decimalSeparatorIndex == -1 ? len : decimalSeparatorIndex;
+   for (i = 1; i &lt; end; i++) {
+     c = input[i];
+     if (c == thousandsSeparator) {
+       if (c == thousandsSeparator) {
+         if ((end - i != 4 &amp;&amp;
+             input[i + 4] != thousandsSeparator) ||
+             Validator.DECIMAL_DIGITS.indexOf(input[i + 1]) == -1 ||
+             Validator.DECIMAL_DIGITS.indexOf(input[i + 2]) == -1 ||
+             Validator.DECIMAL_DIGITS.indexOf(input[i + 3]) == -1) {
+           results.add(new ValidationResult(true, separationError));
+           return results;
+         }
+       }
+     } else if (Validator.DECIMAL_DIGITS.indexOf(c) == -1) {
+       results.add(new ValidationResult(true, invalidCharError));
+       return results;
+     }
+   }
+   
+   // Make sure the input is within the specified range.
+   if (minValue != null || maxValue != null) {
+     // First strip off the thousands separators.
+     for (i = 0; i &lt; end; i++) {
+       if (input[i] == thousandsSeparator) {
+         String left = input.substring(0, i);
+         String right = input.substring(i + 1);
+         input = left + right;
+       }
+     }
+
+     // Translate the value back into standard english
+     // If the decimalSeperator is not '.' we need to change it to '.' 
+     // so that the number casting will work properly
+     if (decimalSeparator != '.') {
+       int dIndex = input.indexOf(decimalSeparator);
+       if (dIndex != -1) { 
+         String dLeft = input.substring(0, dIndex);
+         String dRight = input.substring(dIndex + 1);
+         input = dLeft + '.' + dRight;
+       }
+     }
+
+     // Check bounds
+     double x = double.parse(input, (String source) =&gt; 0.0);
+
+     if (isNegative)
+         x = -x;
+
+     if (minValue != null &amp;&amp; x &lt; minValue) {
+       results.add(new ValidationResult(true, lowerThanMinError));
+       return results;
+     }
+           
+     if (maxValue != null &amp;&amp; x &gt; maxValue) {
+       results.add(new ValidationResult(true, exceedsMaxError));
+       return results;
+     }
+   }
+   
+   return results;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/Validator.html">Validator</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>NumberValidator</strong></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="DOUBLE">
+<button class="show-code">Code</button>
+const String         <strong>DOUBLE</strong> <a class="anchor-link"
+            href="#DOUBLE"
+            title="Permalink to NumberValidator.DOUBLE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const String DOUBLE = "double"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="INTEGER">
+<button class="show-code">Code</button>
+const String         <strong>INTEGER</strong> <a class="anchor-link"
+            href="#INTEGER"
+            title="Permalink to NumberValidator.INTEGER">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const String INTEGER = "integer"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+<button class="show-code">Code</button>
+new <strong>NumberValidator</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, {bool allowNegative: true, String decimalPointCountError: "The decimal separator can only occur once.", String decimalSeparator: ".", String domain: NumberValidator.DOUBLE, String exceedsMaxError: "The number entered is too large.", String integerError: "The number must be an integer.", String invalidCharError: "The input contains invalid characters.", String invalidFormatCharsError: "One of the formatting parameters is invalid.", String lowerThanMinError: "The amount entered is too small.", num maxValue: null, num minValue: null, String negativeError: "The amount may not be negative.", int precision: -1, String precisionError: "The amount entered has too many digits beyond the decimal point.", String separationError: "The thousands separator must be followed by three digits.", String thousandsSeparator: ","}) <a class="anchor-link" href="#"
+              title="Permalink to NumberValidator.NumberValidator">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new <a class="crossref" href="../dart_core/Object.html">Object</a> instance.</p>
+<p><a class="crossref" href="../dart_core/Object.html">Object</a> instances have no meaningful state, and are only useful
+through their identity. An <a class="crossref" href="../dart_core/Object.html">Object</a> instance is equal to itself
+only.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+NumberValidator(Widget widget, {
+ this.allowNegative:true,
+ this.decimalPointCountError:"The decimal separator can only occur once.",
+ this.decimalSeparator:".",
+ this.domain:NumberValidator.DOUBLE,
+ this.exceedsMaxError:"The number entered is too large.",
+ this.integerError:"The number must be an integer.",
+ this.invalidCharError:"The input contains invalid characters.",
+ this.invalidFormatCharsError:"One of the formatting parameters is invalid.",
+ this.lowerThanMinError:"The amount entered is too small.",
+ this.maxValue:null,
+ this.minValue:null,
+ this.negativeError:"The amount may not be negative.",
+ this.precision:-1,
+ this.precisionError:"The amount entered has too many digits beyond the decimal point.",
+ this.separationError:"The thousands separator must be followed by three digits.",
+ this.thousandsSeparator:","}) : super(widget);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="allowNegative">
+<button class="show-code">Code</button>
+bool         <strong>allowNegative</strong> <a class="anchor-link"
+            href="#allowNegative"
+            title="Permalink to NumberValidator.allowNegative">#</a>
+        </h4>
+        <div class="doc">
+<p>Specifies whether negative numbers are permitted.
+Allowed by default.</p>
+<pre class="source">
+bool allowNegative
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="decimalPointCountError">
+<button class="show-code">Code</button>
+String         <strong>decimalPointCountError</strong> <a class="anchor-link"
+            href="#decimalPointCountError"
+            title="Permalink to NumberValidator.decimalPointCountError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the decimal separator character occurs more than once.
+By default equals "The decimal separator can occur only once."</p>
+<pre class="source">
+String decimalPointCountError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="decimalSeparator">
+<button class="show-code">Code</button>
+String         <strong>decimalSeparator</strong> <a class="anchor-link"
+            href="#decimalSeparator"
+            title="Permalink to NumberValidator.decimalSeparator">#</a>
+        </h4>
+        <div class="doc">
+<p>The character used to separate the whole from the fractional part of the 
+number. Cannot be a digit and must be distinct from the <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#thousandsSeparator">thousandsSeparator</a>.
+By default equals "."</p>
+<pre class="source">
+String decimalSeparator
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="domain">
+<button class="show-code">Code</button>
+String         <strong>domain</strong> <a class="anchor-link"
+            href="#domain"
+            title="Permalink to NumberValidator.domain">#</a>
+        </h4>
+        <div class="doc">
+<p>Type of number to be validated. 
+Permitted values are <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#INTEGER">NumberValidator.INTEGER</a> and <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#DOUBLE">NumberValidator.DOUBLE</a>.
+By default equals <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#DOUBLE">NumberValidator.DOUBLE</a>.</p>
+<pre class="source">
+String domain
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="enabled">
+<button class="show-code">Code</button>
+bool         <strong>enabled</strong> <a class="anchor-link"
+            href="#enabled"
+            title="Permalink to NumberValidator.enabled">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Property to enable/disable validation process.</p>
+<p>Setting this value to false will stop the validator from performing 
+validation. When a validator is disabled, it dispatches no events, and the 
+<a class="crossref" href="../dart_web_toolkit_validation/Validator.html#validate">validate</a> method returns ValidationEvent.VALID instance.</p>
+<pre class="source">
+bool enabled = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="exceedsMaxError">
+<button class="show-code">Code</button>
+String         <strong>exceedsMaxError</strong> <a class="anchor-link"
+            href="#exceedsMaxError"
+            title="Permalink to NumberValidator.exceedsMaxError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value exceeds the <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#maxValue">maxValue</a> property.
+By default equals "The number entered is too large."</p>
+<pre class="source">
+String exceedsMaxError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="integerError">
+<button class="show-code">Code</button>
+String         <strong>integerError</strong> <a class="anchor-link"
+            href="#integerError"
+            title="Permalink to NumberValidator.integerError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the number must be an integer, as defined by the 
+<a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#domain">domain</a> property.
+By default it's equals "The number must be an integer." </p>
+<pre class="source">
+String integerError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="invalidCharError">
+<button class="show-code">Code</button>
+String         <strong>invalidCharError</strong> <a class="anchor-link"
+            href="#invalidCharError"
+            title="Permalink to NumberValidator.invalidCharError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value contains invalid characters.</p>
+<p>By default it equals "The input contains invalid characters."</p>
+<pre class="source">
+String invalidCharError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="invalidFormatCharsError">
+<button class="show-code">Code</button>
+String         <strong>invalidFormatCharsError</strong> <a class="anchor-link"
+            href="#invalidFormatCharsError"
+            title="Permalink to NumberValidator.invalidFormatCharsError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value contains invalid format characters, which 
+means that it contains a digit or minus sign (-) as a separator character, 
+or it contains two or more consecutive separator characters.</p>
+<p>By default it equals "One of the formatting parameters is invalid."</p>
+<pre class="source">
+String invalidFormatCharsError
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="listeners">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>&gt;         <strong>listeners</strong> <a class="anchor-link"
+            href="#listeners"
+            title="Permalink to NumberValidator.listeners">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>'s</p>
+<pre class="source">
+List&lt;ValidationListener&gt; listeners = new List&lt;ValidationListener&gt;()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="lowerThanMinError">
+<button class="show-code">Code</button>
+String         <strong>lowerThanMinError</strong> <a class="anchor-link"
+            href="#lowerThanMinError"
+            title="Permalink to NumberValidator.lowerThanMinError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value is less than <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#minValue">minValue</a>.</p>
+<p>By default it equals "The amount entered is too small."</p>
+<pre class="source">
+String lowerThanMinError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="maxValue">
+<button class="show-code">Code</button>
+num         <strong>maxValue</strong> <a class="anchor-link"
+            href="#maxValue"
+            title="Permalink to NumberValidator.maxValue">#</a>
+        </h4>
+        <div class="doc">
+<p>Maximum value for a valid number. A value of null means there is no maximum.</p>
+<pre class="source">
+num maxValue
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="minValue">
+<button class="show-code">Code</button>
+num         <strong>minValue</strong> <a class="anchor-link"
+            href="#minValue"
+            title="Permalink to NumberValidator.minValue">#</a>
+        </h4>
+        <div class="doc">
+<p>Minimum value for a valid number. A value of null means there is no minimum.</p>
+<pre class="source">
+num minValue
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="negativeError">
+<button class="show-code">Code</button>
+String         <strong>negativeError</strong> <a class="anchor-link"
+            href="#negativeError"
+            title="Permalink to NumberValidator.negativeError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value is negative and the <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#allowNegative">allowNegative</a> 
+property is <code>false</code>.</p>
+<p>By default it equals "The amount may not be negative."</p>
+<pre class="source">
+String negativeError
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="onInvalid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnInvalid.html">OnInvalid</a>         <strong>onInvalid</strong> <a class="anchor-link"
+            href="#onInvalid"
+            title="Permalink to NumberValidator.onInvalid">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Callback function invokes when result of validation is invalid.</p>
+<pre class="source">
+OnInvalid onInvalid
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="onValid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnValid.html">OnValid</a>         <strong>onValid</strong> <a class="anchor-link"
+            href="#onValid"
+            title="Permalink to NumberValidator.onValid">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Callback function invokes when result of validation is valid.</p>
+<pre class="source">
+OnValid onValid
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="precision">
+<button class="show-code">Code</button>
+int         <strong>precision</strong> <a class="anchor-link"
+            href="#precision"
+            title="Permalink to NumberValidator.precision">#</a>
+        </h4>
+        <div class="doc">
+<p>The maximum number of digits allowed to follow the decimal point.
+Can be any nonnegative integer.</p>
+<pre class="source">
+int precision
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="precisionError">
+<button class="show-code">Code</button>
+String         <strong>precisionError</strong> <a class="anchor-link"
+            href="#precisionError"
+            title="Permalink to NumberValidator.precisionError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value has a precision that exceeds the value defined 
+ by the precision property.</p>
+<p> By "default" it equals "The amount entered has too many digits beyond the decimal point."</p>
+<pre class="source">
+String precisionError
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="required">
+<button class="show-code">Code</button>
+bool         <strong>required</strong> <a class="anchor-link"
+            href="#required"
+            title="Permalink to NumberValidator.required">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>If true specifies that a missing or empty value causes a validation error. </p>
+<pre class="source">
+bool required = true
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="requiredError">
+<button class="show-code">Code</button>
+String         <strong>requiredError</strong> <a class="anchor-link"
+            href="#requiredError"
+            title="Permalink to NumberValidator.requiredError">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Error message when a value is missing and the <code>required</code> property is true. </p>
+<p>By default equals "This field is required."</p>
+<pre class="source">
+String requiredError = "This field is required."
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="separationError">
+<button class="show-code">Code</button>
+String         <strong>separationError</strong> <a class="anchor-link"
+            href="#separationError"
+            title="Permalink to NumberValidator.separationError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the thousands separator is in the wrong location.</p>
+<p>By default it equals "The thousands separator must be followed by three digits."</p>
+<pre class="source">
+String separationError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="thousandsSeparator">
+<button class="show-code">Code</button>
+String         <strong>thousandsSeparator</strong> <a class="anchor-link"
+            href="#thousandsSeparator"
+            title="Permalink to NumberValidator.thousandsSeparator">#</a>
+        </h4>
+        <div class="doc">
+<p>The character used to separate thousands in the whole part of the number.
+Cannot be a digit and must be distinct from the <a class="crossref" href="../dart_web_toolkit_validation/NumberValidator.html#decimalSeparator">decimalSeparator</a>.</p>
+<pre class="source">
+String thousandsSeparator
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="widget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>         <strong>widget</strong> <a class="anchor-link"
+            href="#widget"
+            title="Permalink to NumberValidator.widget">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a> </div><div class="doc">
+<pre class="source">
+Widget widget
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="doValidation">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a>&gt; <strong>doValidation</strong>(value) <a class="anchor-link" href="#doValidation"
+              title="Permalink to NumberValidator.doValidation">#</a></h4>
+<div class="doc">
+<p> Override of the base class <code>doValidation()</code> method 
+ to validate a number.</p>
+<p> &lt;p>You do not call this method directly;
+ Flex calls it as part of performing a validation.
+ If you create a custom Validator class, you must implement this method. &lt;/p></p>
+<p> @param value Object to validate.</p>
+<p> @return An Array of ValidationResult objects, with one ValidationResult 
+ object for each field examined by the validator. </p>
+<p> @langversion 3.0
+ @playerversion Flash 9
+ @playerversion AIR 1.1
+ @productversion Flex 3</p>
+<p> Executes the validation logic of this validatorto validate a number. 
+ Invalid result returns an List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a> objects, with one 
+ ValidationResult object for each field examined by the validator that 
+ failed validation.</p>
+<p> You must override this method in a subclass of a validator class.</p>
+<pre class="source">
+List&lt;ValidationResult&gt; doValidation(dynamic value) {
+ List&lt;ValidationResult&gt; results = super.doValidation(value);
+
+ // Return if there are errors
+ // or if the required property is set to [false] and length is 0.
+ String val = value != null? value.toString() : "";
+ if (results.length &gt; 0 || ((val.length == 0) &amp;&amp; !required))
+   return results;
+ else
+     return _validateNumber(value);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="validate">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/ValidationEvent.html">ValidationEvent</a> <strong>validate</strong>(value, [bool fireEvent = true]) <a class="anchor-link" href="#validate"
+              title="Permalink to NumberValidator.validate">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Performs validation of 
+<span class="param">value</span> and notifies the listeners of the result if
+
+<span class="param">fireEvent</span> equals true.</p>
+<pre class="source">
+ValidationEvent validate(dynamic value, [bool fireEvent = true]) {
+ ValidationEvent resultEvent;
+ if (enabled &amp;&amp; (value != null || required)) {
+   // Validate if the target is required or our value is non-null.
+   resultEvent = _processValidation(value);
+ } else {
+   // We assume if value is null and required is false that
+   // validation was successful.
+   resultEvent = new ValidationEvent(ValidationEvent.VALID);
+ }
+ // Send notification to listeners
+ if (fireEvent &amp;&amp; resultEvent != null) {
+   listeners.forEach((ValidationListener listener){
+     listener(resultEvent);
+   });
+ }
+ // Invoke callback validation functions
+ if (onValid != null &amp;&amp; resultEvent.type == ValidationEvent.VALID) {
+   onValid();
+ } else if (onInvalid != null &amp;&amp; resultEvent.type == ValidationEvent.INVALID) {
+   onInvalid(resultEvent.results);
+ }
+ return resultEvent;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.024</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

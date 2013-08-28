@@ -1,0 +1,404 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>PhoneNumberValidator class / dart_web_toolkit_validation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_validation" data-type="PhoneNumberValidator">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../dart_web_toolkit_validation.html">dart_web_toolkit_validation</a> &rsaquo; <a href="../dart_web_toolkit_validation/PhoneNumberValidator.html">PhoneNumberValidator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>PhoneNumberValidator</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>The PhoneNumberValidator class validates that a string is a valid phone number.
+A valid phone number contains at least 10 digits, plus additional formatting 
+characters. The validator does not check if the phone number is an actual 
+active phone number.</p>
+<pre class="source">
+class PhoneNumberValidator extends WidgetValidator {
+ 
+ /**
+  * The set of allowable formatting characters.
+  * By default equals "()- .+"
+  */
+ String allowedFormatChars;
+ 
+ /**
+  * Minimum number of digits for a valid phone number. A value of null means 
+  * this property is ignored.
+  * By default equals 10.
+  */
+ int minDigits;
+ 
+ /**
+  * Error message when the value contains invalid characters.
+  * By default equals "Your telephone number contains invalid characters."
+  */
+ String invalidCharError;
+ 
+ /**
+  * Error message when the value has fewer than 10 digits.
+  * By default equals "Your telephone number must contain at least {minDigits} digits."
+  */
+ String wrongLengthError;
+ 
+ PhoneNumberValidator(Widget widget, {
+   this.minDigits:10,
+   this.allowedFormatChars:"()- .+",
+   this.invalidCharError:"Your telephone number contains invalid characters.",
+   this.wrongLengthError:"Your telephone number must contain at least {minDigits} digits."
+   }) : super(widget);
+ 
+ /**
+  *  Executes the validation logic of this validator to validate a phone number. 
+  *  For an invalid result returns an List of [ValidationResult] 
+  *  objects, with one ValidationResult object for each field examined by the 
+  *  validator that failed validation.
+  *
+  *  You must override this method in a subclass of a validator class.
+  */
+ List&lt;ValidationResult&gt; doValidation(dynamic value) {
+   List&lt;ValidationResult&gt; results = super.doValidation(value);
+
+   // Return if there are errors or if the required property is set to false 
+   // and length is 0.
+   String val = value != null ? value.toString() : "";
+   
+   if (results.length &gt; 0 || ((val.length == 0) &amp;&amp; !required))
+     return results;
+   else
+     return _validatePhoneNumber(value);
+ }
+
+ /**
+  * Validate [value] and  return List of [ValidationResult] objects, with one
+  * ValidationResult object for each field examined by the validator.
+  */
+ List&lt;ValidationResult&gt; _validatePhoneNumber(dynamic value) {
+   List&lt;ValidationResult&gt; results = new List&lt;ValidationResult&gt;();
+   
+   String valid =  Validator.DECIMAL_DIGITS + allowedFormatChars;
+   int len = value.length;
+   int digitLen = 0;
+   int n;
+   int i;
+   
+   n = allowedFormatChars.length;
+   for (i = 0; i &lt; n; i++) {
+     if (Validator.DECIMAL_DIGITS.indexOf(allowedFormatChars[i]) != -1) {
+       throw new Exception("Invalid format chars");
+     }
+   }
+
+   for (i = 0; i &lt; len; i++)
+   {
+     String temp = value.substring(i, i + 1);
+     if (valid.indexOf(temp) == -1)
+     {
+       results.add(new ValidationResult(true, invalidCharError));
+       return results;
+     }
+     if (valid.indexOf(temp) &lt;= 9)
+       digitLen++;
+   }
+
+   if (minDigits != null &amp;&amp; digitLen &lt; minDigits)
+   {
+     results.add(new ValidationResult(true, substitute(wrongLengthError, '{minDigits}', minDigits)));
+     return results;
+   }
+
+   return results;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/Validator.html">Validator</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>PhoneNumberValidator</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+<button class="show-code">Code</button>
+new <strong>PhoneNumberValidator</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, {int minDigits: 10, String allowedFormatChars: "()- .+", String invalidCharError: "Your telephone number contains invalid characters.", String wrongLengthError: "Your telephone number must contain at least {minDigits} digits."}) <a class="anchor-link" href="#"
+              title="Permalink to PhoneNumberValidator.PhoneNumberValidator">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new <a class="crossref" href="../dart_core/Object.html">Object</a> instance.</p>
+<p><a class="crossref" href="../dart_core/Object.html">Object</a> instances have no meaningful state, and are only useful
+through their identity. An <a class="crossref" href="../dart_core/Object.html">Object</a> instance is equal to itself
+only.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+PhoneNumberValidator(Widget widget, {
+ this.minDigits:10,
+ this.allowedFormatChars:"()- .+",
+ this.invalidCharError:"Your telephone number contains invalid characters.",
+ this.wrongLengthError:"Your telephone number must contain at least {minDigits} digits."
+ }) : super(widget);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="allowedFormatChars">
+<button class="show-code">Code</button>
+String         <strong>allowedFormatChars</strong> <a class="anchor-link"
+            href="#allowedFormatChars"
+            title="Permalink to PhoneNumberValidator.allowedFormatChars">#</a>
+        </h4>
+        <div class="doc">
+<p>The set of allowable formatting characters.
+By default equals "()- .+"</p>
+<pre class="source">
+String allowedFormatChars
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="enabled">
+<button class="show-code">Code</button>
+bool         <strong>enabled</strong> <a class="anchor-link"
+            href="#enabled"
+            title="Permalink to PhoneNumberValidator.enabled">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Property to enable/disable validation process.</p>
+<p>Setting this value to false will stop the validator from performing 
+validation. When a validator is disabled, it dispatches no events, and the 
+<a class="crossref" href="../dart_web_toolkit_validation/Validator.html#validate">validate</a> method returns ValidationEvent.VALID instance.</p>
+<pre class="source">
+bool enabled = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="invalidCharError">
+<button class="show-code">Code</button>
+String         <strong>invalidCharError</strong> <a class="anchor-link"
+            href="#invalidCharError"
+            title="Permalink to PhoneNumberValidator.invalidCharError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value contains invalid characters.
+By default equals "Your telephone number contains invalid characters."</p>
+<pre class="source">
+String invalidCharError
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="listeners">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>&gt;         <strong>listeners</strong> <a class="anchor-link"
+            href="#listeners"
+            title="Permalink to PhoneNumberValidator.listeners">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>'s</p>
+<pre class="source">
+List&lt;ValidationListener&gt; listeners = new List&lt;ValidationListener&gt;()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="minDigits">
+<button class="show-code">Code</button>
+int         <strong>minDigits</strong> <a class="anchor-link"
+            href="#minDigits"
+            title="Permalink to PhoneNumberValidator.minDigits">#</a>
+        </h4>
+        <div class="doc">
+<p>Minimum number of digits for a valid phone number. A value of null means 
+this property is ignored.
+By default equals 10.</p>
+<pre class="source">
+int minDigits
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="onInvalid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnInvalid.html">OnInvalid</a>         <strong>onInvalid</strong> <a class="anchor-link"
+            href="#onInvalid"
+            title="Permalink to PhoneNumberValidator.onInvalid">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Callback function invokes when result of validation is invalid.</p>
+<pre class="source">
+OnInvalid onInvalid
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="onValid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnValid.html">OnValid</a>         <strong>onValid</strong> <a class="anchor-link"
+            href="#onValid"
+            title="Permalink to PhoneNumberValidator.onValid">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Callback function invokes when result of validation is valid.</p>
+<pre class="source">
+OnValid onValid
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="required">
+<button class="show-code">Code</button>
+bool         <strong>required</strong> <a class="anchor-link"
+            href="#required"
+            title="Permalink to PhoneNumberValidator.required">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>If true specifies that a missing or empty value causes a validation error. </p>
+<pre class="source">
+bool required = true
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="requiredError">
+<button class="show-code">Code</button>
+String         <strong>requiredError</strong> <a class="anchor-link"
+            href="#requiredError"
+            title="Permalink to PhoneNumberValidator.requiredError">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Error message when a value is missing and the <code>required</code> property is true. </p>
+<p>By default equals "This field is required."</p>
+<pre class="source">
+String requiredError = "This field is required."
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="widget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>         <strong>widget</strong> <a class="anchor-link"
+            href="#widget"
+            title="Permalink to PhoneNumberValidator.widget">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a> </div><div class="doc">
+<pre class="source">
+Widget widget
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="wrongLengthError">
+<button class="show-code">Code</button>
+String         <strong>wrongLengthError</strong> <a class="anchor-link"
+            href="#wrongLengthError"
+            title="Permalink to PhoneNumberValidator.wrongLengthError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when the value has fewer than 10 digits.
+By default equals "Your telephone number must contain at least {minDigits} digits."</p>
+<pre class="source">
+String wrongLengthError
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="doValidation">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a>&gt; <strong>doValidation</strong>(value) <a class="anchor-link" href="#doValidation"
+              title="Permalink to PhoneNumberValidator.doValidation">#</a></h4>
+<div class="doc">
+<p> Executes the validation logic of this validator to validate a phone number. 
+ For an invalid result returns an List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a> 
+ objects, with one ValidationResult object for each field examined by the 
+ validator that failed validation.</p>
+<p> You must override this method in a subclass of a validator class.</p>
+<pre class="source">
+List&lt;ValidationResult&gt; doValidation(dynamic value) {
+ List&lt;ValidationResult&gt; results = super.doValidation(value);
+
+ // Return if there are errors or if the required property is set to false 
+ // and length is 0.
+ String val = value != null ? value.toString() : "";
+ 
+ if (results.length &gt; 0 || ((val.length == 0) &amp;&amp; !required))
+   return results;
+ else
+   return _validatePhoneNumber(value);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="validate">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/ValidationEvent.html">ValidationEvent</a> <strong>validate</strong>(value, [bool fireEvent = true]) <a class="anchor-link" href="#validate"
+              title="Permalink to PhoneNumberValidator.validate">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Performs validation of 
+<span class="param">value</span> and notifies the listeners of the result if
+
+<span class="param">fireEvent</span> equals true.</p>
+<pre class="source">
+ValidationEvent validate(dynamic value, [bool fireEvent = true]) {
+ ValidationEvent resultEvent;
+ if (enabled &amp;&amp; (value != null || required)) {
+   // Validate if the target is required or our value is non-null.
+   resultEvent = _processValidation(value);
+ } else {
+   // We assume if value is null and required is false that
+   // validation was successful.
+   resultEvent = new ValidationEvent(ValidationEvent.VALID);
+ }
+ // Send notification to listeners
+ if (fireEvent &amp;&amp; resultEvent != null) {
+   listeners.forEach((ValidationListener listener){
+     listener(resultEvent);
+   });
+ }
+ // Invoke callback validation functions
+ if (onValid != null &amp;&amp; resultEvent.type == ValidationEvent.VALID) {
+   onValid();
+ } else if (onInvalid != null &amp;&amp; resultEvent.type == ValidationEvent.INVALID) {
+   onInvalid(resultEvent.results);
+ }
+ return resultEvent;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:12.998</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

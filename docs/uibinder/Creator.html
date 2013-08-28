@@ -1,0 +1,107 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Creator class / uibinder Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="uibinder" data-type="Creator">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../uibinder.html">uibinder</a> &rsaquo; <a href="../uibinder/Creator.html">Creator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Creator</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class Creator {
+ 
+ /**
+  * Create main widget
+  */
+ static dynamic create(u) {
+   ClassMirror uClassMirror = reflectClass(u);
+   return uClassMirror.newInstance(const Symbol(""), []).reflectee;
+ }
+
+ 
+ /**
+  * Create new instance of widget by wrapping [element]. 
+  */
+ static InstanceMirror instantiateWidget(ClassMirror clazz, Element element) {
+   return clazz.newInstance(const Symbol("wrap"), [element]);
+ }
+
+}
+</pre>
+</div>
+<div>
+<h3>Static Methods</h3>
+<div class="method"><h4 id="create">
+<button class="show-code">Code</button>
+dynamic <strong>create</strong>(u) <a class="anchor-link" href="#create"
+              title="Permalink to Creator.create">#</a></h4>
+<div class="doc">
+<p>Create main widget</p>
+<pre class="source">
+static dynamic create(u) {
+ ClassMirror uClassMirror = reflectClass(u);
+ return uClassMirror.newInstance(const Symbol(""), []).reflectee;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="instantiateWidget">
+<button class="show-code">Code</button>
+InstanceMirror <strong>instantiateWidget</strong>(ClassMirror clazz, Element element) <a class="anchor-link" href="#instantiateWidget"
+              title="Permalink to Creator.instantiateWidget">#</a></h4>
+<div class="doc">
+<p>Create new instance of widget by wrapping 
+<span class="param">element</span>. </p>
+<pre class="source">
+static InstanceMirror instantiateWidget(ClassMirror clazz, Element element) {
+ return clazz.newInstance(const Symbol("wrap"), [element]);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.054</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

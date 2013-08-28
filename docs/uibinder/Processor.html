@@ -1,0 +1,155 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Processor&lt;O&gt; class / uibinder Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="uibinder" data-type="Processor&amp;lt;O&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../uibinder.html">uibinder</a> &rsaquo; <a href="../uibinder/Processor.html">Processor&lt;O&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Processor&lt;O&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Processor for UiBinder.</p>
+<pre class="source">
+class Processor&lt;O&gt; {
+ 
+ Parser _parser;
+ O _owner;
+ 
+ /**
+  * Create new instance. 
+  */
+ Processor(this._owner) {
+   _parser = new Parser&lt;O&gt;();
+   // Parse owner to find annotations
+   _parser.parse(_owner);
+ }
+ 
+ /**
+  * Parse template and bind filds to elements from template wrapped to widgets.
+  */
+ void parse(Element root) {
+   _process(root);
+ }
+ 
+ /**
+  * Process each [element] of owner.
+  */
+ void _process(Element element) {
+   Element child = element.$dom_firstElementChild;
+   while (child != null) {
+     _tryToAssign(child);
+
+     if (child.hasChildNodes()) {
+       _process(child);
+     }
+
+     child = child.nextElementSibling;
+   }
+ }
+ 
+ /**
+  * Try to assign [element] to one of fields of owner.
+  */
+ void _tryToAssign(Element element) {
+   String field = element.$dom_getAttribute("ui:field");
+   if (field != null) {
+     _tryToInstantiateVariable(field, element);
+   }
+ }
+ 
+ /**
+  * Try to instantiate [field] wrapping [element]. 
+  */
+ void _tryToInstantiateVariable(String field, Element element) {
+   try {
+     // Get variable by name
+     VariableMirror variableMirror = _parser.variables[field];
+     // Instantiate widget by 'wrap' constructor
+      dynamic variable = Creator.instantiateWidget(variableMirror.type, element).reflectee;
+      // Set widget to variable in owner
+      _parser.ownerInstance.setField(variableMirror.simpleName, variable);
+   } on Exception catch(ex) {
+     print(ex);
+   }
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+<button class="show-code">Code</button>
+new <strong>Processor</strong>(<a href="../uibinder/Processor.html">O</a> _owner) <a class="anchor-link" href="#"
+              title="Permalink to Processor&lt;O&gt;.Processor">#</a></h4>
+<div class="doc">
+<p>Create new instance. </p>
+<pre class="source">
+Processor(this._owner) {
+ _parser = new Parser&lt;O&gt;();
+ // Parse owner to find annotations
+ _parser.parse(_owner);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="parse">
+<button class="show-code">Code</button>
+void <strong>parse</strong>(Element root) <a class="anchor-link" href="#parse"
+              title="Permalink to Processor&lt;O&gt;.parse">#</a></h4>
+<div class="doc">
+<p>Parse template and bind filds to elements from template wrapped to widgets.</p>
+<pre class="source">
+void parse(Element root) {
+ _process(root);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.056</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

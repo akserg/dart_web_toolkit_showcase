@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Hyperlink.html">Hyperlink</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -80,6 +80,28 @@ class Hyperlink extends Widget implements HasHtml, HasClickHandlers,
  dart_html.AnchorElement _anchorElem = new dart_html.AnchorElement();
  String _targetHistoryToken;
 
+ /**
+  * Creates a Hyperlink widget that wraps an existing [AhncorElement].
+  *
+  * This element must already be attached to the document. If the element is
+  * removed from the document, you must call
+  * {@link RootPanel#detachNow(Widget)}.
+  *
+  * @param element the element to be wrapped
+  */
+ factory Hyperlink.wrap(dart_html.Element element) {
+   // Assert that the element is attached.
+   //assert (Document.get().getBody().isOrHasChild(element));
+
+   Hyperlink hyperlink = new Hyperlink.fromElement(element);
+
+   // Mark it attached and remember it for cleanup.
+   hyperlink.onAttach();
+   RootPanel.detachOnWindowClose(hyperlink);
+
+   return hyperlink;
+ }
+ 
  /**
   * Creates a hyperlink with its text and target history token specified.
   *
@@ -294,6 +316,32 @@ new <strong>Hyperlink.fromElement</strong>(Element element) <a class="anchor-lin
 <pre class="source">
 Hyperlink.fromElement(dart_html.Element element) {
  _init(element);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="wrap">
+<button class="show-code">Code</button>
+factory <strong>Hyperlink.wrap</strong>(Element element) <a class="anchor-link" href="#wrap"
+              title="Permalink to Hyperlink.Hyperlink.wrap">#</a></h4>
+<div class="doc">
+<p>Creates a Hyperlink widget that wraps an existing <code>AhncorElement</code>.</p>
+<p>This element must already be attached to the document. If the element is
+removed from the document, you must call
+{@link RootPanel#detachNow(Widget)}.</p>
+<p>@param element the element to be wrapped</p>
+<pre class="source">
+factory Hyperlink.wrap(dart_html.Element element) {
+ // Assert that the element is attached.
+ //assert (Document.get().getBody().isOrHasChild(element));
+
+ Hyperlink hyperlink = new Hyperlink.fromElement(element);
+
+ // Mark it attached and remember it for cleanup.
+ hyperlink.onAttach();
+ RootPanel.detachOnWindowClose(hyperlink);
+
+ return hyperlink;
 }
 </pre>
 </div>
@@ -1674,7 +1722,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:43.008</div>
+          <div>This page was generated at 2013-08-28 07:19:11.367</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

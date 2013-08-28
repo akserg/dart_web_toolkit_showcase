@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DeckPanel.html">DeckPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -112,7 +112,7 @@ class DeckPanel extends ComplexPanel implements HasAnimation, InsertPanelForIsWi
  }
 
  void insertIsWidget(IsWidget w, int beforeIndex) {
-   insertAt(asWidgetOrNull(w), beforeIndex);
+   insertAt(Widget.asWidgetOrNull(w), beforeIndex);
  }
 
  void insertAt(Widget w, int beforeIndex) {
@@ -464,7 +464,7 @@ void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html"
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 void addIsWidget(IsWidget child) {
- this.add(asWidgetOrNull(child));
+ this.add(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1192,7 +1192,7 @@ int <strong>getWidgetIndexIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWi
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/ComplexPanel.html">ComplexPanel</a> </div><div class="doc">
 <pre class="source">
 int getWidgetIndexIsWidget(IsWidget child) {
- return getWidgetIndex(asWidgetOrNull(child));
+ return getWidgetIndex(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1288,7 +1288,7 @@ void <strong>insertIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="doc">
 <pre class="source">
 void insertIsWidget(IsWidget w, int beforeIndex) {
- insertAt(asWidgetOrNull(w), beforeIndex);
+ insertAt(Widget.asWidgetOrNull(w), beforeIndex);
 }
 </pre>
 </div>
@@ -1636,7 +1636,7 @@ bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 bool removeIsWidget(IsWidget child) {
- return remove(asWidgetOrNull(child));
+ return remove(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -2055,7 +2055,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:40.531</div>
+          <div>This page was generated at 2013-08-28 07:19:09.223</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

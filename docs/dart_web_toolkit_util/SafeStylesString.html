@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_util.html">dart_web_toolkit_util</a> &rsaquo; <a href="../dart_web_toolkit_util/SafeStylesString.html">SafeStylesString</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -51,7 +51,7 @@ just like String.equals() and String.hashCode().
 <pre class="source">
 class SafeStylesString implements SafeStyles {
 
- String _css;
+ String _css = "";
 
  /**
   * Constructs a {@link SafeStylesString} from a string. Callers are
@@ -82,6 +82,22 @@ class SafeStylesString implements SafeStyles {
    }
    return _css == (obj as SafeStyles).asString();
  }
+ 
+ /**
+  * Get a hash code for this object.
+  *
+  * All objects have hash codes. Hash codes are guaranteed to be the
+  * same for objects that are equal when compared using the equality
+  * operator [:==:]. Other than that there are no guarantees about
+  * the hash codes. They will not be consistent between runs and
+  * there are no distribution guarantees.
+  *
+  * If a subclass overrides [hashCode] it should override the
+  * equality operator as well to maintain consistency.
+  */
+ int get hashCode {
+   return _css == null ? 0 : _css.hashCode;
+ }
 }
 </pre>
 </div>
@@ -104,6 +120,31 @@ constructor satisfies the constraints of the contract imposed by the
 SafeStylesString(String css) {
  SafeStylesUtils.verifySafeStylesConstraints(css);
  this._css = css;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="hashCode">
+<button class="show-code">Code</button>
+final int         <strong>hashCode</strong> <a class="anchor-link"
+            href="#hashCode"
+            title="Permalink to SafeStylesString.hashCode">#</a>
+        </h4>
+        <div class="doc">
+<p>Get a hash code for this object.</p>
+<p>All objects have hash codes. Hash codes are guaranteed to be the
+same for objects that are equal when compared using the equality
+operator <code>==</code>. Other than that there are no guarantees about
+the hash codes. They will not be consistent between runs and
+there are no distribution guarantees.</p>
+<p>If a subclass overrides <a class="crossref" href="../dart_web_toolkit_util/SafeStylesString.html#hashCode">hashCode</a> it should override the
+equality operator as well to maintain consistency.</p>
+<pre class="source">
+int get hashCode {
+ return _css == null ? 0 : _css.hashCode;
 }
 </pre>
 </div>
@@ -148,7 +189,7 @@ String asString() {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:45.658</div>
+          <div>This page was generated at 2013-08-28 07:19:12.852</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

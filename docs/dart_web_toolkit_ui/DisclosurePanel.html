@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DisclosurePanel.html">DisclosurePanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -187,7 +187,7 @@ class DisclosurePanel
   * @see #add(Widget)
   */
  void addIsWidget(IsWidget w) {
-   this.add(asWidgetOrNull(w));
+   this.add(Widget.asWidgetOrNull(w));
  }
 
  HandlerRegistration addCloseHandler(CloseHandler&lt;DisclosurePanel&gt; handler) {
@@ -263,7 +263,7 @@ class DisclosurePanel
   * @see #remove(Widget)
   */
  bool removeIsWidget(IsWidget w) {
-   return this.remove(asWidgetOrNull(w));
+   return this.remove(Widget.asWidgetOrNull(w));
  }
 
 //  /**
@@ -638,7 +638,7 @@ void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html"
 <p>@see #add(Widget)</p>
 <pre class="source">
 void addIsWidget(IsWidget w) {
- this.add(asWidgetOrNull(w));
+ this.add(Widget.asWidgetOrNull(w));
 }
 </pre>
 </div>
@@ -1488,7 +1488,7 @@ bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <p>@see #remove(Widget)</p>
 <pre class="source">
 bool removeIsWidget(IsWidget w) {
- return this.remove(asWidgetOrNull(w));
+ return this.remove(Widget.asWidgetOrNull(w));
 }
 </pre>
 </div>
@@ -1930,7 +1930,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:39.151</div>
+          <div>This page was generated at 2013-08-28 07:19:08.093</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

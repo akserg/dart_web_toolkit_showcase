@@ -1,0 +1,461 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>RegExpValidator class / dart_web_toolkit_validation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_validation" data-type="RegExpValidator">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../dart_web_toolkit_validation.html">dart_web_toolkit_validation</a> &rsaquo; <a href="../dart_web_toolkit_validation/RegExpValidator.html">RegExpValidator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>RegExpValidator</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>The RegExpValidator class lets you use a regular expression to validate a field. 
+You pass a regular expression to the validator using the <a class="crossref" href="../dart_web_toolkit_validation/RegExpValidator.html#expression">expression</a> property, 
+and additional flags to control the regular expression pattern matching using the <code>flags</code> property. </p>
+<p>The validation is successful if the validator can find a match of the regular 
+expression in the field to validate. A validation error occurs when the 
+validator finds no match.</p>
+<pre class="source">
+class RegExpValidator extends WidgetValidator {
+ 
+ RegExp _regExp;
+ 
+ bool _foundMatch = false;
+ 
+ /**
+  * The regular expression to use for validation.
+  */
+ String _expression;
+ 
+ void set expression(String value) {
+   _expression = value;
+   _createRegExp();
+ }
+ 
+ String get expression =&gt; _expression;
+ 
+ /**
+  * The regular expression multiLine flag to use when matching.
+  */
+ bool _multiLine = false;
+ 
+ void set multiLine(bool value) {
+   _multiLine = value;
+   _createRegExp();
+ }
+ 
+ bool get multiLine =&gt; _multiLine;
+ 
+ /**
+  * The regular expression caseSensitive flag to use when matching.
+  */
+ bool _caseSensitive = true;
+ 
+ void set caseSensitive(bool value) {
+   _caseSensitive = value;
+   _createRegExp();
+ }
+ 
+ bool get caseSensitive =&gt; _caseSensitive;
+ 
+ /**
+  * Error message when there is no regular expression specifed. 
+  * By default value is "The expression is missing."
+  */
+ String noExpressionError;
+ 
+ /**
+  * Error message when there are no matches to the regular expression. 
+  * By default value is "The field is invalid."
+  */
+ String noMatchError;
+ 
+ RegExpValidator(Widget widget, String expression, {
+   bool multiLine:false,
+   bool caseSensitive:true,
+   this.noExpressionError:"The expression is missing.",
+   this.noMatchError:"The field is invalid."}) : super(widget) {
+   
+   this.expression = expression;
+   this.multiLine = multiLine;
+   this.caseSensitive = caseSensitive;
+ }
+ 
+ /**
+  * Create RegExp as combination of [expression], [multiLine] and [caseSensitive].
+  */
+ RegExp _createRegExp() {
+   if (_expression != null) {
+     _regExp = new RegExp(_expression, multiLine:multiLine, caseSensitive:caseSensitive);
+   }
+ }
+ 
+ /**
+  *  Executes the validation logic of this validatorto validate a regular 
+  *  expression. For an invalid result returns an List of [ValidationResult] 
+  *  objects, with one ValidationResult object for each field examined by the 
+  *  validator that failed validation.
+  *
+  *  You must override this method in a subclass of a validator class.
+  */
+ List&lt;ValidationResult&gt; doValidation(dynamic value) {
+   List&lt;ValidationResult&gt; results = super.doValidation(value);
+
+   // Return if there are errors or if the required property is set to false 
+   // and length is 0.
+   String val = value != null ? value.toString() : "";
+   
+   if (results.length &gt; 0 || ((val.length == 0) &amp;&amp; !required))
+     return results;
+   else
+     return _validateRegExpression(value);
+ }
+ 
+ /**
+  * Validate [value] and  return List of [ValidationResult] objects, with one
+  * ValidationResult object for each field examined by the validator.
+  */
+ List&lt;ValidationResult&gt; _validateRegExpression(dynamic value) {
+   List&lt;ValidationResult&gt; results = [];
+   
+   _foundMatch = false;
+   
+   if (_regExp != null &amp;&amp; expression != "") {
+     List result = _regExp.allMatches(value.toString()).toList();
+     
+     result.forEach((Match match){
+       results.add(new RegExpValidationResult(false, "", matchedString:match.str, matchedIndex:match.start));
+       _foundMatch = true;
+     });
+     
+     if (results.length == 0) {
+       results.add(new ValidationResult(true, noMatchError));
+     }
+   } else {
+     results.add(new ValidationResult(true, noExpressionError));
+   }
+   
+   return results;
+ }
+}
+</pre>
+</div>
+<h3>Extends</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/Validator.html">Validator</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a></span>&nbsp;&gt;&nbsp;<span class="type-box"><span class="icon-class"></span><strong>RegExpValidator</strong></span></p>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+<button class="show-code">Code</button>
+new <strong>RegExpValidator</strong>(<a href="../dart_web_toolkit_ui/Widget.html">Widget</a> widget, String expression, {bool multiLine: false, bool caseSensitive: true, String noExpressionError: "The expression is missing.", String noMatchError: "The field is invalid."}) <a class="anchor-link" href="#"
+              title="Permalink to RegExpValidator.RegExpValidator">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new <a class="crossref" href="../dart_core/Object.html">Object</a> instance.</p>
+<p><a class="crossref" href="../dart_core/Object.html">Object</a> instances have no meaningful state, and are only useful
+through their identity. An <a class="crossref" href="../dart_core/Object.html">Object</a> instance is equal to itself
+only.</p>
+<div class="docs-inherited-from">docs inherited from Object </div></div>
+<pre class="source">
+RegExpValidator(Widget widget, String expression, {
+ bool multiLine:false,
+ bool caseSensitive:true,
+ this.noExpressionError:"The expression is missing.",
+ this.noMatchError:"The field is invalid."}) : super(widget) {
+ 
+ this.expression = expression;
+ this.multiLine = multiLine;
+ this.caseSensitive = caseSensitive;
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="caseSensitive">
+<button class="show-code">Code</button>
+bool         <strong>caseSensitive</strong> <a class="anchor-link"
+            href="#caseSensitive"
+            title="Permalink to RegExpValidator.caseSensitive">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool get caseSensitive =&gt; _caseSensitive;
+</pre>
+<pre class="source">
+void set caseSensitive(bool value) {
+ _caseSensitive = value;
+ _createRegExp();
+}
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="enabled">
+<button class="show-code">Code</button>
+bool         <strong>enabled</strong> <a class="anchor-link"
+            href="#enabled"
+            title="Permalink to RegExpValidator.enabled">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Property to enable/disable validation process.</p>
+<p>Setting this value to false will stop the validator from performing 
+validation. When a validator is disabled, it dispatches no events, and the 
+<a class="crossref" href="../dart_web_toolkit_validation/Validator.html#validate">validate</a> method returns ValidationEvent.VALID instance.</p>
+<pre class="source">
+bool enabled = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="expression">
+<button class="show-code">Code</button>
+String         <strong>expression</strong> <a class="anchor-link"
+            href="#expression"
+            title="Permalink to RegExpValidator.expression">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String get expression =&gt; _expression;
+</pre>
+<pre class="source">
+void set expression(String value) {
+ _expression = value;
+ _createRegExp();
+}
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="listeners">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>&gt;         <strong>listeners</strong> <a class="anchor-link"
+            href="#listeners"
+            title="Permalink to RegExpValidator.listeners">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>'s</p>
+<pre class="source">
+List&lt;ValidationListener&gt; listeners = new List&lt;ValidationListener&gt;()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="multiLine">
+<button class="show-code">Code</button>
+bool         <strong>multiLine</strong> <a class="anchor-link"
+            href="#multiLine"
+            title="Permalink to RegExpValidator.multiLine">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+bool get multiLine =&gt; _multiLine;
+</pre>
+<pre class="source">
+void set multiLine(bool value) {
+ _multiLine = value;
+ _createRegExp();
+}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="noExpressionError">
+<button class="show-code">Code</button>
+String         <strong>noExpressionError</strong> <a class="anchor-link"
+            href="#noExpressionError"
+            title="Permalink to RegExpValidator.noExpressionError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when there is no regular expression specifed. 
+By default value is "The expression is missing."</p>
+<pre class="source">
+String noExpressionError
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="noMatchError">
+<button class="show-code">Code</button>
+String         <strong>noMatchError</strong> <a class="anchor-link"
+            href="#noMatchError"
+            title="Permalink to RegExpValidator.noMatchError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when there are no matches to the regular expression. 
+By default value is "The field is invalid."</p>
+<pre class="source">
+String noMatchError
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="onInvalid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnInvalid.html">OnInvalid</a>         <strong>onInvalid</strong> <a class="anchor-link"
+            href="#onInvalid"
+            title="Permalink to RegExpValidator.onInvalid">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Callback function invokes when result of validation is invalid.</p>
+<pre class="source">
+OnInvalid onInvalid
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="onValid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnValid.html">OnValid</a>         <strong>onValid</strong> <a class="anchor-link"
+            href="#onValid"
+            title="Permalink to RegExpValidator.onValid">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Callback function invokes when result of validation is valid.</p>
+<pre class="source">
+OnValid onValid
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="required">
+<button class="show-code">Code</button>
+bool         <strong>required</strong> <a class="anchor-link"
+            href="#required"
+            title="Permalink to RegExpValidator.required">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>If true specifies that a missing or empty value causes a validation error. </p>
+<pre class="source">
+bool required = true
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="requiredError">
+<button class="show-code">Code</button>
+String         <strong>requiredError</strong> <a class="anchor-link"
+            href="#requiredError"
+            title="Permalink to RegExpValidator.requiredError">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Error message when a value is missing and the <code>required</code> property is true. </p>
+<p>By default equals "This field is required."</p>
+<pre class="source">
+String requiredError = "This field is required."
+</pre>
+</div>
+</div>
+<div class="field inherited"><h4 id="widget">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_ui/Widget.html">Widget</a>         <strong>widget</strong> <a class="anchor-link"
+            href="#widget"
+            title="Permalink to RegExpValidator.widget">#</a>
+        </h4>
+        <div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a> </div><div class="doc">
+<pre class="source">
+Widget widget
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="doValidation">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a>&gt; <strong>doValidation</strong>(value) <a class="anchor-link" href="#doValidation"
+              title="Permalink to RegExpValidator.doValidation">#</a></h4>
+<div class="doc">
+<p> Executes the validation logic of this validatorto validate a regular 
+ expression. For an invalid result returns an List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a> 
+ objects, with one ValidationResult object for each field examined by the 
+ validator that failed validation.</p>
+<p> You must override this method in a subclass of a validator class.</p>
+<pre class="source">
+List&lt;ValidationResult&gt; doValidation(dynamic value) {
+ List&lt;ValidationResult&gt; results = super.doValidation(value);
+
+ // Return if there are errors or if the required property is set to false 
+ // and length is 0.
+ String val = value != null ? value.toString() : "";
+ 
+ if (results.length &gt; 0 || ((val.length == 0) &amp;&amp; !required))
+   return results;
+ else
+   return _validateRegExpression(value);
+}
+</pre>
+</div>
+</div>
+<div class="method inherited"><h4 id="validate">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/ValidationEvent.html">ValidationEvent</a> <strong>validate</strong>(value, [bool fireEvent = true]) <a class="anchor-link" href="#validate"
+              title="Permalink to RegExpValidator.validate">#</a></h4>
+<div class="inherited-from">inherited from <a href="../dart_web_toolkit_validation/Validator.html">Validator</a> </div><div class="doc">
+<p>Performs validation of 
+<span class="param">value</span> and notifies the listeners of the result if
+
+<span class="param">fireEvent</span> equals true.</p>
+<pre class="source">
+ValidationEvent validate(dynamic value, [bool fireEvent = true]) {
+ ValidationEvent resultEvent;
+ if (enabled &amp;&amp; (value != null || required)) {
+   // Validate if the target is required or our value is non-null.
+   resultEvent = _processValidation(value);
+ } else {
+   // We assume if value is null and required is false that
+   // validation was successful.
+   resultEvent = new ValidationEvent(ValidationEvent.VALID);
+ }
+ // Send notification to listeners
+ if (fireEvent &amp;&amp; resultEvent != null) {
+   listeners.forEach((ValidationListener listener){
+     listener(resultEvent);
+   });
+ }
+ // Invoke callback validation functions
+ if (onValid != null &amp;&amp; resultEvent.type == ValidationEvent.VALID) {
+   onValid();
+ } else if (onInvalid != null &amp;&amp; resultEvent.type == ValidationEvent.INVALID) {
+   onInvalid(resultEvent.results);
+ }
+ return resultEvent;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.009</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

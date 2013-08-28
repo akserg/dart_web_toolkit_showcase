@@ -1,0 +1,157 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>dart_web_toolkit_validation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_validation">
+        <div class="page">
+        <div class="header">
+          <a href="index.html"><div class="logo"></div></a>
+          <a href="index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="dart_web_toolkit_validation.html">dart_web_toolkit_validation</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+<h2><strong>dart_web_toolkit_validation</strong> library</h2>
+<div class="doc"><p>Dart Web Toolkit Validation library.</p></div>
+<div>
+<h3>Functions</h3>
+<div class="method"><h4 id="substitute">
+<button class="show-code">Code</button>
+String <strong>substitute</strong>(String input, String from, to) <a class="anchor-link" href="#substitute"
+              title="Permalink to substitute">#</a></h4>
+<div class="doc">
+<p>Convinient method to substitute string with named parameters. Method find 
+the parameter 
+<span class="param">from</span> in curly brackets and change it 
+<span class="param">to</span> value converted to 
+string.</p>
+<pre class="source">
+String substitute(String input, String from, dynamic to) {
+ return input.replaceFirst(new RegExp(from), to.toString());
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Abstract Classes</h3>
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/Validator.html"><strong>Validator</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/WidgetValidator.html"><strong>WidgetValidator</strong></a>
+          </h4>
+          </div>
+          
+</div>
+<div>
+<h3>Classes</h3>
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/NumberValidator.html"><strong>NumberValidator</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/PhoneNumberValidator.html"><strong>PhoneNumberValidator</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/RegExpValidationResult.html"><strong>RegExpValidationResult</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/RegExpValidator.html"><strong>RegExpValidator</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/SocialSecurityNumberValidator.html"><strong>SocialSecurityNumberValidator</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/StringValidator.html"><strong>StringValidator</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/ValidationEvent.html"><strong>ValidationEvent</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/ValidationResult.html"><strong>ValidationResult</strong></a>
+          </h4>
+          </div>
+          
+</div>
+<div>
+<h3>Typedefs</h3>
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/OnInvalid.html"><strong>OnInvalid</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/OnValid.html"><strong>OnValid</strong></a>
+          </h4>
+          </div>
+          
+          <div class="type">
+          <h4>
+            <a href="dart_web_toolkit_validation/ValidationListener.html"><strong>ValidationListener</strong></a>
+          </h4>
+          </div>
+          
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:12.985</div>
+        </div>
+        <script async src="client-live-nav.js"></script>
+        </body></html>
+        

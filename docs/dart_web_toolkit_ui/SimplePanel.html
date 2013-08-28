@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/SimplePanel.html">SimplePanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -140,7 +140,7 @@ class SimplePanel extends Panel implements HasOneWidget {
   * @see SimplePanel
   */
  void setWidgetIsWidget(IsWidget w) {
-   setWidget(asWidgetOrNull(w));
+   setWidget(Widget.asWidgetOrNull(w));
  }
 
  //*******************************
@@ -438,7 +438,7 @@ void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html"
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 void addIsWidget(IsWidget child) {
- this.add(asWidgetOrNull(child));
+ this.add(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1278,7 +1278,7 @@ bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 bool removeIsWidget(IsWidget child) {
- return remove(asWidgetOrNull(child));
+ return remove(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -1586,7 +1586,7 @@ widget if there was one.</p>
 <p>@see SimplePanel</p>
 <pre class="source">
 void setWidgetIsWidget(IsWidget w) {
- setWidget(asWidgetOrNull(w));
+ setWidget(Widget.asWidgetOrNull(w));
 }
 </pre>
 </div>
@@ -1696,7 +1696,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:44.090</div>
+          <div>This page was generated at 2013-08-28 07:19:12.119</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.18+1</a>
+          <a href="../index.html">API Reference 0.3.21</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/Grid.html">Grid</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -877,7 +877,7 @@ void <strong>addIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.html"
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 void addIsWidget(IsWidget child) {
- this.add(asWidgetOrNull(child));
+ this.add(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -2275,7 +2275,7 @@ bool <strong>removeIsWidget</strong>(<a href="../dart_web_toolkit_ui/IsWidget.ht
 <div class="inherited-from">inherited from <a href="../dart_web_toolkit_ui/Panel.html">Panel</a> </div><div class="doc">
 <pre class="source">
 bool removeIsWidget(IsWidget child) {
- return remove(asWidgetOrNull(child));
+ return remove(Widget.asWidgetOrNull(child));
 }
 </pre>
 </div>
@@ -2590,7 +2590,7 @@ void <strong>setIsWidget</strong>(int row, int column, <a href="../dart_web_tool
 <p>@see #setWidget(int,int,Widget)</p>
 <pre class="source">
 void setIsWidget(int row, int column, IsWidget widget) {
- this.setWidget(row, column, asWidgetOrNull(widget));
+ this.setWidget(row, column, Widget.asWidgetOrNull(widget));
 }
 </pre>
 </div>
@@ -2933,7 +2933,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-07-25 09:06:40.278</div>
+          <div>This page was generated at 2013-08-28 07:19:09.011</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

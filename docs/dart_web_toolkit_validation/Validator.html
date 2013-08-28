@@ -1,0 +1,360 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Validator abstract class / dart_web_toolkit_validation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_validation" data-type="Validator">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../dart_web_toolkit_validation.html">dart_web_toolkit_validation</a> &rsaquo; <a href="../dart_web_toolkit_validation/Validator.html">Validator</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Validator</strong>
+          abstract class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+abstract class Validator {
+ 
+ /**
+  *  A String containing the decimal digits 0 through 9.    
+  *  
+  *  @langversion 3.0
+  *  @playerversion Flash 9
+  *  @playerversion AIR 1.1
+  *  @productversion Flex 3
+  */ 
+ static const String DECIMAL_DIGITS = "0123456789";
+ 
+ /**
+  * Property to enable/disable validation process.
+  * 
+  * Setting this value to false will stop the validator from performing 
+  * validation. When a validator is disabled, it dispatches no events, and the 
+  * [validate] method returns ValidationEvent.VALID instance.
+  */
+ bool enabled = true;
+ 
+ /**
+  * If true specifies that a missing or empty value causes a validation error. 
+  */
+ bool required = true;
+ 
+ /**
+  * Error message when a value is missing and the [required] property is true. 
+  *  
+  * By default equals "This field is required."
+  */
+ String requiredError = "This field is required.";
+ 
+ /**
+  * List of [ValidationListener]'s
+  */
+ List&lt;ValidationListener&gt; listeners = new List&lt;ValidationListener&gt;();
+ 
+ /**
+  * Callback function invokes when result of validation is valid.
+  */
+ OnValid onValid;
+ 
+ /**
+  * Callback function invokes when result of validation is invalid.
+  */
+ OnInvalid onInvalid;
+ 
+ /**
+  * Performs validation of [value] and notifies the listeners of the result if
+  * [fireEvent] equals true.
+  */
+ ValidationEvent validate(dynamic value, [bool fireEvent = true]) {
+   ValidationEvent resultEvent;
+   if (enabled &amp;&amp; (value != null || required)) {
+     // Validate if the target is required or our value is non-null.
+     resultEvent = _processValidation(value);
+   } else {
+     // We assume if value is null and required is false that
+     // validation was successful.
+     resultEvent = new ValidationEvent(ValidationEvent.VALID);
+   }
+   // Send notification to listeners
+   if (fireEvent &amp;&amp; resultEvent != null) {
+     listeners.forEach((ValidationListener listener){
+       listener(resultEvent);
+     });
+   }
+   // Invoke callback validation functions
+   if (onValid != null &amp;&amp; resultEvent.type == ValidationEvent.VALID) {
+     onValid();
+   } else if (onInvalid != null &amp;&amp; resultEvent.type == ValidationEvent.INVALID) {
+     onInvalid(resultEvent.results);
+   }
+   return resultEvent;
+ }
+ 
+ /**
+  * Main internally used function to handle validation process.
+  */
+ ValidationEvent _processValidation(dynamic value) {
+   List errorResults = doValidation(value);
+   bool invalid = errorResults.any((ValidationResult res){
+     if (res.isError) {
+       return true;
+     }
+     return false;
+   });
+   return new ValidationEvent(invalid ? 
+       ValidationEvent.INVALID : 
+       ValidationEvent.VALID, errorResults);
+ }
+ 
+ /**
+  *  Executes the validation logic of this validator, including validating that 
+  *  a missing or empty [value] causes a validation error as defined by the 
+  *  value of the [required] property. For an invalid result returns an List of 
+  *  [ValidationResult] objects, with one ValidationResult object for each 
+  *  field examined by the validator that failed validation.
+  *
+  *  You must override this method in a subclass of a validator class.
+  */
+ List&lt;ValidationResult&gt; doValidation(dynamic value) {
+   List&lt;ValidationResult&gt; results = [];
+   
+   ValidationResult result = _validateRequired(value);
+   if (result != null)
+     results.add(result);
+   
+   return results;
+ }
+ 
+ /**
+  *  Determines if an object is valid based on its [required] property.
+  */
+ ValidationResult _validateRequired(dynamic value) {
+   if (required) {
+     String val = (value != null) ? value.toString() : "";
+
+     val = val.trim();
+
+     // If the string is empty and required is set to true then throw a requiredError.
+     if (val.length == 0) {
+       return new ValidationResult(true, requiredError);                 
+     }
+   }
+   
+   return null;
+ }
+}
+</pre>
+</div>
+<h3>Subclasses</h3>
+<p>
+<span class="type-box"><span class="icon-class"></span><a href="../dart_web_toolkit_validation/WidgetValidator.html">WidgetValidator</a></span></p>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="DECIMAL_DIGITS">
+<button class="show-code">Code</button>
+const String         <strong>DECIMAL_DIGITS</strong> <a class="anchor-link"
+            href="#DECIMAL_DIGITS"
+            title="Permalink to Validator.DECIMAL_DIGITS">#</a>
+        </h4>
+        <div class="doc">
+<p> A String containing the decimal digits 0 through 9.    </p>
+<p> @langversion 3.0
+ @playerversion Flash 9
+ @playerversion AIR 1.1
+ @productversion Flex 3</p>
+<pre class="source">
+static const String DECIMAL_DIGITS = "0123456789"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="enabled">
+<button class="show-code">Code</button>
+bool         <strong>enabled</strong> <a class="anchor-link"
+            href="#enabled"
+            title="Permalink to Validator.enabled">#</a>
+        </h4>
+        <div class="doc">
+<p>Property to enable/disable validation process.</p>
+<p>Setting this value to false will stop the validator from performing 
+validation. When a validator is disabled, it dispatches no events, and the 
+<a class="crossref" href="../dart_web_toolkit_validation/Validator.html#validate">validate</a> method returns ValidationEvent.VALID instance.</p>
+<pre class="source">
+bool enabled = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="listeners">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>&gt;         <strong>listeners</strong> <a class="anchor-link"
+            href="#listeners"
+            title="Permalink to Validator.listeners">#</a>
+        </h4>
+        <div class="doc">
+<p>List of <a class="crossref" href="../dart_web_toolkit_validation/ValidationListener.html">ValidationListener</a>'s</p>
+<pre class="source">
+List&lt;ValidationListener&gt; listeners = new List&lt;ValidationListener&gt;()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="onInvalid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnInvalid.html">OnInvalid</a>         <strong>onInvalid</strong> <a class="anchor-link"
+            href="#onInvalid"
+            title="Permalink to Validator.onInvalid">#</a>
+        </h4>
+        <div class="doc">
+<p>Callback function invokes when result of validation is invalid.</p>
+<pre class="source">
+OnInvalid onInvalid
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="onValid">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/OnValid.html">OnValid</a>         <strong>onValid</strong> <a class="anchor-link"
+            href="#onValid"
+            title="Permalink to Validator.onValid">#</a>
+        </h4>
+        <div class="doc">
+<p>Callback function invokes when result of validation is valid.</p>
+<pre class="source">
+OnValid onValid
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="required">
+<button class="show-code">Code</button>
+bool         <strong>required</strong> <a class="anchor-link"
+            href="#required"
+            title="Permalink to Validator.required">#</a>
+        </h4>
+        <div class="doc">
+<p>If true specifies that a missing or empty value causes a validation error. </p>
+<pre class="source">
+bool required = true
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="requiredError">
+<button class="show-code">Code</button>
+String         <strong>requiredError</strong> <a class="anchor-link"
+            href="#requiredError"
+            title="Permalink to Validator.requiredError">#</a>
+        </h4>
+        <div class="doc">
+<p>Error message when a value is missing and the <a class="crossref" href="../dart_web_toolkit_validation/Validator.html#required">required</a> property is true. </p>
+<p>By default equals "This field is required."</p>
+<pre class="source">
+String requiredError = "This field is required."
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="doValidation">
+<button class="show-code">Code</button>
+List&lt;<a href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a>&gt; <strong>doValidation</strong>(value) <a class="anchor-link" href="#doValidation"
+              title="Permalink to Validator.doValidation">#</a></h4>
+<div class="doc">
+<p> Executes the validation logic of this validator, including validating that 
+ a missing or empty 
+<span class="param">value</span> causes a validation error as defined by the 
+ value of the <a class="crossref" href="../dart_web_toolkit_validation/Validator.html#required">required</a> property. For an invalid result returns an List of 
+ <a class="crossref" href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a> objects, with one ValidationResult object for each 
+ field examined by the validator that failed validation.</p>
+<p> You must override this method in a subclass of a validator class.</p>
+<pre class="source">
+List&lt;ValidationResult&gt; doValidation(dynamic value) {
+ List&lt;ValidationResult&gt; results = [];
+ 
+ ValidationResult result = _validateRequired(value);
+ if (result != null)
+   results.add(result);
+ 
+ return results;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="validate">
+<button class="show-code">Code</button>
+<a href="../dart_web_toolkit_validation/ValidationEvent.html">ValidationEvent</a> <strong>validate</strong>(value, [bool fireEvent = true]) <a class="anchor-link" href="#validate"
+              title="Permalink to Validator.validate">#</a></h4>
+<div class="doc">
+<p>Performs validation of 
+<span class="param">value</span> and notifies the listeners of the result if
+
+<span class="param">fireEvent</span> equals true.</p>
+<pre class="source">
+ValidationEvent validate(dynamic value, [bool fireEvent = true]) {
+ ValidationEvent resultEvent;
+ if (enabled &amp;&amp; (value != null || required)) {
+   // Validate if the target is required or our value is non-null.
+   resultEvent = _processValidation(value);
+ } else {
+   // We assume if value is null and required is false that
+   // validation was successful.
+   resultEvent = new ValidationEvent(ValidationEvent.VALID);
+ }
+ // Send notification to listeners
+ if (fireEvent &amp;&amp; resultEvent != null) {
+   listeners.forEach((ValidationListener listener){
+     listener(resultEvent);
+   });
+ }
+ // Invoke callback validation functions
+ if (onValid != null &amp;&amp; resultEvent.type == ValidationEvent.VALID) {
+   onValid();
+ } else if (onInvalid != null &amp;&amp; resultEvent.type == ValidationEvent.INVALID) {
+   onInvalid(resultEvent.results);
+ }
+ return resultEvent;
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.049</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

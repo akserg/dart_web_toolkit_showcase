@@ -1,0 +1,153 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>ValidationEvent class / dart_web_toolkit_validation Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="dart_web_toolkit_validation" data-type="ValidationEvent">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../dart_web_toolkit_validation.html">dart_web_toolkit_validation</a> &rsaquo; <a href="../dart_web_toolkit_validation/ValidationEvent.html">ValidationEvent</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>ValidationEvent</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p> The <code>ValidationResultEvent</code> class defines the event object that is passed 
+ to event listeners for the <code>valid</code> and <code>invalid</code> validator events. </p>
+<pre class="source">
+class ValidationEvent {
+ 
+ static const String VALID = "valid";
+ static const String INVALID = "invalid";
+ 
+ /**
+  * Event type
+  */
+ final String type;
+ 
+ /**
+  * The property, which contains an Array of ValidationResult objects, 
+  * one for each field examined by the validator.
+  */
+ final List&lt;ValidationResult&gt; results;
+ 
+ /**
+  * Create an instance of ValidationEvent of specified [type] and [results]. 
+  */
+ ValidationEvent(this.type, [this.results = null]);
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="INVALID">
+<button class="show-code">Code</button>
+const String         <strong>INVALID</strong> <a class="anchor-link"
+            href="#INVALID"
+            title="Permalink to ValidationEvent.INVALID">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const String INVALID = "invalid"
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="VALID">
+<button class="show-code">Code</button>
+const String         <strong>VALID</strong> <a class="anchor-link"
+            href="#VALID"
+            title="Permalink to ValidationEvent.VALID">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static const String VALID = "valid"
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+<button class="show-code">Code</button>
+new <strong>ValidationEvent</strong>(String type, [List&lt;<a href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a>&gt; results = null]) <a class="anchor-link" href="#"
+              title="Permalink to ValidationEvent.ValidationEvent">#</a></h4>
+<div class="doc">
+<p>Create an instance of ValidationEvent of specified 
+<span class="param">type</span> and 
+<span class="param">results</span>. </p>
+<pre class="source">
+ValidationEvent(this.type, [this.results = null]);
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="results">
+<button class="show-code">Code</button>
+final List&lt;<a href="../dart_web_toolkit_validation/ValidationResult.html">ValidationResult</a>&gt;         <strong>results</strong> <a class="anchor-link"
+            href="#results"
+            title="Permalink to ValidationEvent.results">#</a>
+        </h4>
+        <div class="doc">
+<p>The property, which contains an Array of ValidationResult objects, 
+one for each field examined by the validator.</p>
+<pre class="source">
+final List&lt;ValidationResult&gt; results
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="type">
+<button class="show-code">Code</button>
+final String         <strong>type</strong> <a class="anchor-link"
+            href="#type"
+            title="Permalink to ValidationEvent.type">#</a>
+        </h4>
+        <div class="doc">
+<p>Event type</p>
+<pre class="source">
+final String type
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.044</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        

@@ -1,0 +1,143 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Parser&lt;O&gt; class / uibinder Library / API Reference / Dart Web Toolkit</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-40672112-1']);
+  _gaq.push(['_setDomainName', 'dartwebtoolkit.com']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+        <body data-library="uibinder" data-type="Parser&amp;lt;O&amp;gt;">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">API Reference 0.3.21</a>
+         &rsaquo; <a href="../uibinder.html">uibinder</a> &rsaquo; <a href="../uibinder/Parser.html">Parser&lt;O&gt;</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+</div>
+<div class="content">
+        <h2><strong>Parser&lt;O&gt;</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>Owner class parser. It looks UiField anotations of fields and collect them in
+<a class="crossref" href="../uibinder/Parser.html#variables">variables</a>. It keeps instance mirror of owner in <a class="crossref" href="../uibinder/Parser.html#ownerInstance">ownerInstance</a>.</p>
+<pre class="source">
+class Parser&lt;O&gt; {
+
+ Map&lt;String, VariableMirror&gt; variables = new Map&lt;String, VariableMirror&gt;();
+ InstanceMirror ownerInstance;
+ 
+ /**
+  * Parse owner class to find UiFields.
+  */
+ void parse(O owner) {
+   ownerInstance = reflect(owner);
+   _findVariables();
+ }
+ 
+ /**
+  * Find all UiField variables. 
+  */
+ void _findVariables() {
+   _uiFieldVariables(ownerInstance.type).forEach((VariableMirror variable){
+     variables[_symbolAsString(variable.simpleName)] = variable;
+   });
+ }
+ 
+ /**
+  * Returns ui field variables from [clazz].
+  */
+ Iterable&lt;VariableMirror&gt; _uiFieldVariables(ClassMirror clazz) =&gt; 
+     clazz.variables.values.where(_testUiField);
+ 
+ /**
+  * Test method returns true if the declared [element] is UiField
+  */
+ bool _testUiField(DeclarationMirror element) =&gt; 
+     element.metadata.any((InstanceMirror im) =&gt; im.reflectee is _UiField);
+ 
+ //********
+ // Utility
+ //********
+ 
+ String _symbolAsString(Symbol symbol) =&gt; MirrorSystem.getName(symbol);
+}
+</pre>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="ownerInstance">
+<button class="show-code">Code</button>
+InstanceMirror         <strong>ownerInstance</strong> <a class="anchor-link"
+            href="#ownerInstance"
+            title="Permalink to Parser&lt;O&gt;.ownerInstance">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+InstanceMirror ownerInstance
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="variables">
+<button class="show-code">Code</button>
+Map&lt;String, VariableMirror&gt;         <strong>variables</strong> <a class="anchor-link"
+            href="#variables"
+            title="Permalink to Parser&lt;O&gt;.variables">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Map&lt;String, VariableMirror&gt; variables = new Map&lt;String, VariableMirror&gt;()
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="parse">
+<button class="show-code">Code</button>
+void <strong>parse</strong>(<a href="../uibinder/Parser.html">O</a> owner) <a class="anchor-link" href="#parse"
+              title="Permalink to Parser&lt;O&gt;.parse">#</a></h4>
+<div class="doc">
+<p>Parse owner class to find UiFields.</p>
+<pre class="source">
+void parse(O owner) {
+ ownerInstance = reflect(owner);
+ _findVariables();
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-08-28 07:19:13.058</div>
+        </div>
+        <script async src="../client-live-nav.js"></script>
+        </body></html>
+        
