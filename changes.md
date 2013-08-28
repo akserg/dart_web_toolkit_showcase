@@ -4,6 +4,7 @@ Dart Web Toolkit Showcase Changes
 ** August 28, 2013
 
 * Migrate project code to follow Dart SDK version 0.6.21.3_r26639
+* Fixed problem in build.sh: Build does not include files from packages.;wq
 
 ** July 25, 2013
 

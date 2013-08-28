@@ -23,7 +23,7 @@ mkdir build/src/packages
 
 #copy packages sources content inside build packages
 echo "4. Copy symbolic links source of packages into build packages"
-cp -r packages/* build/src/packages
+cp -Lr packages/* build/src/packages
 
 #extra task - copy build content to folder if specified
 if [ "$#" = 1 ]
