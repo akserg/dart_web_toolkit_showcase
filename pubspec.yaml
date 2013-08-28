@@ -1,11 +1,11 @@
 name: dart_web_toolkit_showcase
-version: 0.3.18+1
+version: 0.3.19
 description: >
   Dart Web Toolkit Showcase presents Dart Web Toolkit and Lost Dart features.
 authors:
 - Sergey Akopkokhyants <akserg@gmail.com>
 homepage: http://akserg.github.com/dart_web_toolkit_showcase
 dependencies:
-  intl: ">=0.6.9"
-  lost_dart: ">=0.5.2"
-  dart_web_toolkit: ">=0.3.18+1"
+  intl: ">=0.6.21"
+  lost_dart: ">=0.5.3"
+  dart_web_toolkit: ">=0.3.21"
