@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../uibinder.html">uibinder</a> &rsaquo; <a href="../uibinder/Processor.html">Processor&lt;O&gt;</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -70,23 +70,30 @@ class Processor&lt;O&gt; {
   * Process each [element] of owner.
   */
  void _process(Element element) {
-   Element child = element.$dom_firstElementChild;
+   Node child = element.firstChild;
+   // We only processing Eements
    while (child != null) {
-     _tryToAssign(child);
-
+     if (child is Element) {
+       _tryToAssign(child as Element);
+     }
+     
      if (child.hasChildNodes()) {
        _process(child);
      }
 
-     child = child.nextElementSibling;
-   }
+     if (child is Element) {
+       child = (child as Element).nextElementSibling;
+     } else {
+       child = child.nextNode;
+     }
+   } 
  }
  
  /**
   * Try to assign [element] to one of fields of owner.
   */
  void _tryToAssign(Element element) {
-   String field = element.$dom_getAttribute("ui:field");
+   String field = element.attributes["ui:field"]; //$dom_getAttribute("ui:field");
    if (field != null) {
      _tryToInstantiateVariable(field, element);
    }
@@ -148,7 +155,7 @@ void parse(Element root) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:13.056</div>
+          <div>This page was generated at 2013-09-15 10:39:32.135</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

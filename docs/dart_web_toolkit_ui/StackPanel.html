@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/StackPanel.html">StackPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -249,7 +249,7 @@ class StackPanel extends ComplexPanel implements InsertPanelForIsWidget {
 
    dart_html.Element tr = _body.children[index * 2];
    dart_html.Element tdWrapper = tr.children[0]; //DOM.getChild(DOM.getChild(_body, index * 2), 0);
-   dart_html.Element headerElem = tdWrapper.$dom_firstElementChild; // DOM.getFirstChild(tdWrapper);
+   dart_html.Element headerElem = tdWrapper.firstChild; // DOM.getFirstChild(tdWrapper);
    if (asHtml) {
      getHeaderTextElem(headerElem).innerHtml = text; // Dom.setInnerHTML(getHeaderTextElem(headerElem), text);
    } else {
@@ -326,7 +326,7 @@ class StackPanel extends ComplexPanel implements InsertPanelForIsWidget {
    }
 
    // Style the stack selector item.
-   dart_html.Element td = tr.$dom_firstElementChild; //DOM.getFirstChild(tr);
+   dart_html.Element td = tr.firstChild; //DOM.getFirstChild(tr);
    UiObject.manageElementStyleName(td, _DEFAULT_ITEM_STYLENAME + "-selected", visible);
 
    // Show/hide the contained widget.
@@ -338,7 +338,7 @@ class StackPanel extends ComplexPanel implements InsertPanelForIsWidget {
      // Set the style of the next header
      dart_html.Element trNext = _body.children[nextIndex]; //DOM.getChild(_body, ((index + 1) * 2));
      if (trNext != null) {
-       dart_html.Element tdNext = trNext.$dom_firstElementChild; //DOM.getFirstChild(trNext);
+       dart_html.Element tdNext = trNext.firstChild; //DOM.getFirstChild(trNext);
        UiObject.manageElementStyleName(tdNext, _DEFAULT_ITEM_STYLENAME + "-below-selected", visible);
      }
    }
@@ -347,7 +347,7 @@ class StackPanel extends ComplexPanel implements InsertPanelForIsWidget {
  void _updateIndicesFrom(int beforeIndex) {
    for (int i = beforeIndex, c = getWidgetCount(); i &lt; c; ++i) {
      dart_html.Element childTR = _body.children[i * 2]; //DOM.getChild(_body, i * 2);
-     dart_html.Element childTD = childTR.$dom_firstElementChild; ; //DOM.getFirstChild(childTR);
+     dart_html.Element childTD = childTR.firstChild; ; //DOM.getFirstChild(childTR);
      Dom.setElementPropertyInt(childTD, "__index", i);
 
      // Update the special style on the first element
@@ -1986,7 +1986,7 @@ void setStackText(int index, String text, [bool asHtml = false]) {
 
  dart_html.Element tr = _body.children[index * 2];
  dart_html.Element tdWrapper = tr.children[0]; //DOM.getChild(DOM.getChild(_body, index * 2), 0);
- dart_html.Element headerElem = tdWrapper.$dom_firstElementChild; // DOM.getFirstChild(tdWrapper);
+ dart_html.Element headerElem = tdWrapper.firstChild; // DOM.getFirstChild(tdWrapper);
  if (asHtml) {
    getHeaderTextElem(headerElem).innerHtml = text; // Dom.setInnerHTML(getHeaderTextElem(headerElem), text);
  } else {
@@ -2185,7 +2185,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:10.478</div>
+          <div>This page was generated at 2013-09-15 10:39:29.634</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

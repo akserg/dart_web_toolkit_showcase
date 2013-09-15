@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../dart_web_toolkit_event.html">dart_web_toolkit_event</a> &rsaquo; <a href="../dart_web_toolkit_event/Dom.html">Dom</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -124,7 +124,7 @@ class Dom {
    assert(elem != null);
    assert(prop != null);
    //
-   return elem.$dom_getAttribute(prop);
+   return elem.attributes[prop]; //.$dom_getAttribute(prop);
  }
 
  /**
@@ -170,7 +170,8 @@ class Dom {
    assert(prop != null);
    assert(value != null);
    //
-   elem.$dom_setAttribute(prop, value.toString());
+   //elem.$dom_setAttribute(prop, value.toString());
+   elem.attributes[prop] = value.toString();
  }
 
  /**
@@ -185,7 +186,8 @@ class Dom {
    assert(prop != null);
    assert(value != null);
    //
-   elem.$dom_setAttribute(prop, value);
+   //elem.$dom_setAttribute(prop, value);
+   elem.attributes[prop] = value;
  }
 
  /**
@@ -200,7 +202,8 @@ class Dom {
    assert(prop != null);
    assert(value != null);
    //
-   elem.$dom_setAttribute(prop, value.toString());
+   //elem.$dom_setAttribute(prop, value.toString());
+   elem.attributes[prop] = value.toString();
  }
 
  /**
@@ -211,7 +214,8 @@ class Dom {
   * @param value the value to which the attribute should be set
   */
  static void setElementAttribute(dart_html.Element elem, String attr, String value) {
-   elem.$dom_setAttribute(attr, value);
+   //elem.$dom_setAttribute(attr, value);
+   elem.attributes[attr] = value;
  }
 
  /**
@@ -221,7 +225,8 @@ class Dom {
   * @param attr the name of the element to remove
   */
  static void removeElementAttribute(dart_html.Element elem, String attr) {
-   elem.$dom_removeAttribute(attr);
+   //elem.$dom_removeAttribute(attr);
+   elem.attributes.remove(attr);
  }
 
  /**
@@ -324,7 +329,7 @@ class Dom {
   * @return the child element
   */
  static dart_html.Element getFirstChild(dart_html.Element elem) {
-   return elem.$dom_firstElementChild;
+   return elem.firstChild;
  }
 
  //********
@@ -800,7 +805,7 @@ static String getElementProperty(dart_html.Element elem, String prop) {
  assert(elem != null);
  assert(prop != null);
  //
- return elem.$dom_getAttribute(prop);
+ return elem.attributes[prop]; //.$dom_getAttribute(prop);
 }
 </pre>
 </div>
@@ -861,7 +866,8 @@ static void setElementPropertyBoolean(dart_html.Element elem, String prop, bool 
  assert(prop != null);
  assert(value != null);
  //
- elem.$dom_setAttribute(prop, value.toString());
+ //elem.$dom_setAttribute(prop, value.toString());
+ elem.attributes[prop] = value.toString();
 }
 </pre>
 </div>
@@ -881,7 +887,8 @@ static void setElementProperty(dart_html.Element elem, String prop, String value
  assert(prop != null);
  assert(value != null);
  //
- elem.$dom_setAttribute(prop, value);
+ //elem.$dom_setAttribute(prop, value);
+ elem.attributes[prop] = value;
 }
 </pre>
 </div>
@@ -901,7 +908,8 @@ static void setElementPropertyInt(dart_html.Element elem, String prop, int value
  assert(prop != null);
  assert(value != null);
  //
- elem.$dom_setAttribute(prop, value.toString());
+ //elem.$dom_setAttribute(prop, value.toString());
+ elem.attributes[prop] = value.toString();
 }
 </pre>
 </div>
@@ -917,7 +925,8 @@ void <strong>setElementAttribute</strong>(Element elem, String attr, String valu
 @param value the value to which the attribute should be set</p>
 <pre class="source">
 static void setElementAttribute(dart_html.Element elem, String attr, String value) {
- elem.$dom_setAttribute(attr, value);
+ //elem.$dom_setAttribute(attr, value);
+ elem.attributes[attr] = value;
 }
 </pre>
 </div>
@@ -932,7 +941,8 @@ void <strong>removeElementAttribute</strong>(Element elem, String attr) <a class
 @param attr the name of the element to remove</p>
 <pre class="source">
 static void removeElementAttribute(dart_html.Element elem, String attr) {
- elem.$dom_removeAttribute(attr);
+ //elem.$dom_removeAttribute(attr);
+ elem.attributes.remove(attr);
 }
 </pre>
 </div>
@@ -1074,7 +1084,7 @@ Element <strong>getFirstChild</strong>(Element elem) <a class="anchor-link" href
 @return the child element</p>
 <pre class="source">
 static dart_html.Element getFirstChild(dart_html.Element elem) {
- return elem.$dom_firstElementChild;
+ return elem.firstChild;
 }
 </pre>
 </div>
@@ -1573,7 +1583,7 @@ static EventListener getEventListener(dart_html.Element elem) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:06.841</div>
+          <div>This page was generated at 2013-09-15 10:39:26.158</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

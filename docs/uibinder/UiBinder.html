@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../uibinder.html">uibinder</a> &rsaquo; <a href="../uibinder/UiBinder.html">UiBinder&lt;U, O&gt;</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -52,6 +52,8 @@ class UiBinder&lt;U extends Widget, O&gt; {
  
  String template;
  
+ NodeTreeSanitizer treeSanitizer;
+ 
  /**
   * Creates and returns the root object of the UI fills any fields of owner 
   * tagged with [UiField].
@@ -61,7 +63,9 @@ class UiBinder&lt;U extends Widget, O&gt; {
    // Create an instance of main widget
    U widget = Creator.create(U);
    // Set template to innerHtml
-   widget.getElement().innerHtml = template;
+   widget.getElement().setInnerHtml(template, 
+       treeSanitizer: treeSanitizer != null ? treeSanitizer : new _NullTreeSanitizer());
+   print("Inner html: ${widget.getElement().innerHtml}");
    // Now assign our widget's element to body
    document.body.append(widget.getElement());
    // Parse template
@@ -71,6 +75,8 @@ class UiBinder&lt;U extends Widget, O&gt; {
    // This is it!
    return widget;
  }
+ 
+ 
 }
 </pre>
 </div>
@@ -85,6 +91,18 @@ String         <strong>template</strong> <a class="anchor-link"
         <div class="doc">
 <pre class="source">
 String template
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="treeSanitizer">
+<button class="show-code">Code</button>
+NodeTreeSanitizer         <strong>treeSanitizer</strong> <a class="anchor-link"
+            href="#treeSanitizer"
+            title="Permalink to UiBinder&lt;U, O&gt;.treeSanitizer">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+NodeTreeSanitizer treeSanitizer
 </pre>
 </div>
 </div>
@@ -104,7 +122,9 @@ U createAndBindUi(O owner) {
  // Create an instance of main widget
  U widget = Creator.create(U);
  // Set template to innerHtml
- widget.getElement().innerHtml = template;
+ widget.getElement().setInnerHtml(template, 
+     treeSanitizer: treeSanitizer != null ? treeSanitizer : new _NullTreeSanitizer());
+ print("Inner html: ${widget.getElement().innerHtml}");
  // Now assign our widget's element to body
  document.body.append(widget.getElement());
  // Parse template
@@ -122,7 +142,7 @@ U createAndBindUi(O owner) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:13.060</div>
+          <div>This page was generated at 2013-09-15 10:39:32.139</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

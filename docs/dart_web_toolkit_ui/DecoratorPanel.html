@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DecoratorPanel.html">DecoratorPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -184,7 +184,7 @@ class DecoratorPanel extends SimplePanel {
      dart_html.Element row = createTR(rowStyles[i]);
      _tbody.append(row);
      if (i == containerIndex) {
-       _containerElem = row.children[1].$dom_firstElementChild; // Dom.getFirstChild(Dom.getChild(row, 1));
+       _containerElem = row.children[1].firstChild; // Dom.getFirstChild(Dom.getChild(row, 1));
      }
    }
 
@@ -202,7 +202,7 @@ class DecoratorPanel extends SimplePanel {
  dart_html.Element getCellElement(int row, int cell) {
    dart_html.Element tr = _tbody.children[row]; // Dom.getChild(tbody, row);
    dart_html.Element td = tr.children[cell]; // Dom.getChild(tr, cell);
-   return td.$dom_firstElementChild; // Dom.getFirstChild(td);
+   return td.firstChild; // Dom.getFirstChild(td);
  }
 
  dart_html.Element getContainerElement() {
@@ -294,7 +294,7 @@ DecoratorPanel([List&lt;String&gt; rowStyles = _DEFAULT_ROW_STYLENAMES, int cont
    dart_html.Element row = createTR(rowStyles[i]);
    _tbody.append(row);
    if (i == containerIndex) {
-     _containerElem = row.children[1].$dom_firstElementChild; // Dom.getFirstChild(Dom.getChild(row, 1));
+     _containerElem = row.children[1].firstChild; // Dom.getFirstChild(Dom.getChild(row, 1));
    }
  }
 
@@ -872,7 +872,7 @@ Element <strong>getCellElement</strong>(int row, int cell) <a class="anchor-link
 dart_html.Element getCellElement(int row, int cell) {
  dart_html.Element tr = _tbody.children[row]; // Dom.getChild(tbody, row);
  dart_html.Element td = tr.children[cell]; // Dom.getChild(tr, cell);
- return td.$dom_firstElementChild; // Dom.getFirstChild(td);
+ return td.firstChild; // Dom.getFirstChild(td);
 }
 </pre>
 </div>
@@ -1785,7 +1785,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:10.391</div>
+          <div>This page was generated at 2013-09-15 10:39:29.550</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

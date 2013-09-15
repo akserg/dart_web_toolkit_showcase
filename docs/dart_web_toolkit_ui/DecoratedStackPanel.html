@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/DecoratedStackPanel.html">DecoratedStackPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -114,10 +114,10 @@ class DecoratedStackPanel extends StackPanel {
  }
 
  dart_html.Element getHeaderTextElem(dart_html.Element headerElem) {
-   dart_html.Element tbody = headerElem.$dom_firstElementChild;
+   dart_html.Element tbody = headerElem.firstChild;
    dart_html.Element tr = tbody.children[1];
    dart_html.Element td = tr.children[1];
-   return td.$dom_firstElementChild;
+   return td.firstChild;
  }
 }
 </pre>
@@ -897,10 +897,10 @@ by #createHeaderElement.</p>
 <div class="docs-inherited-from">docs inherited from <a href="../dart_web_toolkit_ui/StackPanel.html">StackPanel</a> </div></div>
 <pre class="source">
 dart_html.Element getHeaderTextElem(dart_html.Element headerElem) {
- dart_html.Element tbody = headerElem.$dom_firstElementChild;
+ dart_html.Element tbody = headerElem.firstChild;
  dart_html.Element tr = tbody.children[1];
  dart_html.Element td = tr.children[1];
- return td.$dom_firstElementChild;
+ return td.firstChild;
 }
 </pre>
 </div>
@@ -1768,7 +1768,7 @@ void setStackText(int index, String text, [bool asHtml = false]) {
 
  dart_html.Element tr = _body.children[index * 2];
  dart_html.Element tdWrapper = tr.children[0]; //DOM.getChild(DOM.getChild(_body, index * 2), 0);
- dart_html.Element headerElem = tdWrapper.$dom_firstElementChild; // DOM.getFirstChild(tdWrapper);
+ dart_html.Element headerElem = tdWrapper.firstChild; // DOM.getFirstChild(tdWrapper);
  if (asHtml) {
    getHeaderTextElem(headerElem).innerHtml = text; // Dom.setInnerHTML(getHeaderTextElem(headerElem), text);
  } else {
@@ -1967,7 +1967,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:10.433</div>
+          <div>This page was generated at 2013-09-15 10:39:29.592</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

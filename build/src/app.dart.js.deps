@@ -9,6 +9,7 @@ file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/async_patch.dar
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/collection_dev_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/collection_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/constant_map.dart
+file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/convert_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/core_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/foreign_helper.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/interceptors.dart
@@ -21,7 +22,6 @@ file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/js_names.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/js_number.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/js_rti.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/js_string.dart
-file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/json_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/math_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/mirrors_patch.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/_internal/lib/native_helper.dart
@@ -60,6 +60,7 @@ file:///home/akserg/Applications/dart/dart-sdk/lib/convert/codec.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/convert/convert.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/convert/converter.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/convert/encoding.dart
+file:///home/akserg/Applications/dart/dart-sdk/lib/convert/html_escape.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/convert/json.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/convert/latin1.dart
 file:///home/akserg/Applications/dart/dart-sdk/lib/convert/line_splitter.dart

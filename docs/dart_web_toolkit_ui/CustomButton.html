@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/CustomButton.html">CustomButton</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -589,9 +589,11 @@ class CustomButton extends ButtonBase {
    // caused by a keyboard event).
    //NativeEvent evt = Document.get().createClickEvent(1, 0, 0, 0, 0, false, false, false, false);
    // Create Dom CustomEvent
-   dart_html.CustomEvent evt = dart_html.document.$dom_createEvent('CustomEvent');
+//    dart_html.CustomEvent evt = dart_html.document.$dom_createEvent('CustomEvent');
    // After Dom CustomEvent instance has been created we can initialise it here
-   evt.$dom_initCustomEvent('CustomEvent', false, false, false);
+//    evt.$dom_initCustomEvent('CustomEvent', false, false, false);
+   dart_html.CustomEvent evt = new dart_html.CustomEvent('CustomEvent', 
+       canBubble: false, cancelable: false, detail: false);
    // Dispatch event
    getElement().dispatchEvent(evt);
 
@@ -2506,9 +2508,11 @@ void onClick() {
  // caused by a keyboard event).
  //NativeEvent evt = Document.get().createClickEvent(1, 0, 0, 0, 0, false, false, false, false);
  // Create Dom CustomEvent
- dart_html.CustomEvent evt = dart_html.document.$dom_createEvent('CustomEvent');
+//    dart_html.CustomEvent evt = dart_html.document.$dom_createEvent('CustomEvent');
  // After Dom CustomEvent instance has been created we can initialise it here
- evt.$dom_initCustomEvent('CustomEvent', false, false, false);
+//    evt.$dom_initCustomEvent('CustomEvent', false, false, false);
+ dart_html.CustomEvent evt = new dart_html.CustomEvent('CustomEvent', 
+     canBubble: false, cancelable: false, detail: false);
  // Dispatch event
  getElement().dispatchEvent(evt);
 
@@ -3154,7 +3158,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:11.319</div>
+          <div>This page was generated at 2013-09-15 10:39:30.283</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

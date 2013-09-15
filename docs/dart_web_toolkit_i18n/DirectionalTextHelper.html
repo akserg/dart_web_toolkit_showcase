@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.21</a>
+          <a href="../index.html">API Reference 0.3.22</a>
          &rsaquo; <a href="../dart_web_toolkit_i18n.html">dart_web_toolkit_i18n</a> &rsaquo; <a href="../dart_web_toolkit_i18n/DirectionalTextHelper.html">DirectionalTextHelper</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -158,7 +158,7 @@ class DirectionalTextHelper implements HasDirectionEstimator {
   * @return the text or html
   */
  String getTextOrHtml(bool isHtml) {
-   dart_html.Element elem = isSpanWrapped ? element.$dom_firstElementChild : element;
+   dart_html.Element elem = isSpanWrapped ? element.firstChild : element;
    return isHtml ? elem.innerHtml : elem.text;
  }
 
@@ -445,7 +445,7 @@ consideration, if needed.</p>
 @return the text or html</p>
 <pre class="source">
 String getTextOrHtml(bool isHtml) {
- dart_html.Element elem = isSpanWrapped ? element.$dom_firstElementChild : element;
+ dart_html.Element elem = isSpanWrapped ? element.firstChild : element;
  return isHtml ? elem.innerHtml : elem.text;
 }
 </pre>
@@ -570,7 +570,7 @@ void setTextOrHtmlWithDirection(String content, Direction dir, bool isHtml) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-08-28 07:19:07.023</div>
+          <div>This page was generated at 2013-09-15 10:39:26.338</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
