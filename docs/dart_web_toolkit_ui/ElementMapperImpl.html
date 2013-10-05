@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.22+1</a>
+          <a href="../index.html">API Reference 0.3.23</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ElementMapperImpl.html">ElementMapperImpl&lt;T&gt;</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -37,7 +37,7 @@
         
 </div>
 <div class="content">
-        <h2><strong>ElementMapperImpl&lt;T&gt;</strong>
+        <h2><strong>ElementMapperImpl&lt;T extends UiObject&gt;</strong>
           class
         </h2>
         
@@ -46,7 +46,7 @@
 <p>Creates a mapping from elements to their associated ui objects.</p>
 <p>@param &lt;T> the type that the element is mapped to</p>
 <pre class="source">
-class ElementMapperImpl&lt;T&gt; {
+class ElementMapperImpl&lt;T extends UiObject&gt; {
 
  static const String UI_OBJECT_ID = "uiObjectID";
 
@@ -122,7 +122,7 @@ class ElementMapperImpl&lt;T&gt; {
      uiObjectList[index] = uiObject;
      freeList = freeList.next;
    }
-   setIndex((uiObject as UiObject).getElement(), index);
+   setIndex(uiObject.getElement(), index);
  }
 
  /**
@@ -300,7 +300,7 @@ void put(T uiObject) {
    uiObjectList[index] = uiObject;
    freeList = freeList.next;
  }
- setIndex((uiObject as UiObject).getElement(), index);
+ setIndex(uiObject.getElement(), index);
 }
 </pre>
 </div>
@@ -339,7 +339,7 @@ void removeImpl(dart_html.Element elem, int index) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-09-15 10:58:26.401</div>
+          <div>This page was generated at 2013-10-05 21:26:12.796</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.22+1</a>
+          <a href="../index.html">API Reference 0.3.23</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/ListBox.html">ListBox</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -224,7 +224,7 @@ class ListBox extends FocusWidget implements HasChangeHandlers, HasName,
   */
  String getValue(int index) {
    _checkIndex(index);
-   return (_getSelectElement().options[index] as dart_html.OptionElement).value;
+   return _getSelectElement().options[index].value;
  }
 
  /**
@@ -290,7 +290,7 @@ class ListBox extends FocusWidget implements HasChangeHandlers, HasName,
   */
  bool isItemSelected(int index) {
    _checkIndex(index);
-   return (_getSelectElement().options[index] as dart_html.OptionElement).selected;
+   return _getSelectElement().options[index].selected;
  }
 
  /**
@@ -318,7 +318,7 @@ class ListBox extends FocusWidget implements HasChangeHandlers, HasName,
   */
  void setItemSelected(int index, bool selected) {
    _checkIndex(index);
-   (_getSelectElement().options[index] as dart_html.OptionElement).selected = selected;
+   _getSelectElement().options[index].selected = selected;
  }
 
  /**
@@ -366,7 +366,7 @@ class ListBox extends FocusWidget implements HasChangeHandlers, HasName,
   */
  void setValue(int index, String value) {
    _checkIndex(index);
-   (_getSelectElement().options[index] as dart_html.OptionElement).value = value;
+   _getSelectElement().options[index].value = value;
  }
 
  /**
@@ -1812,7 +1812,7 @@ String <strong>getValue</strong>(int index) <a class="anchor-link" href="#getVal
 <pre class="source">
 String getValue(int index) {
  _checkIndex(index);
- return (_getSelectElement().options[index] as dart_html.OptionElement).value;
+ return _getSelectElement().options[index].value;
 }
 </pre>
 </div>
@@ -1901,7 +1901,7 @@ bool <strong>isItemSelected</strong>(int index) <a class="anchor-link" href="#is
 <pre class="source">
 bool isItemSelected(int index) {
  _checkIndex(index);
- return (_getSelectElement().options[index] as dart_html.OptionElement).selected;
+ return _getSelectElement().options[index].selected;
 }
 </pre>
 </div>
@@ -2241,7 +2241,7 @@ the {@link ChangeHandler#onChange(ChangeEvent)} event to be fired.
 <pre class="source">
 void setItemSelected(int index, bool selected) {
  _checkIndex(index);
- (_getSelectElement().options[index] as dart_html.OptionElement).selected = selected;
+ _getSelectElement().options[index].selected = selected;
 }
 </pre>
 </div>
@@ -2502,7 +2502,7 @@ list box is submitted as part of a {@link FormPanel}.</p>
 <pre class="source">
 void setValue(int index, String value) {
  _checkIndex(index);
- (_getSelectElement().options[index] as dart_html.OptionElement).value = value;
+ _getSelectElement().options[index].value = value;
 }
 </pre>
 </div>
@@ -2627,7 +2627,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-09-15 10:58:29.327</div>
+          <div>This page was generated at 2013-10-05 21:26:16.020</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

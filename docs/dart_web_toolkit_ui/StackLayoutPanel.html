@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.22+1</a>
+          <a href="../index.html">API Reference 0.3.23</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/StackLayoutPanel.html">StackLayoutPanel</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -216,7 +216,7 @@ class StackLayoutPanel extends ResizeComposite implements HasWidgets,
   */
  Widget getHeaderWidgetAt(int index) {
    checkIndex(index);
-   return (_layoutData[index] as _LayoutData).header.getWidget();
+   return _layoutData[index].header.getWidget();
  }
 
  /**
@@ -323,7 +323,7 @@ class StackLayoutPanel extends ResizeComposite implements HasWidgets,
        if (_selectedIndex == i) {
          _selectedIndex = -1;
          if (_layoutData.length &gt; 0) {
-           showWidgetAt(getWidgetIndex((_layoutData[0] as _LayoutData).widget));
+           showWidgetAt(getWidgetIndex(_layoutData[0].widget));
          }
        } else {
          if (i &lt;= _selectedIndex) {
@@ -1269,7 +1269,7 @@ Widget getHeaderWidget(Widget child) {
 <pre class="source">
 Widget getHeaderWidgetAt(int index) {
  checkIndex(index);
- return (_layoutData[index] as _LayoutData).header.getWidget();
+ return _layoutData[index].header.getWidget();
 }
 </pre>
 </div>
@@ -1838,7 +1838,7 @@ bool remove(Widget child) {
      if (_selectedIndex == i) {
        _selectedIndex = -1;
        if (_layoutData.length &gt; 0) {
-         showWidgetAt(getWidgetIndex((_layoutData[0] as _LayoutData).widget));
+         showWidgetAt(getWidgetIndex(_layoutData[0].widget));
        }
      } else {
        if (i &lt;= _selectedIndex) {
@@ -2371,7 +2371,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-09-15 10:58:28.814</div>
+          <div>This page was generated at 2013-10-05 21:26:15.498</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>

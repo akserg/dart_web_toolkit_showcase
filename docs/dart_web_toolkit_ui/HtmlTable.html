@@ -24,7 +24,7 @@
         <div class="page">
         <div class="header">
           <a href="../index.html"><div class="logo"></div></a>
-          <a href="../index.html">API Reference 0.3.22+1</a>
+          <a href="../index.html">API Reference 0.3.23</a>
          &rsaquo; <a href="../dart_web_toolkit_ui.html">dart_web_toolkit_ui</a> &rsaquo; <a href="../dart_web_toolkit_ui/HtmlTable.html">HtmlTable</a>        <div id="search-box">
           <input type="search" name="q" id="q" autocomplete="off"
               class="search-input" placeholder="Search API">
@@ -55,7 +55,7 @@ abstract class HtmlTable extends Panel implements HasAllDragAndDropHandlers, Has
  /**
   * Table's body.
   */
- dart_html.Element bodyElem;
+ dart_html.TableSectionElement bodyElem;
 
  /**
   * Current cell formatter.
@@ -493,7 +493,7 @@ abstract class HtmlTable extends Panel implements HasAllDragAndDropHandlers, Has
   *
   * @return the TBODY element
   */
- dart_html.Element getBodyElement() {
+ dart_html.TableSectionElement getBodyElement() {
    return bodyElem;
  }
 
@@ -506,9 +506,9 @@ abstract class HtmlTable extends Panel implements HasAllDragAndDropHandlers, Has
   */
  int getDomCellCount(int row, [dart_html.Element tableBody = null]) {
    if (tableBody == null) {
-     return ((bodyElem.parent as dart_html.TableElement).rows[row] as dart_html.TableRowElement).cells.length;
+     return (bodyElem.parent as dart_html.TableElement).rows[row].cells.length;
    } else {
-     return ((tableBody.parent as dart_html.TableElement).rows[row] as dart_html.TableRowElement).cells.length;
+     return (tableBody.parent as dart_html.TableElement).rows[row].cells.length;
    }
  }
 
@@ -786,14 +786,14 @@ HtmlTable() {
 <h3>Properties</h3>
 <div class="field"><h4 id="bodyElem">
 <button class="show-code">Code</button>
-Element         <strong>bodyElem</strong> <a class="anchor-link"
+TableSectionElement         <strong>bodyElem</strong> <a class="anchor-link"
             href="#bodyElem"
             title="Permalink to HtmlTable.bodyElem">#</a>
         </h4>
         <div class="doc">
 <p>Table's body.</p>
 <pre class="source">
-dart_html.Element bodyElem
+dart_html.TableSectionElement bodyElem
 </pre>
 </div>
 </div>
@@ -1682,13 +1682,13 @@ int getAbsoluteTop() {
 </div>
 <div class="method"><h4 id="getBodyElement">
 <button class="show-code">Code</button>
-Element <strong>getBodyElement</strong>() <a class="anchor-link" href="#getBodyElement"
+TableSectionElement <strong>getBodyElement</strong>() <a class="anchor-link" href="#getBodyElement"
               title="Permalink to HtmlTable.getBodyElement">#</a></h4>
 <div class="doc">
 <p>Gets the table's TBODY element.</p>
 <p>@return the TBODY element</p>
 <pre class="source">
-dart_html.Element getBodyElement() {
+dart_html.TableSectionElement getBodyElement() {
  return bodyElem;
 }
 </pre>
@@ -1796,9 +1796,9 @@ int <strong>getDomCellCount</strong>(int row, [Element tableBody = null]) <a cla
 <pre class="source">
 int getDomCellCount(int row, [dart_html.Element tableBody = null]) {
  if (tableBody == null) {
-   return ((bodyElem.parent as dart_html.TableElement).rows[row] as dart_html.TableRowElement).cells.length;
+   return (bodyElem.parent as dart_html.TableElement).rows[row].cells.length;
  } else {
-   return ((tableBody.parent as dart_html.TableElement).rows[row] as dart_html.TableRowElement).cells.length;
+   return (tableBody.parent as dart_html.TableElement).rows[row].cells.length;
  }
 }
 </pre>
@@ -3138,7 +3138,7 @@ void unsinkEvents(int eventBitsToRemove) {
         <div class="clear"></div>
         </div>
         <div class="footer">
-          <div>This page was generated at 2013-09-15 10:58:27.849</div>
+          <div>This page was generated at 2013-10-05 21:26:14.529</div>
         </div>
         <script async src="../client-live-nav.js"></script>
         </body></html>
