@@ -19,11 +19,11 @@ cd ..
 
 #make folder packages in build
 echo "4. Make packages folder inside build"
-mkdir build/src/packages
+mkdir build/packages
 
 #copy packages sources content inside build packages
 echo "4. Copy symbolic links source of packages into build packages"
-cp -Lr packages/* build/src/packages
+cp -Lr packages/* build/packages
 
 #extra task - copy build content to folder if specified
 if [ "$#" = 1 ]
