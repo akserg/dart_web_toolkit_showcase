@@ -31,7 +31,6 @@ import 'package:dart_web_toolkit/util.dart' as util;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 import 'package:dart_web_toolkit/scheduler.dart' as scheduler;
 
-import 'app.dart';
 import 'mvp.dart' as mvp;
 
 part 'component/component_view.dart';

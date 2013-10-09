@@ -3,6 +3,7 @@
 .children
 *.bat
 *.dart.js
+*.dart.precompiled.js
 *.dart.js_
 *.dart.js.deps
 *.dart.js.map
@@ -12,8 +13,4 @@ part.js.map
 packages
 packages/
 pubspec.lock
-!build/src/packages
-!build/src/app.dart.js
-!build/src/app.dart.js_
-!build/src/app.dart.js.deps
-!build/src/app.dart.js.map
+build
