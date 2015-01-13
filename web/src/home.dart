@@ -22,12 +22,9 @@
  */
 library dart_web_toolkit_home;
 
-import 'dart:html' as dart_html;
-
 import 'package:dart_web_toolkit/ui.dart' as ui;
 import 'package:dart_web_toolkit/i18n.dart' as i18n;
 
-import 'app.dart';
 import 'mvp.dart' as mvp;
 
 part 'home/home_presenter.dart';

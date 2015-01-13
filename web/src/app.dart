@@ -39,7 +39,7 @@ part 'app/style_chooser_component.dart';
 
 void main() {
   // Remove 'loading indicator
-  dart_html.query("#loading").remove();
+  dart_html.querySelector("#loading").remove();
   
   // Create instance of IOC container
   ioc.Context.init();

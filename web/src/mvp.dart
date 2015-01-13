@@ -24,7 +24,6 @@
 library dart_web_toolkit_mvp;
 
 import 'package:dart_web_toolkit/ui.dart' as ui;
-import 'package:dart_web_toolkit/event.dart' as event;
 
 part 'mvp/display.dart';
 part 'mvp/presenter.dart';

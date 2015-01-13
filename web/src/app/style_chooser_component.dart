@@ -55,7 +55,7 @@ class StyleChooserComponent extends ui.Composite {
       String item = styleChooser.getItemText(index);
       String value = styleChooser.getValue(index);
       // Then find 'wt-stylesheet'
-      dart_html.LinkElement link = dart_html.query("#dwt-stylesheet");
+      dart_html.LinkElement link = dart_html.querySelector("#dwt-stylesheet");
       if (link != null) {
         // and apply it
         link.href = value;

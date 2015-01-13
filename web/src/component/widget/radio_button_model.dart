@@ -97,9 +97,8 @@ return vPanel;
       radioButton.addValueChangeHandler(new event.ValueChangeHandlerAdapter((event.ValueChangeEvent evt){
         vPanel.getChildren().forEach((ui.Widget w){
           if (w is ui.RadioButton) {
-            ui.RadioButton radio = w as ui.RadioButton;
-            if (radio.getValue()) {
-              selected.text = "$selectedLabel: ${radio.text}";
+            if (w.getValue()) {
+              selected.text = "$selectedLabel: ${w.text}";
             }
           }
         });

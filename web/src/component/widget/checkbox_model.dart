@@ -107,11 +107,11 @@ return vPanel;
           StringBuffer sb = new StringBuffer();
           // Move through all children and check selected
           vPanel.getChildren().forEach((ui.Widget widget){
-            if (widget is ui.CheckBox && (widget as ui.CheckBox).getValue()) {
+            if (widget is ui.CheckBox && widget.getValue()) {
               if (sb.length > 0) {
                 sb.write(", ");
               }
-              sb.write((widget as ui.CheckBox).text);
+              sb.write(widget.text);
             }
           });
           selectedDaysOfWeek.text = sb.toString();
